@@ -9,6 +9,10 @@
 
 module.exports = function (grunt) {
 
+	var api = grunt.option('api'),
+      apiHost = grunt.option('apiHost') || 'localhost',
+      apiPort = 8080;
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
