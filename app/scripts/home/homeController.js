@@ -7,7 +7,11 @@ app.controller('HomeController', function (HomeFactory) {
    var vm = this;
 
    vm.homeFun = function (){
-   	HomeFactory.get(function(data) {
+   	var obj = {
+   		name:'abc',
+   		value : 'def'
+   	};
+   	HomeFactory.query(obj, function(data) {
            console.log('data is:', data);
    	});
    }
