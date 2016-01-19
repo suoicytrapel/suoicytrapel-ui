@@ -1,0 +1,55 @@
+#coverPage{
+	position: relative;
+    width: 100%;
+    height: 400px;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-position: center center!important;
+    background-attachment: fixed!important;
+    color: #fff;
+    height: 500px;
+    background-image: url('../../images/Play_ScreenMain2.jpg');
+}
+
+#coverPage .content-wrapper{
+        position: absolute;
+    top: 0;
+    left: 0;
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+#coverPage .content-wrapper .container{
+    height: 100%;
+    display: table;
+}
+
+#coverPage .content-wrapper .container .main-content{
+    display: table-cell;
+}
+
+#coverPage .main-heading{
+    font-weight: 300;
+    font-size: 5vw;
+}
+
+#coverPage .home-search-btn{
+    width: 100%;
+    background-color: #f37254;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 11px 16px;
+}
+
+@media only screen and 
+(min-width: 0px) and 
+(max-width: 767px) { 
+   #coverPage .home-search-btn{
+    border-radius: 6px;
+   } 
+
+   #coverPage .home-search-box{
+     border-radius: 0px;
+   }
+ }

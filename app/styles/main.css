@@ -1,3 +1,35 @@
+/* Addition of relevant Fonts */
+@font-face {
+    font-family: 'OpenSans-Bold';
+    src: url('../fonts/OpenSans-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSans-Italic';
+    src: url('../fonts/OpenSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSans-Light';
+    src: url('../fonts/OpenSans-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSans-Semibold';
+    src: url('../fonts/OpenSans-Semibold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -7,6 +39,7 @@
 
 body {
   padding: 0;
+  font-family: 'OpenSans-Regular';
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -80,4 +113,51 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+/*Common functionality*/
+.no-margin-right{
+  margin-right: 0px;
+}
+.no-margin-left{
+  margin-left: 0px;
+}
+.no-margin-top{
+  margin-top: 0px;
+}
+.no-margin-bottom{
+  margin-bottom: 0px;
+}
+.no-padding-bottom{
+  padding-bottom: 0px;
+}
+.no-padding-top{
+  padding-top: 0px;
+}
+.no-padding-right{
+  padding-right: 0px;
+}
+.no-padding-left{
+  padding-left: 0px;
+}
+.no-border-top-left-radius{
+  border-top-left-radius: 0px;
+}
+.no-border-top-right-radius{
+  border-top-right-radius: 0px;
+}
+.no-border-bottom-right-radius{
+  border-bottom-right-radius: 0px;
+}
+.no-border-bottom-left-radius{
+  border-bottom-left-radius: 0px;
+}
+.vertical-center{
+  vertical-align: middle;
+}
+.gap{
+  height: 100px;
+}
+.bg-theme-color{
+      background-color: #f37254;
 }
