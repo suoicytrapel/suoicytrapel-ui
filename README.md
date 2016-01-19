@@ -6,7 +6,7 @@ PreRequisites to get started :-
 1) Download and install Git tool with version 2.7.0
 2) Download and install Git client i.e Tortoise Git with version 1.8.16.0
 3) Download node with version 4.2.4
-4) Pull the project 'leparticious-ui' from the Git repository URL 'https://github.com/mohitsingla2256/leparticious-ui'
+4) Pull the project 'leparticious-ui' from the Git repository URL 'https://github.com/leparticious/le-partycious-ui'
 5) Open a command prompt window and go to the project root directory
 6) Execute the below commands in the mentioned order :-
 

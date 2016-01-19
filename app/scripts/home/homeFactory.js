@@ -1,11 +1,6 @@
-
-var app = angular.module("leparticiousUiApp");
-
-
-//inject the value in the controller using its name "defaultInput"
-app.factory('HomeFactory', function ($resource) {
+app.factory('HomeFactory', function (Constants, $resource) {
    
-    return $resource('http://localhost:8080/api/rest/v1/user/:id', {id: "@id" }, {
+    return $resource(Constants.API_HOST + '/user/:id', {id: "@id" }, {
         saveUser: { 
         	method: "POST"
         },

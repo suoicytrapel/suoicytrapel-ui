@@ -1,4 +1,4 @@
-var app = angular.module("leparticiousUiApp");
+/*var app = angular.module("leparticiousUiApp");*/
 
 
 //inject the value in the controller using its name "defaultInput"
@@ -17,7 +17,7 @@ app.controller('HomeController', function (HomeFactory) {
    }
 
    vm.updateUser = function (){
-   	var obj = {
+   	var homeDTO = {
    		name:'abc',
    		value : 'def'
    	};
