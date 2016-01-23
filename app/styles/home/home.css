@@ -1,55 +1,139 @@
-#coverPage{
+/* Overriding styling for ui-widget for autocomplete */
+.ui-widget {
+    font-family: OpenSans-Regular,Arial,Helvetica,sans-serif;
+    font-size: 1.2em;
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+#coverPage {
 	position: relative;
-    width: 100%;
-    height: 400px;
-    background-repeat: no-repeat!important;
-    background-size: cover!important;
-    background-position: center center!important;
-    background-attachment: fixed!important;
-    color: #fff;
-    height: 500px;
-    background-image: url('../../images/Play_ScreenMain2.jpg');
+	width: 100%;
+	height: 400px;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+	background-position: center center !important;
+	background-attachment: fixed !important;
+	color: #fff;
+	height: 500px;
+	background-image: url('../../images/Play_ScreenMain2.jpg');
 }
 
-#coverPage .content-wrapper{
-        position: absolute;
-    top: 0;
-    left: 0;
-    display: table;
-    height: 100%;
-    width: 100%;
+#coverPage .content-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: table;
+	height: 100%;
+	width: 100%;
 }
 
-#coverPage .content-wrapper .container{
-    height: 100%;
-    display: table;
+#coverPage .content-wrapper .container {
+	height: 100%;
+	display: table;
 }
 
-#coverPage .content-wrapper .container .main-content{
-    display: table-cell;
+#coverPage .content-wrapper .container .main-content {
+	display: table-cell;
 }
 
-#coverPage .main-heading{
-    font-weight: 300;
-    font-size: 5vw;
+#coverPage .main-heading {
+	font-weight: 300;
+	font-size: 5vw;
 }
 
-#coverPage .home-search-btn{
-    width: 100%;
-    background-color: #f37254;
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 11px 16px;
+#coverPage .home-search-btn {
+	width: 100%;
+	background-color: #f37254;
+	color: rgb(255, 255, 255);
+	border: none;
+	padding: 11px 16px;
+}
+#coverPage .select-option-menu {
+	    background: #F37254;
+	    background: -moz-linear-gradient(left, #f37254 93%, #ffffff 10%);
+	    background: -o-linear-gradient(left, #f37254 93%, #ffffff 10%);
+	    background: -ms-linear-gradient(left, #f37254 93%, #ffffff 10%);
+		background: linear-gradient(left, #f37254 93%, #ffffff 10%);
+		background: -webkit-linear-gradient(left, #f37254 93%, #ffffff 10%);
+	height: 45px;
+	border-radius: 6px;
+	font-size: 18px;
+	border: none;
+	margin: 10px 0px 10px 0px;
+	outline: none;
+	width: 100%;
+	padding-left: 6px;
 }
 
-@media only screen and 
-(min-width: 0px) and 
-(max-width: 767px) { 
-   #coverPage .home-search-btn{
-    border-radius: 6px;
-   } 
+#coverPage .custom-select-container{
+	height: 65px;
+}
 
-   #coverPage .home-search-box{
-     border-radius: 0px;
-   }
- }
+#coverPage .custom-select-arrow{
+	    height: 0;
+    width: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #FFFFFF;
+    position: relative;
+    right: -45%;
+    top: -45%;
+}
+
+#coverPage .select-option-menu:hover, #coverPage .select-option-menu:focus {
+	border: none;
+}
+
+#coverPage .select-option-menu option {
+	color: #333333;
+	background-color: #ffffff;
+}
+
+#coverPage .searchfortext {
+	font-size: 24px;
+}
+
+.lp-sprite {
+	background-image: url('../../images/spritesheet.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 72px;
+	height: 72px;
+}
+
+.lp-venue-icon {
+	background-position: -169px -87px;
+}
+
+.lp-caterer-icon {
+	background-position: -5px -5px;
+}
+
+.lp-decor-icon {
+	background-position: -87px -5px;
+}
+
+.lp-photography-icon {
+	background-position: -87px -87px;
+}
+
+.lp-rental-icon {
+	background-position: -169px -5px;
+}
+
+.lp-hospitality-icon {
+	background-position: -5px -87px;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+	#coverPage .home-search-btn {
+		border-radius: 6px;
+	}
+
+	#coverPage .home-search-box {
+		border-radius: 0px;
+	}
+}
