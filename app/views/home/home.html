@@ -6,31 +6,115 @@
 <button type="button" ng-click="vm.deleteUser()">Delete</button> -->
 <div id="coverPage" class="">
 	<div class="content-wrapper">
-<div class="container">
-	<div class="main-content text-center vertical-center">
-<div class="row">
-<div class="col-xs-12">
-<h1 class="main-heading">Home Page</h1>
-<div class="gap"></div>
-<form action="" autocomplete="off" class="home-page-form">
-	<div class="col-xs-12 col-sm-8 col-sm-offset-1 search-input-box form-group">
-		<div class="row">
-	<input type="text" placeholder="Search venues, caterers, photography and what not" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box">
-</input>
-</div>
-	</div>
+		<div class="container">
+			<div class="main-content text-center vertical-center">
+				<div class="row">
+					<div class="col-xs-12">
+						<h1 class="main-heading">Making Events Memorable</h1>
 
-	<div class="col-xs-12 col-sm-2 search-button form-group">
-		<div class="row">
-		<input class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" value="SEARCH"/>
-	</div>
-</div>
+						<div class="semi-gap"></div>
+						<div class="row">
+							<h2 class="col-xs-offset-1 col-sm-offset-2 col-lg-offset-3 col-xs-4 searchfortext text-center">Choose your category</h2>
+						<div class="custom-select-container col-xs-6 col-sm-4 col-lg-2">
+							<select class="select-option-menu" onchange="" onblur="" data-ng-model="vm.selectedCategory">
+							<option data-ng-repeat='(key, value) in vm.categoryMap' value="{{value}}">{{key}}</option>
+						</select>
+						<!--<span class="custom-select-arrow" data-ng-click="vm.open('.select-option-menu')"></span>-->
+						</div>
+						</div>
+						<div class="quarter-gap"></div>
+						<form action="" autocomplete="off" class="home-page-form">
+							<div class="col-xs-12 col-sm-8 col-sm-offset-1 search-input-box form-group">
+								<div class="row">
+									<input type="text" placeholder="Simply type the name" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box">
+									</input>
+								</div>
+							</div>
 
+							<div class="col-xs-12 col-sm-2 search-button form-group">
+								<div class="row">
+									<input class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" value="SEARCH"/>			
+								</div>
+							</div>
 
-</form>
-</div>
-</div>
-</div>
-</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
+<!-- LePartycious section starts -->
+<section class="container text-center">
+	<h2 class="theme-color">WELCOME TO LE PARTYCIOUS</h2>
+	<p>
+		Le Partycious was established in October, 2015 with a single motto of
+		bringing smiles on the faces of people. At Le Partycious, we are focused
+		on providing Hospitality and Event services with the highest level of customer
+		satisfaction - we will do everything we can to meet your expectations.
+		With a variety of offerings to choose from, we're sure you will be happy working with us.
+	</p>
+</section>
+<!-- Services section starts -->
+<section class="row bg-grey">
+	<div class="container text-center">
+		<div class="h2 theme-color">
+			WHAT DO WE HAVE FOR YOU
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div>
+				<span class="lp-venue-icon lp-sprite"></span>
+			</div>
+			<h3>VENUES</h3>
+			<p>
+				A perfect venue for you
+			</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div>
+				<span class="lp-decor-icon lp-sprite"></span>
+			</div>
+			<h3>DECORATION</h3>
+			<p>
+				Because theme matters
+			</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div>
+				<span class="lp-caterer-icon lp-sprite"></span>
+			</div>
+			<h3>CATERERS</h3>
+			<p>
+				Delicious options to choose from
+			</p>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div>
+				<span class="lp-photography-icon lp-sprite"></span>
+			</div>
+			<h3>PHOTOGRAPHY</h3>
+			<p>
+				Reliving the memories
+			</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div>
+				<span class="lp-rental-icon lp-sprite"></span>
+			</div>
+			<h3>RENTAL</h3>
+			<p>
+				Renting things is easy now
+			</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4">
+			<div>
+				<span class="lp-hospitality-icon lp-sprite"></span>
+			</div>
+			<h3>HOSPITALITY</h3>
+			<p>
+				A warm welcome
+			</p>
+		</div>
 	</div>
+</section>
