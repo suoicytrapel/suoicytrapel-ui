@@ -4,7 +4,16 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
     	url:'/login',
         controller: 'HomeController',
         templateUrl: 'views/home/home.html',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+            cityMap: function(HomeFactory){
+	            return HomeFactory.loadCities.populateCities().$promise.then(function(data){
+					return data;
+				},function(error){
+					return error;
+				})
+	        }
+    	}
     })
     .otherwise({ redirectTo: '/' });
 
