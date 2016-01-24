@@ -1,0 +1,111 @@
+div#globalPopupBlackOut {
+	z-index: 9;
+}
+.blackOut-window {
+	background: #000000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 9;
+	opacity: .5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+}
+
+#ribbonContainer {
+}
+
+#ribbonContainer #sideRibbon {
+	background: #fff;
+	width: 300px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: -300px;
+	overflow-y: hidden;
+	z-index: 10;
+	-webkit-transition: left 0.5s linear;
+	-moz-transition: left 0.5s linear;
+	-o-transition: left 0.5s linear;
+	-ms-transition: left 0.5s linear;
+}
+
+#ribbonContainer.open #sideRibbon {
+	left: 0px;
+	-webkit-transition: left 0.5s linear;
+	-moz-transition: left 0.5s linear;
+	-o-transition: left 0.5s linear;
+	-ms-transition: left 0.5s linear;
+}
+
+#sideRibbon .ribbon-tabs {
+	padding-top: 20px;
+}
+
+#sideRibbon .ribbon-tabs li {
+	display: block;
+	position: relative;
+}
+
+#sideRibbon .ribbon-tabs li a {
+	color: #1a1a1a;
+	font-size: 16px;
+	display: block;
+	height: 48px;
+	padding: 6px 0 0 15px;
+}
+
+#sideRibbon .ribbon-tabs li a:hover, #sideRibbon .ribbon-tabs li a:focus {
+	font-family: 'OpenSans-bold';
+	color: #F37254;
+}
+
+#sideRibbon .ribbon-form {
+	padding: 10px;
+}
+
+#sideRibbon .ribbon-search-btn {
+	border-radius: initial;
+	background: #F37254;
+	color: #ffffff;
+}
+
+#sideRibbon .ribbon-search-box {
+	font-size: 16px;
+}
+
+#ribbonContainer .ribbonOpener {
+	height: 50px;
+	width: 50px;
+	background: #F37254;
+	left: 0px;
+	position: fixed;
+	top: 30px;
+	border-radius: 6px;
+	z-index: 9;
+	padding: 10px 5px 10px 5px;
+	cursor: pointer;
+	-webkit-transition: left 0.5s linear;
+	-moz-transition: left 0.5s linear;
+	-o-transition: left 0.5s linear;
+	-ms-transition: left 0.5s linear;
+}
+
+#ribbonContainer.open .ribbonOpener {
+	left: 300px;
+	-webkit-transition: left 0.5s linear;
+	-moz-transition: left 0.5s linear;
+	-o-transition: left 0.5s linear;
+	-ms-transition: left 0.5s linear;
+}
+
+#ribbonContainer .ribbonOpener span {
+	border: 2px solid #ffffff;
+	display: block;
+	margin-bottom: 8px;
+}

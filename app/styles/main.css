@@ -30,6 +30,10 @@
     font-style: normal;
 }
 
+*{
+	outline: none;
+}
+
 
 html, body {
   color: #656565;
@@ -47,8 +51,18 @@ section {
 ul, ol{
 	padding: 0px;
 	margin: 0px;
+	list-style: none;
+	list-style-type: none;
 }
 
+a{
+	text-decoration: none;
+}
+
+a:hover,
+a:focus{
+	text-decoration: none;
+}
 
 /*Common functionality*/
 .no-margin-right{
@@ -76,16 +90,16 @@ ul, ol{
   padding-left: 0px;
 }
 .no-border-top-left-radius{
-  border-top-left-radius: 0px;
+  border-top-left-radius: 0px !important;
 }
 .no-border-top-right-radius{
-  border-top-right-radius: 0px;
+  border-top-right-radius: 0px !important;
 }
 .no-border-bottom-right-radius{
-  border-bottom-right-radius: 0px;
+  border-bottom-right-radius: 0px !important;
 }
 .no-border-bottom-left-radius{
-  border-bottom-left-radius: 0px;
+  border-bottom-left-radius: 0px !important;
 }
 .vertical-center{
   vertical-align: middle;
