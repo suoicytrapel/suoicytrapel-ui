@@ -1,0 +1,32 @@
+<div id="globalPopupBlackOut" class="blackOut-window" data-ng-show="ribbonOpened">	
+</div>
+<div id='ribbonContainer' data-ng-class='ribbonOpened ? "open" : ""'>
+<nav id="sideRibbon">
+	<ul class='ribbon-tabs'>
+		<li ng-repeat='(key, value) in categoryMap'>
+			<a href='javascript:void(0)' data-value='{{value}}'>{{key}}</a>
+		</li>
+	</ul>
+	<div class="quarter-gap"></div>
+						<form action="" autocomplete="off" class="ribbon-form">
+							<div class="form-group">
+								
+									<input type="text" placeholder="Simply type the name" class="form-control input-lg ribbon-search-box">
+									</input>
+								
+							</div>
+
+							<div class="ribbon-search-button form-group text-center">
+								
+									<input class="btn btn-lg btn-default ribbon-search-btn" type="button" value="SEARCH"/>			
+								
+							</div>
+
+						</form>
+</nav>
+<div class='ribbonOpener no-border-bottom-left-radius no-border-top-left-radius' data-ng-click="ribbonOpened = !ribbonOpened">
+	<span style="width: 100%;"></span>
+	<span style="width: 50%;"></span>
+	<span style="width: 75%;"></span>
+</div>
+</div>
