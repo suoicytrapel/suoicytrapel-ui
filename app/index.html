@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="styles/ribbon.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="leparticiousUiApp">
+  <body ng-app="leparticiousUiApp" data-ng-controller="baseController">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -61,8 +61,9 @@
         <script src="scripts/home/homeFactory.js"></script>
         <script src="scripts/common/constants.js"></script>
         <script src="scripts/common/directives.js"></script>
-
+        <script src="scripts/common/baseFactory.js"></script>
+		<script src="scripts/common/baseController.js"></script>
         <!-- endbuild -->
-    <side-ribbon></side-ribbon>    
+    <side-ribbon selected-category = "selectedCategory" category-map = "categoryMap"></side-ribbon>    
 </body>
 </html>
