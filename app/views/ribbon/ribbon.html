@@ -3,7 +3,7 @@
 <div id='ribbonContainer' data-ng-class='ribbonOpened ? "open" : ""'>
 <nav id="sideRibbon">
 	<ul class='ribbon-tabs'>
-		<li ng-repeat='(key, value) in categoryMap'>
+		<li ng-repeat='(key, value) in categoryMap' class='ribbon-tab' data-ng-class='selectedCategory == {{value}} ? "active" : ""' data-ng-click='selectCategory($index)'>
 			<a href='javascript:void(0)' data-value='{{value}}'>{{key}}</a>
 		</li>
 	</ul>

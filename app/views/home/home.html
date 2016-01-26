@@ -16,7 +16,7 @@
 						<div class="row">
 							<h2 class="col-xs-offset-1 col-sm-offset-2 col-lg-offset-3 col-xs-4 searchfortext text-center">Choose your category</h2>
 						<div class="custom-select-container col-xs-6 col-sm-4 col-lg-2">
-							<select class="select-option-menu" onchange="" onblur="" data-ng-model="vm.selectedCategory">
+							<select class="select-option-menu" data-ng-change="vm.categoryChanged()" onblur="" data-ng-model="vm.selectedCategory">
 							<option data-ng-repeat='(key, value) in vm.categoryMap' value="{{value}}">{{key}}</option>
 						</select>
 						<!--<span class="custom-select-arrow" data-ng-click="vm.open('.select-option-menu')"></span>-->
