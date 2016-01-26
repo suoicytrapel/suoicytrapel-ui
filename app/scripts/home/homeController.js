@@ -1,26 +1,22 @@
 
-app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $scope) {
+app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $scope, baseFactory) {
 	var vm = this;
 
-	vm.selectedCategory = 'VENUE';
-	vm.categoryMap = {
-
-		Venues:'VENUE',
-		Caterers:'CATERER',
-		Decorators:'DECORATOR',
-		Photographers:'PHOTOGRAPHER',
-		Rentals:'RENTAL',
-		Band:'BAND'
-	};
+	vm.selectedCategory = baseFactory.getSelectedCategory();
+	vm.categoryMap = baseFactory.categoryMap;
 	vm.cityMap = cityMap;	
 	vm.selectedCity = '1';
 	$rootScope.selectedCity = vm.selectedCity;
-
 
 	vm.init = function() {
 		applyAutocomplete();
 		showcasePortfolio();
 		
+	};
+	
+	vm.categoryChanged = function(){
+		baseFactory.setSelectedCategory(vm.selectedCategory);
+		console.log(baseFactory.getSelectedCategory());
 	};
 
 	function applyAutocomplete() {
