@@ -26,14 +26,14 @@
 						<form action="" autocomplete="off" class="home-page-form">
 							<div class="col-xs-12 col-sm-8 col-sm-offset-1 search-input-box form-group">
 								<div class="row">
-									<input type="text" placeholder="Simply type the name" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box">
+									<input id="searchedText" type="text" placeholder="Simply type the name" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
 									</input>
 								</div>
 							</div>
 
 							<div class="col-xs-12 col-sm-2 search-button form-group">
 								<div class="row">
-									<input class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" value="SEARCH"/>			
+									<button class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" ng-click="vm.clicked();">SEARCH</button>	
 								</div>
 							</div>
 

@@ -8,12 +8,17 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         resolve: {
             cityMap: function(HomeFactory){
 	            return HomeFactory.loadCities.populateCities().$promise.then(function(data){
-					return data;
+					return data.toJSON();
 				},function(error){
 					return error;
 				})
 	        }
     	}
+    }).when('/search', {
+        url:'/search',
+        controller: 'DataController',
+        templateUrl: 'views/data/data.html',
+        controllerAs: 'vm'
     })
     .otherwise({ redirectTo: '/' });
 

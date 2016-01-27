@@ -1,0 +1,44 @@
+<h1>Page</h1>
+
+<table border="1">
+	<thead>
+		<td>#</td>
+		<td>Palace Name</td>
+		<td>Image</td>
+	</thead>
+	<tr ng-repeat="result in vm.resultList">
+		<td>{{$index}}</td>
+		<td><a href="" ng-click="vm.fetchDetails(result.name);">{{result.name}}</a></td>
+		<td><img src="{{vm.getImageURL(result.mainImagerURL)}}" alt="Smiley face" height="400" width="400"></td>
+	</tr>
+</table>
+
+<div id="dataPopupModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Services</p>
+        <div ng-repeat="service in vm.detailedData.services">
+        	{{service}}
+        </div>
+        <p>Amenities</p>
+        <div ng-repeat="amenity in vm.detailedData.amenities">
+        	{{amenity}}
+        </div>
+        <div>
+        	{{vm.detailedData.addressLine1}} </br> {{vm.detailedData.addressLine2}} </br> {{vm.detailedData.city}}  </br> {{vm.detailedData.state}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
