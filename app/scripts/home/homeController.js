@@ -14,8 +14,12 @@ app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $sco
 	
 	vm.categoryChanged = function(){
 		baseFactory.setSelectedCategory(vm.selectedCategory);
-		console.log(baseFactory.getSelectedCategory());
 	};
+	
+	$scope.$on('ribbonCategoryChanged',function(event, data){
+		vm.selectedCategory = data;
+		baseFactory.setSelectedCategory(vm.selectedCategory);
+	});
 
 	vm.clicked = function(){
 		HomeService.setSearchParam(vm.searchData);

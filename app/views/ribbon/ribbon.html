@@ -3,8 +3,8 @@
 <div id='ribbonContainer' data-ng-class='ribbonOpened ? "open" : ""'>
 <nav id="sideRibbon">
 	<ul class='ribbon-tabs'>
-		<li ng-repeat='(key, value) in categoryMap' class='ribbon-tab' data-ng-class='selectedCategory == {{value}} ? "active" : ""' data-ng-click='selectCategory($index)'>
-			<a href='javascript:void(0)' data-value='{{value}}'>{{key}}</a>
+		<li ng-repeat='(key, value) in categoryMap' class='ribbon-tab' data-ng-class='indexActive == $index ? "active" : ""' data-ng-click='selectCategory($index)' data-value='{{value}}'>
+			<a href='javascript:void(0)'><span class="fa fa-fw ribbon-icons" data-ng-class='ribbonIconClasses[$index]'></span><span class="ribbon-tab-title">{{key}}</span></a>
 		</li>
 	</ul>
 	<div class="quarter-gap"></div>

@@ -118,3 +118,13 @@ div#globalPopupBlackOut {
 	display: block;
 	margin-bottom: 8px;
 }
+
+.ribbon-tab .ribbon-icons{
+	font-size: 26px;
+	margin-right: 10px;
+	color: #bbbbbb;
+}
+
+.ribbon-tab.active .ribbon-icons{
+	color: #ffffff;
+}

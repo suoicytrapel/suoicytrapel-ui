@@ -40,6 +40,10 @@ html, body {
   font-family: 'OpenSans-Regular', sans serif;
   font-size: 14px;
   overflow-x: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
 }
 
 section {
