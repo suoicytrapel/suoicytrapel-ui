@@ -15,13 +15,13 @@ app.controller('DataController', function(HomeService, baseFactory, DataFactory,
 			searchString : searchParam,
 			cityId : $rootScope.selectedCity,
 			offset : vm.offset
-		}
+		};
 		DataFactory.fetchData.fetch(searchRequestDTO).$promise.then(function(data){
 			vm.resultList = data.searchResponseDTOList;
 			vm.resultCount = data.resultCount;
 		},function(error){
 			console.log(error);
-		})
+		});
     };
 
     vm.getImageURL = function(imagePath){
@@ -33,14 +33,14 @@ app.controller('DataController', function(HomeService, baseFactory, DataFactory,
 			searchType : vm.selectedCategory,
 			cityId : $rootScope.selectedCity,
 			name : name
-		}
+		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
 			vm.detailedData = data;
 			$('#dataPopupModal').modal('toggle');
 		},function(error){
 			console.log(error);
-		})
-    }
+		});
+   };
 
     vm.fetchData();
 }); 

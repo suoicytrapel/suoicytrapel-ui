@@ -20,16 +20,22 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home/home.css">
     <link rel="stylesheet" href="styles/ribbon.css">
+    <link rel="stylesheet" href="styles/data.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="leparticiousUiApp" data-ng-controller="baseController">
+  <body ng-app="leparticiousUiApp" data-ng-controller="baseController as vm">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here new -->
     
+    <!--Adding the cover Page of the application-->
+    
+    <div data-ng-include="'views/cover/cover.html'"></div>
 
+	<!--Adding the main body of the application-->
+      
       <div ng-view=""></div>
 
 
@@ -68,8 +74,11 @@
         <script src="scripts/home/homeService.js"></script>
         <script src="scripts/data/dataFactory.js"></script>
         <!-- endbuild -->
+        
     <!-- <side-ribbon ></side-ribbon> -->
-    <!--including the ribbon-->
-    <div data-ng-include="'views/ribbon/ribbon.html'"></div>  
+    
+    <!--Adding the ribbon of the application-->
+    
+    <div data-ng-include="'views/ribbon/ribbon.html'" data-ng-show="false"></div>  
 </body>
 </html>

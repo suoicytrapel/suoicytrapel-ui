@@ -1,56 +1,16 @@
 
 app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $scope, baseFactory, $location, HomeService) {
 	var vm = this;
-	vm.selectedCategory = baseFactory.getSelectedCategory();
-	vm.categoryMap = baseFactory.categoryMap;
 	vm.cityMap = cityMap;	
 	
 
 	vm.init = function() {
-		$rootScope.selectedCity ="1";
-		applyAutocomplete();
 		showcasePortfolio();
 	};
 	
-	vm.categoryChanged = function(){
-		baseFactory.setSelectedCategory(vm.selectedCategory);
-	};
+
 	
-	$scope.$on('ribbonCategoryChanged',function(event, data){
-		vm.selectedCategory = data;
-		baseFactory.setSelectedCategory(vm.selectedCategory);
-	});
-
-	vm.clicked = function(){
-		HomeService.setSearchParam(vm.searchData);
-        $location.path('/search/');
-	}
-
-	function applyAutocomplete() {
-		angular.element('.home-search-box').autocomplete({
-			source: function(request, response){
-				if(request.term.length > 2){
-					console.log(request.term);
-					var searchRequestDTO = {
-						searchType : vm.selectedCategory,
-						searchString : request.term,
-						cityId : $rootScope.selectedCity
-					}
-					HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data){
-						response(data);
-					},function(error){
-						console.log(error);
-					})
-					
-				}
-			},
-            select: function (event, ui) {
-                //stateid = (ui.item.lable);
-                console.log(ui.item.lable);
-                $("#searchedText").val(ui.item.lable);
-            }
-		});
-	};
+	
 	
 	function showcasePortfolio(){
 		var mySwiper = new Swiper ('.swiper-container', {

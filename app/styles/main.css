@@ -31,13 +31,13 @@
 }
 
 *{
-	outline: none;
+	outline: none !important;
 }
 
 
 html, body {
   color: #656565;
-  font-family: 'OpenSans-Regular', sans serif;
+  font-family: 'OpenSans-Regular', sans serif !important;
   font-size: 14px;
   overflow-x: hidden;
   -webkit-user-select: none;
@@ -108,6 +108,12 @@ a:focus{
 .vertical-center{
   vertical-align: middle;
 }
+
+.gap, .semi-gap,
+.quarter-gap, .gap20{
+	display: block;
+	width: 100%;
+}
 .gap{
   height: 100px;
 }
@@ -117,6 +123,10 @@ a:focus{
 }
 .quarter-gap{
 	height: 25px;
+}
+
+.gap20{
+	height: 20px;
 }
 
 .bg-theme-color{

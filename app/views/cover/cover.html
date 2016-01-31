@@ -1,0 +1,40 @@
+<div id="coverPage" class="">
+	<div class="content-wrapper">
+		<div class="container">
+			<div class="main-content text-center vertical-center">
+				<div class="row">
+					<div class="col-xs-12">
+						<h1 class="main-heading">Making Events Memorable</h1>
+
+						<div class="semi-gap"></div>
+						<div class="row">
+							<h2 class="col-xs-offset-1 col-sm-offset-2 col-lg-offset-3 col-xs-4 searchfortext text-center">Choose your category</h2>
+						<div class="custom-select-container col-xs-6 col-sm-4 col-lg-2">
+							<select class="select-option-menu" data-ng-change="vm.categoryChanged()" onblur="" data-ng-model="vm.selectedCategory">
+							<option data-ng-repeat='(key, value) in vm.categoryMap' value="{{value}}">{{key}}</option>
+						</select>
+						<!--<span class="custom-select-arrow" data-ng-click="vm.open('.select-option-menu')"></span>-->
+						</div>
+						</div>
+						<div class="quarter-gap"></div>
+						<form action="" autocomplete="off" class="home-page-form">
+							<div class="col-xs-12 col-sm-8 col-sm-offset-1 search-input-box form-group">
+								<div class="row">
+									<input id="searchedText" type="text" placeholder="Simply type the name" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
+									</input>
+								</div>
+							</div>
+
+							<div class="col-xs-12 col-sm-2 search-button form-group">
+								<div class="row">
+									<button class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" ng-click="vm.clicked();">SEARCH</button>	
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

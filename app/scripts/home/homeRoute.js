@@ -14,7 +14,7 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
 				})
 	        }
     	}
-    }).when('/search', {
+    }).when('/', {
         url:'/search',
         controller: 'DataController',
         templateUrl: 'views/data/data.html',
