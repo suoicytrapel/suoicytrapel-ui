@@ -1,10 +1,11 @@
-app.controller('DataController', function(HomeService, baseFactory, DataFactory, $rootScope, Constants) {
+app.controller('DataController', function(HomeService, baseFactory, DataFactory, $rootScope, Constants, $scope) {
 
 	var vm = this;
 	var searchParam = HomeService.getSearchParam();
 	vm.selectedCategory = baseFactory.getSelectedCategory();
 	vm.offset = null;
-    console.log('Called', searchParam);
+	$scope.pageSize = 5;
+    $scope.currentPage = 1;
 
     vm.fetchData = function(){
     	if(vm.offset == null){
@@ -14,11 +15,15 @@ app.controller('DataController', function(HomeService, baseFactory, DataFactory,
 			searchType : vm.selectedCategory,
 			searchString : searchParam,
 			cityId : $rootScope.selectedCity,
-			offset : vm.offset
+			offset : vm.offset,
+			limit:$scope.pageSize
 		};
 		DataFactory.fetchData.fetch(searchRequestDTO).$promise.then(function(data){
 			vm.resultList = data.searchResponseDTOList;
-			vm.resultCount = data.resultCount;
+			if(vm.offset == 1){
+				vm.totalRecords = data.resultCount;
+			}
+			
 		},function(error){
 			console.log(error);
 		});
@@ -27,6 +32,12 @@ app.controller('DataController', function(HomeService, baseFactory, DataFactory,
     vm.getImageURL = function(imagePath){
     	return Constants.WEB_HOST + imagePath;
     };
+
+    $scope.pageChangeHandler = function(newPageNumber){
+    	$scope.currentPage = newPageNumber;
+    	vm.offset = newPageNumber;
+    	vm.fetchData();
+    }
 
     vm.fetchDetails = function(name){
     	var dataRequestDTO = {

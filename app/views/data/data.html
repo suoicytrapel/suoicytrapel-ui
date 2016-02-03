@@ -21,68 +21,28 @@
 				</div>
 			</div>
 	
-		
-		<div class='col-xs-12'>
-					<div class='col-md-6'>
-						<a href="" class="pamphlet-anchor">
-						<div class="pamphlet-container">
-							<div class="pamphlet-header">
-								<img src='images/dummy.jpg' alt='cover-photo' class="vertical-center"></img>
-							</div>
-							<div class="pamphlet-body">
-								<div class="pamphlet-title col-xs-12 text-center">
-									Dummy Data
-								</div>
-							</div>
-							<div class="pamphlet-footer"></div>
-						</div> </a>
-					</div>
+		<div dir-paginate="result in vm.resultList | itemsPerPage : pageSize" current-page="currentPage" pagination-id="dataPagination" total-items="vm.totalRecords" class='col-xs-12'>
+					
 					
 					<div class='col-md-6'>
-						<a href="" class="pamphlet-anchor">
+						<a href="" ng-click="vm.fetchDetails(result.name);" class="pamphlet-anchor">
 						<div class="pamphlet-container">
 							<div class="pamphlet-header">
-								<img src='images/dummy.jpg' alt='cover-photo' class="vertical-center"></img>
+								<img src="{{vm.getImageURL(result.mainImagerURL)}}" alt='cover-photo' class="vertical-center"></img>
 							</div>
 							<div class="pamphlet-body">
 								<div class="pamphlet-title col-xs-12 text-center">
-									Dummy Data
+									{{result.name}}
 								</div>
 							</div>
 							<div class="pamphlet-footer"></div>
 						</div> </a>
 					</div>
-					
-					<div class='col-md-6'>
-						<a href="" class="pamphlet-anchor">
-						<div class="pamphlet-container">
-							<div class="pamphlet-header">
-								<img src='images/dummy.jpg' alt='cover-photo' class="vertical-center"></img>
-							</div>
-							<div class="pamphlet-body">
-								<div class="pamphlet-title col-xs-12 text-center">
-									Dummy Data
-								</div>
-							</div>
-							<div class="pamphlet-footer"></div>
-						</div> </a>
-					</div>
-					
-					<div class='col-md-6'>
-						<a href="" class="pamphlet-anchor">
-						<div class="pamphlet-container">
-							<div class="pamphlet-header">
-								<img src='images/dummy.jpg' alt='cover-photo' class="vertical-center"></img>
-							</div>
-							<div class="pamphlet-body">
-								<div class="pamphlet-title col-xs-12 text-center">
-									Dummy Data
-								</div>
-							</div>
-							<div class="pamphlet-footer"></div>
-						</div> </a>
-					</div>
-				</div>
+
+
+		</div>
 		
 	</div>
 </div>
+
+<dir-pagination-controls boundry-links="true" on-page-change="pageChangeHandler(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
