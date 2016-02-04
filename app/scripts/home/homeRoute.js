@@ -1,4 +1,4 @@
-app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($routeProvider, $httpProvider, $locationProvider) {
 	
     $routeProvider.when('/', {
     	url:'/login',
@@ -21,5 +21,7 @@ app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpPr
         controllerAs: 'vm'
     })
     .otherwise({ redirectTo: '/' });
+
+    $locationProvider.html5Mode(true);
 
 }]);
