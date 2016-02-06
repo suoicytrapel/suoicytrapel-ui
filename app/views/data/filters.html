@@ -1,0 +1,13 @@
+<div ng-repeat="filter in vm.filters" ng-if="vm.filters.length > 0">
+	<label>
+    	<input ng-model='filter.checked' type='checkbox'>
+    	{{filter.name}}
+    </label>
+</div>
+<button class="btn" ng-click="vm.filterResults();">Filter</button>
+
+<button class="btn" ng-click="vm.resetFilters();">Reset</button>
+
+<!-- <div ng-repeat="amenity in vm.amenityList" ng-if="vm.amenityList.length > 0">
+	<span>{{amenity}}</span>
+</div> -->

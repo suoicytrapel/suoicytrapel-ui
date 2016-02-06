@@ -38,7 +38,7 @@ app.directive('simpleCaptcha', function() {
                 } else {
                     $scope.valid = false;
                 }
-                $scope.$apply(); // needed to solve 2 cycle delay problem;
+                //$scope.$apply(); // needed to solve 2 cycle delay problem;
             };
             
             

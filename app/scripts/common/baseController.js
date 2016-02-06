@@ -4,9 +4,11 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, baseFactory, $timeout, $location, HomeFactory, HomeService) {
+app.controller('baseController', function($scope, $rootScope, baseFactory, $timeout, $location, HomeFactory, HomeService, $compile, ContactFactory) {
 
 	var vm = this;
+	$scope.form = {};
+	vm.contactForm = {};
 
 	vm.init = function() {
 		vm.selectedCategory = baseFactory.getSelectedCategory();
@@ -55,7 +57,7 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		}
 		angular.element('.ribbon-tab:nth-child(' + (index + 1) + ')').addClass('active').siblings().removeClass('active');
 		vm.indexActive = index;
-	}
+	};
 
 	/* Commenting the autoComplete applied for ribbon search box
 	 function applyAutocomplete() {
@@ -94,6 +96,31 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 			});
 		});
 	};
+
+	vm.openContactForm = function(){
+		$("#captcha").html("");
+		var template = '<simple-captcha valid="captchaValid"></simple-captcha>';
+		var captchaTemplate = angular.element(template);
+		//Now compile the template with scope $scope
+		$compile(captchaTemplate)($scope);
+		angular.element('#captcha').append(captchaTemplate);
+        $('#contactModal').modal('toggle');
+    };
+
+    vm.submitEnquiry = function(){
+        ContactFactory.submitEnquiry.submit(vm.contactForm).$promise.then(function(data) {
+            vm.contactForm = {};
+            $scope.form.contactForm.$setPristine();
+            $scope.form.contactForm.$setUntouched();
+            vm.submitted = false;
+            $('#contactModal').modal('toggle');
+        }, function(error) {
+        	$scope.form.contactForm.$setPristine();
+            vm.contactForm = {};
+            $('#contactModal').modal('toggle');
+            console.log(error);
+        });
+    };
 
 	vm.init();
 	vm.defineListeners();

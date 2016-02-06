@@ -34,20 +34,6 @@ app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $sco
         spaceBetween: 20,
     });   
 
-    vm.openContactForm = function(){
-        $('#contactModal').modal('toggle');
-    };
-
-    vm.submitEnquiry = function(formData, form){
-        ContactFactory.submitEnquiry.submit(formData).$promise.then(function(data) {
-            $('#contactModal').modal('toggle');
-            $scope.contactForm.$setPristine();
-            vm.contactForm = {};
-        }, function(error) {
-            console.log(error);
-        });
-    };
-
 }
 
 	/*$scope.showPosition = function (position) {
