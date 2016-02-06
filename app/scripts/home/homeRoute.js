@@ -19,6 +19,11 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         controller: 'DataController',
         templateUrl: 'views/data/data.html',
         controllerAs: 'vm'
+    }).when('/details/', {
+        url:'/details',
+        controller: 'detailController',
+        templateUrl: 'views/detail/detail.html',
+        controllerAs: 'vm'
     })
     .otherwise({ redirectTo: '/' });
 
