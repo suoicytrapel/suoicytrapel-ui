@@ -1,0 +1,92 @@
+.details-container {
+	padding-top: 2em;
+	padding-bottom: 2em;
+	background-color: #ffffff;
+}
+
+.details-container h2.details-name {
+	margin: 0;
+	color: #000000;
+	font-weight: 600;
+	line-height: 1.5em;
+}
+
+.details-container .details-address {
+	font-weight: 400;
+}
+
+.details-container .details-telephone {
+	font-weight: 400;
+}
+
+.details-container .details-city {
+	font-weight: 400;
+}
+
+.details-pamphlet .pamphlet-title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #f37254;
+	text-transform: uppercase;
+}
+
+.details-pamphlet .pamphlet-header {
+	padding: 10px 15px 0;
+}
+
+.details-pamphlet .pamphlet-body{
+	padding: 15px;
+	height: auto;
+}
+
+.nav-tabs.nav-justified>.active>a, 
+.nav-tabs.nav-justified>.active>a:focus, 
+.nav-tabs.nav-justified>.active>a:hover {
+    border-top: 0;
+    border-left: 0;
+    background-color: #eee;
+    border-bottom: solid 5px #f37254;
+    color: #f37254;
+}
+
+.nav-tabs.nav-justified>li>a {
+    text-align: center;
+    margin-bottom: 5px;
+    border-radius: 0;
+    margin-right: 0;
+    border: 0;
+    color: #333;
+    border-right: solid 1px #ddd;
+    border-bottom: solid 5px #ddd;
+}
+
+.nav-tabs.nav-justified>li:last-child>a {
+    border-right: 0;
+}
+
+.amenities-services .pamphlet-body .tab-content ul {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    -o-column-count: 3;
+    -ms-column-count: 3;
+    column-count: 3;
+    list-style: none;
+}
+
+.amenities-services .pamphlet-body .tab-content ul li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.detail-cover{
+	cursor: pointer;
+}
+
+.view-gallery-btn{
+	position:absolute;
+	top:430px;
+	right:125px;
+}

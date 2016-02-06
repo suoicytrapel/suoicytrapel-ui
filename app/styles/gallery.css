@@ -1,0 +1,65 @@
+.gallery-container{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 10;
+	/*display: none;*/
+	visibility: hidden;
+}
+
+.gallery-container.show{
+	
+	/*display: block;*/
+	visibility: visible;
+}
+
+.gallery-container .gallery-overlay{
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	background: rgba(0,0,0,0.8);
+}
+
+.gallery-container .gallery-close-btn{
+	right: 0px;
+	top: 0px;
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	cursor: pointer;
+	z-index: 1;
+	background-image: url('../images/icon_close.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.gallery-container .swiper-container {
+	width: 100%;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.gallery-container .swiper-slide {
+	background-size: cover;
+	background-position: center;
+}
+.gallery-container .gallery-top {
+	height: 80%;
+	width: 100%;
+}
+.gallery-container .gallery-thumbs {
+	height: 20%;
+	box-sizing: border-box;
+	padding: 10px 0;
+}
+.gallery-container .gallery-thumbs .swiper-slide {
+	width: 20%;
+	height: 100%;
+	opacity: 0.4;
+}
+.gallery-container .gallery-thumbs .swiper-slide-active {
+	opacity: 1;
+	    border: 2px solid #ffffff;
+}

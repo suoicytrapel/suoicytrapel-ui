@@ -21,10 +21,10 @@
 				</div>
 			</div>
 	
-		<div dir-paginate="result in vm.resultList | itemsPerPage : pageSize" current-page="currentPage" pagination-id="dataPagination" total-items="vm.totalRecords" class='col-xs-12'>
+		<div dir-paginate="result in vm.resultList | itemsPerPage : pageSize" current-page="currentPage" pagination-id="dataPagination" total-items="vm.totalRecords" class='col-md-6'>
 					
 					
-					<div class='col-md-6'>
+					
 						<a href="" ng-click="vm.fetchDetails(result.name);" class="pamphlet-anchor">
 						<div class="pamphlet-container">
 							<div class="pamphlet-header">
@@ -37,7 +37,7 @@
 							</div>
 							<div class="pamphlet-footer"></div>
 						</div> </a>
-					</div>
+					
 
 
 		</div>
