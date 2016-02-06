@@ -138,3 +138,13 @@ a:focus{
 .bg-grey {
     background-color: #EEEEEE;
 }
+.form-group .required:after {
+  content:"*";
+  color:brown;
+}
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: none;
+}

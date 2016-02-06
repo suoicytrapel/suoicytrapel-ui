@@ -100,3 +100,56 @@
 </div>
 	
 </section>
+
+
+
+<div class="container">
+  <div class="row">
+    
+    <h1 class="text-center"><a href="" ng-click="vm.openContactForm();" class="btn btn-primary btn-lg">Contact Us</a></h1>
+    
+  </div>
+</div>
+
+<div id="contactModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">We'd Love to Serve You</h3>
+      </div>
+      <div class="modal-body">
+        <form name="contactForm" class="col-sm-12">
+        	<span style="color:brown;">All Fields marked with * are mandatory.</span>
+        <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your name" type="text" ng-model="vm.contactForm.name" name="name" required>
+          <span style="color:brown;" ng-show="contactForm.name.$touched && contactForm.name.$invalid">Name is mandatory.</span>
+      	</div>
+
+          <div class="form-group"><label class="required">Message</label><textarea class="form-control" placeholder="Your message here.." ng-model="vm.contactForm.message" name="message" required></textarea>
+          	<span style="color:brown;" ng-show="contactForm.message.$touched && contactForm.message.$invalid">Message is mandatory.</span>
+          </div>
+
+          <div class="form-group"><label>E-Mail</label><input class="form-control email" placeholder="email@you.com (so that we can contact you)" type="email" name="email" ng-model="vm.contactForm.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+          	<span style="color:brown;" ng-show="contactForm.email.$touched && contactForm.email.$error.pattern">Email is invalid.</span>
+          </div>
+
+          <div class="form-group"><label class="required">Phone</label><input class="form-control phone" type="text" ng-model="vm.contactForm.phoneNumber" placeholder="Your Contact Number" name="phone" required ng-pattern="/^[0-9]{10}$/">
+          	<span style="color:brown;" ng-show="contactForm.phone.$touched && contactForm.phone.$error.required">Phone is mandatory.</span>
+          	<span style="color:brown;" ng-show="contactForm.phone.$touched && contactForm.phone.$error.pattern">Phone is Invalid.</span>
+          </div>
+
+          <div class="form-group"><label class="required">Test your math skill</label>
+          	<div>
+          		<simple-captcha valid="captchaValid"></simple-captcha>
+          	</div>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" ng-click="contactForm.$valid && captchaValid &&vm.submitEnquiry(vm.contactForm, contactForm);" class="btn btn-success">Enquire!</button>
+        <button class="btn pull-right" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
