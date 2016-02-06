@@ -40,6 +40,8 @@ app.controller('DataController', function(HomeService, baseFactory, DataFactory,
     	vm.fetchData();
     }
 
+
+
     vm.fetchDetails = function(name){
     	var dataRequestDTO = {
 			searchType : vm.selectedCategory,
