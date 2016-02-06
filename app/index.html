@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="styles/home/home.css">
     <link rel="stylesheet" href="styles/ribbon.css">
     <link rel="stylesheet" href="styles/data.css">
+    <link rel="stylesheet" href="styles/detail.css">
+    <link rel="stylesheet" href="styles/gallery.css">
     <!-- endbuild -->
   </head>
   <body ng-app="leparticiousUiApp" data-ng-controller="baseController as vm">
@@ -31,9 +33,13 @@
 
     <!-- Add your site or application content here new -->
     
+    <!--Adding the header component of the application-->
+    
+    <!--<div data-ng-include="'views/header/header.html'"></div>-->
+    
     <!--Adding the cover Page of the application-->
     
-    <div data-ng-include="'views/cover/cover.html'"></div>
+    <div data-ng-include="'views/cover/cover.html'" data-ng-if="showCover"></div>
 
 	<!--Adding the main body of the application-->
       
@@ -69,7 +75,7 @@
         <script src="scripts/home/homeController.js"></script>
         <script src="scripts/home/homeFactory.js"></script>
         <script src="scripts/common/constants.js"></script>
-        <!--<script src="scripts/common/directives.js"></script>-->
+        <script src="scripts/common/directives.js"></script>
         <script src="scripts/common/baseFactory.js"></script>
 		<script src="scripts/common/baseController.js"></script>
         <script src="scripts/data/dataController.js"></script>
@@ -78,6 +84,8 @@
         <script src="scripts/contact/contactFactory.js"></script>
         <script src="scripts/common/captchaDirective.js"></script>
 
+        <script src="scripts/detail/detailController.js"></script>
+        <script src="scripts/gallery/galleryController.js"></script>
         <!-- endbuild -->
         
     <!-- <side-ribbon ></side-ribbon> -->
@@ -85,5 +93,9 @@
     <!--Adding the ribbon of the application-->
     
     <div data-ng-include="'views/ribbon/ribbon.html'" data-ng-show="false"></div>  
+    
+    <!--Adding the footer of the application-->
+    
+    <div data-ng-include="'views/footer/footer.html'"></div>  
 </body>
 </html>

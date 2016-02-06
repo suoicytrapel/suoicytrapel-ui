@@ -5,6 +5,7 @@ app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $sco
 	
 
 	vm.init = function() {
+		$rootScope.showCover = true;
 		showcasePortfolio();
 	};
 	

@@ -16,6 +16,7 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		vm.ribbonIconClasses = ['fa-university', 'fa-cutlery', 'fa-birthday-cake', 'fa-camera', 'fa-cab', 'fa-beer'];
 		chooseRibbonDefaultCategory();
 		applyAutocomplete();
+		$rootScope.showCover = true;
 	};
 
 	/*	Applying watch on selectedCategory*/

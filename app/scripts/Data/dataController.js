@@ -1,6 +1,7 @@
 app.controller('DataController', function(HomeService, baseFactory, DataFactory, $rootScope, Constants, $scope) {
 
 	var vm = this;
+	$rootScope.showCover = true;
 	var searchParam = HomeService.getSearchParam();
 	vm.selectedCategory = baseFactory.getSelectedCategory();
 	vm.offset = null;

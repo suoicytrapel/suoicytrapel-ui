@@ -2,15 +2,11 @@
  * @author Anku
  */
 
+/*
 app.directive('sideRibbon', function($timeout) {
 	return {
 		restrict : 'EA',
 		templateUrl : 'views/ribbon/ribbon.html',
-		/*
-		scope : {
-					categoryMap: "=",
-					selectedCategory: "="
-				},*/
 		
 		link : function(scope, element, attrs) {
 			//console.log(scope);
@@ -42,5 +38,22 @@ app.directive('sideRibbon', function($timeout) {
 			}
 						
 		},
+	};
+});*/
+
+
+/*
+ *Directive for last element of ng-repeat
+ * 
+ * **/
+app.directive('onLastRepeatElement',function($timeout){
+	return {
+		restrict:'A',
+		link: function(scope, element, attrs){
+			if(scope.$last && attrs.onFinishCallback)
+			$timeout(function(){
+			scope.$eval(attrs.onFinishCallback);
+			});
+		}
 	};
 });

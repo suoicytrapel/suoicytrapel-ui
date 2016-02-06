@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
     }).when('/search/', {
         url:'/search',
         controller: 'DataController',
-        templateUrl: 'views/data/data.html',
+        templateUrl: 'views/detail/detail.html',
         controllerAs: 'vm'
     })
     .otherwise({ redirectTo: '/' });
