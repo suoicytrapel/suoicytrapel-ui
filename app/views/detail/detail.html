@@ -1,6 +1,6 @@
 <div class="" data-ng-controller='detailController as vm'>
 	<div id="coverPage" class="detail-cover text-center" data-ng-click="vm.openGallery();">
-		<button class="btn btn-default-white view-gallery-btn">View Gallery</button>
+		<button class="btn default-white-btn view-gallery-btn">View Gallery</button>
 		</div>
 <div class="row">
 	<div class="details-container row">
@@ -40,10 +40,11 @@
 			<div class="pamphlet-container details-pamphlet amenities-services">
 				<div class="pamphlet-header">
 					<div class="pamphlet-title">
+						<span class="fa fa-fw fa-cog"></span>
 						Amenities &amp; Services
 					</div>
 				</div>
-				<div class="pamphlet-body">
+				<div class="pamphlet-body" data-ng-show="vm.selectedCategory == 'VENUE'">
 					<ul class="nav nav-tabs nav-justified">
 						<li class="active lp-tabs">
 							<a data-target="#tab1" data-toggle="tab" href="javascript:void(0)">Services</a>
@@ -52,7 +53,7 @@
 							<a data-target="#tab2" data-toggle="tab" href="javascript:void(0)">Room</a>
 						</li>
 						<li class="lp-tabs" data-toggle="tab">
-							<a data-target="#tab3" data-toggle="tab" href="javascript:void(0)">Food</a>
+							<a data-target="#tab3" data-toggle="tab" href="javascript:void(0)">Banquet Halls</a>
 						</li>
 					</ul>
 					<div class="lp-tabs-content">
@@ -60,37 +61,52 @@
 							<div class="tab-pane lp-tab-pane active" id="tab1">
 								<ul>
 									<li class="w2">
-										High-speed Wi-Fi Internet
+										<span class="fa fa-fw fa-wifi"></span>
+										 High-speed Wi-Fi Internet
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-video-camera"></span>
 										CCTV Surveillance
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-glass"></span>
 										Drinks Available
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-cutlery"></span>
 										Serves Food
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-bank"></span>
 										Conference Hall
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-male"></span>
 										Laundry Service
 									</li>
 									<li class="w2">
-										Smoking Allowed
+										<span class="fa fa-fw fa-heartbeat"></span>
+										Smoking zone
 									</li>
 									<li class="w2">
-										Wake-up Calls
-									</li>
-									<li class="w2">
+										<span class="fa fa-fw fa-stethoscope"></span>
 										Doctor-on-call
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-key"></span>
 										Smart Keys
 									</li>
 									<li class="w2">
+										<span class="fa fa-fw fa-shopping-cart"></span>
 										Room Service
+									</li>
+									<li class="w2">
+										<span class="fa fa-fw fa-tags"></span>
+										Vallet Parking
+									</li>
+									<li class="w2">
+										<span class="fa fa-fw fa-signal"></span>
+										Inhouse DJ
 									</li>
 								</ul>
 							</div>
@@ -98,59 +114,47 @@
 								<ul>
 									<li class="w2">
 										Air-Conditioning
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 									<li class="w2">
+										
 										Nightlamp
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 									<li class="w2">
 										Flat Screen TV
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 									<li class="w2">
 										Comfy 6 Inch Mattress
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 									<li class="w2">
 										24-hour Hot &amp; Cold Water
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 									<li class="w2">
 										Shower Facilities
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 									<li class="w2">
 										Business Desk
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
 								</ul>
 							</div>
 							<div class="tab-pane lp-tab-pane" id="tab3">
 								<ul>
 									<li class="w2">
-										Free Breakfast
+										Number of Banquet Halls 3
 									</li>
 									<li class="w2">
-										Outside Food Allowed
+										Booking Price <span class="fa fa-fw fa-inr"></span>1,00,000 
 									</li>
 									<li class="w2">
-										Serves Alcohol
+										A/C <span class="fa fa-fw fa-check-square color-green"></span> 
 									</li>
-									<li class="w2">
-										Serves Non-veg
-									</li>
-									<li class="w2">
-										North Indian
-									</li>
-									<li class="w2">
-										Asian
-									</li>
-									<li class="w2">
-										Continental
-									</li>
-									<li class="w2">
-										Chinese
-									</li>
-									<li class="w2">
-										Fast Food
-									</li>
-									<li class="w2">
-										South Indian
-									</li>
+									
 								</ul>
 							</div>
 						</div>
@@ -158,6 +162,53 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="col-xs-12 col-sm-4">
+					<!-- Adding recommended section for the User -->
+					
+			<div class="pamphlet-container recommended-pamphlet">
+								<div class="pamphlet-header recommended-pamphlet-header">
+					<div class="pamphlet-title recommended-pamphlet-title">Recommended by Us</div>
+				</div>
+				
+				<!-- ng-repeat goes from here for all the recommended items -->
+				<div class="recommended-pamphlet-container">
+				<div class="pamphlet-header recommended-pamphlet-image">
+					<img src="http://localhost:9001/images/BrooklynCentral.jpg" alt="cover-photo" class="vertical-center">
+				</div>
+				<div class="pamphlet-body recommended-pamphlet-desc">
+								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
+									Brooklyn Central
+								</div>
+							</div>
+							<div class="pamphlet-footer"></div>
+			</div>
+			
+			<div class="recommended-pamphlet-container">
+				<div class="pamphlet-header recommended-pamphlet-image">
+					<img src="http://localhost:9001/images/BrooklynCentral.jpg" alt="cover-photo" class="vertical-center">
+				</div>
+				<div class="pamphlet-body recommended-pamphlet-desc">
+								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
+									Brooklyn Central
+								</div>
+							</div>
+							<div class="pamphlet-footer"></div>
+			</div>
+			
+			<div class="recommended-pamphlet-container">
+				<div class="pamphlet-header recommended-pamphlet-image">
+					<img src="http://localhost:9001/images/BrooklynCentral.jpg" alt="cover-photo" class="vertical-center">
+				</div>
+				<div class="pamphlet-body recommended-pamphlet-desc">
+								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
+									Brooklyn Central
+								</div>
+							</div>
+							<div class="pamphlet-footer"></div>
+			</div>
+			</div>
+		
 	</div>
 </div>
 

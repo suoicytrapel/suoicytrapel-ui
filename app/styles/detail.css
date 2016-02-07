@@ -67,13 +67,27 @@
 }
 
 .amenities-services .pamphlet-body .tab-content ul {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    -o-column-count: 3;
-    -ms-column-count: 3;
-    column-count: 3;
+
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    -o-column-count: 2;
+    -ms-column-count: 2;
+    column-count: 2;
     list-style: none;
 }
+
+@media screen and (max-width:768px) {
+	.amenities-services .pamphlet-body .tab-content ul {
+
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    -o-column-count: 1;
+    -ms-column-count: 1;
+    column-count: 1;
+    list-style: none;
+}
+}
+
 
 .amenities-services .pamphlet-body .tab-content ul li {
     padding-top: 10px;
@@ -89,4 +103,25 @@
 	position:absolute;
 	top:430px;
 	right:125px;
+}
+
+.recommended-pamphlet-header{
+	padding: 10px 15px 0 !important;
+}
+
+.recommended-pamphlet-title{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #f37254;
+    text-transform: uppercase;
+}
+
+.recommended-pamphlet-image{
+	padding: 15px !important;
+}
+
+.recommended-pamphlet-desc{
+	height: 30px !important;
 }
