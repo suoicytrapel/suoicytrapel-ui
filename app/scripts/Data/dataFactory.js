@@ -1,6 +1,6 @@
 app.factory('DataFactory', function (Constants, $resource) {
 
-     return {
+    return {
         fetchData: $resource(Constants.API_HOST + '/fetch', {}, {
             fetch:{
                 method: "POST",
@@ -18,6 +18,15 @@ app.factory('DataFactory', function (Constants, $resource) {
                     return angular.fromJson(data);
                 } 
             }
-            })
-        };
+        }),
+        filters: $resource(Constants.API_HOST + '/fetch/filters', {},{
+            loadFilters : {
+                method: "POST",
+                isArray: false,
+                transformResponse: function(data, header) {
+                    return angular.fromJson(data);
+                } 
+            }
+        })
+    };
 });

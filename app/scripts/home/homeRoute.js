@@ -18,7 +18,21 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         url:'/search',
         controller: 'DataController',
         templateUrl: 'views/data/data.html',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+            filters: function(DataFactory, baseFactory, $rootScope){
+                var selectedCategory = baseFactory.getSelectedCategory();
+                var filterRequestDTO = {
+                    searchType : selectedCategory,
+                    cityId : $rootScope.selectedCity
+                }
+                return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data){
+                    return data.toJSON();
+                },function(error){
+                    return error;
+                })
+            }
+        }
     })
     .otherwise({ redirectTo: '/' });
 

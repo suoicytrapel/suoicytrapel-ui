@@ -1,13 +1,71 @@
-<div ng-repeat="filter in vm.filters" ng-if="vm.filters.length > 0">
-	<label>
-    	<input ng-model='filter.checked' type='checkbox'>
-    	{{filter.name}}
-    </label>
+<div>	
+	<hr>
+	<div ng-if="vm.filters.services.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showServiceFilters = !vm.showServiceFilters;" data-toggle="collapse" data-target="#serviceDiv"><i ng-class="!vm.showServiceFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Services</b></div>
+		<div id="serviceDiv" class="collapse in">
+			<div  ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.services">
+		    	<input class="styled" ng-model='filter.checked' type='checkbox'>
+		    	<label for="serviceCheckBoxes">
+	            	{{filter.name}}
+	        	</label>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div ng-if="vm.filters.establishments.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showEstablishmentFilters = !vm.showEstablishmentFilters;" data-toggle="collapse" data-target="#establishmentDiv"><i ng-class="!vm.showEstablishmentFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Establishment Type</b></div>
+			<div id="establishmentDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.establishments">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="estCheckBoxes">
+		            	{{filter.name}}
+		        	</label>
+				</div>
+			</div>
+	</div>
+	<hr>
+	<h4 class='theme-color'>MORE FILTERS</h4>
+	<hr>
+	<div ng-if="vm.filters.amenities.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showAmenityFilters = !vm.showAmenityFilters;" data-toggle="collapse" data-target="#amenityDiv"><i ng-class="!vm.showAmenityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Amenities</b><!-- <i class="space fa fa-building"></i> --></div>
+			<div id="amenityDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.amenities">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="amenityCheckBoxes">
+		            	{{filter.name}}
+		        	</label>
+				</div>
+			</div>
+	</div>
+	<hr>
+	<div ng-if="vm.filters.rooms.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showRoomFilters = !vm.showRoomFilters;" data-toggle="collapse" data-target="#roomDiv"><i ng-class="!vm.showRoomFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Room Type</b></div>
+			<div id="roomDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.rooms">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="roomCheckBoxes">
+		            	{{filter.name}}
+		        	</label>
+				</div>
+			</div>
+	</div>
+	<hr>
+	<div ng-if="vm.filters.localities.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showLocalityFilters = !vm.showLocalityFilters;" data-toggle="collapse" data-target="#localityDiv"><i ng-class="!vm.showLocalityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Localities</b><!-- <i class="fa fa-globe"></i> --></div>
+			<div id="localityDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.localities">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="localityCheckBoxes">
+		            	{{filter.name}}
+		        	</label>
+				</div>
+			</div>
+	</div>
+	
+	<hr>
+
+	<div class="ribbon-search-button form-group text-center">
+		<button class="btn btn-lg btn-default ribbon-search-btn" style="background-color:#f37254;" ng-click="vm.filterResults();">Filter</button>
+		<button class="btn btn-lg btn-default ribbon-search-btn" style="background-color:#fdebe7;" ng-click="vm.resetFilters();">Reset</button>			
+	</div>
 </div>
-<button class="btn" ng-click="vm.filterResults();">Filter</button>
-
-<button class="btn" ng-click="vm.resetFilters();">Reset</button>
-
-<!-- <div ng-repeat="amenity in vm.amenityList" ng-if="vm.amenityList.length > 0">
-	<span>{{amenity}}</span>
-</div> -->

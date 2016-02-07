@@ -1,17 +1,10 @@
-
 app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $scope, baseFactory, $location, HomeService, ContactFactory) {
 	var vm = this;
 	vm.cityMap = cityMap;	
-	
-
 	vm.init = function() {
 		$rootScope.showCover = true;
 		showcasePortfolio();
 	};
-	
-
-	
-	
 	
 	function showcasePortfolio(){
 		var mySwiper = new Swiper ('.swiper-container', {
