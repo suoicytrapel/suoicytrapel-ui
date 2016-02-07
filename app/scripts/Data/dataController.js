@@ -1,4 +1,4 @@
-app.controller('DataController', function(HomeService, baseFactory, DataFactory, $rootScope, Constants, $scope, filters) {
+app.controller('DataController', function(HomeService, baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, filters) {
 
 	var vm = this;
 	$rootScope.showCover = true;
@@ -53,18 +53,23 @@ app.controller('DataController', function(HomeService, baseFactory, DataFactory,
     	vm.fetchData();
     };
 
+
+
     vm.fetchDetails = function(name){
-    	var dataRequestDTO = {
-			searchType : vm.selectedCategory,
-			cityId : $rootScope.selectedCity,
-			name : name
-		};
-		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
-			vm.detailedData = data;
-			$('#dataPopupModal').modal('toggle');
-		},function(error){
-			console.log(error);
-		});
+    	/*
+		var dataRequestDTO = {
+					searchType : vm.selectedCategory,
+					cityId : $rootScope.selectedCity,
+					name : name
+				};
+				DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
+					vm.detailedData = data;
+					$('#dataPopupModal').modal('toggle');
+				},function(error){
+					console.log(error);
+				});*/
+		dataService.setName(name);
+		$location.path('/details/');		
     };
 
 
