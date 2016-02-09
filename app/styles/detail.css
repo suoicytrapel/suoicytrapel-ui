@@ -125,3 +125,7 @@
 .recommended-pamphlet-desc{
 	height: 30px !important;
 }
+
+#map{
+	height: 400px;
+}
