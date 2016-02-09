@@ -6,15 +6,15 @@
 	<div class="details-container row">
 		<div class="col-xs-12 col-sm-offset-1 col-sm-6">
 			<div class="row">
-				<h2 class="details-name">Hotel Western Court</h2>
+				<h2 class="details-name">{{vm.detailedData.name}}</h2>
 				<div class="details-address">
-					SCO:###, Near Hanumanji Chowk
+					{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
 				</div>
 				<div class="details-city">
-					Panchkula, Haryana
+					{{vm.detailedData.city}}, {{vm.detailedData.state}}
 				</div>
 				<div class="details-telephone">
-					09876543210, 0172-123456
+					{{vm.detailedData.primaryPhoneNumber}}, {{vm.detailedData.secondaryPhoneNumber}}
 				</div>
 			</div>
 		</div>
@@ -29,11 +29,11 @@
 			<div class="pamphlet-container details-pamphlet">
 				<div class="pamphlet-header">
 					<div class="pamphlet-title">
-						why party at <span class="name">Hotel Western Court</span>
+						why party at <span class="name">{{vm.detailedData.name}}</span>
 					</div>
 				</div>
 				<div class="pamphlet-body">
-					A fine budget hotel in Sector 10 of Panchkula, Hotel Western Court offers a spectacular view of the entire cityscape. Hushed surroundings, opulent interiors and impeccable service best describe this hotel. Pamper yourself at the fancy coffee shop or gorge on the extensive list of options offered at the on-site restaurant.
+					{{vm.detailedData.description}}
 				</div>
 			</div>
 			<!--Adding Amenities and Services-->
@@ -50,111 +50,35 @@
 							<a data-target="#tab1" data-toggle="tab" href="javascript:void(0)">Services</a>
 						</li>
 						<li class="lp-tabs">
-							<a data-target="#tab2" data-toggle="tab" href="javascript:void(0)">Room</a>
+							<a data-target="#tab2" data-toggle="tab" href="javascript:void(0)">Amenities</a>
 						</li>
 						<li class="lp-tabs" data-toggle="tab">
-							<a data-target="#tab3" data-toggle="tab" href="javascript:void(0)">Banquet Halls</a>
+							<a data-target="#tab3" data-toggle="tab" href="javascript:void(0)">Rooms</a>
 						</li>
 					</ul>
 					<div class="lp-tabs-content">
 						<div class="tab-content">
 							<div class="tab-pane lp-tab-pane active" id="tab1">
 								<ul>
-									<li class="w2">
-										<span class="fa fa-fw fa-wifi"></span>
-										 High-speed Wi-Fi Internet
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-video-camera"></span>
-										CCTV Surveillance
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-glass"></span>
-										Drinks Available
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-cutlery"></span>
-										Serves Food
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-bank"></span>
-										Conference Hall
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-male"></span>
-										Laundry Service
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-heartbeat"></span>
-										Smoking zone
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-stethoscope"></span>
-										Doctor-on-call
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-key"></span>
-										Smart Keys
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-shopping-cart"></span>
-										Room Service
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-tags"></span>
-										Vallet Parking
-									</li>
-									<li class="w2">
-										<span class="fa fa-fw fa-signal"></span>
-										Inhouse DJ
+									<li ng-repeat="service in vm.detailedData.services" class="w2">
+										<span></span>
+										 {{service}}
 									</li>
 								</ul>
 							</div>
 							<div class="tab-pane lp-tab-pane" id="tab2">
 								<ul>
-									<li class="w2">
-										Air-Conditioning
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										
-										Nightlamp
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										Flat Screen TV
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										Comfy 6 Inch Mattress
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										24-hour Hot &amp; Cold Water
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										Shower Facilities
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										Business Desk
-										<span class="fa fa-fw fa-check-square color-green"></span>
+									<li ng-repeat="amenity in vm.detailedData.amenities" class="w2">
+										{{amenity}}
+										<!-- <span class="fa fa-fw fa-check-square color-green"></span> -->
 									</li>
 								</ul>
 							</div>
 							<div class="tab-pane lp-tab-pane" id="tab3">
 								<ul>
-									<li class="w2">
-										Number of Banquet Halls 3
+									<li ng-repeat="room in vm.detailedData.rooms" class="w2">
+										{{room}}
 									</li>
-									<li class="w2">
-										Booking Price <span class="fa fa-fw fa-inr"></span>1,00,000 
-									</li>
-									<li class="w2">
-										A/C <span class="fa fa-fw fa-check-square color-green"></span> 
-									</li>
-									
 								</ul>
 							</div>
 						</div>

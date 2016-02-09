@@ -27,6 +27,15 @@ app.factory('DataFactory', function (Constants, $resource) {
                     return angular.fromJson(data);
                 } 
             }
+        }),
+        attachments: $resource(Constants.API_HOST + '/fetch/filters', {},{
+            fetchAttachments : {
+                method: "POST",
+                isArray: true,
+                transformResponse: function(data, header) {
+                    return angular.fromJson(data);
+                } 
+            }
         })
     };
 });

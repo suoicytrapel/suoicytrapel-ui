@@ -13,19 +13,35 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		};
 	};
 	vm.fetchDetails = function(){
-		
 		var dataRequestDTO = {
-					searchType : vm.selectedCategory,
-					cityId : $rootScope.selectedCity,
-					name : vm.name
-				};
-				DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
-					vm.detailedData = data;
-					//$('#dataPopupModal').modal('toggle');
-				},function(error){
-					console.log(error);
-				});
+			searchType : vm.selectedCategory,
+			cityId : $rootScope.selectedCity,
+			name : vm.name
+		};
+		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
+			vm.detailedData = data;
+			dataService.setImageURLs(vm.detailedData.attachments);
+			//$('#dataPopupModal').modal('toggle');
+		},function(error){
+			console.log(error);
+		});
 	};
+
+	vm.fetchAttachments = function(){
+		var dataRequestDTO = {
+			searchType : vm.selectedCategory,
+			cityId : $rootScope.selectedCity,
+			name : vm.name
+		};
+		DataFactory.attachments.fetchAttachments(dataRequestDTO).$promise.then(function(data){
+			vm.attachments = data.attachments;
+			//$('#dataPopupModal').modal('toggle');
+		},function(error){
+			console.log(error);
+		});
+	};
+
+	
 	
 	function checkForMaps(){
 		var interval = setInterval(function(){

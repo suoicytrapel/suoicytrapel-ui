@@ -1,26 +1,24 @@
-app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $timeout, baseFactory, $location, HomeService, $q) {
+app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $timeout, baseFactory, $location, HomeService, $q, dataService, Constants) {
 	var vm = this;
 	vm.init = function(){
 		vm.show = false;
 		vm.galleryTop = null;
-		vm.galleryThumbs = null;
-		vm.imagesURL = [
-			"http://lorempixel.com/1200/1200/nature/1",
-			"http://lorempixel.com/1200/1200/nature/2",
-			"http://lorempixel.com/1200/1200/nature/3",
-			"http://lorempixel.com/1200/1200/nature/4",
-			"http://lorempixel.com/1200/1200/nature/5",
-		];
-		
-		
-		
-		
+		vm.galleryThumbs = null;	
 	};
 	
 	$scope.$on('showGallery',function(){
+		vm.imagesURL = vm.getImageURL(dataService.getImageURLs());
 		vm.applySwipe();
 		vm.show = true;
 	});
+
+	vm.getImageURL = function(imageURLs){
+		var images = [];
+		for(var k in imageURLs){
+			images.push(Constants.WEB_HOST + imageURLs[k]);
+		}
+    	return images;
+    };
 	
 	vm.defineListeners = function(){
 		vm.closeGallery = function(){
