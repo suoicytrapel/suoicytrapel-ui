@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory, Constants) {
 	var vm = this;
 	vm.init = function(){
 		$rootScope.showCover = false;
@@ -19,9 +19,12 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			name : vm.name
 		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
-			vm.detailedData = data;
+			vm.detailedData = data; 
+			vm.coverbgImageURL = Constants.WEB_HOST + vm.detailedData.attachments[0];
 			dataService.setImageURLs(vm.detailedData.attachments);
 			//$('#dataPopupModal').modal('toggle');
+			//Broadcast load gallery event as soon as the images URL are available
+			$scope.$broadcast('loadGallery');
 		},function(error){
 			console.log(error);
 		});
