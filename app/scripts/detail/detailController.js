@@ -20,6 +20,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
 			vm.detailedData = data; 
+			if(vm.detailedData && vm.detailedData.attachments.length > 0)
 			vm.coverbgImageURL = Constants.WEB_HOST + vm.detailedData.attachments[0];
 			dataService.setImageURLs(vm.detailedData.attachments);
 			//$('#dataPopupModal').modal('toggle');
