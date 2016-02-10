@@ -2,16 +2,16 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
 
 	var vm = this;
 	$rootScope.showCover = true;
-	var searchParam = HomeService.getSearchParam();
+	vm.searchParam = HomeService.getSearchParam();
 	vm.selectedCategory = baseFactory.getSelectedCategory();
 	vm.offset = null;
 	$scope.pageSize = 10;
   $scope.currentPage = 1;
   vm.filters = filters;
-  vm.showServiceFilters = true;
+  vm.showServiceFilters = false;
   vm.showEstablishmentFilters = true;
   vm.showAmenityFilters = false;
-  vm.showLocalityFilters = false;
+  vm.showLocalityFilters = true;
   vm.showRoomFilters = false;
       
     vm.fetchData = function(isFilterSearch){
@@ -24,7 +24,7 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
       }
     	var searchRequestDTO = {
   			searchType : vm.selectedCategory,
-  			searchString : searchParam,
+  			searchString : vm.searchParam,
   			cityId : $rootScope.selectedCity,
   			offset : vm.offset,
   			limit:$scope.pageSize,
@@ -56,20 +56,8 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
 
 
     vm.fetchDetails = function(name){
-    	/*
-		var dataRequestDTO = {
-					searchType : vm.selectedCategory,
-					cityId : $rootScope.selectedCity,
-					name : name
-				};
-				DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
-					vm.detailedData = data;
-					$('#dataPopupModal').modal('toggle');
-				},function(error){
-					console.log(error);
-				});*/
-		dataService.setName(name);
-		$location.path('/details/');		
+      var searchParam = name;
+  		$location.path('/details/' + searchParam);		
     };
 
 

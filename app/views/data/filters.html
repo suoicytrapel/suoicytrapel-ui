@@ -1,16 +1,17 @@
 <div>	
 	<hr>
-	<div ng-if="vm.filters.services.length > 0">
-		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showServiceFilters = !vm.showServiceFilters;" data-toggle="collapse" data-target="#serviceDiv"><i ng-class="!vm.showServiceFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Services</b></div>
-		<div id="serviceDiv" class="collapse in">
-			<div  ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.services">
-		    	<input class="styled" ng-model='filter.checked' type='checkbox'>
-		    	<label for="serviceCheckBoxes">
-	            	{{filter.name}}
-	        	</label>
+	<div ng-if="vm.filters.localities.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showLocalityFilters = !vm.showLocalityFilters;" data-toggle="collapse" data-target="#localityDiv"><i ng-class="!vm.showLocalityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Localities</b><!-- <i class="fa fa-globe"></i> --></div>
+			<div id="localityDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.localities">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="localityCheckBoxes">
+		            	{{filter.name}}
+		        	</label>
+				</div>
 			</div>
-		</div>
 	</div>
+	
 	<hr>
 	<div ng-if="vm.filters.establishments.length > 0">
 		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showEstablishmentFilters = !vm.showEstablishmentFilters;" data-toggle="collapse" data-target="#establishmentDiv"><i ng-class="!vm.showEstablishmentFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Establishment Type</b></div>
@@ -50,18 +51,19 @@
 			</div>
 	</div>
 	<hr>
-	<div ng-if="vm.filters.localities.length > 0">
-		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showLocalityFilters = !vm.showLocalityFilters;" data-toggle="collapse" data-target="#localityDiv"><i ng-class="!vm.showLocalityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Localities</b><!-- <i class="fa fa-globe"></i> --></div>
-			<div id="localityDiv" class="collapse">
-				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.localities">
-				    <input ng-model='filter.checked' type='checkbox'>
-				    <label for="localityCheckBoxes">
-		            	{{filter.name}}
-		        	</label>
-				</div>
-			</div>
-	</div>
 	
+	<div ng-if="vm.filters.services.length > 0">
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showServiceFilters = !vm.showServiceFilters;" data-toggle="collapse" data-target="#serviceDiv"><i ng-class="!vm.showServiceFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Services</b></div>
+		<div id="serviceDiv" class="collapse">
+			<div  ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.services">
+		    	<input class="styled" ng-model='filter.checked' type='checkbox'>
+		    	<label for="serviceCheckBoxes">
+	            	{{filter.name}}
+	        	</label>
+			</div>
+		</div>
+	</div>
+
 	<hr>
 
 	<div class="ribbon-search-button form-group text-center">

@@ -33,7 +33,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
                 })
             }
         }
-    }).when('/details/', {
+    }).when('/details/:searchParam', {
         url:'/details',
         controller: 'detailController',
         templateUrl: 'views/detail/detail.html',

@@ -1,9 +1,9 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory, $routeParams) {
 	var vm = this;
 	vm.init = function(){
 		$rootScope.showCover = false;
 		vm.selectedCategory = baseFactory.getSelectedCategory();
-		vm.name = dataService.getName();
+		vm.name = $routeParams.searchParam;
 		//google.maps.event.addDomListener(window, 'load', loadMap(28.012496, 73.336364));
 		checkForMaps();
 	};
