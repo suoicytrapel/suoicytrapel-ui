@@ -61,7 +61,7 @@
 							<div class="tab-pane lp-tab-pane active" id="tab1">
 								<ul>
 									<li ng-repeat="service in vm.detailedData.services" class="w2">
-										<span></span>
+										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
 										 {{service}}
 									</li>
 								</ul>
@@ -69,17 +69,72 @@
 							<div class="tab-pane lp-tab-pane" id="tab2">
 								<ul>
 									<li ng-repeat="amenity in vm.detailedData.amenities" class="w2">
+										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
 										{{amenity}}
-										<!-- <span class="fa fa-fw fa-check-square color-green"></span> -->
+										
 									</li>
 								</ul>
 							</div>
 							<div class="tab-pane lp-tab-pane" id="tab3">
+								<!--
 								<ul>
-									<li ng-repeat="room in vm.detailedData.rooms" class="w2">
-										{{room}}
+																	<li ng-repeat="room in vm.detailedData.rooms" class="w2">
+																		{{room}}
+																	</li>
+																</ul>-->
+								<div class="rooms-container">
+									<div class="roomCategory">Deluxe<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>3000/-</span> per night</span></div>
+								<ul class="room-services">
+									<li class="w2">
+										AC
+										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
+									<li class="w2">
+										
+										Fridge
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2">
+										LED
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2 disabled">
+										Locker
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2">
+										Hot Water
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>								
 								</ul>
+								</div>
+								
+								<div class="rooms-container">
+									<div class="roomCategory">Semi-Deluxe<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>3000/-</span> per night</span></div>
+								<ul class="room-services">
+									<li class="w2">
+										AC
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2">
+										
+										Fridge
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2">
+										LED
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2 disabled">
+										Locker
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>
+									<li class="w2">
+										Hot Water
+										<span class="fa fa-fw fa-check-square color-green"></span>
+									</li>								
+								</ul>
+								</div>
 							</div>
 						</div>
 					</div>
