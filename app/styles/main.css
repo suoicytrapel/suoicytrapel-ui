@@ -389,3 +389,7 @@ p.info, p.connect {
 .pagination{
 	float: right;
 }
+
+.link-text-color{
+	color : #656565;
+}

@@ -1,5 +1,7 @@
 app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory, Constants, $routeParams) {
 	var vm = this;
+	vm.tabName = [];
+	vm.tabData = [];
 	vm.init = function(){
 		$rootScope.showCover = false;
 		vm.selectedCategory = baseFactory.getSelectedCategory();
@@ -20,8 +22,12 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
 			vm.detailedData = data; 
+			angular.forEach(vm.detailedData.tabMap, function(value, key) {
+			  vm.tabName.push(key);
+			  vm.tabData.push(value);
+			});
 			if(vm.detailedData && vm.detailedData.attachments.length > 0)
-			vm.coverbgImageURL = Constants.WEB_HOST + vm.detailedData.attachments[0];
+			vm.coverbgImageURL = Constants.WEB_HOST + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);
 			//$('#dataPopupModal').modal('toggle');
 			//Broadcast load gallery event as soon as the images URL are available
@@ -70,7 +76,11 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
     });
 
     marker.setMap(map);
-}
+};
+
+	vm.getImageURL = function(imagePath){
+    	return Constants.WEB_HOST + imagePath;
+    };
 
 	
 	vm.init();

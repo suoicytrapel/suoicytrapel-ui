@@ -5,14 +5,16 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
 	vm.searchParam = HomeService.getSearchParam();
 	vm.selectedCategory = baseFactory.getSelectedCategory();
 	vm.offset = null;
-	$scope.pageSize = 10;
+	$scope.pageSize = 6;
   $scope.currentPage = 1;
   vm.filters = filters;
   vm.showServiceFilters = false;
   vm.showEstablishmentFilters = true;
   vm.showAmenityFilters = false;
   vm.showLocalityFilters = true;
-  vm.showRoomFilters = false;
+  vm.showRoomFilters = false; 
+  vm.setFromRecord = null;
+  vm.setToRecord = null;
       
     vm.fetchData = function(isFilterSearch){
     	vm.selectedFilters = [];
@@ -36,6 +38,7 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
   			if(vm.offset == 1){
   				vm.totalRecords = data.resultCount;
   			}
+        vm.setRecordNumber();
   		},function(error){
   			console.log(error);
   			vm.resultList = [];
@@ -111,6 +114,14 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
         }
       }
    	};
+
+    vm.setRecordNumber = function(){
+      vm.setFromRecord = ($scope.currentPage - 1) * ($scope.pageSize) + 1;
+      vm.setToRecord = ($scope.currentPage) * ($scope.pageSize);
+      if(vm.setToRecord > vm.totalRecords){
+        vm.setToRecord = vm.totalRecords;
+      }
+    };
 
    	vm.fetchData(false);
 

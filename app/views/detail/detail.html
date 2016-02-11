@@ -46,90 +46,41 @@
 				</div>
 				<div class="pamphlet-body" data-ng-show="vm.selectedCategory == 'VENUE'">
 					<ul class="nav nav-tabs nav-justified">
-						<li class="active lp-tabs">
-							<a data-target="#tab1" data-toggle="tab" href="javascript:void(0)">Services</a>
-						</li>
-						<li class="lp-tabs">
-							<a data-target="#tab2" data-toggle="tab" href="javascript:void(0)">Amenities</a>
-						</li>
-						<li class="lp-tabs" data-toggle="tab">
-							<a data-target="#tab3" data-toggle="tab" href="javascript:void(0)">Rooms</a>
+						<li ng-repeat ="tab in vm.tabName" ng-class="$index==0 ? 'active lp-tabs' : 'lp-tabs'">
+							<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
 						</li>
 					</ul>
-					<div class="lp-tabs-content">
+					<div  class="lp-tabs-content">
 						<div class="tab-content">
-							<div class="tab-pane lp-tab-pane active" id="tab1">
-								<ul>
-									<li ng-repeat="service in vm.detailedData.services" class="w2">
+							<div ng-repeat="(key, value) in vm.detailedData.tabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="tab{{$index}}">
+								<ul ng-if="key != 'Rooms'">
+									<li  ng-repeat="data in value" class="w2">
 										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
-										 {{service}}
+										 {{data.name}}
 									</li>
 								</ul>
-							</div>
-							<div class="tab-pane lp-tab-pane" id="tab2">
-								<ul>
-									<li ng-repeat="amenity in vm.detailedData.amenities" class="w2">
-										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
-										{{amenity}}
-										
-									</li>
-								</ul>
-							</div>
-							<div class="tab-pane lp-tab-pane" id="tab3">
-								<!--
-								<ul>
-																	<li ng-repeat="room in vm.detailedData.rooms" class="w2">
-																		{{room}}
-																	</li>
-																</ul>-->
-								<div class="rooms-container">
-									<div class="roomCategory">Deluxe<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>3000/-</span> per night</span></div>
+
+								<div ng-if="key == 'Rooms'" ng-repeat="room in value" class="rooms-container">
+									<div class="roomCategory">{{room.name}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{room.minCost}}/-</span> per night</span></div>
 								<ul class="room-services">
-									<li class="w2">
+									<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
 										AC
 										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
-									<li class="w2">
+									<li ng-class="room.fridgeAvailability ? 'w2' : 'w2 disabled'">
 										
 										Fridge
 										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
-									<li class="w2">
+									<li ng-class="room.ledAvailability ? 'w2' : 'w2 disabled'">
 										LED
 										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
-									<li class="w2 disabled">
+									<li ng-class="room.lockerAvailability ? 'w2' : 'w2 disabled'">
 										Locker
 										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>
-									<li class="w2">
-										Hot Water
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>								
-								</ul>
-								</div>
-								
-								<div class="rooms-container">
-									<div class="roomCategory">Semi-Deluxe<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>3000/-</span> per night</span></div>
-								<ul class="room-services">
-									<li class="w2">
-										AC
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										
-										Fridge
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
-										LED
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2 disabled">
-										Locker
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li class="w2">
+									<li ng-class="room.hotWaterAvailability ? 'w2' : 'w2 disabled'">
 										Hot Water
 										<span class="fa fa-fw fa-check-square color-green"></span>
 									</li>								
@@ -163,37 +114,13 @@
 				</div>
 				
 				<!-- ng-repeat goes from here for all the recommended items -->
-				<div class="recommended-pamphlet-container">
+				<div ng-repeat="reccomendation in vm.detailedData.recommendationList" class="recommended-pamphlet-container">
 				<div class="pamphlet-header recommended-pamphlet-image">
-					<img src="http://localhost:9001/images/BrooklynCentral.jpg" alt="cover-photo" class="vertical-center">
+					<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
 				</div>
 				<div class="pamphlet-body recommended-pamphlet-desc">
 								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
-									Brooklyn Central
-								</div>
-							</div>
-							<div class="pamphlet-footer"></div>
-			</div>
-			
-			<div class="recommended-pamphlet-container">
-				<div class="pamphlet-header recommended-pamphlet-image">
-					<img src="http://localhost:9001/images/BrooklynCentral.jpg" alt="cover-photo" class="vertical-center">
-				</div>
-				<div class="pamphlet-body recommended-pamphlet-desc">
-								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
-									Brooklyn Central
-								</div>
-							</div>
-							<div class="pamphlet-footer"></div>
-			</div>
-			
-			<div class="recommended-pamphlet-container">
-				<div class="pamphlet-header recommended-pamphlet-image">
-					<img src="http://localhost:9001/images/BrooklynCentral.jpg" alt="cover-photo" class="vertical-center">
-				</div>
-				<div class="pamphlet-body recommended-pamphlet-desc">
-								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
-									Brooklyn Central
+									{{reccomendation.name}}
 								</div>
 							</div>
 							<div class="pamphlet-footer"></div>

@@ -6,7 +6,7 @@
 				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.localities">
 				    <input ng-model='filter.checked' type='checkbox'>
 				    <label for="localityCheckBoxes">
-		            	{{filter.name}}
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 		        	</label>
 				</div>
 			</div>
@@ -19,7 +19,7 @@
 				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.establishments">
 				    <input ng-model='filter.checked' type='checkbox'>
 				    <label for="estCheckBoxes">
-		            	{{filter.name}}
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 		        	</label>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.amenities">
 				    <input ng-model='filter.checked' type='checkbox'>
 				    <label for="amenityCheckBoxes">
-		            	{{filter.name}}
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 		        	</label>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.rooms">
 				    <input ng-model='filter.checked' type='checkbox'>
 				    <label for="roomCheckBoxes">
-		            	{{filter.name}}
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 		        	</label>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 			<div  ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.services">
 		    	<input class="styled" ng-model='filter.checked' type='checkbox'>
 		    	<label for="serviceCheckBoxes">
-	            	{{filter.name}}
+	            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 	        	</label>
 			</div>
 		</div>
