@@ -384,3 +384,8 @@ p.info, p.connect {
 .color-green {
 	color: #1d9d74;
 }
+
+/* Overriding pagination style */
+.pagination{
+	float: right;
+}
