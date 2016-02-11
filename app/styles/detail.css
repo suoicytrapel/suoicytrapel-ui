@@ -129,3 +129,47 @@
 #map{
 	height: 400px;
 }
+
+.roomCategory, .banquetCategory{
+	padding-top: 10px;
+	font-size: 16px;
+	font-family: 'OpenSans-Semibold';
+}
+
+.room-services{
+	    -webkit-column-count: 3 !important;
+    -moz-column-count: 3 !important;
+    -o-column-count: 3 !important;
+    -ms-column-count: 3 !important;
+    column-count: 3 !important;
+    list-style: none;
+    border-bottom: 2px solid #dddddd;
+}
+
+.banquet-services{
+	    -webkit-column-count: 2 !important;
+    -moz-column-count: 2 !important;
+    -o-column-count: 2 !important;
+    -ms-column-count: 2 !important;
+    column-count: 2 !important;
+    list-style: none;
+    
+}
+
+.room-services li,
+.banquet-services li{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    font-size: 12px !important;
+}
+
+.roomPrice{
+	display: inline-block;
+	float: right;
+	font-family: 'OpenSans-Italic';
+}
+
+.room-services li.disabled,
+.banquet-services li.disabled{
+	opacity: 0.3;
+}
