@@ -2,12 +2,14 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	var vm = this;
 	vm.tabName = [];
 	vm.tabData = [];
+	vm.latitude = null;
+	vm.longitude = null;
+
 	vm.init = function(){
 		$rootScope.showCover = false;
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.name = $routeParams.searchParam;
-		//google.maps.event.addDomListener(window, 'load', loadMap(28.012496, 73.336364));
-		checkForMaps();
+		
 	};
 	vm.defineListeners =  function(){
 		vm.openGallery = function(){
@@ -22,6 +24,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
 			vm.detailedData = data; 
+			vm.latitude = vm.detailedData.latitude;
+			vm.longitude = vm.detailedData.longitude;
 			angular.forEach(vm.detailedData.tabMap, function(value, key) {
 			  vm.tabName.push(key);
 			  vm.tabData.push(value);
@@ -32,6 +36,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			//$('#dataPopupModal').modal('toggle');
 			//Broadcast load gallery event as soon as the images URL are available
 			$scope.$broadcast('loadGallery');
+			//google.maps.event.addDomListener(window, 'load', loadMap(28.012496, 73.336364));
+			checkForMaps();
 		},function(error){
 			console.log(error);
 		});
@@ -56,14 +62,14 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	function checkForMaps(){
 		var interval = setInterval(function(){
 			if (typeof google === 'object' && typeof google.maps === 'object') {
-        loadMap();
-        clearInterval(interval);
-    } 
-  },100);
+		        loadMap();
+		        clearInterval(interval);
+		    } 
+  		},100);
 	}
 	
 	function loadMap() {
-    	var myCenter = new google.maps.LatLng(28.012496, 73.336364);
+    	var myCenter = new google.maps.LatLng(vm.latitude, vm.longitude);
     	var mapProp = {
         	center: myCenter,
         	zoom: 8,
@@ -76,11 +82,24 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
     });
 
     marker.setMap(map);
-};
+	};
 
 	vm.getImageURL = function(imagePath){
     	return Constants.WEB_HOST + imagePath;
     };
+
+    vm.getReccomendationDetails = function(name){
+    	vm.name = name;
+    	vm.initializeData();
+    	vm.fetchDetails();
+    }
+
+    vm.initializeData = function(){
+    	vm.tabName = [];
+		vm.tabData = [];
+		vm.latitude = null;
+		vm.longitude = null;
+    }
 
 	
 	vm.init();

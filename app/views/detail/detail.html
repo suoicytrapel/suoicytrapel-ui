@@ -1,4 +1,4 @@
-<div class="">
+<div class="ng-cloak">
 	<div id="coverPage" class="detail-cover text-center" data-ng-click="vm.openGallery();" style="background-image:url({{vm.coverbgImageURL}})">
 		<button class="btn default-white-btn view-gallery-btn">View Gallery</button>
 		</div>
@@ -109,22 +109,25 @@
 					<!-- Adding recommended section for the User -->
 					
 			<div class="pamphlet-container recommended-pamphlet">
-								<div class="pamphlet-header recommended-pamphlet-header">
+				<div class="pamphlet-header recommended-pamphlet-header">
 					<div class="pamphlet-title recommended-pamphlet-title">Recommended by Us</div>
 				</div>
 				
 				<!-- ng-repeat goes from here for all the recommended items -->
 				<div ng-repeat="reccomendation in vm.detailedData.recommendationList" class="recommended-pamphlet-container">
-				<div class="pamphlet-header recommended-pamphlet-image">
-					<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
-				</div>
-				<div class="pamphlet-body recommended-pamphlet-desc">
-								<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
-									{{reccomendation.name}}
-								</div>
+					<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
+						<div class="pamphlet-header recommended-pamphlet-image">
+							<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
+						</div>
+						<div class="pamphlet-body recommended-pamphlet-desc">
+							<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
+								{{reccomendation.name}}
 							</div>
-							<div class="pamphlet-footer"></div>
-			</div>
+						</div>
+						<div class="pamphlet-footer"></div>
+					</a>
+				</div>
+
 			</div>
 		
 	</div>
