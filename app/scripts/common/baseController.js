@@ -20,6 +20,16 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		applyAutocomplete();
 		$rootScope.showCover = true;
 
+		/*Called when the view in ng-view has started loading and successfully loaded*/
+
+		$rootScope.$on("$routeChangeStart", function() {
+			$scope.showFooter = false;
+		});
+
+		$rootScope.$on("$routeChangeSuccess", function() {
+			$scope.showFooter = true;
+		});
+
 		/*Apply background color change function on window scroll*/
 		$(window).on('scroll', function() {
 			animateHeaderBgColor();
