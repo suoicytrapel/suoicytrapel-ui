@@ -205,33 +205,127 @@ p.info, p.connect {
 
 /* Footer css ends*/
 
-/* Header css */
+/* Header navbar css */
+.navbar-inverse{
+	/*background-color: #f37254;	*/
+	background-color: transparent;	
+}
 
-.lp-navbar {
-	position: fixed;
-	z-index: 101;
-	width: 100%;
-	background-color: transparent;
-	border-color: transparent;
-	border-radius: 0px;
+.navbar-inverse .navbar-toggle{
+	border-color: #ffffff;
+}
+
+.navbar-toggle {
+    position: relative;
+    float: right;
+    margin-right: 15px;
+    background-color: transparent;
+    background-image: none;
+    border-radius: 4px;
+        border: 0;
+    padding: 4px 4px 4px 0;
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    transform: scaleX(-1);
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
+}
+
+.navbar-brand {
+    float: left;
+    padding: 15px;
+    font-size: 18px;
+    line-height: 50px;
+    height: 80px;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 0)
+{.navbar-brand {
+    float: left;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1;
+    height: 50px;
+}
+}
+
+
+
+.navbar-inverse .navbar-nav>.active>a, 
+.navbar-inverse .navbar-nav>.active>a:focus, 
+.navbar-inverse .navbar-nav>.active>a:hover, 
+.navbar-inverse .navbar-nav>li>a:focus, 
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>li>a, .navbar-inverse .navbar-text {
+    color: #fff;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form, .navbar-inverse {
+    border-color: transparent;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #f15633;
+}
+
+.lp-header-navbar-nav > li > a {
+    padding-top: 30px;
+    padding-bottom: 30px;
+        border-top: 0px !important;
+}
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: transparent;
+}
+
+.lp-header-navbar-nav{
+	width: initial !important;
+    /* position: absolute; */
+    right: auto !important;
+    background: none !important;
+    top: initial !important;
+    z-index: auto !important;
+    margin-right: 0px;
+}
+
+
+.lp-select-city-menu{
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    margin: 20px 0px 20px 0px;
+    outline: none;
+    padding-left: 6px;
+    color: #FFFFFF;
+    background: none;
+    border-radius: 2px;
+    border: 1px solid #ffffff;
+
+}
+
+.lp-select-city-menu option{
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.lp-select-city{
+	display: inline-block;
+	float: right;
+	    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.location-icon{
 	color: #ffffff;
+	font-size: 20px;
 }
 
-.lp-navbar .navbar-brand {
-	color: #ffffff;
-}
 
-.lp-navbar .navbar-brand:hover, .lp-navbar .navbar-brand:focus {
-	color: #ffffff;
-}
-
-.lp-navbar select {
-	background-color: transparent;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	padding: 5px;
-}
-/* Header css ends*/
+/* Header navbar css ends*/
 
 .header {
 	width: 100%;
@@ -351,6 +445,12 @@ p.info, p.connect {
 	.nav li:first-child a {
 		border-top: none;
 	}
+	
+	.lp-select-city-menu{
+    height: 30px;
+    margin: 10px 0px 10px 0px;
+
+}
 }
 .header-bottom {
 	padding: 15% 0;

@@ -19,6 +19,11 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		chooseRibbonDefaultCategory();
 		applyAutocomplete();
 		$rootScope.showCover = true;
+
+		/*Apply background color change function on window scroll*/
+		$(window).on('scroll', function() {
+			animateHeaderBgColor();
+		});
 	};
 
 	/*	Applying watch on selectedCategory*/
@@ -59,6 +64,12 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		vm.indexActive = index;
 	};
 
+	function animateHeaderBgColor() {
+		var pageYoffset = window.pageYOffset, coverPage = document.getElementById("coverPage");
+		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined" && typeof coverPage != null && typeof coverPage != "undefined")
+			$("#navbar").css("background-color", "rgba(243, 114, 84, " + pageYoffset / coverPage.clientHeight + ")");
+	}
+
 	/* Commenting the autoComplete applied for ribbon search box
 	 function applyAutocomplete() {
 	 //Apply autocomplete when content is loaded on the page
@@ -94,33 +105,36 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 					vm.searchData = (ui.item.label);
 				}
 			});
+
+			//Apply Background color change function on scroll
+			animateHeaderBgColor();
 		});
 	};
 
-	vm.openContactForm = function(){
+	vm.openContactForm = function() {
 		$("#captcha").html("");
 		var template = '<simple-captcha valid="captchaValid"></simple-captcha>';
 		var captchaTemplate = angular.element(template);
 		//Now compile the template with scope $scope
 		$compile(captchaTemplate)($scope);
 		angular.element('#captcha').append(captchaTemplate);
-        $('#contactModal').modal('toggle');
-    };
+		$('#contactModal').modal('toggle');
+	};
 
-    vm.submitEnquiry = function(){
-        ContactFactory.submitEnquiry.submit(vm.contactForm).$promise.then(function(data) {
-            vm.contactForm = {};
-            $scope.form.contactForm.$setPristine();
-            $scope.form.contactForm.$setUntouched();
-            vm.submitted = false;
-            $('#contactModal').modal('toggle');
-        }, function(error) {
-        	$scope.form.contactForm.$setPristine();
-            vm.contactForm = {};
-            $('#contactModal').modal('toggle');
-            console.log(error);
-        });
-    };
+	vm.submitEnquiry = function() {
+		ContactFactory.submitEnquiry.submit(vm.contactForm).$promise.then(function(data) {
+			vm.contactForm = {};
+			$scope.form.contactForm.$setPristine();
+			$scope.form.contactForm.$setUntouched();
+			vm.submitted = false;
+			$('#contactModal').modal('toggle');
+		}, function(error) {
+			$scope.form.contactForm.$setPristine();
+			vm.contactForm = {};
+			$('#contactModal').modal('toggle');
+			console.log(error);
+		});
+	};
 
 	vm.init();
 	vm.defineListeners();
