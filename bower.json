@@ -18,7 +18,8 @@
     "font-awesome": "fontawesome#~4.5.0",
     "angularUtils-pagination": "angular-utils-pagination#^0.10.0",
     "awesome-bootstrap-checkbox": "^0.3.5",
-    "angular-ui-router": "^0.2.18"
+    "angular-ui-router": "^0.2.18",
+    "angular-spinner": "~0.8.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

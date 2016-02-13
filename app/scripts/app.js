@@ -19,6 +19,7 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'angularUtils.directives.dirPagination',
-    'ui.router'
+    'ui.router',
+    'angularSpinner'
   ])
   

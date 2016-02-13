@@ -33,6 +33,10 @@
     <![endif]-->
 
     <!-- Add your site or application content here new -->
+    <!-- Loader Screen for the application -->
+        <div class="loader-screen" data-ng-if="vm.showLoaderScreen">
+    	<span us-spinner="{color: 'rgb(243, 114, 84)'}" spinner-key="home-page-spinner" spinner-start-active="true"></span>
+    	</div>
     
     <!--Adding the header component of the application-->
     
@@ -68,6 +72,8 @@
     <script src="bower_components/Swiper/dist/js/swiper.js"></script>
     <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/spin.js/spin.js"></script>
+    <script src="bower_components/angular-spinner/angular-spinner.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -105,5 +111,6 @@
     <!--Adding the footer of the application-->
     
     <div data-ng-include="'views/footer/footer.html'" data-ng-show="showFooter"></div>  
+
 </body>
 </html>

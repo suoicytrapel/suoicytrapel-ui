@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, baseFactory, $timeout, $location, HomeFactory, HomeService, $compile, ContactFactory) {
+app.controller('baseController', function($scope, $rootScope, baseFactory, $timeout, $location, HomeFactory, HomeService, $compile, ContactFactory, usSpinnerService) {
 
 	var vm = this;
 	$scope.form = {};
@@ -14,33 +14,46 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
 		$rootScope.selectedCity = "1";
-		vm.ribbonOpened = false;
-		vm.ribbonIconClasses = ['fa-university', 'fa-cutlery', 'fa-birthday-cake', 'fa-camera', 'fa-cab', 'fa-beer'];
-		chooseRibbonDefaultCategory();
+
 		applyAutocomplete();
 		$rootScope.showCover = true;
 
 		/*Called when the view in ng-view has started loading and successfully loaded*/
 
 		$rootScope.$on("$routeChangeStart", function() {
+			//vm.startLoader();
 			$scope.showFooter = false;
 		});
 
 		$rootScope.$on("$routeChangeSuccess", function() {
 			$scope.showFooter = true;
+			//vm.stopLoader();
 		});
 
 		/*Apply background color change function on window scroll*/
 		$(window).on('scroll', function() {
 			animateHeaderBgColor();
 		});
+
+		vm.startLoader = function() {
+			usSpinnerService.spin('home-page-spinner');
+			vm.showLoaderScreen = true;			
+		};
+
+		vm.stopLoader = function() {
+			vm.showLoaderScreen = false;
+			usSpinnerService.stop('home-page-spinner');
+		};
+
+		vm.startLoader();
+
 	};
 
-	/*	Applying watch on selectedCategory*/
-	$scope.$watch(baseFactory.getSelectedCategory, function(newValue, oldValue) {
-		vm.selectedCategory = newValue;
-		chooseRibbonDefaultCategory();
-	});
+	/*	Applying watch on selectedCategory
+	 $scope.$watch(baseFactory.getSelectedCategory, function(newValue, oldValue) {
+	 vm.selectedCategory = newValue;
+	 chooseRibbonDefaultCategory();
+	 });*/
 
 	vm.categoryChanged = function() {
 		baseFactory.setSelectedCategory(vm.selectedCategory);
@@ -60,18 +73,7 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 			baseFactory.setSelectedCategory(updatedValue);
 			$scope.$broadcast('ribbonCategoryChanged', updatedValue);
 		};
-	};
 
-	function chooseRibbonDefaultCategory() {
-		var index = 0;
-		for (var category in vm.categoryMap) {
-			if (vm.categoryMap[category] == vm.selectedCategory)
-				break;
-			else
-				++index;
-		}
-		angular.element('.ribbon-tab:nth-child(' + (index + 1) + ')').addClass('active').siblings().removeClass('active');
-		vm.indexActive = index;
 	};
 
 	function animateHeaderBgColor() {
@@ -118,6 +120,9 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 
 			//Apply Background color change function on scroll
 			animateHeaderBgColor();
+
+			//Hiding loader screen when view has loaded completely
+			vm.stopLoader();
 		});
 	};
 

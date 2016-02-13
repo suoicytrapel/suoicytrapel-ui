@@ -493,3 +493,46 @@ p.info, p.connect {
 .link-text-color{
 	color : #656565;
 }
+
+
+/*loading screen styling*/
+.loader-screen{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	z-index: 1031;
+	background-image: url('../images/loader_bg.jpg');
+	background-repeat: repeat;
+	opacity: 1;
+}
+
+
+.loader-screen.ng-enter {
+  transition:0.5s linear all;
+  -webkit-transition:0.5s linear all;
+    -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  -ms-transition:0.5s linear all;
+  opacity:0;
+}
+
+
+.loader-screen.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+.loader-screen.ng-leave {
+  transition:0.5s linear all;
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  -ms-transition:0.5s linear all;
+  opacity:1;
+}
+.loader-screen.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+/*loading screen styling ends*/
