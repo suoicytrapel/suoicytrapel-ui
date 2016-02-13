@@ -100,7 +100,7 @@
         <!-- endbuild -->
 
          <!-- loading google map api in async and defer mode -->
-        <script src="scripts/google/GoogleMaps.min.js" async defer></script>
+        <script src="http://maps.googleapis.com/maps/api/js" async defer></script>
         
     <!-- <side-ribbon ></side-ribbon> -->
     
@@ -110,7 +110,7 @@
     
     <!--Adding the footer of the application-->
     
-    <div data-ng-include="'views/footer/footer.html'" data-ng-show="showFooter"></div>  
+    <div data-ng-include="'views/footer/footer.html'" data-ng-show="vm.showFooter"></div>  
 
 </body>
 </html>

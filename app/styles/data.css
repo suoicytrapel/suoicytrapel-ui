@@ -1,4 +1,6 @@
-
+.data-list{
+	min-height: 500px;
+}
 .results-number {
 	display: inline;
 }

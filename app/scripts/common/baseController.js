@@ -21,13 +21,13 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		/*Called when the view in ng-view has started loading and successfully loaded*/
 
 		$rootScope.$on("$routeChangeStart", function() {
-			//vm.startLoader();
-			$scope.showFooter = false;
+			vm.startLoader();
+			vm.showFooter = false;
 		});
 
 		$rootScope.$on("$routeChangeSuccess", function() {
-			$scope.showFooter = true;
-			//vm.stopLoader();
+			vm.showFooter = true;
+			vm.stopLoader();
 		});
 
 		/*Apply background color change function on window scroll*/
