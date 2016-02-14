@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, baseFactory, $timeout, $location, HomeFactory, HomeService, $compile, ContactFactory, usSpinnerService) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, HomeService, $compile, ContactFactory, usSpinnerService) {
 
 	var vm = this;
 	$scope.form = {};
@@ -21,14 +21,15 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 		/*Called when the view in ng-view has started loading and successfully loaded*/
 
 		$rootScope.$on("$routeChangeStart", function() {
-			vm.startLoader();
 			vm.showFooter = false;
 		});
 
 		$rootScope.$on("$routeChangeSuccess", function() {
 			vm.showFooter = true;
-			vm.stopLoader();
+			window.scrollTo(0,0);
 		});
+		
+		window.scrollTo(0,0);
 
 		/*Apply background color change function on window scroll*/
 		$(window).on('scroll', function() {
@@ -61,6 +62,7 @@ app.controller('baseController', function($scope, $rootScope, baseFactory, $time
 
 	vm.clicked = function() {
 		HomeService.setSearchParam(vm.searchData);
+		$route.reload();
 		$location.path('/search/');
 	};
 	/*Defining Listeners*/
