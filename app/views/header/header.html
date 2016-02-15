@@ -11,11 +11,19 @@
 				<img src="" height="50px;" alt="logo-image"></a>
 				</div><!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="lp-select-city">
-					<span class="fa fw fa-street-view location-icon"></span>
+					<!--
 					<select class="lp-select-city-menu">
-						<option value="Bikaner">Bikaner</option>
-						<option value="Chandigarh">Chandigarh</option>
-					</select>
+											<option value="Bikaner">Bikaner</option>
+											<option value="Chandigarh">Chandigarh</option>
+										</select>-->
+					<div class="lp-select-city-text" ng-click="vm.toggleDropdown()">
+						<span class="lp-selected-city">Bikaner</span>
+						<span class="fa fa-fw fa-map-marker float-right"></span>
+						</div>
+					<ul class="lp-city-dropdown">
+						<li><a href='javascript:void(0)' data-ng-click='vm.setCity($event)'>Bikaner</a></li>
+						<li><a href='javascript:void(0)' data-ng-click='vm.setCity($event)'>Chandigarh</a></li>
+					</ul>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<!--

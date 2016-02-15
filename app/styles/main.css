@@ -165,6 +165,13 @@ a:hover, a:focus {
 	color: #F37254;
 }
 
+.float-right{
+	float: right;
+}
+
+.float-left{
+	float: left;
+}
 /* Footer css */
 
 #footer {
@@ -314,11 +321,48 @@ p.info, p.connect {
 
 .lp-select-city{
 	display: inline-block;
-	float: right;
-	    margin-right: 0px;
-    margin-left: 0px;
+	float: left;
+	margin-right: 0px;
+    margin-left: 60%;
 }
 
+.lp-select-city-text{
+	height: 40px;
+	width: 120px;
+	margin: 20px 0px 0px 0px;
+	color: #FFFFFF;
+    background: none;
+    border-radius: 2px;
+    border: 1px solid #ffffff;
+         padding: 10px 4px;
+}
+
+.lp-city-dropdown{
+	display: none;
+    background: white;
+    border-radius: 2px;
+    position: relative;
+    top: -40px;
+}
+
+.lp-city-dropdown li{
+	height: 30px;
+	line-height: 30px;
+}
+
+.lp-city-dropdown li:hover a,
+.lp-city-dropdown li:focus a{
+	color: #FFFFFF;
+	background-color: #656565;
+}
+
+.lp-city-dropdown li a{
+	padding-left: 4px;
+		color: #656565;
+		display: block;
+		height: 100%;
+		width: 100%;
+}
 .location-icon{
 	color: #ffffff;
 	font-size: 20px;
@@ -502,9 +546,9 @@ p.info, p.connect {
 	right: 0px;
 	top: 0px;
 	bottom: 0px;
-	z-index: 1031;
-	background-image: url('../images/loader_bg.jpg');
-	background-repeat: repeat;
+	z-index: 1051;
+/*background-image: url('../images/loader_bg.jpg');
+	background-repeat: repeat;*/
 	opacity: 1;
 }
 

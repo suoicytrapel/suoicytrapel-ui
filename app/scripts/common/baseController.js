@@ -65,6 +65,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$route.reload();
 		$location.path('/search/');
 	};
+	
+	vm.setCity = function($event){
+		var selectedCityName = angular.element($event.currentTarget)[0].innerHTML;
+		angular.element('.lp-selected-city').text(selectedCityName);
+		vm.toggleDropdown();
+	};
+	
+	vm.toggleDropdown = function(){
+		$('.lp-city-dropdown').slideToggle();
+	};
 	/*Defining Listeners*/
 	vm.defineListeners = function() {
 
