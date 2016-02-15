@@ -213,6 +213,8 @@ p.info, p.connect {
 /* Footer css ends*/
 
 /* Header navbar css */
+
+
 .navbar-inverse{
 	/*background-color: #f37254;	*/
 	background-color: transparent;	
@@ -254,8 +256,15 @@ p.info, p.connect {
     line-height: 1;
     height: 50px;
 }
+
 }
 
+@media only screen and (min-width: 767px)
+{
+#navbar{
+	max-height: 80px;
+}
+}
 
 
 .navbar-inverse .navbar-nav>.active>a, 
