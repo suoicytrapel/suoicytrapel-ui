@@ -85,6 +85,8 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
       for(var k in vm.filters.establishments){
         vm.filters.establishments[k].checked = false;
       }
+      vm.selectedFilters = [];
+      vm.fetchData(false);
    	};
 
    	vm.getSelectedFilters = function(){
