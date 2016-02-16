@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory, Constants, $routeParams) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory, Constants, $routeParams, $window) {
 	var vm = this;
 	vm.tabName = [];
 	vm.tabData = [];
@@ -13,6 +13,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	};
 	vm.defineListeners =  function(){
 		vm.openGallery = function(){
+			$window.ga('send', 'event', 'View Gallery', 'File Name');
 			$scope.$broadcast('showGallery');
 		};
 	};
@@ -89,6 +90,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
     };
 
     vm.getReccomendationDetails = function(name){
+    	$window.ga('send', 'event', 'View Recommended Item', name, vm.selectedCategory);
     	vm.name = name;
     	vm.initializeData();
     	vm.fetchDetails();
