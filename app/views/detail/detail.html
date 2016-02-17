@@ -46,7 +46,7 @@
 				</div>
 				<div class="pamphlet-body" data-ng-show="vm.selectedCategory == 'VENUE'">
 					<ul class="nav nav-tabs nav-justified">
-						<li ng-repeat ="tab in vm.tabName" ng-class="$index==0 ? 'active lp-tabs' : 'lp-tabs'">
+						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
 							<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
 						</li>
 					</ul>

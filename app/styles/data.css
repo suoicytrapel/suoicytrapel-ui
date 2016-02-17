@@ -78,3 +78,27 @@
 	height: inherit;
 }
 
+/* Applying animations on data page records */
+.data-page-record.ng-enter, 
+.data-page-record.ng-move{
+	-webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+  top: 10px;
+}
+
+.data-page-record.ng-enter.ng-enter-active, 
+.data-page-record.ng-move.ng-move-active{
+		-webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+	opacity: 1;
+	top: 0px;
+}
+
+.data-page-record.ng-leave{
+	opacity: 0;
+}

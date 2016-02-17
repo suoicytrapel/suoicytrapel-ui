@@ -119,8 +119,14 @@
 }
 
 .recommended-pamphlet-image{
-	padding: 15px !important;
+	/*padding: 15px !important;*/
+	overflow: hidden;
 }
+
+.recommended-pamphlet-container{
+	padding: 15px;
+}
+
 
 .recommended-pamphlet-desc{
 	height: 30px !important;
@@ -172,5 +178,14 @@
 .room-services li.disabled,
 .banquet-services li.disabled{
 	opacity: 0.3;
+}
+
+.single-tab{
+	width: 50% !important;
+}
+
+.single-tab > a:hover{
+	border-left: none !important;
+	border-right: none !important;
 }
 
