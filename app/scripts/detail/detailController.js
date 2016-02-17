@@ -32,7 +32,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			  vm.tabData.push(value);
 			});
 			if(vm.detailedData && vm.detailedData.attachments.length > 0)
-			vm.coverbgImageURL = Constants.WEB_HOST + vm.detailedData.attachments[0].imageURL;
+			vm.coverbgImageURL = baseFactory.getWebURL() + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);
 			//$('#dataPopupModal').modal('toggle');
 			//Broadcast load gallery event as soon as the images URL are available
@@ -86,7 +86,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	};
 
 	vm.getImageURL = function(imagePath){
-    	return Constants.WEB_HOST + imagePath;
+    	return baseFactory.getWebURL() + imagePath;
     };
 
     vm.getReccomendationDetails = function(name){
