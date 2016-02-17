@@ -47,7 +47,7 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
     };
 
     vm.getImageURL = function(imagePath){
-    	return Constants.WEB_HOST + imagePath;
+    	return baseFactory.getWebURL() + imagePath;
     };
 
     $scope.pageChangeHandler = function(newPageNumber){

@@ -2,7 +2,7 @@
  * @author Anku
  */
 
-app.factory('baseFactory',function(){
+app.factory('baseFactory',function($location){
 	var baseFactory = {};
 	baseFactory.selectedCity = '1';
 	baseFactory.selectedCategory = 'VENUE';
@@ -31,6 +31,11 @@ app.factory('baseFactory',function(){
 	baseFactory.setSelectedCategory = function(category){
 		baseFactory.selectedCategory = category;
 	};
-	
+
+	baseFactory.getWebURL = function(){
+		var webHostURL = $location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/images/';
+		return webHostURL;
+	};
+		
 	return baseFactory;
 });
