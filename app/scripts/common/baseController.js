@@ -22,11 +22,13 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		$rootScope.$on("$routeChangeStart", function() {
 			vm.showFooter = false;
+			vm.startLoader();
 		});
 
 		$rootScope.$on("$routeChangeSuccess", function() {
 			vm.showFooter = true;
 			window.scrollTo(0,0);
+			vm.stopLoader();
 		});
 		
 		window.scrollTo(0,0);
