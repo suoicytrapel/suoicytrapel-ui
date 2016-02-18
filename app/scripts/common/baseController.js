@@ -32,6 +32,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		});
 		
 		window.scrollTo(0,0);
+		
+		/* Sliding up location dropdown on clicking anywhere on the page */
+		$(document).on('click',function(e){
+			if(!($(e.target).hasClass('lp-select-city-text')))
+			$('.lp-city-dropdown').slideUp();
+		});
 
 		/*Apply background color change function on window scroll*/
 		$(window).on('scroll', function() {

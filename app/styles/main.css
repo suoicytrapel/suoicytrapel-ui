@@ -514,6 +514,7 @@ p.info, p.connect {
 	top: 0px;
 	bottom: 0px;
 	z-index: 1051;
+	    background: rgba(255,255,255,1);
 /*background-image: url('../images/loader_bg.jpg');
 	background-repeat: repeat;*/
 	opacity: 1;
