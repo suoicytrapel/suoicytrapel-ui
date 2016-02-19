@@ -38,6 +38,10 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         controller: 'detailController',
         templateUrl: 'views/detail/detail.html',
         controllerAs: 'vm'
+    }).when('/aboutus/', {
+        url:'/aboutus',
+        controller: '',
+        templateUrl: 'views/about/about.html',
     })
     .otherwise({ redirectTo: '/' });
 

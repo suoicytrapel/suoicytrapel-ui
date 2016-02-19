@@ -35,6 +35,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		
 		/* Sliding up location dropdown on clicking anywhere on the page */
 		$(document).on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation();
 			if(!($(e.target).hasClass('lp-select-city-text')))
 			$('.lp-city-dropdown').slideUp();
 		});
@@ -68,6 +70,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		baseFactory.setSelectedCategory(vm.selectedCategory);
 	};
 
+	vm.hideCover = function(){
+		$rootScope.showCover = false;
+	};
 	vm.clicked = function() {
 		HomeService.setSearchParam(vm.searchData);
 		$route.reload();

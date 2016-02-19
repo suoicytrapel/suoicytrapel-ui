@@ -1,0 +1,15 @@
+.team-name{
+	font-weight: 700;
+	font-size: 16px;	
+}
+.team-designation{
+	font-family: 'OpenSans-Italic';
+}
+
+.team-members{
+	padding-top: 30px;
+}
+
+.team-image{
+	border: 2px solid #656565;
+}
