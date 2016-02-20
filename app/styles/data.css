@@ -79,26 +79,60 @@
 }
 
 /* Applying animations on data page records */
-.data-page-record.ng-enter, 
-.data-page-record.ng-move{
-	-webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
-  -o-transition:0.5s linear all;
-  transition:0.5s linear all;
-  opacity:0;
-  top: 10px;
+.data-page-record.ng-enter, .data-page-record.ng-move {
+	-webkit-transition: 0.5s linear all;
+	-moz-transition: 0.5s linear all;
+	-o-transition: 0.5s linear all;
+	transition: 0.5s linear all;
+	opacity: 0;
+	top: 10px;
 }
 
-.data-page-record.ng-enter.ng-enter-active, 
-.data-page-record.ng-move.ng-move-active{
-		-webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
-  -o-transition:0.5s linear all;
-  transition:0.5s linear all;
+.data-page-record.ng-enter.ng-enter-active, .data-page-record.ng-move.ng-move-active {
+	-webkit-transition: 0.5s linear all;
+	-moz-transition: 0.5s linear all;
+	-o-transition: 0.5s linear all;
+	transition: 0.5s linear all;
 	opacity: 1;
 	top: 0px;
 }
 
-.data-page-record.ng-leave{
+.data-page-record.ng-leave {
 	opacity: 0;
+}
+
+.filter-btn {
+	background-color: rgba(0,0,0,0);
+	font-weight: 600;
+	font-size: 14px;
+	border: 2px solid #f37254;
+	color: #f37245;
+	text-transform: uppercase;
+	border-radius: 4px;
+	padding: 8px 12px;
+}
+
+.filter-btn:hover,
+.filter-btn:focus{
+	background-color: #f37254;
+	border: 2px solid #f37254;
+	color: #ffffff;
+}
+
+.reset-btn {
+	background-color: rgba(0,0,0,0);
+	font-weight: 600;
+	font-size: 14px;
+	border: 2px solid #656565;
+	color: #656565;
+	text-transform: uppercase;
+	border-radius: 4px;
+	padding: 8px 12px;
+}
+
+.reset-btn:hover,
+.reset-btn:focus{
+	background-color: #656565;
+	border: 2px solid #656565;
+	color: #ffffff;
 }

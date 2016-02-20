@@ -13,6 +13,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.init = function() {
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
+		vm.coverUrl = '/images/main_cover.jpg';
 		$rootScope.selectedCity = "1";
 
 		applyAutocomplete();
@@ -23,11 +24,13 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$rootScope.$on("$routeChangeStart", function() {
 			vm.showFooter = false;
 			vm.startLoader();
+			
 		});
 
 		$rootScope.$on("$routeChangeSuccess", function() {
 			vm.showFooter = true;
 			window.scrollTo(0,0);
+			vm.coverUrl = baseFactory.getCoverUrl();
 			vm.stopLoader();
 		});
 		
@@ -70,12 +73,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		baseFactory.setSelectedCategory(vm.selectedCategory);
 	};
 
-	vm.hideCover = function(){
-		$rootScope.showCover = false;
-	};
 	vm.clicked = function() {
 		HomeService.setSearchParam(vm.searchData);
 		$route.reload();
+		baseFactory.setCoverUrl(vm.selectedCategory);
 		$location.path('/search/');
 	};
 	

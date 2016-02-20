@@ -13,3 +13,11 @@
 .team-image{
 	border: 2px solid #656565;
 }
+
+.generic-cover{
+	display: table;
+}
+
+.cover-text{
+	display: table-cell;
+}

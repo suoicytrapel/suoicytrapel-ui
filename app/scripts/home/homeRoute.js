@@ -12,6 +12,9 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
 				},function(error){
 					return error;
 				})
+	        },
+	        changeCover: function(baseFactory){
+	        	baseFactory.setCoverUrl('Home');
 	        }
     	}
     }).when('/search/', {
@@ -42,6 +45,11 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         url:'/aboutus',
         controller: '',
         templateUrl: 'views/about/about.html',
+        resolve: {
+        	hideCover: function($rootScope){
+        		$rootScope.showCover = false;
+        	}
+        }
     })
     .otherwise({ redirectTo: '/' });
 

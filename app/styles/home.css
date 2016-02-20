@@ -13,11 +13,11 @@
 	height: 400px;
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
-	background-position: right top !important;
+	background-position: center center !important;
 	background-attachment: fixed !important;
 	color: #fff;
 	height: 500px;
-	background-image: url('../../images/Play_ScreenMain2.jpg');
+	background-image: url('/images/main_cover.jpg');
 }
 
 #coverPage .content-wrapper {
