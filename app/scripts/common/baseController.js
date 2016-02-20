@@ -122,8 +122,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$scope.$on('$viewContentLoaded', function() {
 			angular.element('.home-search-box').autocomplete({
 				source : function(request, response) {
-					if (request.term.length > 2) {
-						console.log(request.term);
+					if (request.term.length > 1) {
 						var searchRequestDTO = {
 							searchType : vm.selectedCategory,
 							searchString : request.term,

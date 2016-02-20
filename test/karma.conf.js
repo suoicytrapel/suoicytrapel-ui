@@ -37,6 +37,9 @@ module.exports = function(config) {
       'bower_components/jquery-ui/jquery-ui.js',
       'bower_components/Swiper/dist/js/swiper.js',
       'bower_components/angularUtils-pagination/dirPagination.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/spin.js/spin.js',
+      'bower_components/angular-spinner/angular-spinner.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

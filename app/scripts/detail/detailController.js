@@ -91,9 +91,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
     vm.getReccomendationDetails = function(name){
     	$window.ga('send', 'event', 'View Recommended Item', name, vm.selectedCategory);
-    	vm.name = name;
-    	vm.initializeData();
-    	vm.fetchDetails();
+    	//vm.name = name;
+    	$location.path('/details/' + name);
     }
 
     vm.initializeData = function(){

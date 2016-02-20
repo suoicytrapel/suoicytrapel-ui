@@ -20,7 +20,7 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 	vm.getImageURL = function(imageURLs) {
 		var images = [];
 		for (var k in imageURLs) {
-			images.push(Constants.WEB_HOST + imageURLs[k].imageURL);
+			images.push(baseFactory.getWebURL() + imageURLs[k].imageURL);
 		}
 		return images;
 	};
