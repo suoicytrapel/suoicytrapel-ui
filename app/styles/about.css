@@ -21,3 +21,7 @@
 .cover-text{
 	display: table-cell;
 }
+
+.about-us-cover{
+	background-image: url('/images/about_us_cover.jpg')!important;
+}

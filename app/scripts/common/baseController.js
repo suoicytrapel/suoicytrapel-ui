@@ -38,9 +38,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		
 		/* Sliding up location dropdown on clicking anywhere on the page */
 		$(document).on('click',function(e){
-			e.preventDefault();
-			e.stopPropagation();
-			if(!($(e.target).hasClass('lp-select-city-text')))
+			//e.preventDefault();
+			//e.stopPropagation();
+			if(!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon')))
 			$('.lp-city-dropdown').slideUp();
 		});
 

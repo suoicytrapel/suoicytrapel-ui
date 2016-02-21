@@ -97,7 +97,7 @@
 }
 
 .lp-sprite {
-	background-image: url('../../images/spritesheet.png');
+	background-image: url('/images/spritesheet.png');
 	background-repeat: no-repeat;
 	display: inline-block;
 	width: 72px;
@@ -109,15 +109,15 @@
 }
 
 .lp-caterer-icon {
-	background-position: -5px -5px;
-}
-
-.lp-decor-icon {
 	background-position: -87px -5px;
 }
 
+.lp-decor-icon {
+	background-position: -5px -87px;
+}
+
 .lp-photography-icon {
-	background-position: -87px -87px;
+	background-position: -5px -5px;
 }
 
 .lp-rental-icon {
@@ -125,7 +125,7 @@
 }
 
 .lp-hospitality-icon {
-	background-position: -5px -87px;
+	background-position: -87px -87px;
 }
 
 .portfolioSlider .swiper-container {
