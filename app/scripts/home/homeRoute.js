@@ -15,6 +15,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
 	        },
 	        changeCover: function(baseFactory){
 	        	baseFactory.setCoverUrl('Home');
+	        	baseFactory.setMainCoverHeading('Making Moments Memorable');
 	        }
     	}
     }).when('/search/', {

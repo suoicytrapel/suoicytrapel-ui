@@ -31,6 +31,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			vm.showFooter = true;
 			window.scrollTo(0,0);
 			vm.coverUrl = baseFactory.getCoverUrl();
+			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 			vm.stopLoader();
 		});
 		
@@ -77,6 +78,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		HomeService.setSearchParam(vm.searchData);
 		$route.reload();
 		baseFactory.setCoverUrl(vm.selectedCategory);
+		baseFactory.setMainCoverHeading(vm.selectedCategory);
 		$location.path('/search/');
 	};
 	

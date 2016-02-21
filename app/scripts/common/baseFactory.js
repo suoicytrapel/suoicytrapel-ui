@@ -7,6 +7,7 @@ app.factory('baseFactory', function($location) {
 	baseFactory.selectedCity = '1';
 	baseFactory.selectedCategory = 'VENUE';
 	baseFactory.coverUrl = '/images/main_cover.jpg';
+	baseFactory.mainCoverHeading = 'Making Moments Memorable';
 	baseFactory.categoryMap = {
 
 		Venues : 'VENUE',
@@ -60,6 +61,34 @@ app.factory('baseFactory', function($location) {
 	
 	baseFactory.getCoverUrl = function(){
 		return baseFactory.coverUrl;
+	};
+	
+	baseFactory.setMainCoverHeading = function(coverHeading){
+		switch(coverHeading) {
+			case 'VENUE':
+				baseFactory.mainCoverHeading = 'VENUES';
+				break;
+			case 'CATERER':
+				baseFactory.mainCoverHeading = 'CATERERS';
+				break;
+			case 'DECORATOR':
+				baseFactory.mainCoverHeading = 'DECORATORS';
+				break;
+			case 'PHOTOGRAPHER':
+				baseFactory.mainCoverHeading = 'PHOTOGRAPHERS';
+				break;
+			case 'RENTAL':
+				baseFactory.mainCoverHeading = 'RENTALS';
+				break;
+			default:
+				baseFactory.mainCoverHeading = 'Making Moments Memorable';
+				break;
+
+		};
+	};
+	
+	baseFactory.getMainCoverHeading = function(){
+		return baseFactory.mainCoverHeading;
 	};
 
 	baseFactory.getWebURL = function() {
