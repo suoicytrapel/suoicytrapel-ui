@@ -25,3 +25,16 @@
 .about-us-cover{
 	background-image: url('/images/about_us_cover.jpg')!important;
 }
+
+/* faq styling starts */
+.faq-question-text{
+	font-size: 18px;
+}
+
+.faq-question-text::before{
+	/*content: '\2022';*/
+}
+.faq-answer-text{
+	font-size: 18px;
+	padding-bottom: 20px;
+}

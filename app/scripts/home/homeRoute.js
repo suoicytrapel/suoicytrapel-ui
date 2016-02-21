@@ -51,6 +51,15 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         		$rootScope.showCover = false;
         	}
         }
+    }).when('/faq/', {
+        url:'/faq',
+        controller: '',
+        templateUrl: 'views/faq/faq.html',
+        resolve: {
+        	hideCover: function($rootScope){
+        		$rootScope.showCover = false;
+        	}
+        }
     })
     .otherwise({ redirectTo: '/' });
 
