@@ -1,137 +1,164 @@
 <div class="ng-cloak">
 	<div id="coverPage" class="detail-cover text-center" data-ng-click="vm.openGallery();" style="background-image:url({{vm.coverbgImageURL}})">
-		<button class="btn default-white-btn view-gallery-btn">View Gallery</button>
-		</div>
-<div class="row">
-	<div class="details-container row">
-		<div class="col-xs-12 col-sm-offset-1 col-sm-6">
-			<div class="row">
-				<h2 class="details-name">{{vm.detailedData.name}}</h2>
-				<div class="details-address">
-					{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
-				</div>
-				<div class="details-city">
-					{{vm.detailedData.city}}, {{vm.detailedData.state}}
-				</div>
-				<div class="details-telephone">
-					{{vm.detailedData.primaryPhoneNumber}}, {{vm.detailedData.secondaryPhoneNumber}}
+		<button class="btn default-white-btn view-gallery-btn">
+			View Gallery
+		</button>
+	</div>
+	<div class="row">
+		<div class="details-container row">
+			<div class="col-xs-12 col-sm-offset-1 col-sm-6">
+				<div class="row">
+					<h2 class="details-name">{{vm.detailedData.name}}</h2>
+					<div class="details-address">
+						{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
+					</div>
+					<div class="details-city">
+						{{vm.detailedData.city}}, {{vm.detailedData.state}}
+					</div>
+					<div class="details-telephone">
+						{{vm.detailedData.primaryPhoneNumber}}, {{vm.detailedData.secondaryPhoneNumber}}
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row bg-grey">
-	<div class="gap20"></div>
-	<div class="col-xs-12 col-sm-offset-1 col-sm-6">
-		<div class="row">
-			<!--Adding Description for the vendor-->
-			<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						why party at <span class="name">{{vm.detailedData.name}}</span>
+	<div class="row bg-grey">
+		<div class="gap20"></div>
+		<div class="col-xs-12 col-sm-offset-1 col-sm-6">
+			<div class="row">
+				<!--Adding Description for the vendor-->
+				<div class="pamphlet-container details-pamphlet">
+					<div class="pamphlet-header">
+						<div class="pamphlet-title">
+							why should you choose <span class="name">{{vm.detailedData.name}}</span>
+						</div>
+					</div>
+					<div class="pamphlet-body">
+						{{vm.detailedData.description}}
 					</div>
 				</div>
-				<div class="pamphlet-body">
-					{{vm.detailedData.description}}
-				</div>
-			</div>
-			<!--Adding Amenities and Services-->
-			<div class="pamphlet-container details-pamphlet amenities-services">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-cog"></span>
-						Amenities &amp; Services
+				<!-- Adding Menu Images for Caterers -->
+				<div class="pamphlet-container details-pamphlet caterer-menu">
+					<div class="pamphlet-header">
+						<div class="pamphlet-title">
+							Menu
+						</div>
+					</div>
+					<div class="pamphlet-body">
+						<div class="row">
+							<div class="col-xs-6 col-md-4 col-lg-3">
+						<a href="/images/caterer_cover.jpg" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> 
+							<img src="/images/caterer_cover.jpg" alt="Thumbnail One" class="img-responsive"/> 
+							</a>
+							</div>
+							<div class="col-xs-6 col-md-4 col-lg-3">
+						<a href="/images/about_us_cover.jpg" target="_self" class="boxer" title="Caption Two" data-gallery="gallery"> 
+							<img src="/images/about_us_cover.jpg" alt="Thumbnail Two" class="img-responsive"/> 
+							</a>
+							</div>
+							
+							</div>
 					</div>
 				</div>
-				<div class="pamphlet-body" data-ng-show="vm.selectedCategory == 'VENUE'">
-					<ul class="nav nav-tabs nav-justified">
-						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
-							<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
-						</li>
-					</ul>
-					<div  class="lp-tabs-content">
-						<div class="tab-content">
-							<div ng-repeat="(key, value) in vm.detailedData.tabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="tab{{$index}}">
-								<ul ng-if="key != 'Rooms'">
-									<li  ng-repeat="data in value" class="w2">
-										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
-										 {{data.name}}
-									</li>
-								</ul>
+				<!--Adding Amenities and Services-->
+				<div class="pamphlet-container details-pamphlet amenities-services">
+					<div class="pamphlet-header">
+						<div class="pamphlet-title">
+							<span class="fa fa-fw fa-cog"></span>
+							Amenities &amp; Services
+						</div>
+					</div>
+					<div class="pamphlet-body" data-ng-show="vm.selectedCategory == 'VENUE'">
+						<ul class="nav nav-tabs nav-justified">
+							<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
+								<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
+							</li>
+						</ul>
+						<div  class="lp-tabs-content">
+							<div class="tab-content">
+								<div ng-repeat="(key, value) in vm.detailedData.tabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="tab{{$index}}">
+									<ul ng-if="key != 'Rooms'">
+										<li  ng-repeat="data in value" class="w2">
+											<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
+											{{data.name}}
+										</li>
+									</ul>
 
-								<div ng-if="key == 'Rooms'" ng-repeat="room in value" class="rooms-container">
-									<div class="roomCategory">{{room.name}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{room.minCost}}/-</span> per night</span></div>
-								<ul class="room-services">
-									<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
-										AC
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li ng-class="room.fridgeAvailability ? 'w2' : 'w2 disabled'">
-										
-										Fridge
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li ng-class="room.ledAvailability ? 'w2' : 'w2 disabled'">
-										LED
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li ng-class="room.lockerAvailability ? 'w2' : 'w2 disabled'">
-										Locker
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>
-									<li ng-class="room.hotWaterAvailability ? 'w2' : 'w2 disabled'">
-										Hot Water
-										<span class="fa fa-fw fa-check-square color-green"></span>
-									</li>								
-								</ul>
+									<div ng-if="key == 'Rooms'" ng-repeat="room in value" class="rooms-container">
+										<div class="roomCategory">
+											{{room.name}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{room.minCost}}/-</span> per night</span>
+										</div>
+										<ul class="room-services">
+											<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
+												AC
+												<span class="fa fa-fw fa-check-square color-green"></span>
+											</li>
+											<li ng-class="room.fridgeAvailability ? 'w2' : 'w2 disabled'">
+
+												Fridge
+												<span class="fa fa-fw fa-check-square color-green"></span>
+											</li>
+											<li ng-class="room.ledAvailability ? 'w2' : 'w2 disabled'">
+												LED
+												<span class="fa fa-fw fa-check-square color-green"></span>
+											</li>
+											<li ng-class="room.lockerAvailability ? 'w2' : 'w2 disabled'">
+												Locker
+												<span class="fa fa-fw fa-check-square color-green"></span>
+											</li>
+											<li ng-class="room.hotWaterAvailability ? 'w2' : 'w2 disabled'">
+												Hot Water
+												<span class="fa fa-fw fa-check-square color-green"></span>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		
-		<!-- Adding Map for the location -->
-		<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						Getting Around is easy !!
+
+				<!-- Adding Map for the location -->
+				<div class="pamphlet-container details-pamphlet">
+					<div class="pamphlet-header">
+						<div class="pamphlet-title">
+							Getting Around is easy !!
+						</div>
 					</div>
-				</div>
-				<div class="pamphlet-body">
-					<div id="map"></div>
+					<div class="pamphlet-body">
+						<div id="map"></div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="col-xs-12 col-sm-4">
-					<!-- Adding recommended section for the User -->
-					
+		<div class="col-xs-12 col-sm-4">
+			<!-- Adding recommended section for the User -->
+
 			<div class="pamphlet-container recommended-pamphlet">
 				<div class="pamphlet-header recommended-pamphlet-header">
-					<div class="pamphlet-title recommended-pamphlet-title">Recommended by Us</div>
+					<div class="pamphlet-title recommended-pamphlet-title">
+						Recommended by Us
+					</div>
 				</div>
-				
+
 				<!-- ng-repeat goes from here for all the recommended items -->
 				<div ng-repeat="reccomendation in vm.detailedData.recommendationList" class="recommended-pamphlet-container">
 					<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
-						<div class="pamphlet-header recommended-pamphlet-image">
-							<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
+					<div class="pamphlet-header recommended-pamphlet-image">
+						<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
+					</div>
+					<div class="pamphlet-body recommended-pamphlet-desc">
+						<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
+							{{reccomendation.name}}
 						</div>
-						<div class="pamphlet-body recommended-pamphlet-desc">
-							<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
-								{{reccomendation.name}}
-							</div>
-						</div>
-						<div class="pamphlet-footer"></div>
-					</a>
+					</div> <div class="pamphlet-footer"></div> </a>
 				</div>
 
 			</div>
-		
-	</div>
-</div>
 
-<div data-ng-include="'views/gallery/gallery.html'"></div>
+		</div>
+	</div>
+
+	<div data-ng-include="'views/gallery/gallery.html'"></div>
 </div>

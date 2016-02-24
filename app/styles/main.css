@@ -560,6 +560,10 @@ p.info, p.connect {
     height: 50px;
 }
 
+.navbar-brand img{
+	height: 50px;
+}
+
 .lp-select-city{
 	float: right;
 }

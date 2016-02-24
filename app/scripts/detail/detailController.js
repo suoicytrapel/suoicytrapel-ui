@@ -19,7 +19,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	};
 	vm.fetchDetails = function(){
 		var dataRequestDTO = {
-			searchType : vm.selectedCategory,
+			searchType : sessionStorage.selectedCategory || vm.selectedCategory,
 			cityId : sessionStorage.selectedCityId,
 			name : vm.name
 		};
@@ -37,6 +37,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			//$('#dataPopupModal').modal('toggle');
 			//Broadcast load gallery event as soon as the images URL are available
 			$scope.$broadcast('loadGallery');
+			//Applying Boxer on the menu images
+			$('.boxer').boxer({
+				fixed: true,
+			});
 			//google.maps.event.addDomListener(window, 'load', loadMap(28.012496, 73.336364));
 			checkForMaps();
 		},function(error){
