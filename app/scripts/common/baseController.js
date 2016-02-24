@@ -11,11 +11,13 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.contactForm = {};
 
 	vm.init = function() {
-		vm.selectedCategory = baseFactory.getSelectedCategory();
+		vm.selectedCategory = sessionStorage.selectedCategory || baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
-		vm.coverUrl = '/images/main_cover.jpg';
-		$rootScope.selectedCity = "1";
-
+		baseFactory.setCoverUrl(sessionStorage.selectedCategory || vm.selectedCategory);
+		baseFactory.setMainCoverHeading(sessionStorage.selectedCategory || vm.selectedCategory);
+		vm.coverUrl = baseFactory.getCoverUrl();
+		if(!sessionStorage.selectedCityId)
+			sessionStorage.selectedCityId = '1';
 		applyAutocomplete();
 		$rootScope.showCover = true;
 
@@ -64,14 +66,19 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	};
 
-	/*	Applying watch on selectedCategory
-	 $scope.$watch(baseFactory.getSelectedCategory, function(newValue, oldValue) {
-	 vm.selectedCategory = newValue;
-	 chooseRibbonDefaultCategory();
-	 });*/
+	/* Code to Populate Cities */
+	
+	HomeFactory.loadCities.populateCities().$promise.then(function(data){
+					vm.citiesList = data.toJSON();
+					if(vm.citiesList && vm.citiesList != null)
+					vm.selectedCity =  sessionStorage.selectedCity || vm.citiesList["1"]; 
+				},function(error){
+					console.log('Error: ' + error);
+				});
 
 	vm.categoryChanged = function() {
 		baseFactory.setSelectedCategory(vm.selectedCategory);
+		sessionStorage.selectedCategory = vm.selectedCategory;
 	};
 
 	vm.clicked = function() {
@@ -84,7 +91,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	
 	vm.setCity = function($event){
 		var selectedCityName = angular.element($event.currentTarget)[0].innerHTML;
-		angular.element('.lp-selected-city').text(selectedCityName);
+		vm.selectedCity = selectedCityName;
+		sessionStorage.selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
+		sessionStorage.selectedCity = selectedCityName;
 		vm.toggleDropdown();
 	};
 	
@@ -96,10 +105,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		vm.selectCategory = function(index) {
 			console.log('index ' + index);
-			angular.element('.ribbon-tab:nth-child(' + (index + 1) + ')').addClass('active').siblings().removeClass('active');
-			var updatedValue = angular.element('.ribbon-tab.active').data('value');
 			baseFactory.setSelectedCategory(updatedValue);
-			$scope.$broadcast('ribbonCategoryChanged', updatedValue);
 		};
 
 	};
@@ -110,15 +116,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			$("#navbar").css("background-color", "rgba(243, 114, 84, " + pageYoffset / coverPage.clientHeight + ")");
 	}
 
-	/* Commenting the autoComplete applied for ribbon search box
-	 function applyAutocomplete() {
-	 //Apply autocomplete when content is loaded on the page
-	 $scope.$on('$viewContentLoaded', function() {
-	 angular.element('.ribbon-search-box').autocomplete({
-	 source : ['ankit', 'anki', 'ank', 'mohit', 'mohi', 'moh'],
-	 });
-	 });
-	 }*/
+
 
 	function applyAutocomplete() {
 		//Apply autocomplete when content is loaded on the page
@@ -129,7 +127,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 						var searchRequestDTO = {
 							searchType : vm.selectedCategory,
 							searchString : request.term,
-							cityId : $rootScope.selectedCity
+							cityId : sessionStorage.selectedCityId ? sessionStorage.selectedCityId : '1',
 						};
 						HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
 							response(data);

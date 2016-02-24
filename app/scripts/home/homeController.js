@@ -1,6 +1,5 @@
-app.controller('HomeController', function(HomeFactory, cityMap, $rootScope, $scope, baseFactory, $location, HomeService, ContactFactory) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, HomeService, ContactFactory) {
 	var vm = this;
-	vm.cityMap = cityMap;	
 	vm.init = function() {
 		$rootScope.showCover = true;
 		showcasePortfolio();

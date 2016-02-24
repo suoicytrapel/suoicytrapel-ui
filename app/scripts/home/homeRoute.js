@@ -6,13 +6,13 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         templateUrl: 'views/home/home.html',
         controllerAs: 'vm',
         resolve: {
-            cityMap: function(HomeFactory){
+            /*cityMap: function(HomeFactory){
 	            return HomeFactory.loadCities.populateCities().$promise.then(function(data){
 					return data.toJSON();
 				},function(error){
 					return error;
 				})
-	        },
+	        },*/
 	        changeCover: function(baseFactory){
 	        	baseFactory.setCoverUrl('Home');
 	        	baseFactory.setMainCoverHeading('Making Moments Memorable');
@@ -28,7 +28,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
                 var selectedCategory = baseFactory.getSelectedCategory();
                 var filterRequestDTO = {
                     searchType : selectedCategory,
-                    cityId : $rootScope.selectedCity
+                    cityId : sessionStorage.selectedCityId,
                 }
                 return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data){
                     return data.toJSON();

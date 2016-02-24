@@ -12,12 +12,11 @@
 				
 				<div class="lp-select-city">
 					<div class="lp-select-city-text" ng-click="vm.toggleDropdown()">
-						<span class="lp-selected-city">Bikaner</span>
+						<span class="lp-selected-city">{{vm.selectedCity}}</span>
 						<span class="fa fa-fw fa-map-marker float-right location-icon"></span>
 						</div>
 					<ul class="lp-city-dropdown">
-						<li><a href='javascript:void(0)' data-ng-click='vm.setCity($event)'>Bikaner</a></li>
-						<li><a href='javascript:void(0)' data-ng-click='vm.setCity($event)'>Chandigarh</a></li>
+						<li data-ng-repeat = '(key, value) in vm.citiesList'><a href='javascript:void(0)' data-ng-click='vm.setCity($event)' data-id='{{key}}'>{{value}}</a></li>
 					</ul>
 				</div>
 				

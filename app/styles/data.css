@@ -102,11 +102,11 @@
 }
 
 .filter-btn {
-	background-color: rgba(0,0,0,0);
+	background-color: #f37254;
 	font-weight: 600;
 	font-size: 14px;
 	border: 2px solid #f37254;
-	color: #f37245;
+	color: #ffffff;
 	text-transform: uppercase;
 	border-radius: 4px;
 	padding: 8px 12px;

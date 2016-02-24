@@ -25,9 +25,9 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
         vm.getSelectedFilters();
       }
     	var searchRequestDTO = {
-  			searchType : vm.selectedCategory,
+  			searchType : sessionStorage.selectedCategory || vm.selectedCategory,
   			searchString : vm.searchParam,
-  			cityId : $rootScope.selectedCity,
+  			cityId : sessionStorage.selectedCityId ? sessionStorage.selectedCityId : '1',
   			offset : vm.offset,
   			limit:$scope.pageSize,
   			filters:vm.selectedFilters

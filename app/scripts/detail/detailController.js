@@ -20,7 +20,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.fetchDetails = function(){
 		var dataRequestDTO = {
 			searchType : vm.selectedCategory,
-			cityId : $rootScope.selectedCity,
+			cityId : sessionStorage.selectedCityId,
 			name : vm.name
 		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){

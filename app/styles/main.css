@@ -380,6 +380,7 @@ p.info, p.connect {
 .lp-city-dropdown li{
 	height: 30px;
 	line-height: 30px;
+	background-color: #FFFFFF;
 }
 
 .lp-city-dropdown li:hover a,
