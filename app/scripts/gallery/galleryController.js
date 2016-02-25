@@ -13,8 +13,10 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 	});
 	
 	//load images as soon as they are available
-	$scope.$on('loadGallery', function() {
+	$scope.$on('loadGallery', function(event, args) {
 		vm.imagesURL = vm.getImageURL(dataService.getImageURLs());
+		vm.helpTexts = vm.getHelpText(dataService.getImageURLs());
+		vm.name = args.name;
 	});
 
 	vm.getImageURL = function(imageURLs) {
@@ -23,6 +25,14 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 			images.push(baseFactory.getWebURL() + imageURLs[k].imageURL);
 		}
 		return images;
+	};
+	
+	vm.getHelpText = function(imageURLs) {
+		var helpTexts = [];
+		for (var k in imageURLs) {
+			helpTexts.push(imageURLs[k].helpText);
+		}
+		return helpTexts;
 	};
 
 	vm.defineListeners = function() {
@@ -37,6 +47,7 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 				nextButton : '.swiper-button-next',
 				prevButton : '.swiper-button-prev',
 				spaceBetween : 10,
+				onSlideChangeStart: onSlideChangeCallback,
 			});
 			vm.galleryThumbs = new Swiper('.gallery-thumbs', {
 				spaceBetween : 15,
@@ -49,6 +60,15 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 			vm.galleryThumbs.params.control = vm.galleryTop;
 
 		};
+		
+		vm.changeSlide = function(index){
+			vm.galleryTop.slideTo(index);
+		};
+		
+		function onSlideChangeCallback(){
+			var activeSlideIndex = vm.galleryTop.activeIndex;
+			angular.element('.gallery-helptext-container li:nth-child(' + (activeSlideIndex+1) + ')').addClass('active').siblings().removeClass('active');
+		}
 
 	};
 

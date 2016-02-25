@@ -31,12 +31,12 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			  vm.tabName.push(key);
 			  vm.tabData.push(value);
 			});
-			if(vm.detailedData && vm.detailedData.attachments.length > 0)
+			if(vm.detailedData && vm.detailedData.attachments && vm.detailedData.attachments.length > 0)
 			vm.coverbgImageURL = baseFactory.getWebURL() + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);
 			//$('#dataPopupModal').modal('toggle');
 			//Broadcast load gallery event as soon as the images URL are available
-			$scope.$broadcast('loadGallery');
+			$scope.$broadcast('loadGallery',{'name': vm.name});
 			//Applying Boxer on the menu images
 			$('.boxer').boxer({
 				fixed: true,
