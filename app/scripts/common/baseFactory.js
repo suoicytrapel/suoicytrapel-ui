@@ -16,6 +16,48 @@ app.factory('baseFactory', function($location) {
 		Photographers : 'PHOTOGRAPHER',
 		Rentals : 'RENTAL'
 	};
+	baseFactory.ourPortfolioImageUrls = {
+		'event_type': {
+		'coverImage': '/images/dummy.jpg',
+		'helpText1': '/images/gopal_chat.jpg',
+		'helpText2': '/images/gopal_cover.jpg',
+		'helpText3': '/images/gopal_sweet.jpg',
+		'helpText4': '/images/HotMillions.jpg',	
+},
+
+'event_type1':{
+		'coverImage': '/images/HotMillions.jpg',	
+		'helpText': '/images/dummy.jpg',
+		'helpText1': '/images/gopal_chat.jpg',
+		'helpText2': '/images/gopal_cover.jpg',
+		'helpText3': '/images/gopal_sweet.jpg',
+		
+},
+'event_type2':{
+		'coverImage': '/images/gopal_sweet.jpg',
+		'helpText': '/images/dummy.jpg',
+		'helpText1': '/images/gopal_chat.jpg',
+		'helpText2': '/images/gopal_cover.jpg',
+		
+		'helpText4': '/images/HotMillions.jpg',	
+},
+'event_type3':{
+		'coverImage': '/images/gopal_cover.jpg',
+		'helpText': '/images/dummy.jpg',
+		'helpText1': '/images/gopal_chat.jpg',
+		
+		'helpText3': '/images/gopal_sweet.jpg',
+		'helpText4': '/images/HotMillions.jpg',	
+},
+'event_type4':{
+		'coverImage': '/images/gopal_chat.jpg',
+		'helpText': '/images/dummy.jpg',
+		
+		'helpText2': '/images/gopal_cover.jpg',
+		'helpText3': '/images/gopal_sweet.jpg',
+		'helpText4': '/images/HotMillions.jpg',	
+},
+};
 
 	baseFactory.getSelectedCity = function() {
 		return baseFactory.selectedCity;

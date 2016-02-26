@@ -166,6 +166,24 @@ a:hover, a:focus {
 	color: #F37254;
 }
 
+.default-theme-btn {
+	color: #ffffff;
+	background-color: rgba(243,114,84,0.8);
+	font-weight: 600;
+	text-align: center;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	text-transform: uppercase;
+	padding: 8px 12px;
+}
+
+.default-theme-btn:hover, .default-theme-btn:focus {
+color: #ffffff;
+	background-color: rgba(243,114,84,0.8);
+}
+
 .float-right{
 	float: right;
 }
@@ -510,7 +528,7 @@ p.info, p.connect {
 
 /*loading screen styling*/
 .loader-screen{
-	position: absolute;
+	position: fixed;
 	left: 0px;
 	right: 0px;
 	top: 0px;

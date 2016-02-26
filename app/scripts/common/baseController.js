@@ -58,8 +58,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		};
 
 		vm.stopLoader = function() {
+		//Applyong timeout so that the loader screen and spinner is hided
+		//in the next digest cycle	
+			$timeout(function(){
 			vm.showLoaderScreen = false;
 			usSpinnerService.stop('home-page-spinner');
+			});
 		};
 
 		vm.startLoader();

@@ -145,15 +145,24 @@
 
 /* Recently Added section css */
 .recently-added-list{
-	column-count: 3;
-	-webkit-column-count: 3;
-	-moz-column-count: 3;
-	-o-column-count: 3;
-	-ms-column-count: 3;
+
+}
+
+.recently-added-section{
+	margin-top: 10px;
+}
+
+.recently-added-category-name{
+	font-family:'OpenSans-Semibold';
+	    color: #2d2d2d;
+    text-shadow: 0 1px 1px #fff;
+	text-transform: uppercase;
 }
 
 .recently-added-list li{
-	padding: 10px;
+    padding-top: 5px;
+    font-family: 'OpenSans-Semibold';
+    padding-bottom: 5px;
 }
 
 .recently-added-list li a{
@@ -162,6 +171,12 @@
 
 .recently-added-list li a:hover{
 	text-decoration: underline;
+}
+
+.view-event-btn{
+	position: absolute;
+    left: 100px;
+    top: 250px;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 767px) {
@@ -173,14 +188,7 @@
 		border-radius: 0px;
 	}
 	
-	.recently-added-list{
-	column-count: 1;
-	-webkit-column-count: 1;
-	-moz-column-count: 1;
-	-o-column-count: 1;
-	-ms-column-count: 1;
-}
-
+	
 /*
 	#coverPage {
 		height: 300px;
@@ -189,11 +197,5 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-	.recently-added-list{
-	column-count: 2;
-	-webkit-column-count: 2;
-	-moz-column-count: 2;
-	-o-column-count: 2;
-	-ms-column-count: 2;
-}
+	
 }
