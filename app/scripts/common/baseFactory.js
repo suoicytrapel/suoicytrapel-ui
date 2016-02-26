@@ -14,8 +14,7 @@ app.factory('baseFactory', function($location) {
 		Caterers : 'CATERER',
 		Decorators : 'DECORATOR',
 		Photographers : 'PHOTOGRAPHER',
-		Rentals : 'RENTAL',
-		Band : 'BAND'
+		Rentals : 'RENTAL'
 	};
 
 	baseFactory.getSelectedCity = function() {

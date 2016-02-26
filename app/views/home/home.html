@@ -1,13 +1,12 @@
 <!-- Recently Added section starts -->
 <section class="text-center bg-grey row">
 	<h2 class="theme-color">RECENTLY ADDED</h2>
-	<ul class="recently-added-list">
-		<li><a href='javascript:void(0)'>J W Marriot, Chandigarh</a></li>
-		<li><a href='javascript:void(0)'>J W Marriot, Chandigarh</a></li>
-		<li><a href='javascript:void(0)'>J W Marriot, Chandigarh</a></li>
-		<li><a href='javascript:void(0)'>J W Marriot, Chandigarh</a></li>
-		<li><a href='javascript:void(0)'>J W Marriot, Chandigarh</a></li>
-	</ul>
+	<div ng-repeat="(key, value) in vm.recentlyAddedData">
+		{{key}}
+		<ul class="recently-added-list">
+			<li ng-repeat="data in value"><a href='javascript:void(0)' ng-click="vm.fetchDetails(data.name, data.category)">{{data.name}}</a><br>{{data.locality}}, {{data.city}}</li>
+		</ul>
+	</div>
 </section>
 <!-- LePartycious section starts -->
 <section class="container text-center">

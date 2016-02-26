@@ -1,12 +1,5 @@
 app.service('dataService',function(){
-	/*
-	this.setName = function(name){
-		this.name = name;
-	};
-
-	this.getName = function(){
-		return this.name;
-	};*/
+	var abc = null;
 
 	this.setImageURLs = function(imageURLs){
 		this.imageURLs = imageURLs;

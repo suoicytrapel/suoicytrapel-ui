@@ -3,6 +3,7 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	vm.init = function() {
 		$rootScope.showCover = true;
 		showcasePortfolio();
+        vm.fetchRecentAdditions();
 	};
 	
 	function showcasePortfolio(){
@@ -24,7 +25,22 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
         preloadImages: false,
         lazyLoading: true,
         spaceBetween: 20,
-    });   
+    }); 
+
+    vm.fetchRecentAdditions = function(){
+        var cityId = baseFactory.getSelectedCity();
+        HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data){
+            vm.recentlyAddedData = data;
+           
+        },function(error){
+            
+        });
+    }
+
+    vm.fetchDetails = function(name, category){
+        var searchParam = name + "&type=" + category;
+        $location.path('/details/' + searchParam);
+    }
 
 }
 

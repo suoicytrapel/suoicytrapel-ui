@@ -18,6 +18,15 @@ app.factory('HomeFactory', function (Constants, $resource) {
                     return angular.fromJson(data);
                 } 
             }
+            }),
+        fetchAdditions: $resource(Constants.API_HOST + '/search/city/recentAdditions', {},{
+            recentAdditions : {
+                method: "POST",
+                isArray: false,
+                transformResponse: function(data, header) {
+                    return angular.fromJson(data);
+                } 
+            }
             })
         };
 });

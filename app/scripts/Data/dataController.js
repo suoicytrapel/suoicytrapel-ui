@@ -13,11 +13,25 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
   vm.showAmenityFilters = false;
   vm.showLocalityFilters = true;
   vm.showRoomFilters = false; 
+  vm.showPriceFilters = false;
+  vm.showRentalFilters = true;
+  vm.showCarFilters = false;
+  vm.showBandFilters = false;
+  vm.showEventsFilters = true;
   vm.setFromRecord = null;
   vm.setToRecord = null;
       
     vm.fetchData = function(isFilterSearch){
-    	vm.selectedFilters = [];
+    	vm.selectedFilters = {
+        serviceList : [],
+        localityList : [],
+        amenityList : [],
+        priceRangeList : [],
+        roomList : [],
+        estList : [],
+        eventList : [],
+        rentalList : []
+      };
     	if(vm.offset == null){
     		vm.offset = 1;
     	}
@@ -85,34 +99,67 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
       for(var k in vm.filters.establishments){
         vm.filters.establishments[k].checked = false;
       }
-      vm.selectedFilters = [];
+      for(var k in vm.filters.priceRange){
+        vm.filters.priceRange[k].checked = false;
+      }
+      for(var k in vm.filters.eventType){
+        vm.filters.eventType[k].checked = false;
+      }
+      for(var k in vm.filters.rentalType){
+        vm.filters.rentalType[k].checked = false;
+      }
+      vm.selectedFilters = {
+        serviceList : [],
+        localityList : [],
+        amenityList : [],
+        priceRangeList : [],
+        roomList : [],
+        estList : [],
+        eventList : [],
+        rentalList : []
+      };
       vm.fetchData(false);
    	};
 
    	vm.getSelectedFilters = function(){
    		for(var k in vm.filters.services){
    			if(vm.filters.services[k].checked){
-   				vm.selectedFilters.push(vm.filters.services[k].type);
+   				vm.selectedFilters.serviceList.push(vm.filters.services[k].id);
    			}
    		}
    		for(var k in vm.filters.amenities){
    			if(vm.filters.amenities[k].checked){
-   				vm.selectedFilters.push(vm.filters.amenities[k].type);
+   				vm.selectedFilters.amenityList.push(vm.filters.amenities[k].id);
    			}
    		}
    		for(var k in vm.filters.rooms){
    			if(vm.filters.rooms[k].checked){
-   				vm.selectedFilters.push(vm.filters.rooms[k].type);
+   				vm.selectedFilters.roomList.push(vm.filters.rooms[k].id);
    			}
    		}
    		for(var k in vm.filters.localities){
    			if(vm.filters.localities[k].checked){
-   				vm.selectedFilters.push(vm.filters.localities[k].name);
+   				vm.selectedFilters.localityList.push(vm.filters.localities[k].id);
    			}
    		}
       for(var k in vm.filters.establishments){
         if(vm.filters.establishments[k].checked){
-          vm.selectedFilters.push(vm.filters.establishments[k].type);
+          vm.selectedFilters.estList.push(vm.filters.establishments[k].id);
+        }
+      }
+      for(var k in vm.filters.priceRange){
+        if(vm.filters.priceRange[k].checked){
+          vm.selectedFilters.priceRangeList.push(vm.filters.priceRange[k].id);
+        }
+      }
+      for(var k in vm.filters.eventType){
+        if(vm.filters.eventType[k].checked){
+          vm.selectedFilters.eventList.push(vm.filters.eventType[k].id);
+        }
+      }
+      for(var k in vm.filters.rentalType){
+        if(vm.filters.rentalType[k].checked){
+          vm.selectedFilters.rentalList.push(vm.filters.rentalType[k].id);
         }
       }
    	};
