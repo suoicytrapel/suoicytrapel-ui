@@ -6,13 +6,6 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         templateUrl: 'views/home/home.html',
         controllerAs: 'vm',
         resolve: {
-            /*cityMap: function(HomeFactory){
-	            return HomeFactory.loadCities.populateCities().$promise.then(function(data){
-					return data.toJSON();
-				},function(error){
-					return error;
-				})
-	        },*/
 	        changeCover: function(baseFactory){
 	        	baseFactory.setCoverUrl('Home');
 	        	baseFactory.setMainCoverHeading('Making Moments Memorable');
@@ -60,6 +53,9 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         resolve: {
         	hideCover: function($rootScope){
         		$rootScope.showCover = false;
+        	},
+        	showCityDropdown: function($rootScope){
+        		$rootScope.showCityDropdown = true;
         	}
         }
     }).when('/faq/', {
@@ -69,6 +65,9 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         resolve: {
         	hideCover: function($rootScope){
         		$rootScope.showCover = false;
+        	},
+        	showCityDropdown: function($rootScope){
+        		$rootScope.showCityDropdown = true;
         	}
         }
     })

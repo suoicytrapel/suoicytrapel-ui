@@ -77,7 +77,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
     	var myCenter = new google.maps.LatLng(vm.latitude, vm.longitude);
     	var mapProp = {
         	center: myCenter,
-        	zoom: 8,
+        	zoom: 16,
         	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(angular.element('#map')[0], mapProp);
@@ -94,17 +94,17 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
     };
 
     vm.getReccomendationDetails = function(name){
-    	$window.ga('send', 'event', 'View Recommended Item', name, vm.selectedCategory);
+    	$window.ga('send', 'event', 'View Recommended Item', name, sessionStorage.selectedCategory);
     	//vm.name = name;
     	$location.path('/details/' + name);
-    }
+    };
 
     vm.initializeData = function(){
     	vm.tabName = [];
 		vm.tabData = [];
 		vm.latitude = null;
 		vm.longitude = null;
-    }
+    };
 
 	
 	vm.init();

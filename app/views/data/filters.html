@@ -3,7 +3,6 @@
 		<button class="btn btn-lg btn-default filter-btn" ng-click="vm.filterResults();">Filter</button>
 		<button class="btn btn-lg btn-default reset-btn"  ng-click="vm.resetFilters();">Reset</button>			
 	</div>
-	<hr>
 	<div ng-if="vm.filters.localities.length > 0">
 		<hr>
 		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showLocalityFilters = !vm.showLocalityFilters;" data-toggle="collapse" data-target="#localityDiv"><i ng-class="!vm.showLocalityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Localities</b><!-- <i class="fa fa-globe"></i> --></div>
