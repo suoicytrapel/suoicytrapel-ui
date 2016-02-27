@@ -10,7 +10,7 @@
 			<a class="navbar-brand" href="/">
 				<img src="/images/lp_logo.png" height="60px;" alt="logo-image"></a>
 				
-				<div class="lp-select-city">
+				<div class="lp-select-city" data-ng-show="showCityDropdown">
 					<div class="lp-select-city-text" ng-click="vm.toggleDropdown()">
 						<span class="lp-selected-city">{{vm.selectedCity}}</span>
 						<span class="fa fa-fw fa-map-marker float-right location-icon"></span>

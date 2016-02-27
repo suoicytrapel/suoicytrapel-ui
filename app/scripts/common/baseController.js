@@ -20,6 +20,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			sessionStorage.selectedCityId = '1';
 		applyAutocomplete();
 		$rootScope.showCover = true;
+		$rootScope.showCityDropdown = true;
 
 		/*Called when the view in ng-view has started loading and successfully loaded*/
 
@@ -99,6 +100,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		sessionStorage.selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
 		sessionStorage.selectedCity = selectedCityName;
 		vm.toggleDropdown();
+		$route.reload();
 	};
 	
 	vm.toggleDropdown = function(){

@@ -16,7 +16,10 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
 	        changeCover: function(baseFactory){
 	        	baseFactory.setCoverUrl('Home');
 	        	baseFactory.setMainCoverHeading('Making Moments Memorable');
-	        }
+	        },
+	        showCityDropdown: function($rootScope){
+        		$rootScope.showCityDropdown = true;
+        	}
     	}
     }).when('/search/', {
         url:'/search',
@@ -29,19 +32,27 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
                 var filterRequestDTO = {
                     searchType : selectedCategory,
                     cityId : sessionStorage.selectedCityId,
-                }
+                };
                 return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data){
                     return data.toJSON();
                 },function(error){
                     return error;
-                })
-            }
+                });
+            },
+            showCityDropdown: function($rootScope){
+        		$rootScope.showCityDropdown = true;
+        	}
         }
     }).when('/details/:searchParam', {
         url:'/details',
         controller: 'detailController',
         templateUrl: 'views/detail/detail.html',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+        	hideCityDropdown: function($rootScope){
+        		$rootScope.showCityDropdown = false;
+        	}
+        }
     }).when('/aboutus/', {
         url:'/aboutus',
         controller: '',
