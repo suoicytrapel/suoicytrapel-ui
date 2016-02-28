@@ -34,8 +34,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
 
-		baseFactory.setCoverUrl(sessionStorage.selectedCategory);
-		baseFactory.setMainCoverHeading(sessionStorage.selectedCategory);
+		//baseFactory.setCoverUrl(sessionStorage.selectedCategory);
+		//baseFactory.setMainCoverHeading(sessionStorage.selectedCategory);
 
 		$scope.form = {};
 
@@ -67,8 +67,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$rootScope.$on("$routeChangeSuccess", function() {
 			vm.showFooter = true;
 			window.scrollTo(0, 0);
-			vm.coverUrl = baseFactory.getCoverUrl();
-			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 			vm.stopLoader();
 		});
 
@@ -108,6 +106,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 			//Hiding loader screen when view has loaded completely
 			vm.stopLoader();
+			vm.coverUrl = baseFactory.getCoverUrl();
+			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 		});
 
 	};
@@ -154,8 +154,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.categoryChanged = function() {
 			baseFactory.setSelectedCategory(vm.selectedCategory);
 			sessionStorage.selectedCategory = vm.selectedCategory;
-			if($location.path().toString().match(/\/search\//i) != null)
-			$route.reload();
+			if ($location.path().toString().match(/\/search\//i) != null)
+				$route.reload();
 			console.log($location.path());
 		};
 

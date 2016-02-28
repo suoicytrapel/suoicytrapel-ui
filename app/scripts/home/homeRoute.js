@@ -21,7 +21,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         controllerAs: 'vm',
         resolve: {
             filters: function(DataFactory, baseFactory, $rootScope){
-                var selectedCategory = sessionStorage.selectedCategory || baseFactory.getSelectedCategory();
+                var selectedCategory = sessionStorage.selectedCategory;
                 var filterRequestDTO = {
                     searchType : selectedCategory,
                     cityId : sessionStorage.selectedCityId,
