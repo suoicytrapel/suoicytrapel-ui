@@ -34,9 +34,13 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			if(vm.detailedData && vm.detailedData.attachments && vm.detailedData.attachments.length > 0)
 			vm.coverbgImageURL = baseFactory.getWebURL() + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);
+
 			//$('#dataPopupModal').modal('toggle');
 			//Broadcast load gallery event as soon as the images URL are available
-			$scope.$broadcast('loadGallery',{'name': vm.name});
+			$scope.$broadcast('loadGallery',{'name': vm.detailedData.name,
+			'city': vm.detailedData.city,
+			'state': vm.detailedData.state,
+			});
 			//Applying Boxer on the menu images
 			$('.boxer').boxer({
 				fixed: true,

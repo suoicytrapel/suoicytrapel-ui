@@ -280,29 +280,49 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 	function applyAutocomplete() {
 		//Apply autocomplete when content is loaded on the page
+		//$timeout is used so that autocomplete is binded in the next digest cycle
+		$timeout(function() {
+			angular.element('.home-search-box').autocomplete({
+				source : function(request, response) {
+					if (request.term.length > 0) {
+						var searchRequestDTO = {
+							searchType : vm.selectedCategory,
+							searchString : request.term,
+							cityId : sessionStorage.selectedCityId ? sessionStorage.selectedCityId : '1',
+						};
+						HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
+							if (data.length == 0)
+								response(['No Results Found']);
+							else
+								response(data);
+						}, function(error) {
+							console.log(error);
+						});
+					}
 
-		angular.element('.home-search-box').autocomplete({
-			source : function(request, response) {
-				if (request.term.length > 1) {
-					var searchRequestDTO = {
-						searchType : vm.selectedCategory,
-						searchString : request.term,
-						cityId : sessionStorage.selectedCityId ? sessionStorage.selectedCityId : '1',
-					};
-					HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
-						response(data);
-					}, function(error) {
-						console.log(error);
-					});
+				},
+				select : function(event, ui) {
+					//stateid = (ui.item.lable);
+					console.log(ui.item.label);
+					if (ui.item.label == 'No Results Found') {
+						angular.element('.home-search-box').val('');
+						vm.searchData = '';
+						$scope.$apply();
+						return false;
+					} else
+						vm.searchData = (ui.item.label);
 				}
-			},
-			select : function(event, ui) {
-				//stateid = (ui.item.lable);
-				console.log(ui.item.label);
-				vm.searchData = (ui.item.label);
-			}
-		});
+			});
 
+			//Binding search button value on input field value length
+			$scope.$watch("vm.searchData", function(newValue, oldvalue) {
+				if (newValue && newValue.length > 0)
+					$('.home-search-btn').text('SEARCH');
+				else
+					$('.home-search-btn').text('SEARCH ALL');
+			});
+
+		});
 	};
 
 	/* Methods Invoked in Correct Sequence */

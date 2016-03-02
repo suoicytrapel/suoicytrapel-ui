@@ -17,6 +17,9 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 		vm.imagesURL = vm.getImageURL(dataService.getImageURLs());
 		vm.helpTexts = vm.getHelpText(dataService.getImageURLs());
 		vm.name = args.name;
+		vm.state = args.state;
+		vm.city = args.city;
+		vm.category = sessionStorage.selectedCategory;
 	});
 
 	vm.getImageURL = function(imageURLs) {

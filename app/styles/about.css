@@ -1,3 +1,13 @@
+.about-us-page{
+	font-size: 16px;
+}
+
+.about-us-page p{
+	margin-top: 10px;
+}
+.bolder{
+	font-weight: 600;
+}
 .team-name{
 	font-weight: 700;
 	font-size: 16px;	
@@ -37,4 +47,8 @@
 .faq-answer-text{
 	font-size: 18px;
 	padding-bottom: 20px;
+}
+
+.faq-cover{
+	background-image: url('/images/faq_cover.jpg') !important;
 }

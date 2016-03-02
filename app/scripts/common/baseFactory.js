@@ -17,46 +17,41 @@ app.factory('baseFactory', function($location) {
 		Rentals : 'RENTAL'
 	};
 	baseFactory.ourPortfolioImageUrls = {
-		'event_type': {
-		'coverImage': '/images/dummy.jpg',
-		'helpText1': '/images/gopal_chat.jpg',
-		'helpText2': '/images/gopal_cover.jpg',
-		'helpText3': '/images/gopal_sweet.jpg',
-		'helpText4': '/images/HotMillions.jpg',	
+		'birthdayparty': {
+		'coverImage': '/images/rkb1.jpg',
+		'helpText1': '/images/rkb2.jpg',
+		'helpText2': '/images/rkb3.jpg',
+		'helpText3': '/images/rkb4.jpg',
+		'helpText4': '/images/rkb5.jpg',	
 },
 
-'event_type1':{
-		'coverImage': '/images/HotMillions.jpg',	
-		'helpText': '/images/dummy.jpg',
-		'helpText1': '/images/gopal_chat.jpg',
-		'helpText2': '/images/gopal_cover.jpg',
-		'helpText3': '/images/gopal_sweet.jpg',
+'gurmeetwedssravleen':{
+		'coverImage': '/images/gws1.jpg',	
+		'helpText': '/images/gws2.jpg',
+		'helpText1': '/images/gws3.jpg',
+		'helpText2': '/images/gws4.jpg',
+		'helpText3': '/images/gws5.jpg',
+		'helpText3': '/images/gws6.jpg',
 		
 },
-'event_type2':{
-		'coverImage': '/images/gopal_sweet.jpg',
-		'helpText': '/images/dummy.jpg',
-		'helpText1': '/images/gopal_chat.jpg',
-		'helpText2': '/images/gopal_cover.jpg',
+'mehulwedsuma':{
+		'coverImage': '/images/mwu1.jpg',
+		'helpText': '/images/mwu2.jpg',
+		'helpText1': '/images/mwu3.jpg',
+		'helpText2': '/images/mwu4.jpg',
 		
-		'helpText4': '/images/HotMillions.jpg',	
+		'helpText4': '/images/mwu5.jpg',	
+		'helpText4': '/images/mwu6.jpg',
 },
-'event_type3':{
-		'coverImage': '/images/gopal_cover.jpg',
-		'helpText': '/images/dummy.jpg',
-		'helpText1': '/images/gopal_chat.jpg',
+'newyearbash':{
+		'coverImage': '/images/nyb1.jpg',
+		'helpText': '/images/nyb2.jpg',
+		'helpText1': '/images/nyb3.jpg',
 		
-		'helpText3': '/images/gopal_sweet.jpg',
-		'helpText4': '/images/HotMillions.jpg',	
+		'helpText3': '/images/nyb4.jpg',
+		'helpText4': '/images/nyb5.jpg',	
 },
-'event_type4':{
-		'coverImage': '/images/gopal_chat.jpg',
-		'helpText': '/images/dummy.jpg',
-		
-		'helpText2': '/images/gopal_cover.jpg',
-		'helpText3': '/images/gopal_sweet.jpg',
-		'helpText4': '/images/HotMillions.jpg',	
-},
+
 };
 
 	baseFactory.getSelectedCity = function() {
