@@ -20,8 +20,8 @@
 	padding-top: 30px;
 }
 
-.team-image{
-	border: 2px solid #656565;
+.team-image img{
+	max-height: 100px;
 }
 
 .generic-cover{

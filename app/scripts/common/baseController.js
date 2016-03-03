@@ -105,6 +105,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			animateHeaderBgColor();
 
 			//Hiding loader screen when view has loaded completely
+			window.scrollTo(0, 0);
+			
+
 			vm.stopLoader();
 			vm.coverUrl = baseFactory.getCoverUrl();
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
@@ -242,7 +245,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 *
 	 * */
 	vm.invokeInitialMethods = function() {
-		window.scrollTo(0, 0);
 		vm.startLoader();
 		populateCities();
 	};
@@ -271,6 +273,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		var pageYoffset = window.pageYOffset, coverPage = document.getElementById("coverPage");
 		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined" && typeof coverPage != null && typeof coverPage != "undefined")
 			$("#navbar").css("background-color", "rgba(243, 114, 84, " + pageYoffset / coverPage.clientHeight + ")");
+
+		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined")
+			angular.element('#back-to-top').removeClass().addClass('show-' + Math.floor(pageYoffset / 200));
+
 	}
 
 	/*
@@ -321,6 +327,19 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				else
 					$('.home-search-btn').text('SEARCH ALL');
 			});
+			
+			
+			$('[data-toggle="tooltip"]').tooltip({
+				placement : 'top'
+			});
+
+			angular.element("#back-to-top").on('click',function() {
+				$("html, body").animate({
+					scrollTop : 0
+				}, "slow");
+				return false;
+			});
+			
 
 		});
 	};
@@ -330,4 +349,5 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.defineListeners();
 	vm.defineMethods();
 	vm.invokeInitialMethods();
+	
 });

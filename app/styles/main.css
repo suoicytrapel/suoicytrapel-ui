@@ -567,6 +567,22 @@ p.info, p.connect {
   opacity:0;
 }
 
+#back-to-top{
+	position: fixed;
+	right: 10px;
+	height: 50px;
+	width: 50px;
+	bottom: 20px;
+	z-index: 1000;
+}
+
+#back-to-top.show-0{
+	display: none;
+}
+
+#back-to-top.show-1{
+	display: block;
+}
 /*loading screen styling ends*/
 
 
