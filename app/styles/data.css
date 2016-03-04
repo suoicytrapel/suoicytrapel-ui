@@ -101,6 +101,42 @@
 	opacity: 0;
 }
 
+.pamphlet-title-desc, .pamphlet-title-price{
+	line-height: 30px;
+	color: #333333;
+	font-family: 'OpenSans-Semibold';
+}
+
+.pamphlet-title-desc > div{
+	width: 200px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.pamphlet-title-city{
+	font-family: 'OpenSans-Regular';
+}
+
+.border-left-1px{
+	border-left: 1px solid #333333;
+}
+
+.featured-ribbon{
+	position: absolute;
+	height: 50px;
+	width: 50%;
+	background-color: red;
+}
+.featured-ribbon:before{
+	content: '';
+		width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-right:10px solid blue;
+}
+
 .filter-btn {
 	background-color: #f37254;
 	font-weight: 600;

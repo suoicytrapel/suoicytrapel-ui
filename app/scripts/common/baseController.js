@@ -223,18 +223,23 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.submitEnquiry = function() {
+						
 			ContactFactory.submitEnquiry.submit(vm.contactForm).$promise.then(function(data) {
-				vm.contactForm = {};
-				$scope.form.contactForm.$setPristine();
-				$scope.form.contactForm.$setUntouched();
-				vm.submitted = false;
-				$('#contactModal').modal('toggle');
-			}, function(error) {
-				$scope.form.contactForm.$setPristine();
-				vm.contactForm = {};
-				$('#contactModal').modal('toggle');
-				console.log(error);
-			});
+							
+							vm.contactForm = {};
+							$scope.form.contactForm.$setPristine();
+							$scope.form.contactForm.$setUntouched();
+							vm.submitted = false;
+							$('#contactModal').modal('toggle');
+							$.toaster({ priority : 'success', title : 'Success', message : 'Email has been sent', settings: {'timeout':3000,} });
+						}, function(error) {
+							$scope.form.contactForm.$setPristine();
+							vm.contactForm = {};
+							$('#contactModal').modal('toggle');
+							console.log(error);
+							$.toaster({ priority : 'warning', title : 'Please Try Again', message : 'Error Sending Email', settings: {'timeout':3000,}  });
+						});
+			
 		};
 
 	};
