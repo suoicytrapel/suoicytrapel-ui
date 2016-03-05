@@ -17,39 +17,39 @@ app.factory('baseFactory', function($location) {
 		Rentals : 'RENTAL'
 	};
 	baseFactory.ourPortfolioImageUrls = {
-		'birthdayparty': {
-		'coverImage': '/images/rkb1.jpg',
-		'helpText1': '/images/rkb2.jpg',
-		'helpText2': '/images/rkb3.jpg',
-		'helpText3': '/images/rkb4.jpg',
-		'helpText4': '/images/rkb5.jpg',	
+		'Happy-Birthday-Mrs-Kalra': {
+		'EventCover': '/images/rkb1.jpg',
+		'Happy Bithday Mrs Kalra Moment2': '/images/rkb2.jpg',
+		'Happy Bithday Mrs Kalra Moment3': '/images/rkb3.jpg',
+		'Happy Bithday Mrs Kalra Moment4': '/images/rkb4.jpg',
+		'Happy Bithday Mrs Kalra Moment5': '/images/rkb5.jpg',	
 },
 
-'gurmeetwedssravleen':{
-		'coverImage': '/images/gws1.jpg',	
-		'helpText': '/images/gws2.jpg',
-		'helpText1': '/images/gws3.jpg',
-		'helpText2': '/images/gws4.jpg',
-		'helpText3': '/images/gws5.jpg',
-		'helpText3': '/images/gws6.jpg',
+'Gurmeet-Weds-Sravleen':{
+		'EventCover': '/images/gws1.jpg',	
+		'Gurmeet Weds Sravleen Moment2': '/images/gws2.jpg',
+		'Gurmeet Weds Sravleen Moment3': '/images/gws3.jpg',
+		'Gurmeet Weds Sravleen Moment4': '/images/gws4.jpg',
+		'Gurmeet Weds Sravleen Moment5': '/images/gws5.jpg',
+		'Gurmeet Weds Sravleen Moment6': '/images/gws6.jpg',
 		
 },
-'mehulwedsuma':{
-		'coverImage': '/images/mwu1.jpg',
-		'helpText': '/images/mwu2.jpg',
-		'helpText1': '/images/mwu3.jpg',
-		'helpText2': '/images/mwu4.jpg',
+'Mehul-Weds-Uma':{
+		'EventCover': '/images/mwu1.jpg',
+		'Mehul Weds Uma Moment2': '/images/mwu2.jpg',
+		'Mehul Weds Uma Moment3': '/images/mwu3.jpg',
+		'Mehul Weds Uma Moment4': '/images/mwu4.jpg',
 		
-		'helpText4': '/images/mwu5.jpg',	
-		'helpText4': '/images/mwu6.jpg',
+		'Mehul Weds Uma Moment5': '/images/mwu5.jpg',	
+		'Mehul Weds Uma Moment6': '/images/mwu6.jpg',
 },
-'newyearbash':{
-		'coverImage': '/images/nyb1.jpg',
-		'helpText': '/images/nyb2.jpg',
-		'helpText1': '/images/nyb3.jpg',
+'New-Year-Bash-2016':{
+		'EventCover': '/images/nyb1.jpg',
+		'New Year Bash 2016 Moment2': '/images/nyb2.jpg',
+		'New Year Bash 2016 Moment3': '/images/nyb3.jpg',
 		
-		'helpText3': '/images/nyb4.jpg',
-		'helpText4': '/images/nyb5.jpg',	
+		'New Year Bash 2016 Moment4': '/images/nyb4.jpg',
+		'New Year Bash 2016 Moment5': '/images/nyb5.jpg',	
 },
 
 };

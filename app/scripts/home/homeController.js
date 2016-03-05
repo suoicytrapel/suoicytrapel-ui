@@ -12,8 +12,23 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	vm.applyLibrariesOnPortfolio = function(){
 		showcasePortfolio();
 		for(var k in vm.portfolioImages){
-       	angular.element('.'+k).boxer();
+       	angular.element('.'+k).boxer({
+       		formatter: formatCaptions,
+       	});
        }
+       
+       function formatCaptions($target) {
+       	if($target.attr("title") == 'EventCover'){
+       		var className = $target.attr("class").split('-');
+       		var changedTitle = '';
+       		for(var k = 0; k < className.length; k++){
+       			changedTitle += className[k] + ' ';
+       		}
+       		       	$target.attr("title",changedTitle + 'Moment1');
+       	}
+
+	return '<h4>' + $target.attr("title") + '</h4>';
+}
 	};
 	
 	

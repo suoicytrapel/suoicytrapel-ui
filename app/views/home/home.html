@@ -99,7 +99,7 @@
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper">
 			<!-- Slides -->
-			<div class="swiper-slide" data-ng-repeat="(key, value) in vm.portfolioImages" style="background-image:url({{value.coverImage}})" on-last-repeat-element on-finish-callback="vm.applyLibrariesOnPortfolio()">
+			<div class="swiper-slide" data-ng-repeat="(key, value) in vm.portfolioImages" style="background-image:url({{value.EventCover}})" on-last-repeat-element on-finish-callback="vm.applyLibrariesOnPortfolio()">
 				<a data-ng-repeat="(childKey, childValue) in value" href="{{childValue}}" class="{{key}}" title="{{childKey}}" data-gallery="{{key}}">
 			<button data-ng-if="$index == 0" class="btn default-theme-btn view-event-btn">
 				Full Event
