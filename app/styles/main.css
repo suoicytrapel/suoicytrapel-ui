@@ -46,6 +46,12 @@ html, body {
 	-webkit-touch-callout: none !important; 
 }
 
+/* Fix for padding when bootstrap modal opens - legit Issue */
+
+body.modal-open{
+	padding-right: 0px !important;
+}
+
 section {
 	padding-top: 2em;
 	padding-bottom: 2em;
