@@ -121,21 +121,31 @@
 	border-left: 1px solid #333333;
 }
 
-.featured-ribbon{
+.featured-ribbon {
+width: 168px;
+height: 32px;
+	background: rgba(243,114,82,0.9);
+    z-index: 1;
+    position: absolute;
+    top: 9px;
+    color: #FFFFFF;
+    text-align: center;
+    display: table;
+}
+
+.featured-ribbon .featured-ribbon-text{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.featured-ribbon:after{
 	position: absolute;
-	height: 50px;
-	width: 50%;
-	background-color: red;
-}
-.featured-ribbon:before{
 	content: '';
-		width: 0; 
-	height: 0; 
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent; 
-	
-	border-right:10px solid blue;
+	border: 16px solid rgba(243,114,82,0.9);
+	border-right-color: transparent;
+	left: 168px;
 }
+
 
 .filter-btn {
 	background-color: #f37254;
