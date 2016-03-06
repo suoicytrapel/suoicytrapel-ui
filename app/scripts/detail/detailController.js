@@ -42,9 +42,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			'state': vm.detailedData.state,
 			});
 			//Applying Boxer on the menu images
-			$('.boxer').boxer({
+			vm.loadBoxer = function(){$('.boxer').boxer({
 				fixed: true,
 			});
+	};
 			//google.maps.event.addDomListener(window, 'load', loadMap(28.012496, 73.336364));
 			checkForMaps();
 		},function(error){
