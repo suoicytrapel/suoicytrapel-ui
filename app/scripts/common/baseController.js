@@ -307,7 +307,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 							else
 								response(data);
 						}, function(error) {
-							console.log(error);
+							if(error && error.errorMessage == "No Records Found"){
+								response(['No Results Found']);
+							}
 						});
 					}
 
