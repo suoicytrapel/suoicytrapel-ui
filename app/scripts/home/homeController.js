@@ -1,4 +1,4 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, HomeService, ContactFactory, $timeout) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
@@ -55,8 +55,8 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 
 }
 
-vm.fetchRecentAdditions = function(){
-        var cityId = sessionStorage.selectedCityId || baseFactory.getSelectedCity();
+  vm.fetchRecentAdditions = function(){
+        var cityId = baseFactory.getSelectedCity();
         HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data){
             vm.recentlyAddedData = data;
            
@@ -66,8 +66,8 @@ vm.fetchRecentAdditions = function(){
     };
 
     vm.fetchDetails = function(name, category){
-        var searchParam = name + "&type=" + category;
-        $location.path('/details/' + searchParam);
+        var searchParam = name;
+        $location.path('/details/' + baseFactory.getSelectedCity() +'/'+ category + '/' + searchParam);
     };
 
     vm.init();

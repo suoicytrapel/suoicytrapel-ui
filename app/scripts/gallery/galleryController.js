@@ -1,4 +1,4 @@
-app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $timeout, baseFactory, $location, HomeService, $q, dataService, Constants) {
+app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $timeout, baseFactory, $location, $q, dataService, Constants, $routeParams) {
 	var vm = this;
 	vm.init = function() {
 		vm.show = false;
@@ -19,7 +19,7 @@ app.controller('galleryController', function(HomeFactory, $rootScope, $scope, $t
 		vm.name = args.name;
 		vm.state = args.state;
 		vm.city = args.city;
-		vm.category = sessionStorage.selectedCategory;
+		vm.category = $routeParams.category;
 	});
 
 	vm.getImageURL = function(imageURLs) {

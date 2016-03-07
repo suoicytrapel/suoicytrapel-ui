@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, HomeService, dataService, DataFactory, Constants, $routeParams, $window) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window) {
 	var vm = this;
 	vm.tabName = [];
 	vm.tabData = [];
@@ -7,8 +7,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 	vm.init = function(){
 		$rootScope.showCover = false;
-		vm.selectedCategory = baseFactory.getSelectedCategory();
+		vm.selectedCategory = $routeParams.category;
 		vm.name = $routeParams.searchParam;
+		vm.city = $routeParams.city;
+		vm.category = $routeParams.category;
 		
 	};
 	vm.defineListeners =  function(){
@@ -19,8 +21,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	};
 	vm.fetchDetails = function(){
 		var dataRequestDTO = {
-			searchType : sessionStorage.selectedCategory || vm.selectedCategory,
-			cityId : sessionStorage.selectedCityId,
+			searchType : vm.category,
+			cityId : vm.city,
 			name : vm.name
 		};
 		DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data){
@@ -56,7 +58,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.fetchAttachments = function(){
 		var dataRequestDTO = {
 			searchType : vm.selectedCategory,
-			cityId : $rootScope.selectedCity,
+			cityId : vm.city,
 			name : vm.name
 		};
 		DataFactory.attachments.fetchAttachments(dataRequestDTO).$promise.then(function(data){
@@ -99,7 +101,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
     };
 
     vm.getReccomendationDetails = function(name){
-    	$window.ga('send', 'event', 'View Recommended Item', name, sessionStorage.selectedCategory);
+    	$window.ga('send', 'event', 'View Recommended Item', name, vm.category);
     	//vm.name = name;
     	$location.path('/details/' + name);
     };

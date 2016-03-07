@@ -14,17 +14,16 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         		$rootScope.showCityDropdown = true;
         	}
     	}
-    }).when('/search/', {
+    }).when('/vendors/:city/:category/:searchParam', {
         url:'/search',
         controller: 'DataController',
         templateUrl: 'views/data/data.html',
         controllerAs: 'vm',
         resolve: {
-            filters: function(DataFactory, baseFactory, $rootScope){
-                var selectedCategory = sessionStorage.selectedCategory;
+            filters: function(DataFactory, baseFactory, $rootScope, $route){
                 var filterRequestDTO = {
-                    searchType : selectedCategory,
-                    cityId : sessionStorage.selectedCityId,
+                    searchType : $route.current.params.category,
+                    cityId : $route.current.params.city,
                 };
                 return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data){
                     return data.toJSON();
@@ -36,7 +35,28 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         		$rootScope.showCityDropdown = true;
         	}
         }
-    }).when('/details/:searchParam', {
+    }).when('/vendors/:city/:category', {
+        url:'/search',
+        controller: 'DataController',
+        templateUrl: 'views/data/data.html',
+        controllerAs: 'vm',
+        resolve: {
+            filters: function(DataFactory, baseFactory, $rootScope, $route){
+                var filterRequestDTO = {
+                    searchType : $route.current.params.category,
+                    cityId : $route.current.params.city,
+                };
+                return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data){
+                    return data.toJSON();
+                },function(error){
+                    return error;
+                });
+            },
+            showCityDropdown: function($rootScope){
+                $rootScope.showCityDropdown = true;
+            }
+        }
+    }).when('/details/:city/:category/:searchParam', {
         url:'/details',
         controller: 'detailController',
         templateUrl: 'views/detail/detail.html',

@@ -39,7 +39,7 @@
 					</div>
 				</div>
 				<!-- Adding Menu Images for Caterers -->
-				<div class="pamphlet-container details-pamphlet caterer-menu">
+				<div class="pamphlet-container details-pamphlet caterer-menu" ng-if="vm.detailedData.menuImages.length > 0">
 					<div class="pamphlet-header">
 						<div class="pamphlet-title">
 							Menu
@@ -146,18 +146,22 @@
 				<!-- ng-repeat goes from here for all the recommended items -->
 				<div ng-repeat="reccomendation in vm.detailedData.recommendationList" class="recommended-pamphlet-container">
 					<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
-					<div class="pamphlet-header recommended-pamphlet-image">
+						<div class="pamphlet-container">
+					<div class="pamphlet-header">
+						<div class="featured-ribbon"><span class="featured-ribbon-text">LE PARTYCIOUS</span></div>
 						<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
 					</div>
-					<div class="pamphlet-body recommended-pamphlet-desc">
-						<div class="pamphlet-title col-xs-12 text-center ng-binding lineHeight30">
-							<div class="row">
-									<div class="col-xs-12 pamphlet-title-desc"><div style="width:inherit;">{{reccomendation.name}}<span class="pamphlet-title-city">, Chandigarh</span></div></div>
-									<!--<div class="col-xs-4 text-left pamphlet-title-price border-left-1px"><div>Starts from</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">1,00,000</span></div>-->
+					<div class="pamphlet-body">
+						<div class="pamphlet-body">
+								<div class="pamphlet-title col-xs-12 text-center">
+									<div class="row">
+									<div class="col-xs-8 text-left pamphlet-title-desc"><div>{{reccomendation.name}}</div><span class="pamphlet-title-city">{{reccomendation.locality}}</span></div>
+									<div class="col-xs-4 text-left pamphlet-title-price border-left-1px"><div>Starts from</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span></div>
 								</div>
-							<!--{{reccomendation.name}}-->
-						</div>
-					</div> <div class="pamphlet-footer"></div> </a>
+								</div>
+							</div>
+					</div> <div class="pamphlet-footer"></div>
+					</div> </a>
 				</div>
 
 			</div>

@@ -1,11 +1,9 @@
-app.controller('DataController', function(HomeService, baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, filters) {
+app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, filters, $routeParams) {
 
 	var vm = this;
 	$rootScope.showCover = true;
-	vm.searchParam = HomeService.getSearchParam();
-	vm.selectedCategory = sessionStorage.selectedCategory;
-	baseFactory.setCoverUrl(sessionStorage.selectedCategory);
-	baseFactory.setMainCoverHeading(sessionStorage.selectedCategory);
+	baseFactory.setCoverUrl($routeParams.category);
+	baseFactory.setMainCoverHeading($routeParams.category);
 	vm.offset = null;
 	$scope.pageSize = 6;
 	$scope.currentPage = 1;
@@ -41,9 +39,9 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
 			vm.getSelectedFilters();
 		}
 		var searchRequestDTO = {
-			searchType : sessionStorage.selectedCategory || vm.selectedCategory,
-			searchString : vm.searchParam,
-			cityId : sessionStorage.selectedCityId ? sessionStorage.selectedCityId : '1',
+			searchType : $routeParams.category,
+			searchString : $routeParams.searchParam,
+			cityId : $routeParams.city,
 			offset : vm.offset,
 			limit : $scope.pageSize,
 			filters : vm.selectedFilters
@@ -74,7 +72,7 @@ app.controller('DataController', function(HomeService, baseFactory, dataService,
 
 	vm.fetchDetails = function(name) {
 		var searchParam = name;
-		$location.path('/details/' + searchParam);
+		$location.path('/details/' + $routeParams.city +'/'+ $routeParams.category + '/' + searchParam);
 	};
 
 	vm.filterResults = function() {

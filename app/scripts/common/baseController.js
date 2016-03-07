@@ -4,20 +4,10 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, HomeService, $compile, ContactFactory, usSpinnerService) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService) {
 
 	var vm = this;
 
-	/*
-	 *Initializing the sessionStorage variables
-	 * if they are undefined
-	 *
-	 * */
-	if (!sessionStorage.selectedCityId)
-		sessionStorage.selectedCityId = '1';
-
-	if (!sessionStorage.selectedCategory)
-		sessionStorage.selectedCategory = 'VENUE';
 
 	//Application level variables
 	$rootScope.showCover = true;
@@ -29,13 +19,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 	vm.init = function() {
 
-		vm.selectedCategory = sessionStorage.selectedCategory;
+		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
-
-		//baseFactory.setCoverUrl(sessionStorage.selectedCategory);
-		//baseFactory.setMainCoverHeading(sessionStorage.selectedCategory);
 
 		$scope.form = {};
 
@@ -156,10 +143,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.categoryChanged = function() {
 			baseFactory.setSelectedCategory(vm.selectedCategory);
-			sessionStorage.selectedCategory = vm.selectedCategory;
-			if ($location.path().toString().match(/\/search\//i) != null)
-				$route.reload();
-			console.log($location.path());
+			if ($location.path().toString().match(/\/vendors\//i) != null)
+			{
+				if(vm.searchData == undefined || vm.searchData == null){
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				}
+				else{
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+				}
+			}
 		};
 
 		/*
@@ -169,11 +161,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.clicked = function() {
-			HomeService.setSearchParam(vm.searchData);
 			$route.reload();
 			baseFactory.setCoverUrl(vm.selectedCategory);
 			baseFactory.setMainCoverHeading(vm.selectedCategory);
-			$location.path('/search/');
+			if(vm.searchData == undefined || vm.searchData == null){
+				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+			}
+			else{
+				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+			}
+			
 		};
 
 		/*
@@ -185,10 +182,18 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.setCity = function($event) {
 			var selectedCityName = angular.element($event.currentTarget)[0].innerHTML;
 			vm.selectedCity = selectedCityName;
-			sessionStorage.selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
-			sessionStorage.selectedCity = selectedCityName;
+			var selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
+			baseFactory.setSelectedCity(selectedCityId);
 			vm.toggleDropdown();
-			$route.reload();
+			if ($location.path().toString().match(/\/vendors\//i) != null)
+			{
+				if(vm.searchData == undefined || vm.searchData == null){
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				}
+				else{
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+				}
+			}
 		};
 
 		/*
@@ -262,8 +267,17 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	function populateCities() {
 		HomeFactory.loadCities.populateCities().$promise.then(function(data) {
 			vm.citiesList = data.toJSON();
-			if (vm.citiesList && vm.citiesList != null)
-				vm.selectedCity = sessionStorage.selectedCity || vm.citiesList["1"];
+			var counter = 0;
+			if (vm.citiesList && vm.citiesList != null){
+				angular.forEach(vm.citiesList, function(value, key) {
+					if(counter == 0){
+						vm.selectedCity = value;
+				  		baseFactory.setSelectedCity(key);
+					}
+					counter = counter + 1;
+				  
+				});
+			}
 		}, function(error) {
 			console.log('Error: ' + error);
 		});
@@ -297,9 +311,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				source : function(request, response) {
 					if (request.term.length > 0) {
 						var searchRequestDTO = {
-							searchType : vm.selectedCategory,
+							searchType : baseFactory.getSelectedCategory,
 							searchString : request.term,
-							cityId : sessionStorage.selectedCityId ? sessionStorage.selectedCityId : '1',
+							cityId : baseFactory.getSelectedCity,
 						};
 						HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
 							if (data.length == 0)
