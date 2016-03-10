@@ -7,20 +7,52 @@
 						<h1 class="main-heading">{{vm.mainCoverHeading}}</h1>
 
 						<div class="semi-gap"></div>
+						<!--
 						<div class="row">
-							<h2 class="col-xs-offset-1 col-sm-offset-2 col-lg-offset-3 col-xs-4 searchfortext text-center">Choose your category</h2>
-						<div class="custom-select-container col-xs-6 col-sm-4 col-lg-2">
-							<select class="select-option-menu" data-ng-change="vm.categoryChanged()" onblur="" data-ng-model="vm.selectedCategory">
-							<option data-ng-repeat='(key, value) in vm.categoryMap' value="{{value}}">{{key}}</option>
-						</select>
-						<!--<span class="custom-select-arrow" data-ng-click="vm.open('.select-option-menu')"></span>-->
-						</div>
-						</div>
-						<div class="quarter-gap"></div>
+													<h2 class="col-xs-offset-1 col-sm-offset-2 col-lg-offset-3 col-xs-4 searchfortext text-center">Choose your category</h2>
+												<div class="custom-select-container col-xs-6 col-sm-4 col-lg-2">
+													<select class="select-option-menu" data-ng-change="vm.categoryChanged()" onblur="" data-ng-model="vm.selectedCategory">
+													<option data-ng-repeat='(key, value) in vm.categoryMap' value="{{value}}">{{key}}</option>
+												</select>
+												
+												</div>
+												</div>
+												<div class="quarter-gap"></div>-->
+						
 						<form action="" autocomplete="off" class="home-page-form">
-							<div class="col-xs-12 col-sm-8 col-sm-offset-1 search-input-box form-group">
+							<div class="col-xs-12 col-sm-2 form-group">
 								<div class="row">
-									<input id="searchedText" type="text" placeholder="Type vendor name or click Search All" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
+									<div class="lp-select-city">
+					<div class="lp-select-city-text" ng-click="vm.toggleDropdown()">
+						<span class="lp-label-city">CITY</span>
+						<span class="lp-selected-city">{{vm.selectedCity}}</span>
+						<span class="fa fa-fw fa-map-marker float-right location-icon"></span>
+						</div>
+					<ul class="lp-city-dropdown">
+						<li data-ng-repeat = '(key, value) in vm.citiesList'><span class="fa fa-fw fa-map-marker float-right location-dropdown-icon"></span><a href='javascript:void(0)' data-ng-click='vm.setCity($event)' data-id='{{key}}'>{{value}}</a></li>
+					</ul>
+				</div>
+								</div>
+							</div>
+							
+							<div class="col-xs-12 col-sm-2 form-group">
+								<div class="row">
+									<div class="lp-select-category">
+					<div class="lp-select-category-text" ng-click="vm.toggleCategoryDropdown()">
+						<span class="lp-label-category">VENDOR TYPE</span>
+						<span class="lp-selected-category">Venues <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIcons[0]'}}"></span></span>
+						
+						</div>
+					<ul class="lp-category-dropdown">
+						<li data-ng-repeat = '(key, value) in vm.categoryMap' data-value = "{{value}}"><a href='javascript:void(0)' data-ng-click='vm.setCategory($event)' data-value = "{{value}}">{{key}} <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIcons[$index]'}}"></span></a></li>
+					</ul>
+				</div>
+								</div>
+							</div>
+							
+							<div class="col-xs-12 col-sm-6 search-input-box form-group">
+								<div class="row">
+									<input id="searchedText" type="text" placeholder="Vendor Name or Search All" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
 									</input>
 								</div>
 							</div>

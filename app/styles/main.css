@@ -370,60 +370,114 @@ p.info, p.connect {
 
 }
 
+.lp-label-city,
+.lp-label-category{
+	    position: absolute;
+    text-align: left;
+    line-height: 16px;
+    font-size: 12px;
+    left: 6px;
+    font-family: OpenSans-bold;
+    color: #f37254;
+}
+
 .lp-select-city-menu option{
     color: #333333;
     background-color: #ffffff;
 }
 
-.lp-select-city{
-	display: inline-block;
-	float: left;
-	margin-right: 0px;
-    /*margin-left: 50%;*/
-       padding: 0px 15px;
+
+
+.lp-select-city-text,
+.lp-select-category-text{
+	height: 46px;
+	color: #555555;
+    background: #ffffff;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    line-height: 53px;
 }
 
-.lp-select-city-text{
-	height: 40px;
-	width: 120px;
-	margin: 20px 0px 0px 0px;
-	color: #FFFFFF;
-    background: none;
-    border-radius: 2px;
-    border: 1px solid #ffffff;
-         padding: 10px 4px;
+.lp-select-category-text{
+	    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+        text-align: left;
+    padding-left: 6px;
 }
 
-.lp-city-dropdown{
+.lp-city-dropdown,
+.lp-category-dropdown{
 	display: none;
-    background: white;
+background: white;
     border-radius: 2px;
-    position: relative;
-    top: -40px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    font-size: 16px;
+    z-index: 1;
 }
 
-.lp-city-dropdown li{
-	height: 30px;
-	line-height: 30px;
+.lp-category-dropdown{
+	top: initial;
+}
+
+.lp-city-dropdown li,
+.lp-category-dropdown li{
+	height: 36px;
+	line-height: 36px;
 	background-color: #FFFFFF;
 }
 
+.lp-city-dropdown li .location-dropdown-icon,
+.lp-category-dropdown li .category-icons
+{
+	    color: #656565;
+    line-height: 36px;
+}
+
+
+.lp-city-dropdown li:hover .location-dropdown-icon,
+.lp-city-dropdown li:focus .location-dropdown-icon,
+.lp-category-dropdown li:hover .category-icons,
+.lp-category-dropdown li:focus .category-icons{
+	    color: #ffffff;
+}
+
 .lp-city-dropdown li:hover a,
-.lp-city-dropdown li:focus a{
+.lp-city-dropdown li:focus a,
+.lp-category-dropdown li:hover a,
+.lp-category-dropdown li:focus a{
 	color: #FFFFFF;
 	background-color: #656565;
 }
 
-.lp-city-dropdown li a{
+.lp-city-dropdown li a,
+.lp-category-dropdown li a{
 	padding-left: 4px;
 		color: #656565;
 		display: block;
 		height: 100%;
 		width: 100%;
 }
-.location-icon{
-	color: #ffffff;
+
+.lp-category-dropdown li a{
+	text-align: left;
+	padding-left: 6px;	
+	padding-right: 6px;
+}
+
+.lp-select-category-text > .lp-selected-category > .category-icons{
+		color: #f37254;
 	font-size: 20px;
+	line-height: 46px;
+}
+
+.location-icon{
+	color: #f37254;
+	font-size: 20px;
+	line-height: 46px;
 }
 
 
@@ -591,6 +645,13 @@ p.info, p.connect {
 }
 /*loading screen styling ends*/
 
+/* Overriding z-index for boxer Carousel
+ * so that it comes over the header */
+#boxer-overlay,
+#boxer{
+	z-index: 1031;
+}
+
 
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {
@@ -605,9 +666,6 @@ p.info, p.connect {
 	height: 50px;
 }
 
-.lp-select-city{
-	float: right;
-}
 
 }
 

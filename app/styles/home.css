@@ -97,6 +97,9 @@
 	font-size: 24px;
 }
 
+#coverPage #searchedText{
+	border-radius: 0px;
+}
 .lp-sprite {
 	background-image: url('/images/spritesheet.png');
 	background-repeat: no-repeat;
@@ -182,11 +185,21 @@
 
 @media only screen and (min-width: 0px) and (max-width: 767px) {
 	#coverPage .home-search-btn {
-		border-radius: 6px;
+		border-radius: 6px !important;
 	}
 
 	#coverPage .home-search-box {
 		border-radius: 0px;
+	}
+	
+	
+	#coverPage .lp-select-city-text {
+		border-radius: 0px !important;
+	}
+	
+	#coverPage .lp-label-city,
+	#coverPage .lp-label-category{
+		font-size: 16px;
 	}
 	
 	
@@ -198,5 +211,10 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-	
+	.lp-category-dropdown{
+		font-size: 12px;
+	}
+	.lp-selected-category{
+		font-size: 12px;
+	}
 }

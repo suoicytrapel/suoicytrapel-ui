@@ -8,10 +8,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	var vm = this;
 
-
 	//Application level variables
 	$rootScope.showCover = true;
-	$rootScope.showCityDropdown = true;
+
 
 	/*
 	 *Initializing all the variables
@@ -23,7 +22,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
-
+		/*Statically defining the classes for icons present in category dropdown*/
+		vm.categoryIcons = ['fa-university','fa-cutlery','fa-asterisk','fa-camera','fa-bar-chart','fa-external-link-square'];
 		$scope.form = {};
 
 	};
@@ -64,8 +64,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		$(document).on('click', function(e) {
-			if (!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon')))
+			if (!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon') || $(e.target).hasClass('lp-label-city')))
 				$('.lp-city-dropdown').slideUp();
+			if (!($(e.target).hasClass('lp-select-category-text') || $(e.target).hasClass('lp-selected-category') || $(e.target).hasClass('category-icons') || $(e.target).hasClass('lp-label-category')))
+				$('.lp-category-dropdown').slideUp();
 		});
 
 		/*
@@ -93,7 +95,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 			//Hiding loader screen when view has loaded completely
 			window.scrollTo(0, 0);
-			
 
 			vm.stopLoader();
 			vm.coverUrl = baseFactory.getCoverUrl();
@@ -143,12 +144,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.categoryChanged = function() {
 			baseFactory.setSelectedCategory(vm.selectedCategory);
-			if ($location.path().toString().match(/\/vendors\//i) != null)
-			{
-				if(vm.searchData == undefined || vm.searchData == null){
+			if ($location.path().toString().match(/\/vendors\//i) != null) {
+				if (vm.searchData == undefined || vm.searchData == null) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				}
-				else{
+				} else {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
 				}
 			}
@@ -164,13 +163,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			$route.reload();
 			baseFactory.setCoverUrl(vm.selectedCategory);
 			baseFactory.setMainCoverHeading(vm.selectedCategory);
-			if(vm.searchData == undefined || vm.searchData == null){
+			if (vm.searchData == undefined || vm.searchData == null) {
 				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-			}
-			else{
+			} else {
 				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
 			}
-			
+
 		};
 
 		/*
@@ -185,12 +183,35 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			var selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
 			baseFactory.setSelectedCity(selectedCityId);
 			vm.toggleDropdown();
-			if ($location.path().toString().match(/\/vendors\//i) != null)
-			{
-				if(vm.searchData == undefined || vm.searchData == null){
+			if ($location.path().toString().match(/\/vendors\//i) != null) {
+				if (vm.searchData == undefined || vm.searchData == null) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				} else {
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
 				}
-				else{
+			}
+			/* Code for emitting data on city change
+			 *  so as to change recently added block */
+			$scope.$broadcast('cityChangedEvent');
+		};
+
+		/*
+		 *
+		 * Called when the user chooses
+		 * different option from category dropdown
+		 *
+		 * */
+		vm.setCategory = function($event) {
+			var selectedCategoryElemHtml = angular.element($event.currentTarget)[0].innerHTML;
+			angular.element('.lp-selected-category').html(selectedCategoryElemHtml);
+			var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-value');
+			baseFactory.setSelectedCategory(selectedCategoryValue);
+			vm.selectedCategory = selectedCategoryValue;
+			vm.toggleCategoryDropdown();
+			if ($location.path().toString().match(/\/vendors\//i) != null) {
+				if (vm.searchData == undefined || vm.searchData == null) {
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				} else {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
 				}
 			}
@@ -203,6 +224,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.toggleDropdown = function() {
 			$('.lp-city-dropdown').slideToggle();
+		};
+
+		/*
+		 *
+		 * toggle category dropdown
+		 *
+		 * */
+		vm.toggleCategoryDropdown = function() {
+			$('.lp-category-dropdown').slideToggle();
 		};
 
 		/*
@@ -228,23 +258,37 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.submitEnquiry = function() {
-						
+
 			ContactFactory.submitEnquiry.submit(vm.contactForm).$promise.then(function(data) {
-							
-							vm.contactForm = {};
-							$scope.form.contactForm.$setPristine();
-							$scope.form.contactForm.$setUntouched();
-							vm.submitted = false;
-							$('#contactModal').modal('toggle');
-							$.toaster({ priority : 'success', title : 'Success', message : 'Email has been sent', settings: {'timeout':3000,} });
-						}, function(error) {
-							$scope.form.contactForm.$setPristine();
-							vm.contactForm = {};
-							$('#contactModal').modal('toggle');
-							console.log(error);
-							$.toaster({ priority : 'warning', title : 'Please Try Again', message : 'Error Sending Email', settings: {'timeout':3000,}  });
-						});
-			
+
+				vm.contactForm = {};
+				$scope.form.contactForm.$setPristine();
+				$scope.form.contactForm.$setUntouched();
+				vm.submitted = false;
+				$('#contactModal').modal('toggle');
+				$.toaster({
+					priority : 'success',
+					title : 'Success',
+					message : 'Email has been sent',
+					settings : {
+						'timeout' : 3000,
+					}
+				});
+			}, function(error) {
+				$scope.form.contactForm.$setPristine();
+				vm.contactForm = {};
+				$('#contactModal').modal('toggle');
+				console.log(error);
+				$.toaster({
+					priority : 'warning',
+					title : 'Please Try Again',
+					message : 'Error Sending Email',
+					settings : {
+						'timeout' : 3000,
+					}
+				});
+			});
+
 		};
 
 	};
@@ -268,14 +312,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		HomeFactory.loadCities.populateCities().$promise.then(function(data) {
 			vm.citiesList = data.toJSON();
 			var counter = 0;
-			if (vm.citiesList && vm.citiesList != null){
+			if (vm.citiesList && vm.citiesList != null) {
 				angular.forEach(vm.citiesList, function(value, key) {
-					if(counter == 0){
+					if (counter == 0) {
 						vm.selectedCity = value;
-				  		baseFactory.setSelectedCity(key);
+						baseFactory.setSelectedCity(key);
 					}
 					counter = counter + 1;
-				  
+
 				});
 			}
 		}, function(error) {
@@ -311,9 +355,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				source : function(request, response) {
 					if (request.term.length > 0) {
 						var searchRequestDTO = {
-							searchType : baseFactory.getSelectedCategory,
+							searchType : baseFactory.getSelectedCategory(),
 							searchString : request.term,
-							cityId : baseFactory.getSelectedCity,
+							cityId : baseFactory.getSelectedCity(),
 						};
 						HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
 							if (data.length == 0)
@@ -321,7 +365,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 							else
 								response(data);
 						}, function(error) {
-							if(error && error.errorMessage == "No Records Found"){
+							if (error && error.data.errorCode == 400) {
 								response(['No Results Found']);
 							}
 						});
@@ -348,19 +392,17 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				else
 					$('.home-search-btn').text('SEARCH ALL');
 			});
-			
-			
+
 			$('[data-toggle="tooltip"]').tooltip({
 				placement : 'top'
 			});
 
-			angular.element("#back-to-top").on('click',function() {
+			angular.element("#back-to-top").on('click', function() {
 				$("html, body").animate({
 					scrollTop : 0
 				}, "slow");
 				return false;
 			});
-			
 
 		});
 	};
@@ -370,5 +412,5 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.defineListeners();
 	vm.defineMethods();
 	vm.invokeInitialMethods();
-	
+
 });

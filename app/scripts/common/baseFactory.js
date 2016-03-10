@@ -7,14 +7,15 @@ app.factory('baseFactory', function($location) {
 	baseFactory.selectedCity = '1';
 	baseFactory.selectedCategory = 'VENUE';
 	baseFactory.coverUrl = '/images/main_cover.jpg';
-	baseFactory.mainCoverHeading = 'Making Moments Memorable';
+	baseFactory.mainCoverHeading = 'Bringing Smiles on Faces';
 	baseFactory.categoryMap = {
 
 		Venues : 'VENUE',
 		Caterers : 'CATERER',
 		Decorators : 'DECORATOR',
 		Photographers : 'PHOTOGRAPHER',
-		Rentals : 'RENTAL'
+		Entertainment : 'ENTERTAINMENT',
+		Others : 'OTHER'
 	};
 	baseFactory.ourPortfolioImageUrls = {
 		'Happy-Birthday-Mrs-Kalra': {
@@ -117,7 +118,7 @@ app.factory('baseFactory', function($location) {
 				baseFactory.mainCoverHeading = 'RENTALS';
 				break;
 			default:
-				baseFactory.mainCoverHeading = 'Making Moments Memorable';
+				baseFactory.mainCoverHeading = 'Bringing Smiles on Faces';
 				break;
 
 		};

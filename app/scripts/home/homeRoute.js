@@ -8,11 +8,8 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         resolve: {
 	        changeCover: function(baseFactory){
 	        	baseFactory.setCoverUrl('Home');
-	        	baseFactory.setMainCoverHeading('Making Moments Memorable');
-	        },
-	        showCityDropdown: function($rootScope){
-        		$rootScope.showCityDropdown = true;
-        	}
+	        	baseFactory.setMainCoverHeading('Bringing Smiles on Faces');
+	        }
     	}
     }).when('/vendors/:city/:category/:searchParam', {
         url:'/search',
@@ -30,10 +27,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
                 },function(error){
                     return error;
                 });
-            },
-            showCityDropdown: function($rootScope){
-        		$rootScope.showCityDropdown = true;
-        	}
+            }
         }
     }).when('/vendors/:city/:category', {
         url:'/search',
@@ -51,9 +45,6 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
                 },function(error){
                     return error;
                 });
-            },
-            showCityDropdown: function($rootScope){
-                $rootScope.showCityDropdown = true;
             }
         }
     }).when('/details/:city/:category/:searchParam', {
@@ -62,9 +53,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         templateUrl: 'views/detail/detail.html',
         controllerAs: 'vm',
         resolve: {
-        	hideCityDropdown: function($rootScope){
-        		$rootScope.showCityDropdown = false;
-        	}
+        	
         }
     }).when('/aboutus/', {
         url:'/aboutus',
@@ -73,9 +62,6 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         resolve: {
         	hideCover: function($rootScope){
         		$rootScope.showCover = false;
-        	},
-        	showCityDropdown: function($rootScope){
-        		$rootScope.showCityDropdown = true;
         	}
         }
     }).when('/faq/', {
@@ -85,9 +71,6 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         resolve: {
         	hideCover: function($rootScope){
         		$rootScope.showCover = false;
-        	},
-        	showCityDropdown: function($rootScope){
-        		$rootScope.showCityDropdown = true;
         	}
         }
     })
