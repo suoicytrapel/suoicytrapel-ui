@@ -142,6 +142,14 @@ a:hover, a:focus {
 .bg-grey {
 	background-color: #EEEEEE;
 }
+
+.marginTopBottom20{
+	margin: 20px 0px;
+}
+
+.fontSize16{
+	font-size: 16px;
+}
 .form-group .required:after {
 	content: "*";
 	color: brown;
@@ -653,10 +661,11 @@ background: white;
 }
 
 
+
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {
     float: left;
-    padding: 10px;
+    padding: 0px 10px;
     font-size: 12px;
     line-height: 1;
     height: 50px;
