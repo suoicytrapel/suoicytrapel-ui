@@ -4,13 +4,12 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams) {
 
 	var vm = this;
 
 	//Application level variables
 	$rootScope.showCover = true;
-
 
 	/*
 	 *Initializing all the variables
@@ -22,8 +21,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
+
 		/*Statically defining the classes for icons present in category dropdown*/
-		vm.categoryIcons = ['fa-university','fa-cutlery','fa-asterisk','fa-camera','fa-bar-chart','fa-external-link-square'];
+		vm.categoryIconsMap = baseFactory.categoryIconsMap;
 		$scope.form = {};
 
 	};
@@ -101,6 +101,17 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 		});
 
+		/*
+		 * is invoked
+		 * when the basic data like
+		 * city, category etc has to be updated
+		 *
+		 * */
+		$scope.$on('updateBaseControllerData', function(event, args) {
+			setCityOnRouteParams(args.routeParamsCity);
+			setCategoryOnRouteParams(args.routeParamsCategory);
+		});
+
 	};
 
 	/*
@@ -134,23 +145,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				vm.showLoaderScreen = false;
 				usSpinnerService.stop('home-page-spinner');
 			});
-		};
-
-		/*
-		 *
-		 * Called when the category is changed
-		 * from the category dropdown
-		 *
-		 * */
-		vm.categoryChanged = function() {
-			baseFactory.setSelectedCategory(vm.selectedCategory);
-			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				if (vm.searchData == undefined || vm.searchData == null) {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
-				}
-			}
 		};
 
 		/*
@@ -202,9 +196,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.setCategory = function($event) {
-			var selectedCategoryElemHtml = angular.element($event.currentTarget)[0].innerHTML;
-			angular.element('.lp-selected-category').html(selectedCategoryElemHtml);
-			var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-value');
+			var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-key');
 			baseFactory.setSelectedCategory(selectedCategoryValue);
 			vm.selectedCategory = selectedCategoryValue;
 			vm.toggleCategoryDropdown();
@@ -344,6 +336,40 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	/*
 	 *
+	 * Call for setting city based on route params
+	 *
+	 * */
+	function setCityOnRouteParams(cityId) {
+		if (vm.citiesList && typeof vm.citiesList == 'object') {
+			for (var key in vm.citiesList) {
+				if (key == cityId) {
+					vm.selectedCity = vm.citiesList[key];
+					break;
+				}
+			}
+		}
+
+	}
+
+	/*
+	 *
+	 * Call for setting city based on route params
+	 *
+	 * */
+	function setCategoryOnRouteParams(category) {
+		if (vm.categoryMap && typeof vm.categoryMap == 'object') {
+			for (var key in vm.categoryMap) {
+				if (category == key) {
+					vm.selectedCategory = key;
+					break;
+				}
+			}
+		}
+
+	}
+
+	/*
+	 *
 	 * Call for Applying autocomplete
 	 *
 	 * */
@@ -365,7 +391,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 							else
 								response(data);
 						}, function(error) {
-							if (error && error.data.errorCode == 400) {
+							if (error && error.data && error.data.errorCode == 400) {
 								response(['No Results Found']);
 							}
 						});
@@ -407,10 +433,35 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		});
 	};
 
+	function changeHomeScreenBgImages() {
+		var index = 2;
+		var intervalVariable = setInterval(function() {
+			if ($('#coverPage').hasClass('home-screen-cover')) {
+				if (index == 6)
+					index = 1;
+				$(".home-screen-cover").animate({
+					opacity : "0.5"
+				}, function() {
+					$('.home-screen-cover').removeClass(function(index, className) {
+						return className.match(/cover\d/g)[0];
+					});
+					$('.home-screen-cover').addClass('home-screen-cover cover' + index);
+					$(".home-screen-cover").animate({
+						opacity : "1"
+					});
+					index++;
+				});
+
+				
+			}
+		}, 5000);
+	}
+
 	/* Methods Invoked in Correct Sequence */
 	vm.init();
 	vm.defineListeners();
 	vm.defineMethods();
 	vm.invokeInitialMethods();
+	changeHomeScreenBgImages();
 
 });

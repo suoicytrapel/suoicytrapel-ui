@@ -4,6 +4,9 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	$rootScope.showCover = true;
 	baseFactory.setCoverUrl($routeParams.category);
 	baseFactory.setMainCoverHeading($routeParams.category);
+	baseFactory.setSelectedCategory($routeParams.category);
+	baseFactory.setSelectedCity($routeParams.city);
+	$scope.$emit('updateBaseControllerData',{routeParamsCity: $routeParams.city, routeParamsCategory: $routeParams.category});
 	vm.offset = null;
 	$scope.pageSize = 6;
 	$scope.currentPage = 1;

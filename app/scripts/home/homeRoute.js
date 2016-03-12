@@ -3,7 +3,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
     $routeProvider.when('/', {
     	url:'/login',
         controller: 'HomeController',
-        templateUrl: 'views/badrequest/badrequest.html',
+        templateUrl: 'views/home/home.html',
         controllerAs: 'vm',
         resolve: {
 	        changeCover: function(baseFactory){

@@ -1,4 +1,4 @@
-<div id="coverPage" style="background-image: url({{vm.coverUrl}})">
+<div id="coverPage" class="home-screen-cover cover1" style="">
 	<div class="content-wrapper">
 		<div class="container">
 			<div class="main-content text-center vertical-center">
@@ -40,11 +40,11 @@
 									<div class="lp-select-category">
 					<div class="lp-select-category-text" ng-click="vm.toggleCategoryDropdown()">
 						<span class="lp-label-category">VENDOR TYPE</span>
-						<span class="lp-selected-category">Venues <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIcons[0]'}}"></span></span>
+						<span class="lp-selected-category">{{vm.categoryMap[vm.selectedCategory]}}<span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIconsMap[vm.selectedCategory]'}}"></span></span>
 						
 						</div>
 					<ul class="lp-category-dropdown">
-						<li data-ng-repeat = '(key, value) in vm.categoryMap' data-value = "{{value}}"><a href='javascript:void(0)' data-ng-click='vm.setCategory($event)' data-value = "{{value}}">{{key}} <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIcons[$index]'}}"></span></a></li>
+						<li data-ng-repeat = '(key, value) in vm.categoryMap' data-key = "{{key}}"><a href='javascript:void(0)' data-ng-click='vm.setCategory($event)' data-key = "{{key}}">{{value}} <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIconsMap[key]'}}"></span></a></li>
 					</ul>
 				</div>
 								</div>

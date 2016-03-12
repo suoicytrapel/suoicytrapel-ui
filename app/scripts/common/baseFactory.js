@@ -8,14 +8,25 @@ app.factory('baseFactory', function($location) {
 	baseFactory.selectedCategory = 'VENUE';
 	baseFactory.coverUrl = '/images/main_cover.jpg';
 	baseFactory.mainCoverHeading = 'Bringing Smiles on Faces';
+	
 	baseFactory.categoryMap = {
 
-		Venues : 'VENUE',
-		Caterers : 'CATERER',
-		Decorators : 'DECORATOR',
-		Photographers : 'PHOTOGRAPHER',
-		Entertainment : 'ENTERTAINMENT',
-		Others : 'OTHER'
+		 'VENUE': 'Venues',
+		 'CATERER': 'Caterers',
+		 'DECORATOR': 'Decorators',
+		 'PHOTOGRAPHER': 'Photographers',
+		 'ENTERTAINMENT': 'Entertainment',
+		 'OTHER' : 'Others' 
+	};
+	
+	baseFactory.categoryIconsMap = {
+		
+		'VENUE' : 'fa-university',
+		'CATERER' : 'fa-cutlery',
+		'DECORATOR' : 'fa-asterisk',
+		'PHOTOGRAPHER' : 'fa-camera',
+		'ENTERTAINMENT' : 'fa-bar-chart',
+		'OTHER' : 'fa-external-link-square',
 	};
 	baseFactory.ourPortfolioImageUrls = {
 		'Happy-Birthday-Mrs-Kalra': {
@@ -26,13 +37,13 @@ app.factory('baseFactory', function($location) {
 		'Happy Bithday Mrs Kalra Moment5': '/images/rkb5.jpg',	
 },
 
-'Gurmeet-Weds-Sravleen':{
+'Gurmeet-Weds-Ravleen':{
 		'EventCover': '/images/gws1.jpg',	
-		'Gurmeet Weds Sravleen Moment2': '/images/gws2.jpg',
-		'Gurmeet Weds Sravleen Moment3': '/images/gws3.jpg',
-		'Gurmeet Weds Sravleen Moment4': '/images/gws4.jpg',
-		'Gurmeet Weds Sravleen Moment5': '/images/gws5.jpg',
-		'Gurmeet Weds Sravleen Moment6': '/images/gws6.jpg',
+		'Gurmeet Weds Ravleen Moment2': '/images/gws2.jpg',
+		'Gurmeet Weds Ravleen Moment3': '/images/gws3.jpg',
+		'Gurmeet Weds Ravleen Moment4': '/images/gws4.jpg',
+		'Gurmeet Weds Ravleen Moment5': '/images/gws5.jpg',
+		'Gurmeet Weds Ravleen Moment6': '/images/gws6.jpg',
 		
 },
 'Mehul-Weds-Uma':{

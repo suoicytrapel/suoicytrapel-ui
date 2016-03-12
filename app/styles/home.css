@@ -17,7 +17,34 @@
 	background-attachment: fixed !important;
 	color: #fff;
 	height: 500px;
-	background-image: url('/images/main_cover.jpg');
+	
+}
+
+
+.home-screen-cover.cover1{
+
+	background-image: url('/images/homeBg/home_screen_cover1.jpg') !important;
+
+}
+.home-screen-cover.cover2{
+
+	background-image: url('/images/homeBg/home_screen_cover2.jpg') !important;
+
+}
+.home-screen-cover.cover3{
+
+	background-image: url('/images/homeBg/home_screen_cover3.jpg') !important;
+
+}
+.home-screen-cover.cover4{
+
+	background-image: url('/images/homeBg/home_screen_cover4.jpg') !important;
+
+}
+.home-screen-cover.cover5{
+
+	background-image: url('/images/homeBg/home_screen_cover5.jpg') !important;
+
 }
 
 
