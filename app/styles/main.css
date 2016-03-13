@@ -264,6 +264,25 @@ p.info, p.connect {
     -o-border-radius: 50%;
     -ms-border-radius: 50%;
     border-radius: 50%;
+    -webkit-transform: rotateZ(0deg);
+    -webkit-transition: -webkit-transform 0.5s;
+        -moz-transform: rotateZ(0deg);
+    -moz-transition: -moz-transform 0.5s;
+        -o-transform: rotateZ(0deg);
+    -o-transition: -o-transform 0.5s;
+        -ms-transform: rotateZ(0deg);
+    -ms-transition: -ms-transform 0.5s;
+}
+
+#footer .social li span:hover{
+	-webkit-transform: rotateZ(360deg);
+	-webkit-transition: -webkit-transform 0.5s;
+		-moz-transform: rotateZ(360deg);
+	-moz-transition: -moz-transform 0.5s;
+		-o-transform: rotateZ(360deg);
+	-o-transition: -o-transform 0.5s;
+		-ms-transform: rotateZ(360deg);
+	-ms-transition: -ms-transform 0.5s;
 }
 
 .social a:hover span.fa-facebook {

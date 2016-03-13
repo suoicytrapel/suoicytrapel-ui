@@ -7,7 +7,7 @@ app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($r
         controllerAs: 'vm',
         resolve: {
 	        changeCover: function(baseFactory){
-	        	baseFactory.setCoverUrl('Home');
+	        	/*baseFactory.setCoverUrl('Home');*/
 	        	baseFactory.setMainCoverHeading('Bringing Smiles on Faces');
 	        }
     	}

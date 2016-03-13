@@ -19,7 +19,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
-		vm.coverUrl = baseFactory.getCoverUrl();
+		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
 
 		/*Statically defining the classes for icons present in category dropdown*/
@@ -80,26 +80,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			animateHeaderBgColor();
 		});
 
-		/*
-		 * is invoked
-		 * when all the content
-		 * for the view is loaded
-		 *
-		 * */
-		$scope.$on('$viewContentLoaded', function() {
-
-			applyAutocomplete();
-
-			//Apply Background color change function on scroll
-			animateHeaderBgColor();
-
-			//Hiding loader screen when view has loaded completely
-			window.scrollTo(0, 0);
-
-			vm.stopLoader();
-			vm.coverUrl = baseFactory.getCoverUrl();
-			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
-		});
 
 		/*
 		 * is invoked
@@ -155,7 +135,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.clicked = function() {
 			$route.reload();
-			baseFactory.setCoverUrl(vm.selectedCategory);
+			//baseFactory.setCoverUrl(vm.selectedCategory);
 			baseFactory.setMainCoverHeading(vm.selectedCategory);
 			if (vm.searchData == undefined || vm.searchData == null) {
 				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
@@ -293,6 +273,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.invokeInitialMethods = function() {
 		vm.startLoader();
 		populateCities();
+		applyAutocomplete();
 	};
 
 	/*
@@ -371,6 +352,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/*
 	 *
 	 * Call for Applying autocomplete
+	 * All the functions that are to be executed
+	 * after page load is written in $timeout
 	 *
 	 * */
 	function applyAutocomplete() {
@@ -430,38 +413,38 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				return false;
 			});
 
+			var mySwiper = new Swiper('.cover-swiper-container', {
+				speed : 300,
+				spaceBetween : 0,
+				autoplay: 3000,
+				effect : "fade",
+				fade : {
+					crossFade : false,
+				},
+				/*
+				pagination: '.cover-swiper-pagination',
+								paginationType: 'bullets',
+								paginationClickable: true,*/
+				
+			});
+			
+						//Apply Background color change function on scroll
+			animateHeaderBgColor();
+
+			//Hiding loader screen when view has loaded completely
+			window.scrollTo(0, 0);
+
+			vm.stopLoader();
+			//vm.coverUrl = baseFactory.getCoverUrl();
+			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
+
 		});
 	};
-
-	function changeHomeScreenBgImages() {
-		var index = 2;
-		var intervalVariable = setInterval(function() {
-			if ($('#coverPage').hasClass('home-screen-cover')) {
-				if (index == 6)
-					index = 1;
-				$(".home-screen-cover").animate({
-					opacity : "0.5"
-				}, function() {
-					$('.home-screen-cover').removeClass(function(index, className) {
-						return className.match(/cover\d/g)[0];
-					});
-					$('.home-screen-cover').addClass('home-screen-cover cover' + index);
-					$(".home-screen-cover").animate({
-						opacity : "1"
-					});
-					index++;
-				});
-
-				
-			}
-		}, 5000);
-	}
 
 	/* Methods Invoked in Correct Sequence */
 	vm.init();
 	vm.defineListeners();
 	vm.defineMethods();
 	vm.invokeInitialMethods();
-	changeHomeScreenBgImages();
 
 });

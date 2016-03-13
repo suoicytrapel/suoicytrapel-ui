@@ -39,7 +39,7 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	};
 
 	function showcasePortfolio() {
-		var mySwiper = new Swiper('.swiper-container', {
+		var mySwiper = new Swiper('.portfolio-swiper-container', {
 			initialSlide : 2,
 			effect : 'coverflow',
 			grabCursor : true,
