@@ -16,7 +16,7 @@ app.factory('baseFactory', function($location) {
 		 'DECORATOR': 'Decorators',
 		 'PHOTOGRAPHER': 'Photographers',
 		 'ENTERTAINMENT': 'Entertainment',
-		 'OTHER' : 'Others' 
+		 'OTHERS' : 'Others' 
 	};
 	
 	baseFactory.categoryIconsMap = {
@@ -26,7 +26,7 @@ app.factory('baseFactory', function($location) {
 		'DECORATOR' : 'fa-asterisk',
 		'PHOTOGRAPHER' : 'fa-camera',
 		'ENTERTAINMENT' : 'fa-bar-chart',
-		'OTHER' : 'fa-external-link-square',
+		'OTHERS' : 'fa-external-link-square',
 	};
 	baseFactory.ourPortfolioImageUrls = {
 		'Happy-Birthday-Mrs-Kalra': {

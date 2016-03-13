@@ -43,13 +43,26 @@
 			</div>
 	</div>
 
-	<div ng-if="vm.filters.rentalType.length > 0">
+	<div ng-if="vm.filters.entertainmentType.length > 0">
 		<hr>
-		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showRentalFilters = !vm.showRentalFilters;" data-toggle="collapse" data-target="#rentalDiv"><i ng-class="!vm.showRentalFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Rental Type</b></div>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showRentalFilters = !vm.showRentalFilters;" data-toggle="collapse" data-target="#rentalDiv"><i ng-class="!vm.showRentalFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Entertainment Type</b></div>
 			<div id="rentalDiv" class="collapse in">
-				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.rentalType">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.entertainmentType">
 				    <input ng-model='filter.checked' type='checkbox'>
 				    <label for="rentalCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
+	<div ng-if="vm.filters.othersType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showOtherFilters = !vm.showOtherFilters;" data-toggle="collapse" data-target="#othersDiv"><i ng-class="!vm.showOtherFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Service Type</b><!-- <i class="fa fa-globe"></i> --></div>
+			<div id="othersDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.othersType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="otherCheckBoxes">
 		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 		        	</label>
 				</div>

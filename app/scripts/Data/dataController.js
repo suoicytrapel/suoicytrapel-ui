@@ -20,6 +20,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showRentalFilters = true;
 	vm.showCarFilters = false;
 	vm.showBandFilters = false;
+	vm.showOtherFilters = true;
 	vm.showEventsFilters = true;
 	vm.setFromRecord = null;
 	vm.setToRecord = null;
@@ -33,7 +34,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			roomList : [],
 			estList : [],
 			eventList : [],
-			rentalList : []
+			rentalList : [],
+			othersList : []
 		};
 		if (vm.offset == null) {
 			vm.offset = 1;
@@ -105,8 +107,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		for (var k in vm.filters.eventType) {
 			vm.filters.eventType[k].checked = false;
 		}
-		for (var k in vm.filters.rentalType) {
-			vm.filters.rentalType[k].checked = false;
+		for (var k in vm.filters.entertainmentType) {
+			vm.filters.entertainmentType[k].checked = false;
+		}
+		for (var k in vm.filters.othersType) {
+			vm.filters.othersType[k].checked = false;
 		}
 		vm.selectedFilters = {
 			serviceList : [],
@@ -116,7 +121,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			roomList : [],
 			estList : [],
 			eventList : [],
-			rentalList : []
+			rentalList : [],
+			othersList : []
 		};
 		vm.fetchData(false);
 	};
@@ -157,9 +163,14 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 				vm.selectedFilters.eventList.push(vm.filters.eventType[k].id);
 			}
 		}
-		for (var k in vm.filters.rentalType) {
-			if (vm.filters.rentalType[k].checked) {
-				vm.selectedFilters.rentalList.push(vm.filters.rentalType[k].id);
+		for (var k in vm.filters.entertainmentType) {
+			if (vm.filters.entertainmentType[k].checked) {
+				vm.selectedFilters.rentalList.push(vm.filters.entertainmentType[k].id);
+			}
+		}
+		for (var k in vm.filters.othersType) {
+			if (vm.filters.othersType[k].checked) {
+				vm.selectedFilters.othersList.push(vm.filters.othersType[k].id);
 			}
 		}
 	};
