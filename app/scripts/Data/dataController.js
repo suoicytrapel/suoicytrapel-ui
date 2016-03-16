@@ -1,4 +1,4 @@
-app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, filters, $routeParams) {
+app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, filters, $routeParams, initiallyFetchedRecords, $timeout) {
 
 	var vm = this;
 	$rootScope.showCover = true;
@@ -6,7 +6,10 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	baseFactory.setMainCoverHeading($routeParams.category);
 	baseFactory.setSelectedCategory($routeParams.category);
 	baseFactory.setSelectedCity($routeParams.city);
-	$scope.$emit('updateBaseControllerData',{routeParamsCity: $routeParams.city, routeParamsCategory: $routeParams.category});
+	$scope.$emit('updateBaseControllerData', {
+		routeParamsCity : $routeParams.city,
+		routeParamsCategory : $routeParams.category
+	});
 	vm.offset = null;
 	$scope.pageSize = 6;
 	$scope.currentPage = 1;
@@ -24,6 +27,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showEventsFilters = true;
 	vm.setFromRecord = null;
 	vm.setToRecord = null;
+
+
 
 	vm.fetchData = function(isFilterSearch) {
 		vm.selectedFilters = {
@@ -77,7 +82,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 
 	vm.fetchDetails = function(name) {
 		var searchParam = name;
-		$location.path('/details/' + $routeParams.city +'/'+ $routeParams.category + '/' + searchParam);
+		$location.path('/details/' + $routeParams.city + '/' + $routeParams.category + '/' + searchParam);
 	};
 
 	vm.filterResults = function() {
@@ -182,7 +187,27 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			vm.setToRecord = vm.totalRecords;
 		}
 	};
+	
+		vm.emitPageDataPopulated = function() {
 
-	vm.fetchData(false);
+			$scope.$emit('pageDataPopulated');
+	};
+
+	//vm.fetchData(false);
+		/* Populated data based on call written in resolve block */
+	if (initiallyFetchedRecords && !(initiallyFetchedRecords.errorCode)) {
+		vm.resultList = initiallyFetchedRecords.searchResponseDTOList;
+		vm.serviceList = initiallyFetchedRecords.services;
+		if (vm.offset == 1) {
+			vm.totalRecords = initiallyFetchedRecords.resultCount;
+		}
+		vm.setRecordNumber();
+	} else {
+		console.log(initiallyFetchedRecords.data.errorCode);
+		vm.resultList = [];
+		vm.totalRecords = 0;
+	}
+	
+	vm.emitPageDataPopulated();
 
 });

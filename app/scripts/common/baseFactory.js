@@ -63,6 +63,10 @@ app.factory('baseFactory', function($location) {
 		'New Year Bash 2016 Moment4': '/images/nyb4.jpg',
 		'New Year Bash 2016 Moment5': '/images/nyb5.jpg',	
 },
+'Lohri-2016':{
+	'EventCover' : '/images/lohri1.jpg',
+	'Lohri 2016 Moment2': '/images/lohri2.jpg',
+},
 
 };
 

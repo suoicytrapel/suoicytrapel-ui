@@ -21,6 +21,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.categoryMap = baseFactory.categoryMap;
 		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
+		/* Parameters for hiding the Loader Screen */
+		
+		vm.citiesPopulated = false;
+		vm.routeChangeSuccessInvoked = false;
+		vm.pageDataPopulated = false;
 
 		/*Statically defining the classes for icons present in category dropdown*/
 		vm.categoryIconsMap = baseFactory.categoryIconsMap;
@@ -52,9 +57,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		$rootScope.$on("$routeChangeSuccess", function() {
-			vm.showFooter = true;
-			window.scrollTo(0, 0);
-			vm.stopLoader();
+
+				vm.showFooter = true;
+				window.scrollTo(0, 0);
+				vm.routeChangeSuccessInvoked = true;
+				if($location.path() == '/faq/' || $location.path() == '/aboutus/')
+				vm.pageDataPopulated = true;
+				if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
+					vm.stopLoader();
+					
 		});
 
 		/*
@@ -80,7 +91,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			animateHeaderBgColor();
 		});
 
-
 		/*
 		 * is invoked
 		 * when the basic data like
@@ -90,6 +100,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$scope.$on('updateBaseControllerData', function(event, args) {
 			setCityOnRouteParams(args.routeParamsCity);
 			setCategoryOnRouteParams(args.routeParamsCategory);
+		});
+		
+		$scope.$on('pageDataPopulated',function(){
+			vm.pageDataPopulated = true;
+			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
+					vm.stopLoader();
 		});
 
 	};
@@ -124,6 +140,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			$timeout(function() {
 				vm.showLoaderScreen = false;
 				usSpinnerService.stop('home-page-spinner');
+				vm.routeChangeSuccessInvoked = false;
+				vm.pageDataPopulated = false;
 			});
 		};
 
@@ -295,6 +313,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 				});
 			}
+			vm.citiesPopulated = true;
+			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated) 
+				vm.stopLoader();
+				
 		}, function(error) {
 			console.log('Error: ' + error);
 		});
@@ -416,26 +438,25 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			var mySwiper = new Swiper('.cover-swiper-container', {
 				speed : 300,
 				spaceBetween : 0,
-				autoplay: 3000,
+				autoplay : 3000,
 				effect : "fade",
 				fade : {
 					crossFade : false,
 				},
 				/*
-				pagination: '.cover-swiper-pagination',
-								paginationType: 'bullets',
-								paginationClickable: true,*/
-				
+				 pagination: '.cover-swiper-pagination',
+				 paginationType: 'bullets',
+				 paginationClickable: true,*/
+
 			});
-			
-						//Apply Background color change function on scroll
+
+			//Apply Background color change function on scroll
 			animateHeaderBgColor();
 
 			//Hiding loader screen when view has loaded completely
 			window.scrollTo(0, 0);
 
-			vm.stopLoader();
-			//vm.coverUrl = baseFactory.getCoverUrl();
+
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
 		});

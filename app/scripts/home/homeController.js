@@ -1,15 +1,15 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
-		vm.fetchRecentAdditions();
+		vm.recentlyAddedData = recentAdditions;
 
 	};
-	
+
 	/* Listens to cityChangedEvent
 	 * to update recent additions section */
-	$scope.$on('cityChangedEvent',function(){
+	$scope.$on('cityChangedEvent', function() {
 		vm.fetchRecentAdditions();
 	});
 
@@ -64,12 +64,13 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 
 	vm.fetchRecentAdditions = function() {
 		var cityId = baseFactory.getSelectedCity();
-		HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
-			vm.recentlyAddedData = data;
+			HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
+					vm.recentlyAddedData = data;
 
-		}, function(error) {
+				}, function(error) {
+					 console.log(error);
+				});
 
-		});
 	};
 
 	vm.fetchDetails = function(name, category) {
@@ -77,5 +78,11 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		$location.path('/details/' + baseFactory.getSelectedCity() + '/' + category + '/' + searchParam);
 	};
 
+	vm.emitPageDataPopulated = function() {
+		$scope.$emit('pageDataPopulated');
+	};
+
 	vm.init();
+	vm.emitPageDataPopulated();
+
 });

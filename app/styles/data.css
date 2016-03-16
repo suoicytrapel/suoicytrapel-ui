@@ -33,6 +33,9 @@
 	overflow: hidden;
 }
 
+.pamphlet-header-minHeight{
+	min-height: 230px;
+}
 .pamphlet-container .pamphlet-header img {
 	height: 100%;
 	width: 100%;

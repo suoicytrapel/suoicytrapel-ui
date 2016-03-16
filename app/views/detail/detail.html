@@ -169,5 +169,45 @@
 		</div>
 	</div>
 
-	<div data-ng-include="'views/gallery/gallery.html'"></div>
+	<!--<div data-ng-include="'views/gallery/gallery.html'"></div>-->
+	
+	<div class="gallery-container" data-ng-class="vm.show ? 'show' : ''">
+	<div class="gallery-overlay col-xs-9">
+		    <div class="swiper-container gallery-top">
+        <div class="swiper-wrapper">
+        	<div class="swiper-slide" data-ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})"></div>
+        </div>
+          <!-- Add Arrows -->
+        <a href="javascript:void(0)" class="swiper-button-next swiper-button-white"></a>
+        <a href="javascript:void(0)" class="swiper-button-prev swiper-button-white"></a>
+    </div>
+    <div class="swiper-container gallery-thumbs">
+        <div class="swiper-wrapper">
+        	<a href="javascript:void(0)" class="swiper-slide" data-ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})" on-last-repeat-element></a>
+        </div>
+       </div>
+       
+	</div>
+	<div class="gallery-side-panel col-xs-3">
+		<div>
+		<div class="row">
+			<div class="col-xs-12">
+				<img src="/images/lp_theme_symbol.png" class="img-responsive"/>
+			</div>
+			<div class="gap20 col-xs-12"></div>
+			<div class="col-xs-12 gallery-venuename"><span class="gallery-venue-name">{{vm.detailedData.name}}, {{vm.detailedData.city}}<br/>
+				{{vm.category}}, {{vm.detailedData.state}}
+			</span></div>
+			<div class="gap20 col-xs-12"></div>
+			<div class="col-xs-12">
+				<ul class="gallery-helptext-container">
+					<li data-ng-repeat="helpText in vm.helpTexts" data-ng-class="$index == 0 ? 'active' : ''"><a href="javascipt:void(0)" ng-click="vm.changeSlide($index)">{{helpText}}</a></li>
+				</ul>
+			</div>
+		</div>
+		</div>
+	</div>
+	<a href="javascript:void(0)" class="gallery-close-btn" data-ng-click="vm.closeGallery();"></a>
+</div>
+
 </div>
