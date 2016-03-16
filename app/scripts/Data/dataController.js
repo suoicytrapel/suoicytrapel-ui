@@ -27,6 +27,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showEventsFilters = true;
 	vm.setFromRecord = null;
 	vm.setToRecord = null;
+	vm.showMoreFilters = false;
 
 
 
@@ -198,9 +199,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	if (initiallyFetchedRecords && !(initiallyFetchedRecords.errorCode)) {
 		vm.resultList = initiallyFetchedRecords.searchResponseDTOList;
 		vm.serviceList = initiallyFetchedRecords.services;
-		if (vm.offset == 1) {
-			vm.totalRecords = initiallyFetchedRecords.resultCount;
-		}
+		vm.totalRecords = initiallyFetchedRecords.resultCount;
 		vm.setRecordNumber();
 	} else {
 		console.log(initiallyFetchedRecords.data.errorCode);

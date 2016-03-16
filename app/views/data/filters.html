@@ -70,8 +70,9 @@
 	</div>
 
 	<hr ng-if="vm.filters.carType.length > 0 || vm.filters.bandType.length > 0 || vm.filters.amenities.length > 0|| vm.filters.rooms.length > 0 || vm.filters.services.length > 0 || vm.filters.priceRange.length > 0">
-	<h4 ng-if="vm.filters.carType.length > 0 || vm.filters.bandType.length > 0 || vm.filters.amenities.length > 0|| vm.filters.rooms.length > 0 || vm.filters.services.length > 0 || vm.filters.priceRange.length > 0" class='theme-color'>MORE FILTERS</h4>
+	<h4 ng-if="vm.filters.carType.length > 0 || vm.filters.bandType.length > 0 || vm.filters.amenities.length > 0|| vm.filters.rooms.length > 0 || vm.filters.services.length > 0 || vm.filters.priceRange.length > 0" class='theme-color'><a href="" ng-click="vm.showMoreFilters = !vm.showMoreFilters;" data-toggle="collapse" data-target="#moreFilterDiv"><i ng-class="!vm.showMoreFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i> View More Filters</h4>
 
+<div id="moreFilterDiv" class="collapse" >
 	<div ng-if="vm.filters.carType.length > 0">
 		<hr>
 		<div style="margin-bottom:10px;"><a href="" ng-click="vm.showCarFilters = !vm.showCarFilters;" data-toggle="collapse" data-target="#carDiv"><i ng-class="!vm.showCarFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Car Type</b></div>
@@ -152,6 +153,7 @@
 				</div>
 			</div>
 	</div>
+</div>
 
 	<hr>
 
