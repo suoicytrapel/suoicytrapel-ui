@@ -22,7 +22,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
 		/* Parameters for hiding the Loader Screen */
-		
+
 		vm.citiesPopulated = false;
 		vm.routeChangeSuccessInvoked = false;
 		vm.pageDataPopulated = false;
@@ -58,14 +58,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		$rootScope.$on("$routeChangeSuccess", function() {
 
-				vm.showFooter = true;
-				window.scrollTo(0, 0);
-				vm.routeChangeSuccessInvoked = true;
-				if($location.path() == '/faq/' || $location.path() == '/aboutus/')
+			vm.showFooter = true;
+			window.scrollTo(0, 0);
+			vm.routeChangeSuccessInvoked = true;
+			if ($location.path() == '/faq/' || $location.path() == '/aboutus/')
 				vm.pageDataPopulated = true;
-				if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
-					vm.stopLoader();
-					
+			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
+				vm.stopLoader();
+
 		});
 
 		/*
@@ -101,11 +101,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			setCityOnRouteParams(args.routeParamsCity);
 			setCategoryOnRouteParams(args.routeParamsCategory);
 		});
-		
-		$scope.$on('pageDataPopulated',function(){
+
+		$scope.$on('pageDataPopulated', function() {
 			vm.pageDataPopulated = true;
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
-					vm.stopLoader();
+				vm.stopLoader();
 		});
 
 	};
@@ -175,6 +175,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			var selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
 			baseFactory.setSelectedCity(selectedCityId);
 			vm.toggleDropdown();
+			angular.element('.home-search-box').val('');
+			vm.searchData = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
 				if (vm.searchData == undefined || vm.searchData == null) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
@@ -198,6 +200,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			baseFactory.setSelectedCategory(selectedCategoryValue);
 			vm.selectedCategory = selectedCategoryValue;
 			vm.toggleCategoryDropdown();
+			angular.element('.home-search-box').val('');
+			vm.searchData = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
 				if (vm.searchData == undefined || vm.searchData == null) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
@@ -314,9 +318,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				});
 			}
 			vm.citiesPopulated = true;
-			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated) 
+			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated)
 				vm.stopLoader();
-				
+
 		}, function(error) {
 			console.log('Error: ' + error);
 		});
@@ -367,6 +371,21 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 					break;
 				}
 			}
+		}
+
+	}
+
+	/*
+	 *
+	 * Method for preloading images
+	 *
+	 * */
+	function preloadImages() {
+		var images = new Array();
+
+		for ( i = 0; i < preloadImages.arguments.length; i++) {
+			images[i] = new Image();
+			images[i].src = preloadImages.arguments[i];
 		}
 
 	}
@@ -456,7 +475,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//Hiding loader screen when view has loaded completely
 			window.scrollTo(0, 0);
 
-
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
 		});
@@ -467,5 +485,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.defineListeners();
 	vm.defineMethods();
 	vm.invokeInitialMethods();
+	/* Invoking method for preloading Images */
+	preloadImages('/images/about_us_cover.jpg', '/images/faq_cover.jpg');
 
 });

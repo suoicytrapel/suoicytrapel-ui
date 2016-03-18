@@ -132,6 +132,9 @@
 	height: 30px !important;
 }
 
+.pamphlet-body .recommended-small-font{
+	font-size: 14px;
+}
 #map{
 	height: 400px;
 }

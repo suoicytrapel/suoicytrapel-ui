@@ -150,6 +150,7 @@ a:hover, a:focus {
 .fontSize16{
 	font-size: 16px;
 }
+
 .form-group .required:after {
 	content: "*";
 	color: brown;
@@ -723,15 +724,17 @@ background: white;
 		top: 66px;
 		z-index: 111;
 	}
+	/*
 	.nav:after {
-		content: '';
-		position: absolute;
-		right: 18px;
-		top: -9px;
-		border-left: 10px solid rgba(0, 0, 0, 0);
-		border-right: 10px solid rgba(0, 0, 0, 0);
-		border-bottom: 10px solid rgba(73, 84, 91, 0.87);
-	}
+			content: '';
+			position: absolute;
+			right: 18px;
+			top: -9px;
+			border-left: 10px solid rgba(0, 0, 0, 0);
+			border-right: 10px solid rgba(0, 0, 0, 0);
+			border-bottom: 10px solid rgba(73, 84, 91, 0.87);
+		}*/
+	
 	.menu li a span.messages {
 		text-align: center;
 		top: 15px;
