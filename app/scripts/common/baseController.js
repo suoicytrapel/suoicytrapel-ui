@@ -244,6 +244,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			angular.element('#captcha').append(captchaTemplate);
 			$('#contactModal').modal('toggle');
 		};
+		
+		vm.closeContactForm = function(){
+			vm.submitted = false;
+			$('#contactModal').modal('toggle');
+		};
 
 		/*
 		 *

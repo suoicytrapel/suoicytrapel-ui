@@ -8,6 +8,12 @@
 	/*display: none;*/
 	visibility: hidden;
 	background: rgba(0,0,0,0.8);
+	    overflow: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    -moz-overflow-scrolling: touch;
+    -o-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
 }
 
 .gallery-container.show{
@@ -31,7 +37,7 @@ right: 6px;
     top: 6px;
     height: 30px;
     width: 30px;
-    position: absolute;
+    position: fixed;
     cursor: pointer;
     z-index: 1;
     background-image: url('/images/icon_close.png');
@@ -128,4 +134,18 @@ right: 6px;
 
 .gallery-venuename{
 	font-size: 16px;
+}
+
+@media only screen and (max-width: 767px) and (min-width: 0){
+.gallery-helptext-container li a {
+    color: #337ab7;
+    text-decoration: underline;
+    /*font-family: 'openSans-Bold';*/
+}
+
+.gallery-container .gallery-side-panel{
+	height: auto;
+}
+
+
 }

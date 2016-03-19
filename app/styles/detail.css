@@ -97,12 +97,14 @@
 
 .detail-cover{
 	cursor: pointer;
+	height: initial !important;
+	min-height: 350px !important;
 }
 
 .view-gallery-btn{
 	position:absolute;
-	top:430px;
-	right:125px;
+	bottom: 20px;
+	right:20px;
 }
 
 .recommended-pamphlet-header{
