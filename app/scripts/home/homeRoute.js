@@ -10,13 +10,13 @@ function($routeProvider, $httpProvider, $locationProvider) {
 			changeCover : function(baseFactory) {
 				baseFactory.setMainCoverHeading('Bringing Smiles on Faces');
 			},
-			recentAdditions : function(baseFactory, HomeFactory) {
+			recentAdditions : function(baseFactory, HomeFactory, $location) {
 				var cityId = baseFactory.getSelectedCity();
 				return HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
 					return data;
 
 				}, function(error) {
-					return error;
+					$location.path('/bad-request/');
 				});
 			}
 		}
@@ -26,7 +26,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 		templateUrl : 'views/data/data.html',
 		controllerAs : 'vm',
 		resolve : {
-			filters : function(DataFactory, baseFactory, $rootScope, $route) {
+			filters : function(DataFactory, baseFactory, $rootScope, $route, $location) {
 				var filterRequestDTO = {
 					searchType : $route.current.params.category,
 					cityId : $route.current.params.city,
@@ -34,10 +34,10 @@ function($routeProvider, $httpProvider, $locationProvider) {
 				return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data) {
 					return data.toJSON();
 				}, function(error) {
-					return error;
+					$location.path('/bad-request/');
 				});
 			},
-			initiallyFetchedRecords : function(DataFactory, $route) {
+			initiallyFetchedRecords : function(DataFactory, $route, $location) {
 				var pageSize = 6;
 				var offset = 1;
 				var selectedFilters = {
@@ -63,7 +63,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 				return DataFactory.fetchData.fetch(searchRequestDTO).$promise.then(function(data) {
 					return data;
 				}, function(error) {
-					return error;
+					$location.path('/bad-request/');
 				});
 			}
 		}
@@ -73,7 +73,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 		templateUrl : 'views/data/data.html',
 		controllerAs : 'vm',
 		resolve : {
-			filters : function(DataFactory, baseFactory, $rootScope, $route) {
+			filters : function(DataFactory, baseFactory, $rootScope, $route, $location) {
 				var filterRequestDTO = {
 					searchType : $route.current.params.category,
 					cityId : $route.current.params.city,
@@ -81,10 +81,10 @@ function($routeProvider, $httpProvider, $locationProvider) {
 				return DataFactory.filters.loadFilters(filterRequestDTO).$promise.then(function(data) {
 					return data.toJSON();
 				}, function(error) {
-					return error;
+					$location.path('/bad-request/');
 				});
 			},
-			initiallyFetchedRecords : function(DataFactory, $route) {
+			initiallyFetchedRecords : function(DataFactory, $route, $location) {
 				var pageSize = 6;
 				var offset = 1;
 				var selectedFilters = {
@@ -110,7 +110,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 				return DataFactory.fetchData.fetch(searchRequestDTO).$promise.then(function(data) {
 					return data;
 				}, function(error) {
-					return error;
+					$location.path('/bad-request/');
 				});
 			}
 		}
@@ -120,7 +120,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 		templateUrl : 'views/detail/detail.html',
 		controllerAs : 'vm',
 		resolve : {
-			details : function(DataFactory, $route) {
+			details : function(DataFactory, $route, $location) {
 				var dataRequestDTO = {
 					searchType : $route.current.params.category,
 					cityId : $route.current.params.city,
@@ -129,7 +129,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 				return DataFactory.fetchDetails.fetch(dataRequestDTO).$promise.then(function(data) {
 					return data;
 				}, function(error) {
-					return error;
+					$location.path('/bad-request/');
 				});
 			}
 			
@@ -152,6 +152,10 @@ function($routeProvider, $httpProvider, $locationProvider) {
 				$rootScope.showCover = false;
 			}
 		}
+	}).when('/bad-request/', {
+		url : '/bad-request',
+		controller : '',
+		templateUrl : 'views/badrequest/badrequest.html'
 	}).otherwise({
 		redirectTo : '/'
 	});

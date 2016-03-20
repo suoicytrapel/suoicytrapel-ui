@@ -24,7 +24,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showCarFilters = false;
 	vm.showBandFilters = false;
 	vm.showOtherFilters = true;
-	vm.showEventsFilters = true;
+	vm.showEventsFilters = false;
+	vm.showCapacityFilters = false;
 	vm.setFromRecord = null;
 	vm.setToRecord = null;
 	vm.showMoreFilters = false;
@@ -52,7 +53,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			estList : [],
 			eventList : [],
 			rentalList : [],
-			othersList : []
+			othersList : [],
+			capacityList : []
 		};
 		if (vm.offset == null) {
 			vm.offset = 1;
@@ -150,6 +152,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		angular.element('#priceRangeDiv').collapse('toggle');
 	};
 
+	vm.expandCollapseCapacityFilter = function() {
+		vm.showCapacityFilters = !vm.showCapacityFilters;
+		angular.element('#capacityDiv').collapse('toggle');
+	};
+
 	$scope.pageChangeHandler = function(newPageNumber) {
 		$scope.currentPage = newPageNumber;
 		vm.offset = newPageNumber;
@@ -194,6 +201,9 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		for (var k in vm.filters.othersType) {
 			vm.filters.othersType[k].checked = false;
 		}
+		for (var k in vm.filters.capacity) {
+			vm.filters.capacity[k].checked = false;
+		}
 		vm.selectedFilters = {
 			serviceList : [],
 			localityList : [],
@@ -203,7 +213,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			estList : [],
 			eventList : [],
 			rentalList : [],
-			othersList : []
+			othersList : [],
+			capacityList : []
 		};
 		vm.fetchData(false);
 	};
@@ -252,6 +263,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		for (var k in vm.filters.othersType) {
 			if (vm.filters.othersType[k].checked) {
 				vm.selectedFilters.othersList.push(vm.filters.othersType[k].id);
+			}
+		}
+		for (var k in vm.filters.capacity) {
+			if (vm.filters.capacity[k].checked) {
+				vm.selectedFilters.capacityList.push(vm.filters.capacity[k].id);
 			}
 		}
 	};

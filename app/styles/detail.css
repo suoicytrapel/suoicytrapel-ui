@@ -97,7 +97,7 @@
 
 .detail-cover{
 	cursor: pointer;
-	height: initial !important;
+	/*height: initial !important;*/
 	min-height: 350px !important;
 }
 

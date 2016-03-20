@@ -153,6 +153,12 @@ a:hover, a:focus {
 	font-size: 16px;
 }
 
+.vcenter{
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+
 .form-group .required:after {
 	content: "*";
 	color: brown;

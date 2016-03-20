@@ -61,7 +61,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			vm.showFooter = true;
 			window.scrollTo(0, 0);
 			vm.routeChangeSuccessInvoked = true;
-			if ($location.path() == '/faq/' || $location.path() == '/aboutus/')
+			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/')
 				vm.pageDataPopulated = true;
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
 				vm.stopLoader();
@@ -327,7 +327,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				vm.stopLoader();
 
 		}, function(error) {
-			console.log('Error: ' + error);
+			$location.path('/bad-request/');
+
 		});
 	}
 
@@ -420,9 +421,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 							else
 								response(data);
 						}, function(error) {
-							if (error && error.data && error.data.errorCode == 400) {
-								response(['No Results Found']);
-							}
+								$location.path('/bad-request/');
 						});
 					}
 
@@ -482,7 +481,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
-		});
+		},500);
 	};
 
 	/* Methods Invoked in Correct Sequence */
