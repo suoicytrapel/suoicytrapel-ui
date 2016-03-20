@@ -2,8 +2,8 @@
 <div class='row data-list'>
 	<div class='col-xs-12 col-sm-3'>
 		<div class='col-xs-12'>
-			<h4 class='theme-color'>FILTERS</h4>
-			<div class="filters">
+			<h4 class='theme-color'><a href="" class="filter-ribbon-button" data-ng-if='vm.smallScreen' ng-click="vm.openFilterRibbon = !vm.openFilterRibbon"><span></span><span></span><span></span></a> <span ng-class="vm.smallScreen ? 'repositionText' : ''">FILTERS</span></h4>
+			<div class="filters" data-ng-if='!vm.smallScreen'>
 				<div data-ng-include="'views/data/filters.html'"></div>
 			</div>
 		</div>
@@ -66,5 +66,5 @@
 
 <dir-pagination-controls boundry-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/templates/dirPagination.tpl.html" pagination-id="dataPagination" ng-if="vm.resultList.length > 0"></dir-pagination-controls>
 
-
+<div data-ng-include="'views/ribbon/ribbon.html'" data-ng-if='vm.smallScreen'></div>
 

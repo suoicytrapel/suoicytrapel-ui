@@ -181,9 +181,9 @@ height: 32px;
 
 .reset-btn:hover,
 .reset-btn:focus{
-	background-color: #656565;
+	background-color: rgba(0,0,0,0);
 	border: 2px solid #656565;
-	color: #ffffff;
+	color: #656565;
 }
 
 .no-records-found{
@@ -195,4 +195,34 @@ height: 32px;
 .no-records-found > div{
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.filter-ribbon-button{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background: #f37254;
+	border-radius: 4px;
+}
+
+.repositionText{
+	position: relative;
+	top: -11px;
+}
+
+.filter-ribbon-button span{
+	margin-top: 8px;
+    border: 1px solid #ffffff;
+    display: block;
+    margin-bottom: 8px;
+    margin-left: 6px;
+    width: 70%;
+}
+
+.filter-ribbon-button span:nth-child(2){
+	width: 50%;
+}
+
+.filter-ribbon-button span:nth-child(3){
+	width: 60%;
 }

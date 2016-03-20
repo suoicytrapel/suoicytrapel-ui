@@ -1,32 +1,174 @@
-<div id="globalPopupBlackOut" class="blackOut-window" data-ng-show="ribbonOpened" data-ng-click="ribbonOpened = !ribbonOpened">	
+<div id="filterRibbonParentContainer" data-ng-class="vm.openFilterRibbon ? 'openFilterRibbon' : ''">	
+<div id="globalPopupBlackOut" class="blackOut-window" ng-click="vm.openFilterRibbon = !vm.openFilterRibbon"></div>
+<div id='ribbonContainer' data-ng-class="vm.openFilterRibbon ? 'animate' : ''">
+	<div id="ribbonHeader"></div>
+	<div class="ribbon-search-button form-group text-center ribbonSpecificStyling">
+		<button class="btn btn-lg btn-default filter-btn" ng-click="vm.filterResults();vm.openFilterRibbon = !vm.openFilterRibbon;">Filter</button>
+		<button class="btn btn-lg btn-default reset-btn"  ng-click="vm.resetFilters();">Reset</button>			
+	</div>
+<div id='ribbonFilterScrollview'>
+	<div id='ribbonFilterViewport'>
+		
+	<div ng-if="vm.filters.localities.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseLocalitiesFilter();"><i ng-class="!vm.showLocalityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Localities</b><!-- <i class="fa fa-globe"></i> --></div>
+			<div id="localitiesDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.localities">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="localityCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
+	<div ng-if="vm.filters.eventType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseEventTypeFilter();" ><i ng-class="!vm.showEventsFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Event Type</b></div>
+			<div id="eventTypeDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.eventType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="estCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+	
+	
+	<div ng-if="vm.filters.establishments.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseEstablishmentsFilter();"><i ng-class="!vm.showEstablishmentFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Establishment Type</b></div>
+			<div id="establishmentsDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.establishments">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="estCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
+	<div ng-if="vm.filters.entertainmentType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseEntertainmentTypeFilter();"><i ng-class="!vm.showRentalFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Entertainment Type</b></div>
+			<div id="entertainmentTypeDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.entertainmentType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="rentalCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
+	<div ng-if="vm.filters.othersType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseOthersTypeFilter();"><i ng-class="!vm.showOtherFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Service Type</b><!-- <i class="fa fa-globe"></i> --></div>
+			<div id="othersTypeDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.othersType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="otherCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
+	<hr ng-if="vm.filters.carType.length > 0 || vm.filters.bandType.length > 0 || vm.filters.amenities.length > 0|| vm.filters.rooms.length > 0 || vm.filters.services.length > 0 || vm.filters.priceRange.length > 0">
+	<h4 ng-if="vm.filters.carType.length > 0 || vm.filters.bandType.length > 0 || vm.filters.amenities.length > 0|| vm.filters.rooms.length > 0 || vm.filters.services.length > 0 || vm.filters.priceRange.length > 0" class='theme-color'><a href="" ng-click="vm.expandCollapseMoreFilter();"><i ng-class="!vm.showMoreFilters ? 'fa fa-plus' : 'fa fa-minus'"></i></a> View More Filters</h4>
+
+<div id="moreFilterDiv" class="collapse" >
+	<div ng-if="vm.filters.carType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseCarTypeFilter();"><i ng-class="!vm.showCarFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Car Type</b></div>
+			<div id="carTypeDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.carType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="carCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
+	<div ng-if="vm.filters.bandType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseBandTypeFilter();"><i ng-class="!vm.showBandFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Band Type</b></div>
+			<div id="bandTypeDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.bandType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="bandCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+	
+	<div ng-if="vm.filters.amenities.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseAmenitiesFilter();"><i ng-class="!vm.showAmenityFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Amenities</b><!-- <i class="space fa fa-building"></i> --></div>
+			<div id="amenitiesDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.amenities">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="amenityCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+	
+	<div ng-if="vm.filters.rooms.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseRoomsFilter();"><i ng-class="!vm.showRoomFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Room Type</b></div>
+			<div id="roomsDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.rooms">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="roomCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+	
+	
+	<div ng-if="vm.filters.services.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseServicesFilter();"><i ng-class="!vm.showServiceFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Services</b></div>
+		<div id="servicesDiv" class="collapse">
+			<div  ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.services">
+		    	<input class="styled" ng-model='filter.checked' type='checkbox'>
+		    	<label for="serviceCheckBoxes">
+	            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+	        	</label>
+			</div>
+		</div>
+	</div>
+
+	
+
+	<div ng-if="vm.filters.priceRange.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapsePriceRangeFilter();"><i ng-class="!vm.showPriceFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Price Range</b><!-- <i class="fa fa-globe"></i> --></div>
+			<div id="priceRangeDiv" class="collapse">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.priceRange">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="priceRangeCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
 </div>
-<div id='ribbonContainer' data-ng-class='ribbonOpened ? "open" : ""'>
-<nav id="sideRibbon">
-	<ul class='ribbon-tabs'>
-		<li ng-repeat='(key, value) in categoryMap' class='ribbon-tab' data-ng-class='indexActive == $index ? "active" : ""' data-ng-click='selectCategory($index)' data-value='{{value}}'>
-			<a href='javascript:void(0)'><span class="fa fa-fw ribbon-icons" data-ng-class='ribbonIconClasses[$index]'></span><span class="ribbon-tab-title">{{key}}</span></a>
-		</li>
-	</ul>
-	<div class="quarter-gap"></div>
-						<form action="" autocomplete="off" class="ribbon-form">
-							<div class="form-group">
-								
-									<input type="text" placeholder="Simply type the name" class="form-control input-lg ribbon-search-box">
-									</input>
-								
-							</div>
 
-							<div class="ribbon-search-button form-group text-center">
-								
-									<input class="btn btn-lg btn-default ribbon-search-btn" type="button" value="SEARCH"/>			
-								
-							</div>
+	<hr>
 
-						</form>
-</nav>
-<div class='ribbonOpener no-border-bottom-left-radius no-border-top-left-radius' data-ng-click="ribbonOpened = !ribbonOpened">
-	<span style="width: 100%;"></span>
-	<span style="width: 50%;"></span>
-	<span style="width: 75%;"></span>
+</div>
+</div>
+<div id="ribbonCollapse">
+	<a href="" ng-click="vm.openFilterRibbon = !vm.openFilterRibbon">
+		<span class="fa fa-angle-left collapse-icon"></span>
+	</a>
+</div>
 </div>
 </div>

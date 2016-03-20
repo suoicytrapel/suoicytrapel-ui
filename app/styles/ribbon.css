@@ -1,7 +1,14 @@
-div#globalPopupBlackOut {
-	z-index: 9;
+div#filterRibbonParentContainer {
+	z-index: 1031;
+	/*display: none;*/
+	overflow: hidden;
 }
-.blackOut-window {
+
+div#filterRibbonParentContainer.openFilterRibbon {
+	/*display: block;*/
+}
+
+div#filterRibbonParentContainer .blackOut-window {
 	background: #000000;
 	position: fixed;
 	top: 0px;
@@ -14,13 +21,15 @@ div#globalPopupBlackOut {
 	filter: alpha(opacity=50);
 	-moz-opacity: 0.5;
 	-khtml-opacity: 0.5;
+	display: none;
 }
 
-#ribbonContainer {
+div#filterRibbonParentContainer.openFilterRibbon .blackOut-window{
+	display: block;
 }
 
-#ribbonContainer #sideRibbon {
-	background: #fff;
+div#filterRibbonParentContainer #ribbonContainer {
+	background: #ffffff;
 	width: 300px;
 	position: fixed;
 	top: 0;
@@ -35,7 +44,21 @@ div#globalPopupBlackOut {
 	-ms-transition: left 0.5s linear;
 }
 
-#ribbonContainer.open #sideRibbon {
+div#filterRibbonParentContainer #ribbonContainer #ribbonFilterScrollview {
+
+	position: absolute;
+	top: 110px;
+	bottom: 10px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+div#filterRibbonParentContainer #ribbonContainer #ribbonFilterViewport {
+	width: 100%;
+	padding: 0 30px;
+}
+
+div#filterRibbonParentContainer.openFilterRibbon #ribbonContainer.animate {
 	left: 0px;
 	-webkit-transition: left 0.5s linear;
 	-moz-transition: left 0.5s linear;
@@ -43,88 +66,40 @@ div#globalPopupBlackOut {
 	-ms-transition: left 0.5s linear;
 }
 
-#sideRibbon .ribbon-tabs {
-	padding-top: 20px;
+.ribbonSpecificStyling {
+	position: absolute;
+	top: 70px;
+	left: 40px;
 }
 
-#sideRibbon .ribbon-tabs li {
-	display: block;
-	position: relative;
-}
-
-#sideRibbon .ribbon-tabs li a {
-	color: #1a1a1a;
-	font-size: 16px;
-	display: block;
-	height: 48px;
-	padding: 0px 0 0 15px;
-	line-height: 48px;
-}
-
-#sideRibbon .ribbon-tabs li.active a,
-#sideRibbon .ribbon-tabs li.active a:hover,
-#sideRibbon .ribbon-tabs li.active a:focus{
-		font-family: 'OpenSans-bold';
-	color: #FFFFFF;
-	background: #F37254;
-}
-
-#sideRibbon .ribbon-tabs li a:hover, #sideRibbon .ribbon-tabs li a:focus {
-	font-family: 'OpenSans-bold';
-	/*color: #F37254;*/
-}
-
-#sideRibbon .ribbon-form {
-	padding: 10px;
-}
-
-#sideRibbon .ribbon-search-btn {
-	border-radius: initial;
-	background: #F37254;
-	color: #ffffff;
-}
-
-#sideRibbon .ribbon-search-box {
-	font-size: 16px;
-}
-
-#ribbonContainer .ribbonOpener {
+#ribbonHeader {
+	position: absolute;
 	height: 50px;
-	width: 50px;
-	background: #F37254;
-	left: 0px;
-	position: fixed;
-	top: 30px;
-	border-radius: 6px;
-	z-index: 9;
-	padding: 10px 5px 10px 5px;
-	cursor: pointer;
-	-webkit-transition: left 0.5s linear;
-	-moz-transition: left 0.5s linear;
-	-o-transition: left 0.5s linear;
-	-ms-transition: left 0.5s linear;
+	width: 100%;
+	background: #f37254;
 }
 
-#ribbonContainer.open .ribbonOpener {
-	left: 300px;
-	-webkit-transition: left 0.5s linear;
-	-moz-transition: left 0.5s linear;
-	-o-transition: left 0.5s linear;
-	-ms-transition: left 0.5s linear;
+#ribbonCollapse {
+	position: absolute;
+	bottom: 0px;
+	top: 50px;
+	right: 0px;
+	width: 60px;
+	background: #EEEEEE;
 }
 
-#ribbonContainer .ribbonOpener span {
-	border: 2px solid #ffffff;
+#ribbonCollapse a {
 	display: block;
-	margin-bottom: 8px;
+	height: 100%;
+	width: 100%;
 }
 
-.ribbon-tab .ribbon-icons{
-	font-size: 26px;
-	margin-right: 10px;
-	color: #bbbbbb;
-}
-
-.ribbon-tab.active .ribbon-icons{
-	color: #ffffff;
+#ribbonCollapse a .collapse-icon {
+	font-size: 60px;
+	color: #656565;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -15% 0 0 -25%;
+	display: inline-block;
 }

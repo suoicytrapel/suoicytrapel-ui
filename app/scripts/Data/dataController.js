@@ -28,8 +28,19 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.setFromRecord = null;
 	vm.setToRecord = null;
 	vm.showMoreFilters = false;
-
-
+	vm.smallScreen = false;
+	vm.openFilterRibbon = false;
+	
+	vm.detectScreenSize = function(){
+		var screenWidth = window.innerWidth;
+		if(screenWidth < 768){
+			vm.smallScreen = true;
+		}
+		else
+		vm.smallScreen = false;
+	};
+	
+		vm.detectScreenSize();
 
 	vm.fetchData = function(isFilterSearch) {
 		vm.selectedFilters = {
@@ -73,6 +84,70 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 
 	vm.getImageURL = function(imagePath) {
 		return baseFactory.getWebURL() + imagePath;
+	};
+
+	/* Toggle Behavior method for each filter
+	 * Every time a new filter is added
+	 * a toggle behavior method is to be added
+	 *  */
+	vm.expandCollapseLocalitiesFilter = function() {
+		vm.showLocalityFilters = !vm.showLocalityFilters;
+		angular.element('#localitiesDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseEventTypeFilter = function() {
+		vm.showEventsFilters = !vm.showEventsFilters;
+		angular.element('#eventTypeDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseEstablishmentsFilter = function() {
+		vm.showEstablishmentFilters = !vm.showEstablishmentFilters;
+		angular.element('#establishmentsDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseEntertainmentTypeFilter = function() {
+		vm.showRentalFilters = !vm.showRentalFilters;
+		angular.element('#entertainmentTypeDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseOthersTypeFilter = function() {
+		vm.showOtherFilters = !vm.showOtherFilters;
+		angular.element('#othersTypeDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseMoreFilter = function() {
+		vm.showMoreFilters = !vm.showMoreFilters;
+		angular.element('#moreFilterDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseCarTypeFilter = function() {
+		vm.showCarFilters = !vm.showCarFilters;
+		angular.element('#carTypeDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseBandTypeFilter = function() {
+		vm.showBandFilters = !vm.showBandFilters;
+		angular.element('#bandTypeDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseAmenitiesFilter = function() {
+		vm.showAmenityFilters = !vm.showAmenityFilters;
+		angular.element('#amenitiesDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseRoomsFilter = function() {
+		vm.showRoomFilters = !vm.showRoomFilters;
+		angular.element('#roomsDiv').collapse('toggle');
+	};
+
+	vm.expandCollapseServicesFilter = function() {
+		vm.showServiceFilters = !vm.showServiceFilters;
+		angular.element('#servicesDiv').collapse('toggle');
+	};
+
+	vm.expandCollapsePriceRangeFilter = function() {
+		vm.showPriceFilters = !vm.showPriceFilters;
+		angular.element('#priceRangeDiv').collapse('toggle');
 	};
 
 	$scope.pageChangeHandler = function(newPageNumber) {
@@ -188,14 +263,14 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			vm.setToRecord = vm.totalRecords;
 		}
 	};
-	
-		vm.emitPageDataPopulated = function() {
 
-			$scope.$emit('pageDataPopulated');
+	vm.emitPageDataPopulated = function() {
+
+		$scope.$emit('pageDataPopulated');
 	};
 
 	//vm.fetchData(false);
-		/* Populated data based on call written in resolve block */
+	/* Populated data based on call written in resolve block */
 	if (initiallyFetchedRecords && !(initiallyFetchedRecords.errorCode)) {
 		vm.resultList = initiallyFetchedRecords.searchResponseDTOList;
 		vm.serviceList = initiallyFetchedRecords.services;
@@ -206,7 +281,24 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		vm.resultList = [];
 		vm.totalRecords = 0;
 	}
-	
+
+	function attachCollapsibleBehavToFilters() {
+		$timeout(function() {
+			if (vm.filters && typeof vm.filters == 'object') {
+				for (var k in vm.filters) {
+					angular.element('#' + k + 'Div').collapse({
+						toggle : false,
+					});
+				}
+
+				angular.element('#moreFilterDiv').collapse({
+					toggle : false,
+				});
+			}
+		});
+	}
+
+	attachCollapsibleBehavToFilters();
 	vm.emitPageDataPopulated();
 
 });
