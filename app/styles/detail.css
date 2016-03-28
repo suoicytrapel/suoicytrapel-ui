@@ -194,3 +194,122 @@
 	border-right: none !important;
 }
 
+.inhouse-catering-below-menu
+{
+	border-top: 2px solid #dddddd;
+	padding-top: 20px;
+	font-size: 16px;
+	margin-top: 10px;
+}
+
+.inhouse-catering-services li{
+	padding: 10px 0px;
+	border-bottom: 2px solid #dddddd;
+}
+
+.inhouse-maximum-pax,
+.inhouse-minimum-pax,
+.inhouse-rate-per-plate{
+	font-weight: 800;
+}
+
+.policies-ordered-list{
+	list-style-type: decimal;
+    list-style-position: inside;
+}
+
+.header-starts-from,
+.header-serving-since{
+	display: block;
+	font-weight: 800;
+	font-size: 22px;
+}
+
+.change-bg-to-grey{
+	background-color: #EEEEEE !important;
+}
+
+.details-page-services-left-panel{
+	width: 70%;
+	display: inline-block;
+}
+
+.details-page-services-right-panel{
+	width: 25%;
+	display: inline-block;
+}
+
+.details-section-services{
+	padding: 10px 0px;
+    border-bottom: 2px solid #dddddd;
+}
+
+.max-accom{
+	font-weight: 700;
+}
+
+
+ul.details-page-social-section {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.details-page-social-section li {
+	    padding-left: 0px;
+    text-align: center;
+    padding-top: 5px;
+	display: inline-block;
+}
+
+.details-page-social-section li span{
+	color: #ffffff;
+    line-height: 2.3;
+    font-size: 22px;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #fff;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transform: rotateZ(0deg);
+    -webkit-transition: -webkit-transform 0.5s;
+        -moz-transform: rotateZ(0deg);
+    -moz-transition: -moz-transform 0.5s;
+        -o-transform: rotateZ(0deg);
+    -o-transition: -o-transform 0.5s;
+        -ms-transform: rotateZ(0deg);
+    -ms-transition: -ms-transform 0.5s;
+}
+
+.details-page-social-section li span:hover{
+	-webkit-transform: rotateZ(360deg);
+	-webkit-transition: -webkit-transform 0.5s;
+		-moz-transform: rotateZ(360deg);
+	-moz-transition: -moz-transform 0.5s;
+		-o-transform: rotateZ(360deg);
+	-o-transition: -o-transform 0.5s;
+		-ms-transform: rotateZ(360deg);
+	-ms-transition: -ms-transform 0.5s;
+}
+
+.details-page-social-section a span.fa-facebook {
+    background: #3b5998;
+}
+
+.details-page-social-section a span.fa-twitter {
+    background: #55acee;
+}
+
+.details-page-social-section a span.fa-youtube {
+    background: rgb(255, 0, 51);
+}
+
+.details-page-social-section a span.fa-instagram {
+    background: rgb(136, 142, 153);
+}

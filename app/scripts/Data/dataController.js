@@ -172,6 +172,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		vm.offset = null;
 		vm.fetchData(true);
 	};
+	
+	vm.filterRibbonButtonHandler = function(){
+		vm.openFilterRibbon = !vm.openFilterRibbon;
+		$('body').toggleClass('stop-scrolling');
+	};
 
 	vm.resetFilters = function() {
 		for (var k in vm.filters.services) {

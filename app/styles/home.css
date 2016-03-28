@@ -14,7 +14,8 @@
 	height: 500px;
 			background-repeat: no-repeat !important;
 	background-size: cover !important;
-	background-position: center center !important;	
+	background-position: center center !important;
+	z-index: 2;	
 }
 
 
@@ -219,6 +220,193 @@
     left: 100px;
     top: 250px;
 }
+
+/* Sub Category Styling  */
+/*.subcategory-swiper-container.CATERER,
+.subcategory-swiper-container.DECORATOR,
+.subcategory-swiper-container.PHOTOGRAPHER,
+.subcategory-swiper-container.ENTERTAINMENT,
+.subcategory-swiper-container.OTHERS{
+	display: none;
+}
+
+
+.subcategory-icon-outer-background{
+	display: block;
+	height: 120px;
+	width: 90px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.subcategory-swiper-container{
+	background: rgba(255,255,255,1);
+}
+
+.subcategory-icon-border-inner-background{
+	    border: 2px solid #f37254;
+    border-radius: 50%
+}
+
+
+
+.subcategory-icon-inner-background{
+	    background: #EEEEEE;
+border-radius: 50%;	
+    width: 85px;
+    height: 85px;
+    padding: 5px;
+}
+*/
+
+.subcategory-icon-text{
+    text-align: center;
+    margin-top: 11px;
+    text-transform: uppercase;
+    font-family: openSans-bold;
+    color: #656565;
+}
+
+.subcategory-icon{
+	background-image: url('/images/subcategory-icons.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	width: 64px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Venue subcategory */
+.subcategory-icon.hotels{
+	background-position: -227px -227px;
+}
+
+.subcategory-icon.restaurants{
+	background-position: -153px -375px;
+}
+
+.subcategory-icon.marriage-palaces{
+	background-position: -153px -301px;
+}
+.subcategory-icon.banquet-halls{
+	background-position: -301px -5px;
+}
+
+.subcategory-icon.clubs{
+	background-position: -153px -153px;
+}
+
+.subcategory-icon.others{
+	background-position: -5px -375px;
+}
+
+/* Caterer subcategory */
+
+.subcategory-icon.veg{
+	background-position: -449px -5px;
+}
+
+.subcategory-icon.non-veg{
+	background-position: -373px -301px;
+}
+
+.subcategory-icon.bartender{
+	background-position: -5px -79px;
+}
+
+/* Decorator subcategory */
+.subcategory-icon.tenting{
+	background-position: -301px -375px;
+}
+.subcategory-icon.lighting{
+	background-position: -5px -301px;
+}
+.subcategory-icon.floral{
+	background-position: -79px -227px;
+
+}
+.subcategory-icon.candles{
+	background-position: -301px -79px;
+}
+.subcategory-icon.balloons{
+	background-position: -153px -5px;
+}
+
+/* Photographer subcategory */
+.subcategory-icon.photography{
+	background-position: -227px -79px;
+}
+.subcategory-icon.videography{
+	background-position: -449px -79px;
+}
+
+/* Entertainment subcategory */
+.subcategory-icon.dj{
+	background-position: -301px -153px;
+}
+.subcategory-icon.singers{
+	background-position: -227px -375px;
+}
+.subcategory-icon.dancers{
+	background-position: -227px -153px;
+}
+.subcategory-icon.musicians{
+	background-position: -299px -301px;
+}
+.subcategory-icon.choreographers{
+	background-position: -375px -79px;
+}
+.subcategory-icon.anchors{
+	background-position: -79px -5px;
+}
+.subcategory-icon.fireworks{
+	background-position: -5px -227px;
+}
+.subcategory-icon.other-acts{
+	background-position: -79px -375px;
+}
+
+/* Others subcategory */
+.subcategory-icon.makeup-artist{
+	background-position: -79px -301px;
+}
+.subcategory-icon.jewellery{
+	background-position: -375px -227px;
+}
+.subcategory-icon.invites{
+	background-position: -301px -227px;
+}
+.subcategory-icon.cab-services{
+	background-position: -79px -79px;
+}
+.subcategory-icon.ecoverage{
+	background-position: -375px -153px;
+}
+.subcategory-icon.gift-shops{
+	background-position: -153px -227px;
+}
+.subcategory-icon.trousseau-packer{
+	background-position: -375px -375px;
+}
+.subcategory-icon.accessories{
+	background-position: -5px -5px;
+}
+.subcategory-icon.mehendi-artist{
+	background-position: -227px -301px;
+}
+.subcategory-icon.clothing{
+	background-position: -5px -153px;
+	/*background-position: -79px -153px;*/
+}
+
+.subcategory-heading{
+	    margin: 0px;
+    color: #656565;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
 
 @media only screen and (min-width: 0px) and (max-width: 767px) {
 	#coverPage .home-search-btn {

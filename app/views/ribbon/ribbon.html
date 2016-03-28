@@ -1,9 +1,9 @@
 <div id="filterRibbonParentContainer" data-ng-class="vm.openFilterRibbon ? 'openFilterRibbon' : ''">	
-<div id="globalPopupBlackOut" class="blackOut-window" ng-click="vm.openFilterRibbon = !vm.openFilterRibbon"></div>
+<div id="globalPopupBlackOut" class="blackOut-window" ng-click="vm.filterRibbonButtonHandler();"></div>
 <div id='ribbonContainer' data-ng-class="vm.openFilterRibbon ? 'animate' : ''">
 	<div id="ribbonHeader"></div>
 	<div class="ribbon-search-button form-group text-center ribbonSpecificStyling">
-		<button class="btn btn-lg btn-default filter-btn" ng-click="vm.filterResults();vm.openFilterRibbon = !vm.openFilterRibbon;">Filter</button>
+		<button class="btn btn-lg btn-default filter-btn" ng-click="vm.filterResults();vm.filterRibbonButtonHandler();">Filter</button>
 		<button class="btn btn-lg btn-default reset-btn"  ng-click="vm.resetFilters();">Reset</button>			
 	</div>
 <div id='ribbonFilterScrollview'>
@@ -14,7 +14,7 @@
 </div>
 </div>
 <div id="ribbonCollapse">
-	<a href="" ng-click="vm.openFilterRibbon = !vm.openFilterRibbon">
+	<a href="" ng-click="vm.filterRibbonButtonHandler();">
 		<span class="fa fa-angle-left collapse-icon"></span>
 	</a>
 </div>

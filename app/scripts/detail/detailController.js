@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory) {
 	var vm = this;
 	vm.tabName = [];
 	vm.tabData = [];
@@ -16,6 +16,11 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.show = false;
 		vm.galleryTop = null;
 		vm.galleryThumbs = null;
+		vm.detailsPageFormsubmitted = false;
+
+		vm.detailsPageContactForm = {};
+
+		$scope.form = {};
 
 	};
 	vm.defineListeners = function() {
@@ -74,8 +79,6 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 				vm.coverbgImageURL = baseFactory.getWebURL() + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);
 
-
-
 			vm.imagesURL = vm.getImageUrlInArray(dataService.getImageURLs());
 			vm.helpTexts = vm.getHelpText(dataService.getImageURLs());
 			//Applying Boxer on the menu images
@@ -133,16 +136,97 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		marker.setMap(map);
 	};
 
-		vm.getImageURL = function(imagePath) {
-				return baseFactory.getWebURL() + imagePath;
-			};
-// 	
-	
+	vm.getImageURL = function(imagePath) {
+		return baseFactory.getWebURL() + imagePath;
+	};
+	//
 
 	vm.getReccomendationDetails = function(name) {
 		$window.ga('send', 'event', 'View Recommended Item', name, vm.category);
 		//vm.name = name;
 		$location.path('/details/' + vm.city + '/' + vm.category + '/' + name);
+	};
+
+	vm.applySwiperOnRecommended = function() {
+		var mySwiper = new Swiper('.recommended-by-us-swiper-container', {
+			effect : 'slide',
+			grabCursor : false,
+			slidesPerView : '3',
+			nextButton : '.recommended-by-us-swiper-button-next',
+			prevButton : '.recommended-by-us-swiper-button-prev',
+			preloadImages : false,
+			lazyLoading : true,
+			spaceBetween : 20,
+			breakpoints : {
+				// when window width is <= 320px
+				767 : {
+					slidesPerView : 1,
+					spaceBetweenSlides : 10
+				},
+				// when window width is <= 480px
+				991 : {
+					slidesPerView : 2,
+					spaceBetweenSlides : 20
+				},
+				// when window width is <= 640px
+				1199 : {
+					slidesPerView : 3,
+					spaceBetweenSlides : 20
+				}
+			}
+		});
+	};
+
+	vm.populateDynamicCaptcha = function() {
+		$("#detailsPageCaptcha").html("");
+		var template = '<simple-captcha valid="captchaValid"></simple-captcha>';
+		var captchaTemplate = angular.element(template);
+		//Now compile the template with scope $scope
+		$compile(captchaTemplate)($scope);
+		angular.element('#detailsPageCaptcha').append(captchaTemplate);
+	};
+
+	vm.detailsPageFormSubmit = function() {
+
+		$scope.form.detailsPageContactForm.$setPristine();
+		$scope.form.detailsPageContactForm.$setUntouched();
+		vm.detailsPageFormSubmitted = false;
+		vm.populateDynamicCaptcha();
+		$.toaster({
+			priority : 'success',
+			title : 'Sending',
+			message : 'Sending Email',
+			settings : {
+				'timeout' : 2000,
+			}
+		});
+
+		ContactFactory.submitEnquiry.submit(vm.detailsPageContactForm).$promise.then(function(data) {
+
+			vm.detailsPageContactForm = {};
+			vm.detailsPageFormSubmitted = false;
+			$.toaster({
+				priority : 'success',
+				title : 'Success',
+				message : 'Email has been sent',
+				settings : {
+					'timeout' : 3000,
+				}
+			});
+		}, function(error) {
+			vm.detailsPageContactForm = {};
+			console.log(error);
+			$.toaster({
+				priority : 'warning',
+				title : 'Please Try Again',
+				message : 'Error Sending Email',
+				settings : {
+					'timeout' : 3000,
+				}
+			});
+		});
+
+		vm.detailsPageContactForm = {};
 	};
 
 	vm.initializeData = function() {
@@ -160,5 +244,6 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.init();
 	vm.fetchDetails();
 	vm.defineListeners();
+	vm.populateDynamicCaptcha();
 	vm.emitPageDataPopulated();
 });

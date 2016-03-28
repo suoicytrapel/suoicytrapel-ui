@@ -6,7 +6,7 @@
         <h3 id="myModalLabel">We'd Love to Serve You</h3>
       </div>
       <div class="modal-body">
-        <form name="form.contactForm" class="col-sm-12">
+        <form name="form.contactForm" class="col-sm-12" novalidate>
         	<span style="color:brown;">All Fields marked with * are mandatory.</span>
         <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your name" type="text" ng-model="vm.contactForm.name" name="name" required>
           <span style="color:brown;" ng-show="(form.contactForm.name.$touched || vm.submitted) && form.contactForm.name.$invalid">Name is mandatory.</span>

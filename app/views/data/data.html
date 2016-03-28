@@ -2,7 +2,7 @@
 <div class='row data-list'>
 	<div class='col-xs-12 col-sm-3'>
 		<div class='col-xs-12'>
-			<h4 class='theme-color'><a href="" class="filter-ribbon-button" data-ng-if='vm.smallScreen' ng-click="vm.openFilterRibbon = !vm.openFilterRibbon"><span></span><span></span><span></span></a> <span ng-class="vm.smallScreen ? 'repositionText' : ''">FILTERS</span></h4>
+			<h4 class='theme-color'><a href="" class="filter-ribbon-button" data-ng-if='vm.smallScreen' ng-click="vm.filterRibbonButtonHandler();"><span></span><span></span><span></span></a> <span ng-class="vm.smallScreen ? 'repositionText' : ''">FILTERS</span></h4>
 			<div class="filters" data-ng-if='!vm.smallScreen'>
 				<div data-ng-include="'views/data/filters.html'"></div>
 			</div>

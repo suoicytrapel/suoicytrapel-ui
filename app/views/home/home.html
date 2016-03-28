@@ -1,3 +1,33 @@
+<section class="row">
+	<div class="col-xs-12">
+		<h4 class="theme-color subcategory-heading">{{vm.selectedCategory}} INCLUDES:</h4>
+						<!-- Sub Category Carousel -->
+						<div class="subcategory-carousel">
+							<div class="swiper-container subcategory-swiper-container" data-ng-repeat="(key,value) in vm.subCategoriesMap" ng-class="'{{key}}'" data-ng-show="vm.selectedCategory == '{{key}}'">
+								<!-- Additional required wrapper -->
+								<div class="swiper-wrapper subcategory-swiper-wrapper">
+									<!-- Slides -->
+									<div class="swiper-slide subcategory-swiper-slide" ng-repeat="subcategory in value" on-last-repeat-element on-finish-callback="vm.applySwiperOnSubcategories('{{key}}');">
+										<a class="subcategory-icon-outer-background">
+										<div class="subcategory-icon-border-inner-background">
+											<div class="subcategory-icon-inner-background">
+											<div class="subcategory-icon"  ng-class="'{{subcategory}}'"></div>
+										</div>
+										</div>
+										<div class="subcategory-icon-text">
+											{{subcategory}}
+										</div> </a>
+									</div>
+
+								</div>
+								<!-- If we need pagination -->
+								<a href="javascript:void(0)" class="swiper-button-prev subcategory-swiper-button-prev" ng-class="'{{key}}'"></a>
+								<a href="javascript:void(0)" class="swiper-button-next subcategory-swiper-button-next" ng-class="'{{key}}'"></a>
+
+							</div>
+						</div>
+					</div>
+</section>
 <!-- Recently Added section starts -->
 <section class="bg-grey row">
 	<h2 class="text-center theme-color">RECENTLY ADDED</h2>
@@ -109,8 +139,8 @@
 		</div>
 
 		<!-- If we need navigation buttons -->
-		<a href="javascript:void(0)" class="swiper-button-prev"></a>
-		<a href="javascript:void(0)" class="swiper-button-next"></a>
+		<a href="javascript:void(0)" class="swiper-button-prev portfolio-swiper-button-prev"></a>
+		<a href="javascript:void(0)" class="swiper-button-next portfolio-swiper-button-next"></a>
 
 	</div>
 

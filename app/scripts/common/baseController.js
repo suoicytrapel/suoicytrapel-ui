@@ -19,6 +19,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
+
 		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
 		/* Parameters for hiding the Loader Screen */
@@ -244,11 +245,13 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			angular.element('#captcha').append(captchaTemplate);
 			$('#contactModal').modal('toggle');
 		};
-		
-		vm.closeContactForm = function(){
+
+		vm.closeContactForm = function() {
 			vm.submitted = false;
 			$('#contactModal').modal('toggle');
 		};
+
+		
 
 		/*
 		 *
@@ -257,14 +260,22 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.submitEnquiry = function() {
-
+			$('#contactModal').modal('toggle');
+			$.toaster({
+				priority : 'success',
+				title : 'Sending',
+				message : 'Sending Email',
+				settings : {
+					'timeout' : 2000,
+				}
+			});
 			ContactFactory.submitEnquiry.submit(vm.contactForm).$promise.then(function(data) {
 
 				vm.contactForm = {};
 				$scope.form.contactForm.$setPristine();
 				$scope.form.contactForm.$setUntouched();
 				vm.submitted = false;
-				$('#contactModal').modal('toggle');
+				//$('#contactModal').modal('toggle');
 				$.toaster({
 					priority : 'success',
 					title : 'Success',
@@ -276,7 +287,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			}, function(error) {
 				$scope.form.contactForm.$setPristine();
 				vm.contactForm = {};
-				$('#contactModal').modal('toggle');
+				//$('#contactModal').modal('toggle');
 				console.log(error);
 				$.toaster({
 					priority : 'warning',
@@ -421,7 +432,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 							else
 								response(data);
 						}, function(error) {
-								$location.path('/bad-request/');
+							$location.path('/bad-request/');
 						});
 					}
 
@@ -481,7 +492,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
-		},500);
+		}, 500);
 	};
 
 	/* Methods Invoked in Correct Sequence */

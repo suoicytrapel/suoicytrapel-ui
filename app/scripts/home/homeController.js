@@ -4,13 +4,27 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		$rootScope.showCover = true;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
-
+		vm.subCategoriesMap = baseFactory.subCategoriesMap;
+		vm.selectedCategory = baseFactory.getSelectedCategory();
 	};
 
 	/* Listens to cityChangedEvent
 	 * to update recent additions section */
 	$scope.$on('cityChangedEvent', function() {
 		vm.fetchRecentAdditions();
+	});
+
+	$scope.$watch(function() {
+		return baseFactory.selectedCategory;
+	}, function(newValue, oldValue) {
+		if (newValue !== oldValue) {
+			vm.selectedCategory = newValue;
+			var lowerCaseValue = newValue.toLowerCase();
+			if(!($('.subcategory-carousel').hasClass(lowerCaseValue))){
+				$('.subcategory-carousel').addClass(lowerCaseValue);
+				$timeout(function(){vm.applySwiperOnSubcategories(newValue);});
+			}		
+		}
 	});
 
 	vm.applyLibrariesOnPortfolio = function() {
@@ -52,8 +66,8 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 				modifier : 1,
 				slideShadows : true
 			},
-			nextButton : '.swiper-button-next',
-			prevButton : '.swiper-button-prev',
+			nextButton : '.portfolio-swiper-button-next',
+			prevButton : '.portfolio-swiper-button-prev',
 			preloadImages : false,
 			lazyLoading : true,
 			spaceBetween : 20,
@@ -62,14 +76,46 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	}
 
 
+	vm.applySwiperOnSubcategories = function(className) {
+		//mySwiper.destroy();
+		new Swiper('.subcategory-swiper-container.' + className, {
+			effect : 'slide',
+			grabCursor : true,
+			speed: 500, 
+			slidesPerView : '5',
+			nextButton : '.' + className + '.subcategory-swiper-button-next',
+			prevButton : '.' + className + '.subcategory-swiper-button-prev',
+			spaceBetween : 20,
+			breakpoints : {
+				// when window width is <= 767px
+				767 : {
+					slidesPerView : 2,
+					spaceBetweenSlides : 10
+				},
+				// when window width is <= 991px
+				991 : {
+					slidesPerView : 5,
+					spaceBetweenSlides : 20
+				},
+				// when window width is <= 1199px
+				1199 : {
+					slidesPerView : 5,
+					spaceBetweenSlides : 20
+				}
+			}
+
+		});
+		//mySwiper.slideTo(0);
+	};
+
 	vm.fetchRecentAdditions = function() {
 		var cityId = baseFactory.getSelectedCity();
-			HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
-					vm.recentlyAddedData = data;
+		HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
+			vm.recentlyAddedData = data;
 
-				}, function(error) {
-					 console.log(error);
-				});
+		}, function(error) {
+			console.log(error);
+		});
 
 	};
 

@@ -52,6 +52,12 @@ body.modal-open{
 	padding-right: 0px !important;
 }
 
+/* Fix the body scroll when filters are open in mobile view */
+body.stop-scrolling{
+	overflow-y: hidden;
+    position: fixed;
+}
+
 section {
 	padding-top: 2em;
 	padding-bottom: 2em;
@@ -75,28 +81,28 @@ a:hover, a:focus {
 
 /*Common functionality*/
 .no-margin-right {
-	margin-right: 0px;
+	margin-right: 0px !important;
 }
 .no-margin-left {
-	margin-left: 0px;
+	margin-left: 0px !important;
 }
 .no-margin-top {
-	margin-top: 0px;
+	margin-top: 0px !important;
 }
 .no-margin-bottom {
-	margin-bottom: 0px;
+	margin-bottom: 0px !important;
 }
 .no-padding-bottom {
-	padding-bottom: 0px;
+	padding-bottom: 0px !important;
 }
 .no-padding-top {
-	padding-top: 0px;
+	padding-top: 0px !important;
 }
 .no-padding-right {
-	padding-right: 0px;
+	padding-right: 0px !important;
 }
 .no-padding-left {
-	padding-left: 0px;
+	padding-left: 0px !important;
 }
 .no-border-top-left-radius {
 	border-top-left-radius: 0px !important;
@@ -457,6 +463,12 @@ background: white;
     width: 100%;
     font-size: 16px;
     z-index: 1;
+        border: 1px solid #656565;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px rgba(0,0,0,0.75);
+    -o-box-shadow: 0px 0px 10px rgba(0,0,0,0.75);
+    -ms-box-shadow: 0px 0px 10px rgba(0,0,0,0.75);
 }
 
 .lp-category-dropdown{
@@ -634,7 +646,7 @@ background: white;
 	top: 0px;
 	bottom: 0px;
 	z-index: 1051;
-	    background: rgba(255,255,255,1);
+	background: rgba(255,255,255,0.6);
 /*background-image: url('../images/loader_bg.jpg');
 	background-repeat: repeat;*/
 	opacity: 1;
@@ -692,7 +704,27 @@ background: white;
 	z-index: 1031;
 }
 
+/* Overriding swiper arrows
+ 
+ * */
 
+.swiper-button-next, 
+.swiper-container-rtl .swiper-button-prev,
+.swiper-button-prev, 
+.swiper-container-rtl .swiper-button-next{
+	background-image: url('/images/swiper_arrows.png') !important;
+}
+
+.swiper-button-prev, 
+.swiper-button-next{
+	background-position: -35px !important;
+	-webkit-background-size: initial !important;
+	-moz-background-size: initial !important;
+}
+
+.swiper-button-prev{
+	background-position: 0px !important;
+}
 
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {
