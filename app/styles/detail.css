@@ -313,3 +313,21 @@ ul.details-page-social-section {
 .details-page-social-section a span.fa-instagram {
     background: rgb(136, 142, 153);
 }
+
+.details-food-category{
+	margin-top: 10px;
+	font-size: 16px;
+}
+
+.veg-only{
+	color: #269221;
+}
+
+.veg-nonveg{
+	color: #cb202d;
+}
+
+.menu-images{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

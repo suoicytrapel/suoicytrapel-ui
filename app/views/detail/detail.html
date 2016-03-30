@@ -16,7 +16,11 @@
 					{{vm.detailedData.city}}, {{vm.detailedData.state}}
 				</div>
 				<div class="details-telephone">
-					{{vm.detailedData.primaryPhoneNumber}}, {{vm.detailedData.secondaryPhoneNumber}}
+					<a href='tel:{{vm.detailedData.primaryPhoneNumber}}'>{{vm.detailedData.primaryPhoneNumber}}</a>, <a href='tel:{{vm.detailedData.secondaryPhoneNumber}}'>{{vm.detailedData.secondaryPhoneNumber}}</a>
+				</div>
+				<div class="details-food-category">
+					<span class="veg-only"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
+					<span class="veg-nonveg"><span class="fa fw fa-dot-circle-o"></span> Veg/Non-Veg</span>
 				</div>
 
 			</div>
@@ -324,41 +328,7 @@
 					</div>
 				</div>
 			</div>
-			<!-- Additional Info Section (travel Expense, Genre and Experience) -->
-			<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-info"></span>
-						Additional Information
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											Outstation Travel and Stay Expense
-											</span>
-											<span class="details-page-services-right-panel">To be Beared</span>
-										</li>
-									</ul>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											Genre
-											</span>
-											<span class="details-page-services-right-panel">genre</span>
-										</li>
-									</ul>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											Experience
-											</span>
-											<span class="details-page-services-right-panel">3 years</span>
-										</li>
-									</ul>
-				</div>
-			</div>
+			
 			<!-- Inhouse Catering and Decoration -->
 
 			<div class="pamphlet-container details-pamphlet inhouse-offerings">
@@ -403,21 +373,28 @@
 										<ul class="inhouse-catering-services col-xs-12">
 											<li ng-class="w2">
 												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-cutlery theme-color"></span>
-												Rate per plate starts from
+												<span class="fa fa-fw fa-cutlery veg-only"></span>
+												Rate per plate starts from (veg)
 												</span>
-												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate">1000/-</span></span>
+												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-veg">1000/-</span></span>
 											</li>
 											<li ng-class="w2">
 												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-user-plus theme-color"></span>
+												<span class="fa fa-fw fa-cutlery veg-nonveg"></span>
+												Rate per plate starts from (non-veg)
+												</span>
+												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-nonveg">1200/-</span></span>
+											</li>
+											<li ng-class="w2">
+												<span class="details-page-services-left-panel">
+												<span class="fa fa-fw fa-user-plus"></span>
 												Minimum number of pax required
 												</span>
 												<span class="inhouse-minimum-pax details-page-services-right-panel">50</span>
 											</li>
 											<li ng-class="w2">
 												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
+												<span class="fa fa-fw fa-users"></span>
 												Maximum number of pax that can be served
 												</span>
 												<span class="inhouse-maximum-pax details-page-services-right-panel">1000</span>
@@ -458,6 +435,41 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<!-- Additional Info Section (travel Expense, Genre and Experience) -->
+			<div class="pamphlet-container details-pamphlet">
+				<div class="pamphlet-header">
+					<div class="pamphlet-title">
+						<span class="fa fa-fw fa-info"></span>
+						Additional Information
+					</div>
+				</div>
+				<div class="pamphlet-body">
+					<ul class="details-section-services">
+										<li ng-class="w2">
+											<span class="details-page-services-left-panel">
+											Outstation Travel and Stay Expense
+											</span>
+											<span class="details-page-services-right-panel">To be Beared</span>
+										</li>
+									</ul>
+									<ul class="details-section-services">
+										<li ng-class="w2">
+											<span class="details-page-services-left-panel">
+											Genre
+											</span>
+											<span class="details-page-services-right-panel">genre</span>
+										</li>
+									</ul>
+									<ul class="details-section-services">
+										<li ng-class="w2">
+											<span class="details-page-services-left-panel">
+											Experience
+											</span>
+											<span class="details-page-services-right-panel">3 years</span>
+										</li>
+									</ul>
 				</div>
 			</div>
 
