@@ -26,6 +26,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showOtherFilters = true;
 	vm.showEventsFilters = false;
 	vm.showCapacityFilters = false;
+	vm.showCatererTypeFilters = true;
 	vm.setFromRecord = null;
 	vm.setToRecord = null;
 	vm.showMoreFilters = false;
@@ -54,7 +55,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			eventList : [],
 			rentalList : [],
 			othersList : [],
-			capacityList : []
+			capacityList : [],
+			catererTypeList : []
 		};
 		if (vm.offset == null) {
 			vm.offset = 1;
@@ -157,6 +159,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		angular.element('#capacityDiv').collapse('toggle');
 	};
 
+	vm.expandCollapseCatererTypeFilter = function(){
+		vm.showCatererTypeFilters = !vm.showCatererTypeFilters;
+		angular.element('#catererTypeDiv').collapse('toggle');
+	}
+
 	$scope.pageChangeHandler = function(newPageNumber) {
 		$scope.currentPage = newPageNumber;
 		vm.offset = newPageNumber;
@@ -209,6 +216,9 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		for (var k in vm.filters.capacity) {
 			vm.filters.capacity[k].checked = false;
 		}
+		for (var k in vm.filters.catererType) {
+			vm.filters.catererType[k].checked = false;
+		}
 		vm.selectedFilters = {
 			serviceList : [],
 			localityList : [],
@@ -219,7 +229,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			eventList : [],
 			rentalList : [],
 			othersList : [],
-			capacityList : []
+			capacityList : [],
+			catererTypeList : []
 		};
 		vm.fetchData(false);
 	};
@@ -273,6 +284,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		for (var k in vm.filters.capacity) {
 			if (vm.filters.capacity[k].checked) {
 				vm.selectedFilters.capacityList.push(vm.filters.capacity[k].id);
+			}
+		}
+		for (var k in vm.filters.catererType) {
+			if (vm.filters.catererType[k].checked) {
+				vm.selectedFilters.catererTypeList.push(vm.filters.catererType[k].id);
 			}
 		}
 	};

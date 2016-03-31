@@ -18,9 +18,9 @@
 				<div class="details-telephone">
 					<a href='tel:{{vm.detailedData.primaryPhoneNumber}}'>{{vm.detailedData.primaryPhoneNumber}}</a>, <a href='tel:{{vm.detailedData.secondaryPhoneNumber}}'>{{vm.detailedData.secondaryPhoneNumber}}</a>
 				</div>
-				<div class="details-food-category">
-					<span class="veg-only"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
-					<span class="veg-nonveg"><span class="fa fw fa-dot-circle-o"></span> Veg/Non-Veg</span>
+				<div class="details-food-category" ng-if="vm.detailedData.isPureVeg != null">
+					<span class="veg-only" ng-if="vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
+					<span class="veg-nonveg" ng-if="!vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg/Non-Veg</span>
 				</div>
 
 			</div>
@@ -30,11 +30,11 @@
 						<div>
 							Starts from
 						</div>
-						<span class="header-starts-from"><span class="fa fw fa-inr"></span>1,00,000</span>
+						<span class="header-starts-from"><span class="fa fw fa-inr"></span>{{vm.detailedData.startingFrom}}</span>
 						<div style="margin-top: 14px;">
 							Serving since
 						</div>
-						<span class="header-serving-since">1999</span>
+						<span class="header-serving-since">{{vm.detailedData.servingSince}}</span>
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 			<!--Adding Amenities and Services-->
-			<div class="pamphlet-container details-pamphlet amenities-services">
+			<div class="pamphlet-container details-pamphlet amenities-services" ng-if="vm.detailedData.serviceAmenityTabMap">
 				<div class="pamphlet-header">
 					<div class="pamphlet-title">
 						<span class="fa fa-fw fa-cog"></span>
@@ -88,17 +88,63 @@
 				</div>
 				<div class="pamphlet-body">
 					<ul class="nav nav-tabs nav-justified">
-						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
-							<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
+						<li ng-repeat ="(key, value) in vm.detailedData.serviceAmenityTabMap" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.detailedData.serviceAmenityTabMap.length==1}">
+							<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{key}}</a>
 						</li>
 					</ul>
 					<div  class="lp-tabs-content">
 						<div class="tab-content">
-							<div ng-repeat="(key, value) in vm.detailedData.tabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="tab{{$index}}">
+							<div ng-repeat="(key, value) in vm.detailedData.serviceAmenityTabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="tab{{$index}}">
 								<ul ng-if="key != 'Rooms'">
 									<li  ng-repeat="data in value" class="w2">
 										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
 										{{data.name}}
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Rooms, Garden and Banquet -->
+
+			<div class="pamphlet-container details-pamphlet rooms-gardens-banquets" ng-if="vm.detailedData.amenityDetailsTabMap.length">
+				<div class="pamphlet-header">
+					<div class="pamphlet-title">
+						<span class="fa fa-fw fa-folder-open"></span>
+						Details
+					</div>
+				</div>
+				<div class="pamphlet-body">
+					<ul class="nav nav-tabs nav-justified">
+						<!--
+						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
+						<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
+						</li>-->
+						<li ng-repeat ="(key, value) in vm.detailedData.amenityDetailsTabMap" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.detailedData.amenityDetailsTabMap.length==1}">
+							<a data-target="#detailTab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{key}}</a>
+						</li>
+					</ul>
+					<div  class="lp-tabs-content">
+						<div class="tab-content">
+							<div ng-repeat="(key, value) in vm.detailedData.amenityDetailsTabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="detailTab{{$index}}">
+								<ul ng-if="key != 'Rooms'">
+									<li  ng-repeat="data in value" class="w2">
+										<div class="rooms-container">
+									<div class="roomCategory">
+										{{data.amenityName}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{data.minCost}}/-</span> incl. of taxes</span>
+									</div>
+									<ul class="details-section-services">
+										<li ng-class="w2">
+											<span class="details-page-services-left-panel">
+											<span class="fa fa-fw fa-users theme-color"></span>
+											Maximum Accomodation
+											</span>
+											<span class="max-accom details-page-services-right-panel">{{data.maxCapacity}}</span>
+										</li>
+									</ul>
 									</li>
 								</ul>
 
@@ -135,203 +181,10 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Rooms, Garden and Banquet -->
-
-			<div class="pamphlet-container details-pamphlet rooms-gardens-banquets">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-folder-open"></span>
-						Details
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ul class="nav nav-tabs nav-justified">
-						<!--
-						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
-						<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
-						</li>-->
-						<li class="lp-tabs" ng-class="'active'">
-							<a data-target="#detailstab1" data-toggle="tab" href="javascript:void(0)">Gardens</a>
-
-						</li>
-						<li class="lp-tabs">
-							<a data-target="#detailstab2" data-toggle="tab" href="javascript:void(0)">Banquet Halls</a>
-
-						</li>
-						<li class="lp-tabs">
-							<a data-target="#detailstab3" data-toggle="tab" href="javascript:void(0)">Rooms</a>
-
-						</li>
-					</ul>
-					<div  class="lp-tabs-content">
-						<div class="tab-content">
-							<!--
-							<div ng-repeat="(key, value) in vm.detailedData.tabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="detailstab{{$index}}">
-							<ul ng-if="key != 'Rooms'">
-							<li  ng-repeat="data in value" class="w2">
-							<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
-							{{data.name}}
-							</li>
-							</ul>
-
-							<div ng-if="key == 'Rooms'" ng-repeat="room in value" class="rooms-container">
-							<div class="roomCategory">
-							{{room.name}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{room.minCost}}/-</span> per night</span>
-							</div>
-							<ul class="room-services">
-							<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
-							AC
-							<span class="fa fa-fw fa-check-square color-green"></span>
-							</li>
-							<li ng-class="room.fridgeAvailability ? 'w2' : 'w2 disabled'">
-
-							Fridge
-							<span class="fa fa-fw fa-check-square color-green"></span>
-							</li>
-							<li ng-class="room.ledAvailability ? 'w2' : 'w2 disabled'">
-							LED
-							<span class="fa fa-fw fa-check-square color-green"></span>
-							</li>
-							<li ng-class="room.lockerAvailability ? 'w2' : 'w2 disabled'">
-							Locker
-							<span class="fa fa-fw fa-check-square color-green"></span>
-							</li>
-							<li ng-class="room.hotWaterAvailability ? 'w2' : 'w2 disabled'">
-							Hot Water
-							<span class="fa fa-fw fa-check-square color-green"></span>
-							</li>
-							</ul>
-							</div>
-							</div>-->
-							<div ng-class="'tab-pane lp-tab-pane active'" id="detailstab1">
-								<div class="rooms-container">
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div ng-class="'tab-pane lp-tab-pane'" id="detailstab2">
-								<div class="rooms-container">
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div ng-class="'tab-pane lp-tab-pane'" id="detailstab3">
-								<div class="rooms-container">
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-									<div class="roomCategory">
-										Shaan-e-Punjab<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">1000</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			
 			<!-- Inhouse Catering and Decoration -->
 
-			<div class="pamphlet-container details-pamphlet inhouse-offerings">
+			<div class="pamphlet-container details-pamphlet inhouse-offerings" ng-if="vm.detailedData.inHouseOfferingsTabMap">
 				<div class="pamphlet-header">
 					<div class="pamphlet-title">
 						<span class="fa fa-fw fa-building"></span>
@@ -344,30 +197,24 @@
 						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
 						<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
 						</li>-->
-						<li class="lp-tabs" ng-class="'active'">
-							<a data-target="#inhousetab1" data-toggle="tab" href="javascript:void(0)">Inhouse Catering</a>
-
-						</li>
-						<li class="lp-tabs">
-							<a data-target="#inhousetab2" data-toggle="tab" href="javascript:void(0)">Inhouse Decoration</a>
-
+						<li ng-repeat ="(key, value) in vm.detailedData.inHouseOfferingsTabMap" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.detailedData.inHouseOfferingsTabMap.length==1}">
+							<a data-target="#houseOfferingTab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{key}}</a>
 						</li>
 					</ul>
 					<div  class="lp-tabs-content">
 						<div class="tab-content">
 
-							<div ng-class="'tab-pane lp-tab-pane active'" id="inhousetab1">
+							<div ng-repeat ="(key, value) in vm.detailedData.inHouseOfferingsTabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="houseOfferingTab{{$index}}">
+								<div ng-if="key == 'In House Catering'">
+									
 								<div class="rooms-container">
 									<div class="roomCategory">
 										MENU
 									</div>
 									<div class="menu-images row">
-										<div class="col-xs-6 col-md-4 col-lg-3" >
-											<a href="/images/caterers/chd_gopals/g5.jpg" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> <img src="/images/caterers/chd_gopals/g5.jpg" alt="Thumbnail One" class="img-responsive"/></a>
-										</div>
-										<div class="col-xs-6 col-md-4 col-lg-3" >
-											<a href="/images/caterers/chd_gopals/g6.jpg" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> <img src="/images/caterers/chd_gopals/g6.jpg" alt="Thumbnail One" class="img-responsive"/></a>
-										</div>
+										<div class="col-xs-6 col-md-4 col-lg-3" ng-repeat="menuImage in value.attachments" on-last-repeat-element on-finish-callback="vm.loadBoxer()">
+											<a href="{{vm.getImageURL(menuImage.imageURL)}}" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> <img src="{{vm.getImageURL(menuImage.imageURL)}}" alt="Thumbnail One" class="img-responsive"/> </a>
+									</div>
 									</div>
 									<div class="row inhouse-catering-below-menu">
 										<ul class="inhouse-catering-services col-xs-12">
@@ -376,56 +223,57 @@
 												<span class="fa fa-fw fa-cutlery veg-only"></span>
 												Rate per plate starts from (veg)
 												</span>
-												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-veg">1000/-</span></span>
+												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-veg">{{value.minVegPrice}}/-</span></span>
 											</li>
 											<li ng-class="w2">
 												<span class="details-page-services-left-panel">
 												<span class="fa fa-fw fa-cutlery veg-nonveg"></span>
 												Rate per plate starts from (non-veg)
 												</span>
-												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-nonveg">1200/-</span></span>
+												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-nonveg">{{value.minNonVegPrice}}/-</span></span>
 											</li>
 											<li ng-class="w2">
 												<span class="details-page-services-left-panel">
 												<span class="fa fa-fw fa-user-plus"></span>
 												Minimum number of pax required
 												</span>
-												<span class="inhouse-minimum-pax details-page-services-right-panel">50</span>
+												<span class="inhouse-minimum-pax details-page-services-right-panel">{{value.minCapacity}}</span>
 											</li>
 											<li ng-class="w2">
 												<span class="details-page-services-left-panel">
 												<span class="fa fa-fw fa-users"></span>
 												Maximum number of pax that can be served
 												</span>
-												<span class="inhouse-maximum-pax details-page-services-right-panel">1000</span>
+												<span class="inhouse-maximum-pax details-page-services-right-panel">{{value.maxCapacity}}</span>
 											</li>
 										</ul>
 									</div>
 								</div>
 							</div>
-							<div ng-class="'tab-pane lp-tab-pane'" id="inhousetab2">
+							<div ng-if="key == 'In House Decor'">
+							
 								<div class="rooms-container">
 									<div class="roomCategory">
-										Decor Available<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>1,00,000/-</span> incl. of taxes</span>
+										Decor Available<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{value.minCost}}/-</span> incl. of taxes</span>
 									</div>
 									<ul class="room-services">
-										<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
+										<li ng-class="value.tentingAvlbl ? 'w2' : 'w2 disabled'">
 											Tenting
 											<span class="fa fa-fw fa-check-square color-green"></span>
 										</li>
-										<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
+										<li ng-class="value.lightingAvlbl ? 'w2' : 'w2 disabled'">
 											Lighting
 											<span class="fa fa-fw fa-check-square color-green"></span>
 										</li>
-										<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
+										<li ng-class="value.floralAvlbl ? 'w2' : 'w2 disabled'">
 											Floral
 											<span class="fa fa-fw fa-check-square color-green"></span>
 										</li>
-										<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
+										<li ng-class="value.candlesAvlbl ? 'w2' : 'w2 disabled'">
 											Candles
 											<span class="fa fa-fw fa-check-square color-green"></span>
 										</li>
-										<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
+										<li ng-class="value.balloonsAvlbl ? 'w2' : 'w2 disabled'">
 											Balloons
 											<span class="fa fa-fw fa-check-square color-green"></span>
 										</li>
@@ -433,12 +281,13 @@
 
 								</div>
 							</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Additional Info Section (travel Expense, Genre and Experience) -->
-			<div class="pamphlet-container details-pamphlet">
+			<div class="pamphlet-container details-pamphlet" ng-if="vm.detailedData.additionalInfo">
 				<div class="pamphlet-header">
 					<div class="pamphlet-title">
 						<span class="fa fa-fw fa-info"></span>
@@ -451,7 +300,7 @@
 											<span class="details-page-services-left-panel">
 											Outstation Travel and Stay Expense
 											</span>
-											<span class="details-page-services-right-panel">To be Beared</span>
+											<span class="details-page-services-right-panel">{{vm.detailedData.additionalInfo.outstationExpenses}}</span>
 										</li>
 									</ul>
 									<ul class="details-section-services">
@@ -459,7 +308,7 @@
 											<span class="details-page-services-left-panel">
 											Genre
 											</span>
-											<span class="details-page-services-right-panel">genre</span>
+											<span class="details-page-services-right-panel">{{vm.detailedData.additionalInfo.genre}}</span>
 										</li>
 									</ul>
 									<ul class="details-section-services">
@@ -467,7 +316,7 @@
 											<span class="details-page-services-left-panel">
 											Experience
 											</span>
-											<span class="details-page-services-right-panel">3 years</span>
+											<span class="details-page-services-right-panel">{{vm.detailedData.additionalInfo.experience}} years</span>
 										</li>
 									</ul>
 				</div>
@@ -475,7 +324,7 @@
 
 			<!-- Rules & Policies-->
 
-			<div class="pamphlet-container details-pamphlet inhouse-offerings">
+			<div class="pamphlet-container details-pamphlet inhouse-offerings" ng-if="vm.detailedData.policies">
 				<div class="pamphlet-header">
 					<div class="pamphlet-title">
 						<span class="fa fa-fw fa-file"></span>
@@ -486,11 +335,7 @@
 					<ol class="policies-ordered-list">
 
 						<li>
-							The booking once done cannot be cancelled.
-
-						</li>
-						<li>
-							The booking once done cannot be cancelled.
+							{{vm.detailedData.policies}}
 
 						</li>
 					</ol>

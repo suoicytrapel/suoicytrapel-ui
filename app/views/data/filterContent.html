@@ -24,6 +24,19 @@
 			</div>
 	</div>
 
+	<div ng-if="vm.filters.catererType.length > 0">
+		<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseCatererTypeFilter();"><i ng-class="!vm.showCatererTypeFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Caterer Type</b></div>
+			<div id="catererTypeDiv" class="collapse in">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.catererType">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label for="estCheckBoxes">
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+	</div>
+
 	<div ng-if="vm.filters.eventType.length > 0">
 		<hr>
 		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseEventTypeFilter();" ><i ng-class="!vm.showEventsFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Event Type</b></div>

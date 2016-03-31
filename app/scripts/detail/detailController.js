@@ -71,10 +71,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 			vm.latitude = vm.detailedData.latitude;
 			vm.longitude = vm.detailedData.longitude;
-			angular.forEach(vm.detailedData.tabMap, function(value, key) {
+			/*angular.forEach(vm.detailedData.serviceAmenityTabMap, function(value, key) {
 				vm.tabName.push(key);
 				vm.tabData.push(value);
-			});
+			});*/
 			if (vm.detailedData && vm.detailedData.attachments && vm.detailedData.attachments.length > 0)
 				vm.coverbgImageURL = baseFactory.getWebURL() + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);

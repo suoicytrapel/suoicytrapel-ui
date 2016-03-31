@@ -39,9 +39,9 @@
 								<div class="pamphlet-title col-xs-12 text-center">
 									<div class="row">
 									<div class="col-xs-8 text-left pamphlet-title-desc"><div>{{result.name}}</div><span class="pamphlet-title-city">{{result.locality}}</span>
-									<span class="venue-gathering pull-right"><span class="fa fw fa-users"></span><span class="venue-gathering-range theme-color"> 200-2000</span></span>
-									<span class="caterer-category veg-only pull-right" data-ng-show="false"><span class="fa fw fa-dot-circle-o"></span><span class="caterer-category-veg">veg</span></span>
-									<span class="caterer-category veg-nonveg pull-right" data-ng-show="false"><span class="fa fw fa-dot-circle-o"></span><span class="caterer-category-nonveg">veg/non-veg</span></span>
+									<span class="venue-gathering pull-right"><span class="fa fw fa-users"></span><span class="venue-gathering-range theme-color"> {{result.minCapacity}}-{{result.maxCapacity}}</span></span>
+									<span class="caterer-category veg-only pull-right" data-ng-show="result.isPureVeg"><span class="fa fw fa-dot-circle-o"></span><span class="caterer-category-veg">veg</span></span>
+									<span class="caterer-category veg-nonveg pull-right" data-ng-show="!result.isPureVeg"><span class="fa fw fa-dot-circle-o"></span><span class="caterer-category-nonveg">veg/non-veg</span></span>
 									
 									</div>
 									<div class="col-xs-4 text-left pamphlet-title-price border-left-1px"><div>Starts from</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">{{result.startingPrice}}</span></div>
