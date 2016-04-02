@@ -32,6 +32,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showMoreFilters = false;
 	vm.smallScreen = false;
 	vm.openFilterRibbon = false;
+	vm.selectedCategory = $routeParams.category;
 	
 	vm.detectScreenSize = function(){
 		var screenWidth = window.innerWidth;
