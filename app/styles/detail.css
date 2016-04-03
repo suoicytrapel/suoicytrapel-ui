@@ -99,6 +99,7 @@
 	cursor: pointer;
 	/*height: initial !important;*/
 	min-height: 350px !important;
+	background-position: center top !important;
 }
 
 .view-gallery-btn{
