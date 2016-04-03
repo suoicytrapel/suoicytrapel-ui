@@ -2,15 +2,29 @@
 <html>
   <head>
     <base href="/"></base> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Bringing Smiles on Faces</title>
-    <meta name="description" content="Le Partycious is an online platform for organising events which provides you with the relevant information about different venues,caterers, photographers, decorators and much more. Its all about bringing all the vendors under
-	one roof so that they coordinate well and work towards a success story of an event.">
-    <meta name="keywords" content="event management, venues, caterers, photographers, rentals, decorators, Parties, marriages, weddings, birthdays" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <title>Le Partycious - Your Online Event Planner</title>
+    <meta name="description" content="Le Partycious is an online platform for organising events which provides you with the relevant information about different vendors- venues, caterers, photographers, decorators and much more. Its all about bringing all the vendors under
+	one roof so that they coordinate well and work towards a success story of an event." />
+    <meta name="keywords" content="Events, vendors, venues, caterers, photographers, decorators, entertainment, others, smiles, party, marriage, wedding" />
+    <meta name="geo.region" content="India" />
+	<meta name="robots" content="index,follow" />
+	<meta name="GOOGLEBOT" content="INDEX, FOLLOW" />
+	<meta name="language" content="English" />
+	<meta name="country" content="India" />
+	<meta name="robots" content="ALL" />
+	<meta http-equiv="content-language" content="en" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <meta name="author" content="lepartycious.com">
+    <meta name="author" content="lepartycious">
+    <meta name="copyright" content="Le Partycious - 2016" />
+    <meta property="og:title" content="Le Partycious - Your Online Event Planner" />
+	<meta property="og:description" content="Le Partycious is an online platform for organising events which provides you with the relevant information about different venues, caterers, photographers, decorators and much more. Its all about bringing all the vendors under
+	one roof so that they coordinate well and work towards a success story of an event." />
+	<meta property="og:image" content="http://www.lepartycious.com/images/lp_main_logo.png" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -44,7 +58,7 @@
     </script>
 
   </head>
-  <body ng-app="leparticiousUiApp" data-ng-controller="baseController as vm">
+  <body data-ng-app="leparticiousUiApp" data-ng-controller="baseController as vm">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -65,7 +79,7 @@
 
 	<!--Adding the main body of the application-->
       
-      <div ng-view=""></div>
+      <div data-ng-view=""></div>
 
 
    
@@ -124,7 +138,7 @@
     <!--Adding the ribbon of the application-->
     
 	<a href="javascript:void(0)" id="back-to-top">
-		<img src="/images/arrow_up.png" width="50px"  data-toggle="tooltip" title="Back to Top"/>
+		<img src="/images/arrow_up.png" width="50"  data-toggle="tooltip" title="Back to Top"/>
 	</a> 
     
     <!--Adding the footer of the application-->
