@@ -17,6 +17,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.galleryTop = null;
 		vm.galleryThumbs = null;
 		vm.detailsPageFormsubmitted = false;
+		vm.showDetailsFormSpinner = false;
 
 		vm.detailsPageContactForm = {};
 
@@ -72,9 +73,9 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			vm.latitude = vm.detailedData.latitude;
 			vm.longitude = vm.detailedData.longitude;
 			/*angular.forEach(vm.detailedData.serviceAmenityTabMap, function(value, key) {
-				vm.tabName.push(key);
-				vm.tabData.push(value);
-			});*/
+			 vm.tabName.push(key);
+			 vm.tabData.push(value);
+			 });*/
 			if (vm.detailedData && vm.detailedData.attachments && vm.detailedData.attachments.length > 0)
 				vm.coverbgImageURL = baseFactory.getWebURL() + vm.detailedData.attachments[0].imageURL;
 			dataService.setImageURLs(vm.detailedData.attachments);
@@ -188,21 +189,14 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 	vm.detailsPageFormSubmit = function() {
 
-		$scope.form.detailsPageContactForm.$setPristine();
-		$scope.form.detailsPageContactForm.$setUntouched();
-		vm.detailsPageFormSubmitted = false;
-		vm.populateDynamicCaptcha();
-		$.toaster({
-			priority : 'success',
-			title : 'Sending',
-			message : 'Sending Email',
-			settings : {
-				'timeout' : 2000,
-			}
-		});
+		vm.showDetailsFormSpinner = true;
 
 		ContactFactory.submitEnquiry.submit(vm.detailsPageContactForm).$promise.then(function(data) {
-
+			$scope.form.detailsPageContactForm.$setPristine();
+			$scope.form.detailsPageContactForm.$setUntouched();
+			vm.detailsPageFormSubmitted = false;
+			vm.showDetailsFormSpinner = false;
+			vm.populateDynamicCaptcha();
 			vm.detailsPageContactForm = {};
 			vm.detailsPageFormSubmitted = false;
 			$.toaster({
@@ -215,6 +209,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			});
 		}, function(error) {
 			vm.detailsPageContactForm = {};
+			vm.showDetailsFormSpinner = false;
 			console.log(error);
 			$.toaster({
 				priority : 'warning',

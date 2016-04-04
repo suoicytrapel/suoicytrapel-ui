@@ -393,6 +393,9 @@
           
           <button type="button" ng-click="vm.detailsPageFormSubmitted=true;form.detailsPageContactForm.$valid && captchaValid &&vm.detailsPageFormSubmit();" class="btn btn-success">Send</button>
         </form>
+				<div class="details-form-spinner-bg" data-ng-show="vm.showDetailsFormSpinner">
+				<span us-spinner></span>
+				</div>
 				</div>
 			</div>
 		
@@ -469,7 +472,7 @@
 													<div class="col-xs-4 text-left pamphlet-title-price border-left-1px">
 														<div>
 															Starts from
-														</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span>
+														</div><span class="fa fa-fw fa-inr theme-color"></span> <span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span>
 													</div>
 												</div>
 											</div>

@@ -236,6 +236,12 @@ color: #ffffff;
    /* height: 100px;*/
 }
 
+
+#footer a:hover{
+	text-decoration: underline;
+}
+
+
 #footer a.footer-logo-anchor{
 	height: 100px;
 }
@@ -744,7 +750,6 @@ background: white;
 	font-family: 'OpenSans-Bold';
 	text-decoration: underline;
 }
-
 
 }
 

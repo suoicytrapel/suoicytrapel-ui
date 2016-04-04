@@ -238,6 +238,7 @@
 .details-page-services-right-panel{
 	width: 25%;
 	display: inline-block;
+	font-weight: bold;
 }
 
 .details-section-services{
@@ -331,4 +332,14 @@ ul.details-page-social-section {
 .menu-images{
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.details-form-spinner-bg{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background: rgba(255,255,255,0.7);
+    overflow: hidden;
 }

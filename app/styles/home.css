@@ -427,11 +427,13 @@ border-radius: 50%;
 		font-size: 16px;
 	}
 	
-	
-/*
-	#coverPage {
-		height: 300px;
-	}*/
+
+.recently-added-list li a{
+	color: #337ab7;
+	font-family: 'OpenSans-Bold';
+	text-decoration: underline;
+}
+
 
 }
 

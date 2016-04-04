@@ -132,18 +132,20 @@
 			</div>
 	</div>
 	
+	<!--
 	<div ng-if="vm.filters.rooms.length > 0">
-		<hr>
-		<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseRoomsFilter();"><i ng-class="!vm.showRoomFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Room Type</b></div>
-			<div id="roomsDiv" class="collapse">
-				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.rooms">
-				    <input ng-model='filter.checked' type='checkbox'>
-				    <label for="roomCheckBoxes">
-		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
-		        	</label>
+			<hr>
+			<div style="margin-bottom:10px;"><a href="" ng-click="vm.expandCollapseRoomsFilter();"><i ng-class="!vm.showRoomFilters ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> Room Type</b></div>
+				<div id="roomsDiv" class="collapse">
+					<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in vm.filters.rooms">
+						<input ng-model='filter.checked' type='checkbox'>
+						<label for="roomCheckBoxes">
+							<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+						</label>
+					</div>
 				</div>
-			</div>
-	</div>
+		</div>-->
+	
 	
 	
 	<div ng-if="vm.filters.services.length > 0">
