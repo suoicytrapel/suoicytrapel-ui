@@ -732,6 +732,33 @@ background: white;
 	background-position: 0px !important;
 }
 
+.lp-global-breadcrumb{
+	height: 50px;
+}
+
+.lp-global-breadcrumb > ul{
+	height: inherit;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.lp-global-breadcrumb > ul > li{
+	display: inline-block;
+}
+
+.lp-global-breadcrumb > ul > li > a{
+	color: #666666;
+}
+
+.lp-global-breadcrumb > ul > li > a:hover{
+	color: #337ab7;
+	text-decoration: underline;
+}
+
+
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {
     float: left;
@@ -748,6 +775,11 @@ background: white;
 #footer a{
 	color: #337ab7;
 	font-family: 'OpenSans-Bold';
+	text-decoration: underline;
+}
+
+.lp-global-breadcrumb > ul > li > a{
+		color: #337ab7;
 	text-decoration: underline;
 }
 

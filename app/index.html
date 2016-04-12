@@ -1,5 +1,6 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:fb="http://ogp.me/ns/fb#">
   <head>
     <base href="/"></base> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -22,6 +23,7 @@
 	<meta property="og:description" content="LePartycious is an online platform for organising events which provides you with the relevant information about different venues, caterers, photographers, decorators and much more. Its all about bringing all the vendors under
 	one roof so that they coordinate well and work towards a success story of an event." />
 	<meta property="og:image" content="http://www.lepartycious.com/images/lp_main_logo.png" />
+	<meta property="og:url" content="http://www.lepartycious.com" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
 	<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
@@ -56,12 +58,34 @@
       ga('create', 'UA-73821009-1', 'auto');
 
     </script>
+    
+    <!-- sumome -->
+    <script src="//load.sumome.com/" data-sumo-site-id="d00a41816339a7f7e4b41528d25c4c27f456643d5a7c57fa1083522f44ce9f1c" async="async"></script>
 
   </head>
   <body data-ng-app="leparticiousUiApp" data-ng-controller="baseController as vm">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <!--
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '220624161637882',
+          xfbml      : true,
+          version    : 'v2.5'
+        });
+      };
+    
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>-->
+    
 
     <!-- Add your site or application content here new -->
     <!-- Loader Screen for the application -->
@@ -76,13 +100,23 @@
     <!--Adding the cover Page of the application-->
     
     <div data-ng-include="'views/cover/cover.html'" data-ng-if="showCover"></div>
+    
+    <!--Adding breadcrumb to the page-->
+    
+<!--
+    <div class="lp-global-breadcrumb" data-ng-hide="breadCrumbLinks | isEmpty">
+    	<ul>
+    		<li data-ng-repeat="(key, value) in breadCrumbLinks">
+    			<span>&nbsp;&nbsp;&gt;&nbsp;&nbsp;</span><a href="{{value}}">{{key}}</a> 
+    		</li>
+    	</ul>
+    </div>
 
+-->
 	<!--Adding the main body of the application-->
       
       <div data-ng-view=""></div>
 
-
-   
 
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -117,6 +151,7 @@
         <script src="scripts/home/homeFactory.js"></script>
         <script src="scripts/common/constants.js"></script>
         <script src="scripts/common/directives.js"></script>
+        <script src="scripts/common/filters.js"></script>
         <script src="scripts/common/baseFactory.js"></script>
 		<script src="scripts/common/baseController.js"></script>
         <script src="scripts/data/dataController.js"></script>

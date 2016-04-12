@@ -73,6 +73,7 @@
 								<div class="row">
 									<input id="searchedText" type="text" placeholder="Vendor Name or Search All" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
 									</input>
+									<span class="fa fw fa-times clear-searchedText" data-ng-show="vm.searchData.length > 0" data-ng-click="vm.clearSearchedText()" title="clear"></span>
 								</div>
 							</div>
 

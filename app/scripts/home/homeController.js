@@ -2,6 +2,8 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
+		$rootScope.breadCrumbLinks = {};
+		$rootScope.dataPageBreadCrumbPath = null;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
 		vm.subCategoriesMap = baseFactory.subCategoriesMap;

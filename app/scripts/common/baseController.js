@@ -10,6 +10,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	//Application level variables
 	$rootScope.showCover = true;
+	$rootScope.breadCrumbLinks = {};
 
 	/*
 	 *Initializing all the variables
@@ -64,6 +65,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			vm.routeChangeSuccessInvoked = true;
 			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/')
 				vm.pageDataPopulated = true;
+			else if($location.path() == '/')	
+				applyAutocomplete();
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
 				vm.stopLoader();
 
@@ -251,8 +254,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			$('#contactModal').modal('toggle');
 		};
 
-		
-
 		/*
 		 *
 		 * Called when user clicks
@@ -312,6 +313,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.startLoader();
 		populateCities();
 		applyAutocomplete();
+	};
+
+	/*
+	 * Method for clearing searched data
+	 * */
+	vm.clearSearchedText = function() {
+		angular.element('.home-search-box').val('');
+		vm.searchData = '';
+		//$scope.$apply();
+		return false;
 	};
 
 	/*
@@ -492,7 +503,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
-		}, 500);
+		}, 1000);
 	};
 
 	/* Methods Invoked in Correct Sequence */

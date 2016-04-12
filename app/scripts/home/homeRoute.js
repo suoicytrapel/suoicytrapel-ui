@@ -8,7 +8,7 @@ function($routeProvider, $httpProvider, $locationProvider) {
 		controllerAs : 'vm',
 		resolve : {
 			changeCover : function(baseFactory) {
-				baseFactory.setMainCoverHeading('Bringing Smiles on Faces');
+				baseFactory.setMainCoverHeading('Your Online Event Planner');
 			},
 			recentAdditions : function(baseFactory, HomeFactory, $location) {
 				var cityId = baseFactory.getSelectedCity();

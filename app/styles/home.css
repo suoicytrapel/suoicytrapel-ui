@@ -133,6 +133,17 @@
 #coverPage #searchedText{
 	border-radius: 0px;
 }
+
+#coverPage .clear-searchedText{
+	position: absolute;
+    color: #f37254;
+    top: 0px;
+    right: 4px;
+    font-size: 24px;
+    line-height: 46px;
+    cursor: pointer;
+}
+
 .lp-sprite {
 	background-image: url('/images/spritesheet.png');
 	background-repeat: no-repeat;

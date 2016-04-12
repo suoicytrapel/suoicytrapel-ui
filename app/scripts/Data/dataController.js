@@ -2,6 +2,10 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 
 	var vm = this;
 	$rootScope.showCover = true;
+	$rootScope.breadCrumbLinks = {};
+	$rootScope.breadCrumbLinks['Home'] = '/';
+	$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $location.path();
+	$rootScope.dataPageBreadCrumbPath = $location.path();
 	baseFactory.setCoverUrl($routeParams.category);
 	baseFactory.setMainCoverHeading($routeParams.category);
 	baseFactory.setSelectedCategory($routeParams.category);

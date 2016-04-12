@@ -7,7 +7,7 @@ app.factory('baseFactory', function($location) {
 	baseFactory.selectedCity = '1';
 	baseFactory.selectedCategory = 'VENUE';
 	baseFactory.coverUrl = '/images/main_cover.jpg';
-	baseFactory.mainCoverHeading = 'Bringing Smiles on Faces';
+	baseFactory.mainCoverHeading = 'Your Online Event Planner';
 	
 	baseFactory.categoryMap = {
 
@@ -142,7 +142,7 @@ app.factory('baseFactory', function($location) {
 				baseFactory.mainCoverHeading = 'RENTALS';
 				break;
 			default:
-				baseFactory.mainCoverHeading = 'Bringing Smiles on Faces';
+				baseFactory.mainCoverHeading = 'Your Online Event Planner';
 				break;
 
 		};
