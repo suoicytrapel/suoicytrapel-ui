@@ -1,0 +1,44 @@
+<div id="signinModal" class="modal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close"  ng-click="vm.closePopup();" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">SIGN IN</h3>
+      </div>
+      <div class="modal-body">
+      	
+      		<div class="social-buttons">
+									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+									<a href="#" class="btn btn-gg"><i class="fa fa-google"></i> Google</a>
+								</div>
+								<hr>
+								<div class="text-center">OR</div>
+      		<hr>
+        <form name="form.signinForm" class="col-sm-12" novalidate>
+        	
+        <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.signinForm.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+          <span style="color:brown;" ng-show="(form.contactForm.name.$touched || vm.submitted) && form.contactForm.name.$invalid">Name is mandatory.</span>
+      	</div>
+
+          <div class="form-group"><label class="required">Password</label><input class="form-control required" placeholder="Your password" type="password" ng-model="vm.signin.password" name="password" required></input>
+          	<span style="color:brown;" ng-show="(form.contactForm.message.$touched || vm.submitted) && form.contactForm.message.$invalid">Message is mandatory.</span>
+          </div>
+		
+		<div class="text-right fogot-pwd">
+			<a href="javascript:void(0)" data-ng-click="vm.showfgtpwdPopup();">Forgot Password?</a>
+		</div>
+		<div>	
+          <a href="#" class="btn btn-login">LOG IN</a>
+</div>
+		<div class="text-center mTop10">
+      	New to LePartycious ? <a href="javascript:void(0)" class="join-us-link" data-ng-click="vm.showSignUpPopup();">JOIN US</a>
+      </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+      	
+      </div>
+    </div>
+  </div>
+</div>

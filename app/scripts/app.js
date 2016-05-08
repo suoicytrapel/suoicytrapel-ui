@@ -20,6 +20,7 @@ var app = angular
     'ngTouch',
     'angularUtils.directives.dirPagination',
     'ui.router',
-    'angularSpinner'
+    'angularSpinner',
+    'angularModalService'
   ])
   

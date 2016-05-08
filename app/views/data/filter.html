@@ -1,0 +1,12 @@
+<hr>
+		<div style="margin-bottom:10px;"><a href="" ng-click="expandCollapseFilterFunctionality();"><i ng-class="!expandFilter ? 'fa fa-plus' : 'fa fa-minus'"></a></i><b> {{filterHeading}}</b></div>
+			<div id="{{filterId}}" class="collapse" ng-class="expandFilter ? 'in' : ''">
+				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in filterNodes">
+				    <input ng-model='filter.checked' type='checkbox'>
+				    <label>
+		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		        	</label>
+				</div>
+			</div>
+
+	

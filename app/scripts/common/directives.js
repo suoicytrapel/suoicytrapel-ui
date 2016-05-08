@@ -57,3 +57,25 @@ app.directive('onLastRepeatElement',function($timeout){
 		}
 	};
 });
+
+/*
+ *
+ * Directive for filter 
+ * */
+
+app.directive('filter',function(){
+	return {
+		restrict: 'EA',
+		templateUrl: '/views/data/filter.html',
+		scope: {
+			expandCollapseFilterFunctionality: "=",
+			expandFilter: "=",
+			filterHeading: "@",
+			filterId: "@",
+			filterNodes: "=",
+						
+		},
+		link: function(scope, elem, attr){
+		}
+	};
+});

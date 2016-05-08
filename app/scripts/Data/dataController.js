@@ -167,7 +167,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.expandCollapseCatererTypeFilter = function(){
 		vm.showCatererTypeFilters = !vm.showCatererTypeFilters;
 		angular.element('#catererTypeDiv').collapse('toggle');
-	}
+	};
 
 	$scope.pageChangeHandler = function(newPageNumber) {
 		$scope.currentPage = newPageNumber;

@@ -1,0 +1,59 @@
+#signinModal .social-buttons a {
+    width: 49%;
+    border-radius: 0px;
+}
+.btn-fb{
+    color: #fff;
+    background-color: #3b5998;
+    border: 2px solid #3b5998;
+}
+
+.btn-fb:hover, 
+.btn-fb:focus{
+	color: #3b5998;
+    background-color: #fff;
+}
+
+.btn-gg {
+    color: #fff;
+    background-color: #dd4b39;
+    border: 2px solid #dd4b39;
+}
+
+.btn-gg:hover,
+.btn-gg:focus {
+    color: #dd4b39;
+    background-color: #ffffff;
+}
+
+.btn-login{
+	    color: #fff;
+    background-color: #f37254;
+    border: 2px solid #f37254;
+    width: 100%;
+}
+
+.btn-login:hover,
+.btn-login:focus {
+    color: #f37254;
+    background-color: #ffffff;
+}
+
+.fogot-pwd{
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+.fogot-pwd:hover,
+.fogot-pwd:focus,
+.join-us-link:hover,
+.join-us-link:focus{
+	text-decoration: underline;
+}
+
+.join-us-link{
+	font-weight: bold;
+}
+.mTop10{
+	margin-top: 10px;
+}
