@@ -1,552 +1,701 @@
 <div class="ng-cloak">
-	<div id="coverPage" class="detail-cover text-center" data-ng-click="vm.openGallery();" style="background-image:url({{vm.coverbgImageURL}})">
-		<button class="btn default-white-btn view-gallery-btn">
+	<div class="cover-container">
+		<div id="coverPage" class="detail-cover text-center" style="background-image:url({{vm.coverbgImageURL}})">
+			<!--
+			<button class="btn default-white-btn view-gallery-btn">
 			View Gallery
-		</button>
+			</button>-->
+
+		</div>
+		<div class="cover-overlay"></div>
+
 	</div>
-	<div class="lp-global-breadcrumb" data-ng-hide="breadCrumbLinks | isEmpty">
-    	<ul>
-    		<li data-ng-repeat="(key, value) in breadCrumbLinks">
-    			<span data-ng-hide="$index == 0">&nbsp;&nbsp;&gt;&nbsp;&nbsp;</span><a href="{{value}}">{{key}}</a> 
-    		</li>
-    	</ul>
-    </div>
-	<div class="row">
-		<div class="details-container col-xs-12">
-			<div class="col-xs-12 col-sm-offset-1 col-sm-6">
 
-				<h2 class="details-name">{{vm.detailedData.name}}</h2>
-				<div class="details-address">
-					{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
-				</div>
-				<div class="details-city">
-					{{vm.detailedData.city}}, {{vm.detailedData.state}}
-				</div>
-				<div class="details-telephone">
-					<a href='tel:{{vm.detailedData.primaryPhoneNumber}}'>{{vm.detailedData.primaryPhoneNumber}}</a>, <a href='tel:{{vm.detailedData.secondaryPhoneNumber}}'>{{vm.detailedData.secondaryPhoneNumber}}</a>
-				</div>
-				<div class="details-food-category" ng-if="vm.detailedData.isPureVeg != null">
-					<span class="veg-only" ng-if="vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
-					<span class="veg-nonveg" ng-if="!vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg/Non-Veg</span>
-				</div>
-
+	<div class="detail-info-section">
+		<div class="detail-top-section">
+			<div class="lp-global-breadcrumb pull-left" data-ng-hide="breadCrumbLinks | isEmpty">
+				<ul>
+					<li data-ng-repeat="(key, value) in breadCrumbLinks">
+						<span data-ng-hide="$index == 0">&nbsp;&nbsp;&gt;&nbsp;&nbsp;</span><a href="{{value}}">{{key}}</a>
+					</li>
+				</ul>
 			</div>
-			<div class="col-xs-12 col-sm-4">
-				<div class="pamphlet-container details-pamphlet change-bg-to-grey no-margin-bottom">
-					<div class="pamphlet-body">
-						<div>
-							Starts from
+			<div class="lp-call-lp pull-right">
+				CALL LEPARTYCIOUS
+				<br/>
+				<a href="tel:7222034001">7222-034-001</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="row detail-title-highlights-section">
+			<div class="details-container col-xs-12">
+				<div class="row">
+					<div class="col-xs-12 col-sm-8 col-md-9">
+						<div class="row details-basicinfo-contnr">
+							<div class="col-xs-2">
+								<div class="detail-category-icon-contnr" title="{{vm.category}}">
+									{{vm.categoryInitials}}
+								</div>
+							</div>
+							<div class="col-xs-10 details-basicinfo-right-panel">
+								<h2 class="details-name">{{vm.detailedData.name}}</h2>
+								<div class="details-address">
+									{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
+								</div>
+								<div class="details-city">
+									{{vm.detailedData.city}}, {{vm.detailedData.state}}
+								</div>
+								<div class="details-telephone">
+									<a href='tel:{{vm.detailedData.primaryPhoneNumber}}'>{{vm.detailedData.primaryPhoneNumber}}</a>, <a href='tel:{{vm.detailedData.secondaryPhoneNumber}}'>{{vm.detailedData.secondaryPhoneNumber}}</a>
+								</div>
+								<!--
+								<div class="details-food-category" ng-if="vm.detailedData.isPureVeg != null">
+								<span class="veg-only" ng-if="vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
+								<span class="veg-nonveg" ng-if="!vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg/Non-Veg</span>
+								</div>-->
+
+							</div>
 						</div>
-						<span class="header-starts-from"><span class="fa fw fa-inr"></span>{{vm.detailedData.startingFrom}}</span>
-						<div style="margin-top: 14px;">
-							Serving since
+
+						<div class="details-mini-carousel">
+							<div class="swiper-container details-mini-swiper-container">
+								<!-- Additional required wrapper -->
+								<div class="swiper-wrapper details-mini-swiper-wrapper">
+									<!-- Slides -->
+									<div class="swiper-slide details-mini-swiper-slide" ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})" on-last-repeat-element on-finish-callback="vm.applySwiperMiniGallery();" data-ng-click="vm.openGallery($index);">
+
+									</div>
+
+								</div>
+								<!-- If we need pagination -->
+								<a href="javascript:void(0)" class="swiper-button-prev details-mini-swiper-button-prev"><span class="fa fa-angle-double-left"></span></a>
+								<a href="javascript:void(0)" class="swiper-button-next details-mini-swiper-button-next"><span class="fa fa-angle-double-right"></span></a>
+
+							</div>
 						</div>
-						<span class="header-serving-since">{{vm.detailedData.servingSince}}</span>
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-3 pull-right link-text-color marginTop10">
+						<div class="pamphlet-container details-pamphlet no-margin-bottom">
+							<div class="pamphlet-header highlights-heading">
+								Key Highlights
+							</div>
+							<div class="pamphlet-body">
+								<ul class="key-hightlights-properties">
+									<li>
+										<div class="key-high-proptext">
+											<div class="key-high-bold">
+												<span class="fa fa-circle color-green allowed-tick"></span> Veg
+											</div>
+											(starts from)
+										</div>
+										<div class="key-high-amt">
+											<div class="key-high-bold">
+												<span class="fa fa-fw fa-inr"></span>{{vm.detailedData.inHouseOfferingsTabMap['In House Catering'].minVegPrice}}
+											</div>
+											(per plate)
+										</div>
+									</li>
+									<li>
+										<div class="key-high-proptext">
+											<div class="key-high-bold">
+												<span class="fa fa-circle color-red not-allowed-cross"></span> Non-Veg
+											</div>
+											(starts from)
+										</div>
+										<div class="key-high-amt">
+											<div class="key-high-bold">
+												<span class="fa fa-fw fa-inr"></span>{{vm.detailedData.inHouseOfferingsTabMap['In House Catering'].minNonVegPrice}}
+											</div>
+											(per plate)
+										</div>
+									</li>
+									<li>
+										<span class="fa fa-check color-green allowed-tick"></span> Inhouse Catering
+									</li>
+									<li>
+										<span class="fa fa-check color-green allowed-tick"></span> Outhouse Catering allowed
+									</li>
+									<li>
+										<span class="fa fa-times color-red not-allowed-cross"></span> Non-Veg food allowed
+									</li>
+									<li>
+										<span class="fa fa-times color-red not-allowed-cross"></span> Inhouse Alcohol allowed
+									</li>
+									<li>
+										<span class="fa fa-check color-green allowed-tick"></span> Outhouse Alcohol allowed
+									</li>
+									<li>
+										<span class="fa fa-check color-green allowed-tick"></span> Inhouse DJ
+									</li>
+									<li>
+										<span class="fa fa-check color-green allowed-tick"></span> Outhouse DJ allowed
+									</li>
+
+									<!-- Catering specific Highlights -->
+									<li ng-if="vm.detailedData.isPureVeg != null">
+										<span ng-if="vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg Only</span>
+										<span ng-if="!vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg/Non-Veg both</span>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
 
-	<div class="row bg-grey">
-		<div class="gap20"></div>
-		<div class="col-xs-12 col-sm-offset-1 col-sm-6">
-			<!--<div class="row">-->
-			<!--Adding Description for the vendor-->
-			<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						why should you choose <span class="name">{{vm.detailedData.name}}</span>
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					{{vm.detailedData.description}}
-				</div>
-			</div>
-			<!-- Adding Menu Images for Caterers -->
-			<div class="pamphlet-container details-pamphlet caterer-menu" ng-if="vm.detailedData.menuImages.length > 0">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						Menu
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<div class="row">
-						<div class="col-xs-6 col-md-4 col-lg-3" ng-repeat="menuImage in vm.detailedData.menuImages" on-last-repeat-element on-finish-callback="vm.loadBoxer()">
-							<a href="{{vm.getImageURL(menuImage.imageURL)}}" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> <img src="{{vm.getImageURL(menuImage.imageURL)}}" alt="Thumbnail One" class="img-responsive"/> </a>
-						</div>
-						<!-- <div class="col-xs-6 col-md-4 col-lg-3">
-						<a href="/images/about_us_cover.jpg" target="_self" class="boxer" title="Caption Two" data-gallery="gallery">
-						<img src="/images/about_us_cover.jpg" alt="Thumbnail Two" class="img-responsive"/>
-						</a>
-						</div>
-
-						</div> -->
-					</div>
-				</div>
-			</div>
-			<!--Adding Amenities and Services-->
-			<div class="pamphlet-container details-pamphlet amenities-services" ng-if="vm.detailedData.serviceAmenityTabMap">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-cog"></span>
-						Amenities &amp; Services
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ul class="nav nav-tabs nav-justified">
-						<li ng-repeat ="(key, value) in vm.detailedData.serviceAmenityTabMap" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.detailedData.serviceAmenityTabMap.length==1}">
-							<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{key}}</a>
+	<!-- ScrollSpy Implementation -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 details-fixed-component hidden-sm hidden-xs">
+				<div class="fixed-tabs-container" id="left_nav_container">
+					<ul class="side-nav-fixed nav">
+						<li>
+							<a href="#facilities"><span class="fa fa-fw fa-gears"></span>Facilities</a>
+						</li>
+						<li>
+							<a href="#description"><span class="fa fa-fw fa-align-left"></span>Description</a>
+						</li>
+						<li>
+							<a href="#areas"><span class="fa fa-fw fa-university"></span>Lawns, Halls &amp; Rooms</a>
+						</li>
+						<li>
+							<a href="#foodBeverages"><span class="fa fa-fw fa-cutlery"></span>Food &amp; Beverages</a>
+						</li>
+						<li>
+							<a href="#additionalInfo"><span class="fa fa-fw fa-info-circle"></span>Additional Info</a>
+						</li>
+						<li>
+							<a href="#policies"><span class="fa fa-fw fa-file"></span>Booking Policies</a>
 						</li>
 					</ul>
-					<div  class="lp-tabs-content">
-						<div class="tab-content">
-							<div ng-repeat="(key, value) in vm.detailedData.serviceAmenityTabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="tab{{$index}}">
+				</div>
+
+				<div class="ad-container">
+
+					<div class="col-md-3">
+						<div class="ad-left-panel">
+							LP
+						</div>
+					</div>
+					<div class="col-md-9 ad-right-panel">
+						<div class="ad-right-panel-contanr">
+							<div>
+								<span class="ad-keywords">we</span> understand <span class="ad-keywords">your</span> requirements
+							</div>
+							<div>
+								<span class="ad-keywords">we</span> shortlist <span class="ad-keywords">your</span> vendors
+							</div>
+							<div>
+								<span class="ad-keywords">we</span> crack <span class="ad-keywords">your</span> stupendous deals
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="ad-panel-bottom-content">
+						<a href="tel:+917222034001"><span class="fa fa-fw fa-phone ad-panel-span"></span> 7222-034-001</a>
+						<a href="mailto:lepartycious@gmail.com"><span class="fa fa-fw fa-envelope ad-panel-span"></span> Lepartycious@gmail.com</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8 pull-right">
+				<div class="details-tabs-content">
+					<section id="facilities" class="details-page-sections box-type-layout">
+						<div>
+							<h3>FACILITIES</h3>
+							<div ng-repeat="(key, value) in vm.detailedData.serviceAmenityTabMap">
+								<h5 ng-if="key != 'Rooms'">{{key}}</h5>
 								<ul ng-if="key != 'Rooms'">
-									<li  ng-repeat="data in value" class="w2">
-										<span class="fa fa-fw fa-check-square-o serviceBullets"></span>
+									<li  ng-repeat="data in value" class="li-inline-alignment">
+										<span class="fa fa-fw fa-check-circle-o color-green"></span>
 										{{data.name}}
 									</li>
 								</ul>
 
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Rooms, Garden and Banquet -->
-
-			<div class="pamphlet-container details-pamphlet rooms-gardens-banquets" ng-if="vm.detailedData.amenityDetailsTabMap">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-folder-open"></span>
-						Details
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ul class="nav nav-tabs nav-justified">
-						<!--
-						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
-						<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
-						</li>-->
-						<li ng-repeat ="(key, value) in vm.detailedData.amenityDetailsTabMap" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.detailedData.amenityDetailsTabMap.length==1}">
-							<a data-target="#detailTab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{key}}</a>
-						</li>
-					</ul>
-					<div  class="lp-tabs-content">
-						<div class="tab-content">
-							<div ng-repeat="(key, value) in vm.detailedData.amenityDetailsTabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="detailTab{{$index}}">
-								<ul ng-if="key != 'Rooms'">
-									<li  ng-repeat="data in value" class="w2">
-										<div class="rooms-container">
-									<div class="roomCategory">
-										{{data.amenityName}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{data.minCost}}/-</span> incl. of taxes</span>
-									</div>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											<span class="fa fa-fw fa-users theme-color"></span>
-											Maximum Accomodation
-											</span>
-											<span class="max-accom details-page-services-right-panel">{{data.maxCapacity}}</span>
-										</li>
-									</ul>
-									</li>
-								</ul>
-
-								<div ng-if="key == 'Rooms'" ng-repeat="room in value" class="rooms-container">
-									<div class="roomCategory">
-										{{room.name}}<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{room.minCost}}/-</span> per night</span>
-									</div>
-									<ul class="room-services">
-										<li ng-class="room.acAvailability ? 'w2' : 'w2 disabled'">
-											AC
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="room.fridgeAvailability ? 'w2' : 'w2 disabled'">
-
-											Fridge
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="room.ledAvailability ? 'w2' : 'w2 disabled'">
-											LED
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="room.lockerAvailability ? 'w2' : 'w2 disabled'">
-											Locker
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="room.hotWaterAvailability ? 'w2' : 'w2 disabled'">
-											Hot Water
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-									</ul>
-								</div>
-							</div>
+					</section>
+					<section id="description" class="details-page-sections desc-type-layout">
+						<h3>DESCRIPTION</h3>
+						<div>
+							{{vm.detailedData.description}}
 						</div>
-					</div>
-				</div>
-			</div>
-			
-			<!-- Inhouse Catering and Decoration -->
+					</section>
+					<section id="areas" class="details-page-sections box-type-layout">
+						<div>
+							<h3>Party Areas &amp; Rooms</h3>
+							<div ng-repeat="(key, value) in vm.detailedData.amenityDetailsTabMap">
+								<h5 title="{{key}}">{{key}}</h5>
+								<div class="row" ng-if="key != 'Rooms'">
+									<div ng-if="key != 'Rooms'" class="party-area-pamphlet col-sm-6" data-ng-repeat="data in value">
+										<h5 title="{{data.amenityName}}" class="text-center pa-name">{{data.amenityName}}</h5>
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="pa-capacity-wrapper">
+													<span class="pa-capacity-head pull-left">Maximum Capacity</span>
+													<span class="pa-capacity">{{data.maxCapacity}}</span>
+												</div>
+											</div>
 
-			<div class="pamphlet-container details-pamphlet inhouse-offerings" ng-if="vm.detailedData.inHouseOfferingsTabMap">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-building"></span>
-						Inhouse Offerings
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ul class="nav nav-tabs nav-justified">
-						<!--
-						<li ng-repeat ="tab in vm.tabName" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.tabName.length==1}">
-						<a data-target="#tab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{tab}}</a>
-						</li>-->
-						<li ng-repeat ="(key, value) in vm.detailedData.inHouseOfferingsTabMap" class="lp-tabs" ng-class="{'active': $index==0, 'single-tab': vm.detailedData.inHouseOfferingsTabMap.length==1}">
-							<a data-target="#houseOfferingTab{{$index}}" data-toggle="tab" href="javascript:void(0)">{{key}}</a>
-						</li>
-					</ul>
-					<div  class="lp-tabs-content">
-						<div class="tab-content">
-
-							<div ng-repeat ="(key, value) in vm.detailedData.inHouseOfferingsTabMap" ng-class="$index==0 ? 'tab-pane lp-tab-pane active' : 'tab-pane lp-tab-pane'" id="houseOfferingTab{{$index}}">
-								<div ng-if="key == 'In House Catering'">
-									
-								<div class="rooms-container">
-									<div class="roomCategory">
-										MENU
-									</div>
-									<div class="menu-images row">
-										<div class="col-xs-6 col-md-4 col-lg-3" ng-repeat="menuImage in value.attachments" on-last-repeat-element on-finish-callback="vm.loadBoxer()">
-											<a href="{{vm.getImageURL(menuImage.imageURL)}}" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> <img src="{{vm.getImageURL(menuImage.imageURL)}}" alt="Thumbnail One" class="img-responsive"/> </a>
-									</div>
-									</div>
-									<div class="row inhouse-catering-below-menu">
-										<ul class="inhouse-catering-services col-xs-12">
-											<li ng-class="w2">
-												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-cutlery veg-only"></span>
-												Rate per plate starts from (veg)
-												</span>
-												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-veg">{{value.minVegPrice}}/-</span></span>
-											</li>
-											<li ng-class="w2">
-												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-cutlery veg-nonveg"></span>
-												Rate per plate starts from (non-veg)
-												</span>
-												<span class="details-page-services-right-panel"><span class="fa fa-fw fa-inr"></span><span class="inhouse-rate-per-plate-nonveg">{{value.minNonVegPrice}}/-</span></span>
-											</li>
-											<li ng-class="w2">
-												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-user-plus"></span>
-												Minimum number of pax required
-												</span>
-												<span class="inhouse-minimum-pax details-page-services-right-panel">{{value.minCapacity}}</span>
-											</li>
-											<li ng-class="w2">
-												<span class="details-page-services-left-panel">
-												<span class="fa fa-fw fa-users"></span>
-												Maximum number of pax that can be served
-												</span>
-												<span class="inhouse-maximum-pax details-page-services-right-panel">{{value.maxCapacity}}</span>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div ng-if="key == 'In House Decor'">
-							
-								<div class="rooms-container">
-									<div class="roomCategory">
-										Decor Available<span class="roomPrice"><span class="fa fa-fw fa-inr"></span><span>{{value.minCost}}/-</span> incl. of taxes</span>
-									</div>
-									<ul class="room-services">
-										<li ng-class="value.tentingAvlbl ? 'w2' : 'w2 disabled'">
-											Tenting
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="value.lightingAvlbl ? 'w2' : 'w2 disabled'">
-											Lighting
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="value.floralAvlbl ? 'w2' : 'w2 disabled'">
-											Floral
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="value.candlesAvlbl ? 'w2' : 'w2 disabled'">
-											Candles
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-										<li ng-class="value.balloonsAvlbl ? 'w2' : 'w2 disabled'">
-											Balloons
-											<span class="fa fa-fw fa-check-square color-green"></span>
-										</li>
-									</ul>
-
-								</div>
-							</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Additional Info Section (travel Expense, Genre and Experience) -->
-			<div class="pamphlet-container details-pamphlet" ng-if="vm.detailedData.additionalInfo">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-info"></span>
-						Additional Information
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											Outstation Travel and Stay Expense
-											</span>
-											<span class="details-page-services-right-panel">{{vm.detailedData.additionalInfo.outstationExpenses}}</span>
-										</li>
-									</ul>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											Genre
-											</span>
-											<span class="details-page-services-right-panel">{{vm.detailedData.additionalInfo.genre}}</span>
-										</li>
-									</ul>
-									<ul class="details-section-services">
-										<li ng-class="w2">
-											<span class="details-page-services-left-panel">
-											Experience
-											</span>
-											<span class="details-page-services-right-panel">{{vm.detailedData.additionalInfo.experience}} years</span>
-										</li>
-									</ul>
-				</div>
-			</div>
-
-			<!-- Rules & Policies-->
-
-			<div class="pamphlet-container details-pamphlet inhouse-offerings" ng-if="vm.detailedData.policies">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						<span class="fa fa-fw fa-file"></span>
-						Policies
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<ol class="policies-ordered-list">
-
-						<li>
-							{{vm.detailedData.policies}}
-
-						</li>
-					</ol>
-
-				</div>
-			</div>
-
-			<!-- Adding Map for the location -->
-			<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						Getting Around is easy !!
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<div id="map"></div>
-				</div>
-			</div>
-			<!--</div>-->
-		</div>
-		<div class="col-xs-12 col-sm-4">
-			<!-- Adding are you confused section -->
-			<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						Got Confused !! Get in Touch
-					</div>
-				</div>
-				<div class="pamphlet-body">
-					<form name="form.detailsPageContactForm" novalidate>
-        	<span style="color:brown;">All Fields marked with * are mandatory.</span>
-        <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your name" type="text" ng-model="vm.detailsPageContactForm.name" name="name" required>
-          <span style="color:brown;" ng-show="(form.detailsPageContactForm.name.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.name.$invalid">Name is mandatory.</span>
-      	</div>
-
-          <div class="form-group"><label class="required">Message</label><textarea class="form-control" placeholder="Your message here.." ng-model="vm.detailsPageContactForm.message" name="message" required></textarea>
-          	<span style="color:brown;" ng-show="(form.detailsPageContactForm.message.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.message.$invalid">Message is mandatory.</span>
-          </div>
-
-          <div class="form-group"><label>E-Mail</label><input class="form-control email" placeholder="email@you.com" type="email" name="email" ng-model="vm.detailsPageContactForm.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-          	<span style="color:brown;" ng-show="form.detailsPageContactForm.email.$touched && form.detailsPageContactForm.email.$error.pattern">Email is invalid.</span>
-          </div>
-
-          <div class="form-group"><label class="required">Phone</label><input class="form-control phone" type="text" ng-model="vm.detailsPageContactForm.phoneNumber" placeholder="Your Contact Number" name="phone" required ng-pattern="/^[0-9]{10}$/">
-          	<span style="color:brown;" ng-show="(form.detailsPageContactForm.phone.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.phone.$error.required">Phone is mandatory.</span>
-          	<span style="color:brown;" ng-show="form.detailsPageContactForm.phone.$error.pattern">Invalid Phone Number</span>
-          </div>
-
-          <div class="form-group"><label class="required">Test your math skill</label>
-          	<div id="detailsPageCaptcha">
-          	
-          	</div>
-            <span style="color:brown;" ng-show="vm.detailsPageFormSubmitted && !captchaValid">Captcha is Invalid.</span>
-          </div>
-          
-          <button type="button" ng-click="vm.detailsPageFormSubmitted=true;form.detailsPageContactForm.$valid && captchaValid &&vm.detailsPageFormSubmit();" class="btn btn-success">Send</button>
-        </form>
-				<div class="details-form-spinner-bg" data-ng-show="vm.showDetailsFormSpinner">
-				<span us-spinner></span>
-				</div>
-				</div>
-			</div>
-		
-		<div class="pamphlet-container details-pamphlet">
-				<div class="pamphlet-header">
-					<div class="pamphlet-title">
-						If you like us, Do Like Us !!!
-					</div>
-				</div>
-		<div class="pamphlet-body">
-			<ul class="details-page-social-section row">
-         <li class="col-xs-6 col-sm-3">
-            <a target="_blank" href="https://www.facebook.com/LePartycious" title="connect with facebook">
-            <span class="fa fa-facebook"></span>
-            </a>
-         </li>
-         <li class="col-xs-6 col-sm-3">
-            <a target="_blank" href="https://twitter.com/lepartycious" title="connect with twitter">
-            <span class="fa fa-twitter"></span>
-            </a>
-         </li>
-         <li class="col-xs-6 col-sm-3">
-            <a target="_blank" href="https://www.youtube.com/channel/UC-VL9PRSgYJF9L_XDUrYpzA" title="connect with youtube">
-            <span class="fa fa-youtube"></span>
-            </a>
-         </li>
-         <li class="col-xs-6 col-sm-3">
-            <a target="_blank" href="https://instagram.com/lepartycious" title="connect with instagram">
-            <span class="fa fa-instagram"></span>
-            </a>
-         </li>
-      </ul>
-		</div>
-		</div>
-		</div>
-	</div>
-
-	<!-- Recommended by us section -->
-
-	<div class="row">
-		<div class="col-xs-12 recommended-by-us-section">
-			<div class="pamphlet-container recommended-pamphlet" ng-if="vm.detailedData.recommendationList.length > 0">
-				<div class="pamphlet-header recommended-pamphlet-header">
-					<div class="pamphlet-title recommended-pamphlet-title">
-						Recommended by Us
-					</div>
-				</div>
-
-				<!-- ng-repeat goes from here for all the recommended items -->
-
-				<div class="swiper-container recommended-by-us-swiper-container">
-					<!-- Additional required wrapper -->
-					<div class="swiper-wrapper recommended-by-us-swiper-wrapper">
-						<!-- Slides -->
-						<div class="swiper-slide recommended-by-us-swiper-slide" data-ng-repeat="reccomendation in vm.detailedData.recommendationList"  on-last-repeat-element on-finish-callback="vm.applySwiperOnRecommended()">
-							<div class="recommended-pamphlet-container">
-								<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
-								<div class="pamphlet-container">
-									<div class="pamphlet-header">
-										<div class="featured-ribbon">
-											<span class="featured-ribbon-text">LEPARTYCIOUS</span>
-										</div>
-										<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
-									</div>
-									<div class="pamphlet-body">
-										<div class="pamphlet-body">
-											<div class="pamphlet-title col-xs-12 text-center recommended-small-font">
-												<div class="row">
-													<div class="col-xs-8 text-left pamphlet-title-desc">
-														<div>
-															{{reccomendation.name}}
-														</div><span class="pamphlet-title-city">{{reccomendation.locality}}</span>
-													</div>
-													<div class="col-xs-4 text-left pamphlet-title-price border-left-1px">
-														<div>
-															Starts from
-														</div><span class="fa fa-fw fa-inr theme-color"></span> <span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span>
+											<div class="col-sm-6">
+												<div class="pa-mincost-wrapper">
+													<span class="pa-mincost-head pull-left">Starts From</span>
+													<div class="pa-mincost">
+														<span class="fa fa-fw fa-inr disp-inline-fa-inr"></span>{{data.minCost}}
 													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>
-									<div class="pamphlet-footer"></div>
-								</div> </a>
+								</div>
+
+								<div class="row" ng-if="key == 'Rooms'">
+									<div ng-if="key == 'Rooms'" ng-repeat="room in value" class="col-sm-6">
+										<div class="room-pamphlet">
+											<div class="row">
+												<div class="col-xs-7 r-name">
+													{{room.name}}
+												</div>
+												<div class="col-xs-5 r-mincost text-right">
+													<span class="fa fa-fw fa-inr"></span>{{room.minCost}}
+												</div>
+											</div>
+											<ul>
+												<li data-ng-class= "room.acAvailability ? '' : 'strike-text'">
+													<span class="fa fa-fw fa-check-circle-o color-green"></span>
+													AC
+												</li>
+												<li data-ng-class= "room.fridgeAvailability ? '' : 'strike-text'">
+													<span class="fa fa-fw fa-check-circle-o color-green"></span>
+													Fridge
+												</li>
+												<li data-ng-class= "room.ledAvailability ? '' : 'strike-text'">
+													<span class="fa fa-fw fa-check-circle-o color-green"></span>
+													LED
+												</li>
+												<li data-ng-class= "room.lockerAvailability ? '' : 'strike-text'">
+													<span class="fa fa-fw fa-check-circle-o color-green"></span>
+													Locker
+												</li>
+												<li data-ng-class= "room.hotWaterAvailability ? '' : 'strike-text'">
+													<span class="fa fa-fw fa-check-circle-o color-green"></span>
+													Hot Water
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</section>
+					<section id="foodBeverages" class="details-page-sections">
+						<h3>FOOD &amp; BEVERAGES</h3>
+						<div class="row" ng-repeat ="(key, value) in vm.detailedData.inHouseOfferingsTabMap" ng-if="key == 'In House Catering'">
+							<div class="col-sm-12 marginTop10">
+								<div class="row fnb-border">
+									<div class="col-sm-9 fnb-pamphlet">
+										<span class="fa fw fa-circle color-green allowed-tick marginRight10"></span><span class="fnb-boldText veg">Veg</span>
+										<div class="fnb-regularText marginTop10">
+											Starts from
+										</div>
+										<div class="fnb-tnc">
+											<ul>
+												<li>
+													<b>*</b>This rate does not include taxes. Taxes will be added as applicable.
+												</li>
+												<li>
+													<b>*</b>This rate is as per quoted by the vendor.
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-3 fnb-pamphlet fnb-rightPanel">
+										<span class="fa fw fa-inr marginRight10"></span><span class="fnb-minCost fnb-boldText">{{value.minVegPrice}}</span><sup class="fnb-cost-tnc">*</sup>
+									</div>
+								</div>
 							</div>
 
+							<div class="col-sm-12 marginTop10">
+								<div class="row fnb-border">
+									<div class="col-sm-9 fnb-pamphlet">
+										<span class="fa fw fa-circle color-red allowed-tick marginRight10"></span><span class="fnb-boldText veg">Non-Veg</span>
+										<div class="fnb-regularText marginTop10">
+											Starts from
+										</div>
+										<div class="fnb-tnc">
+											<ul>
+												<li>
+													<b>*</b>This rate does not include taxes. Taxes will be added as applicable.
+												</li>
+												<li>
+													<b>*</b>This rate is as per quoted by the vendor.
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-sm-3 fnb-pamphlet fnb-rightPanel">
+										<span class="fa fw fa-inr marginRight10"></span><span class="fnb-minCost fnb-boldText">{{value.minNonVegPrice}}</span><sup class="fnb-cost-tnc">*</sup>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12 marginTop10">
+								<div class="row fnb-border">
+									<div class="col-sm-12 fnb-pamphlet">
+										<span class="fa fw fa-users marginRight10"></span><span class="fnb-boldText">Pax</span>
+										<div class="row">
+											<div class="fnb-regularText marginTop10 col-sm-2">
+												Minimum Number of Pax that should be present
+											</div>
+											<div class="col-sm-2 marginTop10">
+												<span class="fnb-extraLargeText fnb-boldText underlineText">{{value.minCapacity}}</span>
+											</div>
+											<div class="fnb-regularText marginTop10 col-sm-2 col-sm-offset-4">
+												Maximum Number of Pax that can be served
+											</div>
+											<div class="col-sm-2 marginTop10">
+												<span class="fnb-extraLargeText fnb-boldText underlineText">{{value.maxCapacity}}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12 marginTop10">
+								<div class="row fnb-border">
+									<div class="col-sm-12 fnb-pamphlet">
+										<span class="fa fw fa-list-ul marginRight10"></span><span class="fnb-boldText">Menu</span>
+										<div class="menu-images row">
+											<div class="col-xs-6 col-md-4 col-lg-3" ng-repeat="menuImage in value.attachments" on-last-repeat-element on-finish-callback="vm.loadBoxer()">
+												<a href="{{vm.getImageURL(menuImage.imageURL)}}" target="_self" class="boxer" title="Caption One" data-gallery="gallery"> <img src="{{vm.getImageURL(menuImage.imageURL)}}" alt="Catering Menu" class="img-responsive img-rounded"/><!--<div class="menu-image-coverText">Menu</div>--></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12 marginTop10">
+								<div class="row fnb-border">
+									<div class="col-sm-12 fnb-pamphlet">
+										<span class="fnb-boldText">Packages</span>
+										<div class="row">
+											<div class="col-xs-12 col-sm-6 col-md-4 box-shadow marginTop10" data-ng-repeat="menu in vm.menuMap">
+												<div class="row pkg-row">
+													<div class="col-xs-6 col-md-8 food-menu-type row-equ-height menu-bolder-text">{{menu.type}}</div>
+													<div class="col-xs-6 col-md-4 food-menu-price row-equ-height menu-bolder-text"><span class="fa fa-fw fa-inr"></span> {{menu.price}}</div>
+												</div>
+												<div class="row pkg-row" data-ng-repeat="(key, value) in menu.foodMenu">
+													<div class="col-xs-6 col-md-8 food-menu-item row-equ-height">{{key}}</div>
+													<div class="col-xs-6 col-md-4 food-menu-item-qty row-equ-height">{{value}}</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+					</section>
+					<section id="additionalInfo" class="details-page-sections desc-type-layout">
+						<div class="additionalInfo-container">
+							<h3>Additional Info</h3>
+							<div class="row">
+								<div class="col-sm-6 col-md-4" data-ng-if="{{vm.detailedData.additionalInfo.outstationExpenses}}">
+									<div class="detail-addinfo-contnr">
+										<div class="detail-addinfo-infotext">
+											Outstation Travel and Stay Expense
+										</div>
+										<div class="detail-addinfo-infofigure">
+											{{vm.detailedData.additionalInfo.outstationExpenses}}
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4" data-ng-if="{{vm.detailedData.additionalInfo.genre}}">
+									<div class="detail-addinfo-contnr">
+
+										<div class="detail-addinfo-infotext">
+											Genre
+										</div>
+										<div class="detail-addinfo-infofigure">
+											{{vm.detailedData.additionalInfo.genre}}
+										</div>
+
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4" data-ng-if="{{vm.detailedData.additionalInfo.experience}}">
+									<div class="detail-addinfo-contnr">
+
+										<div class="detail-addinfo-infotext">
+											Experience
+										</div>
+										<div class="detail-addinfo-infofigure">
+											{{vm.detailedData.additionalInfo.experience}} years
+										</div>
+
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4">
+									<div class="detail-addinfo-contnr">
+
+										<div class="detail-addinfo-infotext">
+											Corkage per bottle
+										</div>
+										<div class="detail-addinfo-infofigure">
+											<span class="fa fa-fw fa-inr"></span>600
+										</div>
+
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4">
+									<div class="detail-addinfo-contnr">
+
+										<div class="detail-addinfo-infotext">
+											DJ cost starts at
+										</div>
+										<div class="detail-addinfo-infofigure">
+											<span class="fa fa-fw fa-inr"></span>5000
+										</div>
+
+									</div>
+								</div>
+								<div class="col-sm-6 col-md-4">
+									<div class="detail-addinfo-contnr">
+
+										<div class="detail-addinfo-infotext">
+											Decoration starts at
+										</div>
+										<div class="detail-addinfo-infofigure">
+											<span class="fa fa-fw fa-inr"></span>20000
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section id="policies" class="details-page-sections box-type-layout">
+						<div>
+							<h3>Booking Policies</h3>
+							<ol class="policies-ordered-list">
+
+								<li>
+									{{vm.detailedData.policies}}
+
+								</li>
+							</ol>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row bg-grey">
+	<div class="gap20"></div>
+	<div class="col-xs-12 col-sm-offset-1 col-sm-6">
+		<!-- Adding Map for the location -->
+		<div class="pamphlet-container details-pamphlet">
+			<div class="pamphlet-header">
+				<div class="pamphlet-title">
+					Getting Around is easy !!
+				</div>
+			</div>
+			<div class="pamphlet-body">
+				<div id="map"></div>
+			</div>
+		</div>
+		<!--</div>-->
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<!-- Adding are you confused section -->
+		<div class="pamphlet-container details-pamphlet">
+			<div class="pamphlet-header">
+				<div class="pamphlet-title">
+					Got Confused !! Get in Touch
+				</div>
+			</div>
+			<div class="pamphlet-body">
+				<form name="form.detailsPageContactForm" novalidate>
+					<span style="color:brown;">All Fields marked with * are mandatory.</span>
+					<div class="form-group" style="margin-top:10px;">
+						<label class="required">Name</label>
+						<input class="form-control required" placeholder="Your name" type="text" ng-model="vm.detailsPageContactForm.name" name="name" required>
+						<span style="color:brown;" ng-show="(form.detailsPageContactForm.name.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.name.$invalid">Name is mandatory.</span>
+					</div>
+
+					<div class="form-group">
+						<label class="required">Message</label>						<textarea class="form-control" placeholder="Your message here.." ng-model="vm.detailsPageContactForm.message" name="message" required></textarea>
+						<span style="color:brown;" ng-show="(form.detailsPageContactForm.message.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.message.$invalid">Message is mandatory.</span>
+					</div>
+
+					<div class="form-group">
+						<label>E-Mail</label>
+						<input class="form-control email" placeholder="email@you.com" type="email" name="email" ng-model="vm.detailsPageContactForm.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+						<span style="color:brown;" ng-show="form.detailsPageContactForm.email.$touched && form.detailsPageContactForm.email.$error.pattern">Email is invalid.</span>
+					</div>
+
+					<div class="form-group">
+						<label class="required">Phone</label>
+						<input class="form-control phone" type="text" ng-model="vm.detailsPageContactForm.phoneNumber" placeholder="Your Contact Number" name="phone" required ng-pattern="/^[0-9]{10}$/">
+						<span style="color:brown;" ng-show="(form.detailsPageContactForm.phone.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.phone.$error.required">Phone is mandatory.</span>
+						<span style="color:brown;" ng-show="form.detailsPageContactForm.phone.$error.pattern">Invalid Phone Number</span>
+					</div>
+
+					<div class="form-group">
+						<label class="required">Test your math skill</label>
+						<div id="detailsPageCaptcha">
+
+						</div>
+						<span style="color:brown;" ng-show="vm.detailsPageFormSubmitted && !captchaValid">Captcha is Invalid.</span>
+					</div>
+
+					<button type="button" ng-click="vm.detailsPageFormSubmitted=true;form.detailsPageContactForm.$valid && captchaValid &&vm.detailsPageFormSubmit();" class="btn btn-success">
+						Send
+					</button>
+				</form>
+				<div class="details-form-spinner-bg" data-ng-show="vm.showDetailsFormSpinner">
+					<span us-spinner></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="pamphlet-container details-pamphlet">
+			<div class="pamphlet-header">
+				<div class="pamphlet-title">
+					If you like us, Do Like Us !!!
+				</div>
+			</div>
+			<div class="pamphlet-body">
+				<ul class="details-page-social-section row">
+					<li class="col-xs-3">
+						<a target="_blank" href="https://www.facebook.com/LePartycious" title="connect with facebook"> <span class="fa fa-facebook"></span> </a>
+					</li>
+					<li class="col-xs-3">
+						<a target="_blank" href="https://twitter.com/lepartycious" title="connect with twitter"> <span class="fa fa-twitter"></span> </a>
+					</li>
+					<li class="col-xs-3">
+						<a target="_blank" href="https://www.youtube.com/channel/UC-VL9PRSgYJF9L_XDUrYpzA" title="connect with youtube"> <span class="fa fa-youtube"></span> </a>
+					</li>
+					<li class="col-xs-3">
+						<a target="_blank" href="https://instagram.com/lepartycious" title="connect with instagram"> <span class="fa fa-instagram"></span> </a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Recommended by us section -->
+
+<div class="row">
+	<div class="col-xs-12 recommended-by-us-section">
+		<div class="pamphlet-container recommended-pamphlet" ng-if="vm.detailedData.recommendationList.length > 0">
+			<div class="pamphlet-header recommended-pamphlet-header">
+				<div class="pamphlet-title recommended-pamphlet-title">
+					Recommended by Us
+				</div>
+			</div>
+
+			<!-- ng-repeat goes from here for all the recommended items -->
+
+			<div class="swiper-container recommended-by-us-swiper-container">
+				<!-- Additional required wrapper -->
+				<div class="swiper-wrapper recommended-by-us-swiper-wrapper">
+					<!-- Slides -->
+					<div class="swiper-slide recommended-by-us-swiper-slide" data-ng-repeat="reccomendation in vm.detailedData.recommendationList"  on-last-repeat-element on-finish-callback="vm.applySwiperOnRecommended()">
+						<div class="recommended-pamphlet-container">
+							<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
+							<div class="pamphlet-container">
+								<div class="pamphlet-header">
+									<div class="featured-ribbon">
+										<span class="featured-ribbon-text">LEPARTYCIOUS</span>
+									</div>
+									<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
+								</div>
+								<div class="pamphlet-body">
+									<div class="pamphlet-body">
+										<div class="pamphlet-title col-xs-12 text-center recommended-small-font">
+											<div class="row">
+												<div class="col-xs-8 text-left pamphlet-title-desc">
+													<div>
+														{{reccomendation.name}}
+													</div><span class="pamphlet-title-city">{{reccomendation.locality}}</span>
+												</div>
+												<div class="col-xs-4 text-left pamphlet-title-price border-left-1px">
+													<div>
+														Starts from
+													</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="pamphlet-footer"></div>
+							</div> </a>
 						</div>
 
 					</div>
 
-					<!-- If we need navigation buttons -->
-					<a href="javascript:void(0)" class="swiper-button-prev recommended-by-us-swiper-button-prev"></a>
-					<a href="javascript:void(0)" class="swiper-button-next recommended-by-us-swiper-button-next"></a>
-
 				</div>
+
+				<!-- If we need navigation buttons -->
+				<a href="javascript:void(0)" class="swiper-button-prev recommended-by-us-swiper-button-prev"></a>
+				<a href="javascript:void(0)" class="swiper-button-next recommended-by-us-swiper-button-next"></a>
 
 			</div>
 
+		</div>
+
+	</div>
+</div>
+
+<!--<div data-ng-include="'views/gallery/gallery.html'"></div>-->
+
+<div class="gallery-container" data-ng-class="vm.show ? 'show' : ''">
+	<div class="gallery-overlay col-xs-12 col-sm-9">
+		<div class="swiper-container gallery-top">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" data-ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})"></div>
+			</div>
+			<!-- Add Arrows -->
+			<a href="javascript:void(0)" class="swiper-button-next swiper-button-white"></a>
+			<a href="javascript:void(0)" class="swiper-button-prev swiper-button-white"></a>
+		</div>
+		<div class="swiper-container gallery-thumbs">
+			<div class="swiper-wrapper">
+				<a href="javascript:void(0)" class="swiper-slide" data-ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})" on-last-repeat-element></a>
+			</div>
+		</div>
+
+	</div>
+	<div class="gallery-side-panel col-sm-3 col-xs-12">
+		<div>
+			<div class="row">
+				<div class="col-xs-12">
+					<img src="/images/lp_theme_symbol.png" class="img-responsive"/>
+				</div>
+				<div class="gap20 col-xs-12"></div>
+				<div class="col-xs-12 gallery-venuename">
+					<span class="gallery-venue-name">{{vm.detailedData.name}}, {{vm.detailedData.city}}
+						<br/>
+						{{vm.category}}, {{vm.detailedData.state}} </span>
+				</div>
+				<div class="gap20 col-xs-12"></div>
+				<div class="col-xs-12">
+					<ul class="gallery-helptext-container">
+						<li data-ng-repeat="helpText in vm.helpTexts" data-ng-class="$index == 0 ? 'active' : ''">
+							<a href="javascipt:void(0)" ng-click="vm.changeSlide($index)">{{helpText}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<!--<div data-ng-include="'views/gallery/gallery.html'"></div>-->
-
-	<div class="gallery-container" data-ng-class="vm.show ? 'show' : ''">
-		<div class="gallery-overlay col-xs-12 col-sm-9">
-			<div class="swiper-container gallery-top">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide" data-ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})"></div>
-				</div>
-				<!-- Add Arrows -->
-				<a href="javascript:void(0)" class="swiper-button-next swiper-button-white"></a>
-				<a href="javascript:void(0)" class="swiper-button-prev swiper-button-white"></a>
-			</div>
-			<div class="swiper-container gallery-thumbs">
-				<div class="swiper-wrapper">
-					<a href="javascript:void(0)" class="swiper-slide" data-ng-repeat="imageURL in vm.imagesURL" style="background-image:url({{imageURL}})" on-last-repeat-element></a>
-				</div>
-			</div>
-
-		</div>
-		<div class="gallery-side-panel col-sm-3 col-xs-12">
-			<div>
-				<div class="row">
-					<div class="col-xs-12">
-						<img src="/images/lp_theme_symbol.png" class="img-responsive"/>
-					</div>
-					<div class="gap20 col-xs-12"></div>
-					<div class="col-xs-12 gallery-venuename">
-						<span class="gallery-venue-name">{{vm.detailedData.name}}, {{vm.detailedData.city}}
-							<br/>
-							{{vm.category}}, {{vm.detailedData.state}} </span>
-					</div>
-					<div class="gap20 col-xs-12"></div>
-					<div class="col-xs-12">
-						<ul class="gallery-helptext-container">
-							<li data-ng-repeat="helpText in vm.helpTexts" data-ng-class="$index == 0 ? 'active' : ''">
-								<a href="javascipt:void(0)" ng-click="vm.changeSlide($index)">{{helpText}}</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<a href="javascript:void(0)" class="gallery-close-btn" data-ng-click="vm.closeGallery();"></a>
-	</div>
+	<a href="javascript:void(0)" class="gallery-close-btn" data-ng-click="vm.closeGallery();"></a>
+</div>
 
 </div>

@@ -84,25 +84,25 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 			effect : 'slide',
 			grabCursor : true,
 			speed: 500, 
-			slidesPerView : '5',
+			slidesPerView : '4',
 			nextButton : '.' + className + '.subcategory-swiper-button-next',
 			prevButton : '.' + className + '.subcategory-swiper-button-prev',
-			spaceBetween : 20,
+			spaceBetween : 10,
 			breakpoints : {
 				// when window width is <= 767px
 				767 : {
 					slidesPerView : 2,
-					spaceBetweenSlides : 10
+					spaceBetweenSlides : 5
 				},
 				// when window width is <= 991px
 				991 : {
-					slidesPerView : 5,
-					spaceBetweenSlides : 20
+					slidesPerView : 4,
+					spaceBetweenSlides : 10
 				},
 				// when window width is <= 1199px
 				1199 : {
-					slidesPerView : 5,
-					spaceBetweenSlides : 20
+					slidesPerView : 4,
+					spaceBetweenSlides : 10
 				}
 			}
 

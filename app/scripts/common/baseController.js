@@ -18,7 +18,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 	vm.init = function() {
 
-		vm.selectedCategory = baseFactory.getSelectedCategory();
+		vm.selectedCategory = null;
 		vm.categoryMap = baseFactory.categoryMap;
 
 		//vm.coverUrl = baseFactory.getCoverUrl();
@@ -28,6 +28,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.citiesPopulated = false;
 		vm.routeChangeSuccessInvoked = false;
 		vm.pageDataPopulated = false;
+		
+		/* city and category fields untouched parameters */
+		vm.cityUntouched = true;
+		vm.categoryUntouched = true;
 
 		/*Statically defining the classes for icons present in category dropdown*/
 		vm.categoryIconsMap = baseFactory.categoryIconsMap;
@@ -67,7 +71,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				vm.pageDataPopulated = true;
 			else if ($location.path() == '/')
 				applyAutocomplete();
-			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
+			if ((vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated) || $location.path() == '/bad-request/')
 				vm.stopLoader();
 
 		});
@@ -156,6 +160,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.clicked = function() {
+			if((!vm.cityUntouched && vm.selectedCity) && (!vm.categoryUntouched && vm.selectedCategory)){
 			$route.reload();
 			//baseFactory.setCoverUrl(vm.selectedCategory);
 			baseFactory.setMainCoverHeading(vm.selectedCategory);
@@ -163,6 +168,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
 			} else {
 				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+			}
+			}
+			else{
+				vm.cityUntouched = false;
+				vm.categoryUntouched = false;
 			}
 
 		};
@@ -221,6 +231,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.toggleDropdown = function() {
+			vm.cityUntouched = false;
 			$('.lp-city-dropdown').slideToggle();
 		};
 
@@ -230,6 +241,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.toggleCategoryDropdown = function() {
+			vm.categoryUntouched = false;
 			$('.lp-category-dropdown').slideToggle();
 		};
 
@@ -333,17 +345,22 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	function populateCities() {
 		HomeFactory.loadCities.populateCities().$promise.then(function(data) {
 			vm.citiesList = data.toJSON();
+			vm.selectedCity = null;
+			//Code for Default Selected City Commented
+			//Now the choose city placeholder is to be kept
+			/*
 			var counter = 0;
-			if (vm.citiesList && vm.citiesList != null) {
-				angular.forEach(vm.citiesList, function(value, key) {
-					if (counter == 0) {
-						vm.selectedCity = value;
-						baseFactory.setSelectedCity(key);
-					}
-					counter = counter + 1;
-
-				});
-			}
+						if (vm.citiesList && vm.citiesList != null) {
+							angular.forEach(vm.citiesList, function(value, key) {
+								if (counter == 0) {
+									vm.selectedCity = value;
+									baseFactory.setSelectedCity(key);
+								}
+								counter = counter + 1;
+			
+							});
+						}*/
+			
 			vm.citiesPopulated = true;
 			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated)
 				vm.stopLoader();

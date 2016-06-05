@@ -154,7 +154,9 @@ function($routeProvider, $httpProvider, $locationProvider) {
 		}
 	}).when('/bad-request/', {
 		url : '/bad-request',
-		controller : '',
+		controller : function(usSpinnerService){
+			usSpinnerService.stop('home-page-spinner');
+		},
 		templateUrl : 'views/badrequest/badrequest.html'
 	}).otherwise({
 		redirectTo : '/'

@@ -148,37 +148,37 @@
 	background-image: url('/images/spritesheet.png');
 	background-repeat: no-repeat;
 	display: inline-block;
-	width: 64px;
-	height: 64px;
+	width: 128px;
+	height: 128px;
 }
 
 .lp-venue-icon {
-	background-position: -153px -79px;
+	background-position: -690px 0px;
 }
 
 .lp-caterer-icon {
-	background-position: -79px -5px;
+	background-position: 0px 0px;
 }
 
 .lp-decor-icon {
-	background-position: -5px -79px;
+	background-position: -138px 0px;
 }
 
 .lp-photography-icon {
-	background-position: -5px -5px;
+	background-position: -552px 0px;
 }
 
 .lp-entertainment-icon {
-	background-position: -79px -79px;
+	background-position: -276px 0px;
 }
 
 .lp-others-icon {
-	background-position: -153px -5px;
+	background-position: -414px 0px;
 }
 
 .home-page-icons{
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .portfolioSlider .swiper-container {
@@ -276,39 +276,40 @@ border-radius: 50%;
     text-transform: uppercase;
     font-family: openSans-bold;
     color: #656565;
+    display: none;
 }
 
 .subcategory-icon{
 	background-image: url('/images/subcategory-icons.png');
 	background-repeat: no-repeat;
-	height: 64px;
-	width: 64px;
+	height: 150px;
+	width: 200px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 /* Venue subcategory */
 .subcategory-icon.hotels{
-	background-position: -227px -227px;
+	background-position: -420px 0px;
 }
 
 .subcategory-icon.restaurants{
-	background-position: -153px -375px;
+	background-position: -1050px 0px;
 }
 
 .subcategory-icon.marriage-palaces{
-	background-position: -153px -301px;
+	background-position: -630px 0px;
 }
 .subcategory-icon.banquet-halls{
-	background-position: -301px -5px;
+	background-position: 0px 0px;
 }
 
 .subcategory-icon.clubs{
-	background-position: -153px -153px;
+	background-position: -210px 0px;
 }
 
 .subcategory-icon.others{
-	background-position: -5px -375px;
+	background-position: -840px 0px;
 }
 
 /* Caterer subcategory */

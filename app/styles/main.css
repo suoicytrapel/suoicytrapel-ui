@@ -155,6 +155,10 @@ a:hover, a:focus {
 	margin: 20px 0px;
 }
 
+.mBottom30{
+	margin-bottom: 30px;	
+}
+
 .fontSize16{
 	font-size: 16px;
 }
@@ -450,7 +454,26 @@ p.info, p.connect {
     border-top-left-radius: 6px;
     border: 1px solid #ccc;
     font-size: 16px;
-    line-height: 53px;
+    line-height: 46px;
+}
+
+.lp-select-city-text.noselection-error,
+.lp-select-category-text.noselection-error{
+	border: 1px solid #f37254;
+    box-shadow: 0px 0px 7px #f37254 inset;
+    color: brown;
+}
+
+span.lp-selected-city:empty::before {
+    content: 'Choose City';
+    display: inline-block;
+    font-size: 18px;
+}
+
+span.lp-selected-category:empty::before{
+	content: 'Choose Vendor';
+    display: inline-block;
+    font-size: 18px;
 }
 
 .lp-select-category-text{
@@ -733,7 +756,7 @@ background: white;
 }
 
 .lp-global-breadcrumb{
-	height: 50px;
+	min-height: 50px;
 }
 
 .lp-global-breadcrumb > ul{
@@ -742,21 +765,24 @@ background: white;
     padding-right: 10px;
     line-height: 50px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .lp-global-breadcrumb > ul > li{
 	display: inline-block;
+	color: #ffffff
 }
 
 .lp-global-breadcrumb > ul > li > a{
-	color: #666666;
+	color: #ffffff;
+	text-decoration: underline;
 }
 
 .lp-global-breadcrumb > ul > li > a:hover{
-	color: #337ab7;
+	color: #ffffff;
 	text-decoration: underline;
 }
+
 
 
 @media only screen and (max-width: 767px) and (min-width: 0)
@@ -779,7 +805,7 @@ background: white;
 }
 
 .lp-global-breadcrumb > ul > li > a{
-		color: #337ab7;
+		color: #ffffff;
 	text-decoration: underline;
 }
 

@@ -15,6 +15,43 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.name = $routeParams.searchParam;
 		vm.city = $routeParams.city;
 		vm.category = $routeParams.category;
+		vm.categoryInitials = vm.category.slice(0,1);
+		vm.menuMap = [{
+			type: 'veg',
+			price: '400',
+			foodMenu: {
+				'welcome drinks': 2,
+				'soups': 2,
+				'salads': 3,
+				'veg starters': 2,
+				'non-veg starters': '-',
+				'veg main course': 2,
+				'non-veg main course': '-',
+				'raita': 1,
+				'dal': 1,
+				'rice/biryani': 2,
+				'assorted breads': 'Any',
+				'deserts': 3				
+			}
+		},
+		{
+			type: 'non-veg',
+			price: '500',
+			foodMenu: {
+				'welcome drinks': 2,
+				'soups': 2,
+				'salads': 3,
+				'veg starters': 2,
+				'non-veg starters': 2,
+				'veg main course': 2,
+				'non-veg main course': 2,
+				'raita': 1,
+				'dal': 1,
+				'rice/biryani': 2,
+				'assorted breads': 'Any',
+				'deserts': 3				
+			}
+			}];
 
 		/* gallery Variables */
 		vm.show = false;
@@ -29,10 +66,29 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 	};
 	vm.defineListeners = function() {
-		vm.openGallery = function() {
+
+		$(window).on('scroll', function() {
+			/* Subtracting 100 so as to subtract the height of header which is 80 and 20 extra*/
+			/* Subtracting window height/2 so that the below content should not get impacted */
+			var fixedStartLimit = $('.detail-info-section').offset().top + $('.detail-info-section').height() - 100;
+			var fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
+			var fixedElemWidth = $('.details-fixed-component').width();
+
+			if ($(window).scrollTop() < fixedStartLimit || $(window).scrollTop() > fixedEndLimit)
+				$('.details-fixed-component').removeClass('sticky');
+			else {
+				$('.details-fixed-component').addClass('sticky');
+				$('.details-fixed-component').width(fixedElemWidth);
+			}
+		});
+
+		vm.openGallery = function(index) {
 			$window.ga('send', 'event', 'View Gallery', 'File Name');
 			vm.applySwipe();
-			vm.show = true;
+			vm.changeSlide(index);
+			$timeout(function() {
+				vm.show = true;
+			}, 100);
 		};
 
 		vm.closeGallery = function() {
@@ -60,6 +116,37 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 		};
 
+		vm.applySwiperMiniGallery = function() {
+			//mySwiper.destroy();
+			new Swiper('.details-mini-swiper-container', {
+				effect : 'slide',
+				speed : 500,
+				slidesPerView : '4',
+				nextButton : '.details-mini-swiper-button-next',
+				prevButton : '.details-mini-swiper-button-prev',
+				spaceBetween : 10,
+				breakpoints : {
+					// when window width is <= 767px
+					767 : {
+						slidesPerView : 2,
+						spaceBetweenSlides : 5
+					},
+					// when window width is <= 991px
+					991 : {
+						slidesPerView : 3,
+						spaceBetweenSlides : 10
+					},
+					// when window width is <= 1199px
+					1199 : {
+						slidesPerView : 3,
+						spaceBetweenSlides : 10
+					}
+				}
+
+			});
+			//mySwiper.slideTo(0);
+		};
+
 		vm.changeSlide = function(index) {
 			vm.galleryTop.slideTo(index);
 		};
@@ -69,6 +156,30 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			angular.element('.gallery-helptext-container li:nth-child(' + (activeSlideIndex + 1) + ')').addClass('active').siblings().removeClass('active');
 		}
 
+
+		$("body").scrollspy({
+			target : "#left_nav_container",
+			offset : 100
+		});
+
+		$("#left_nav_container").on("activate.bs.scrollspy", function() {
+
+		});
+
+		$("#left_nav_container ul li a[href^='#']").on('click', function(e) {
+
+			// prevent default anchor click behavior
+			e.preventDefault();
+
+			// store hash
+			var hash = this.hash;
+
+			// animate
+			$('html, body').animate({
+				scrollTop : $(hash).offset().top - 100
+			}, 300);
+
+		});
 	};
 	vm.fetchDetails = function() {
 		if (details && !(details.error)) {
@@ -245,4 +356,5 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.defineListeners();
 	vm.populateDynamicCaptcha();
 	vm.emitPageDataPopulated();
+
 });
