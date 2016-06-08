@@ -16,7 +16,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.city = $routeParams.city;
 		vm.category = $routeParams.category;
 		vm.categoryInitials = vm.category.slice(0,1);
-		vm.menuMap = [{
+		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
 			foodMenu: {
@@ -51,7 +51,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 				'assorted breads': 'Any',
 				'deserts': 3				
 			}
-			}];
+			}];*/
 
 		/* gallery Variables */
 		vm.show = false;

@@ -384,12 +384,12 @@
 									<div class="col-sm-12 fnb-pamphlet">
 										<span class="fnb-boldText">Packages</span>
 										<div class="row">
-											<div class="col-xs-12 col-sm-6 col-md-4 box-shadow marginTop10" data-ng-repeat="menu in vm.menuMap">
+											<div class="col-xs-12 col-sm-6 col-md-4 box-shadow marginTop10" data-ng-repeat="package in vm.detailedData.venuePackages">
 												<div class="row pkg-row">
-													<div class="col-xs-6 col-md-8 food-menu-type row-equ-height menu-bolder-text">{{menu.type}}</div>
-													<div class="col-xs-6 col-md-4 food-menu-price row-equ-height menu-bolder-text"><span class="fa fa-fw fa-inr"></span> {{menu.price}}</div>
+													<div class="col-xs-6 col-md-8 food-menu-type row-equ-height menu-bolder-text">{{package.packageType}}</div>
+													<div class="col-xs-6 col-md-4 food-menu-price row-equ-height menu-bolder-text"><span class="fa fa-fw fa-inr"></span> {{package.packagePrice}}</div>
 												</div>
-												<div class="row pkg-row" data-ng-repeat="(key, value) in menu.foodMenu">
+												<div class="row pkg-row" data-ng-repeat="(key, value) in package.packageItems">
 													<div class="col-xs-6 col-md-8 food-menu-item row-equ-height">{{key}}</div>
 													<div class="col-xs-6 col-md-4 food-menu-item-qty row-equ-height">{{value}}</div>
 												</div>
