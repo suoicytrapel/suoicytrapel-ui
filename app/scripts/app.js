@@ -21,6 +21,7 @@ var app = angular
     'angularUtils.directives.dirPagination',
     'ui.router',
     'angularSpinner',
-    'angularModalService'
+    'angularModalService',
+    '720kb.datepicker'
   ])
   

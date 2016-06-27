@@ -82,21 +82,22 @@
 							</div>
 							<div class="pamphlet-body">
 								<ul class="key-hightlights-properties">
-									<li>
-										<div class="key-high-proptext">
+									<li ng-repeat="(key, value) in vm.detailedData.keyHighlighs">
+										<div ng-if="key == 'Veg' || key == 'Non-Veg'" class="key-high-proptext">
 											<div class="key-high-bold">
-												<span class="fa fa-circle color-green allowed-tick"></span> Veg
+												<span ng-class="key=='Veg' ? 'fa fa-circle color-green allowed-tick' : 'fa fa-circle color-red not-allowed-cross'"></span> {{key}}
 											</div>
 											(starts from)
 										</div>
-										<div class="key-high-amt">
+										<div ng-if="key == 'Veg' || key == 'Non-Veg'" class="key-high-amt">
 											<div class="key-high-bold">
-												<span class="fa fa-fw fa-inr"></span>{{vm.detailedData.inHouseOfferingsTabMap['In House Catering'].minVegPrice}}
+												<span class="fa fa-fw fa-inr"></span>{{value}}
 											</div>
 											(per plate)
 										</div>
+										<span ng-if="key != 'Veg' && key != 'Non-Veg'" class="fa fa-check color-green allowed-tick"></span><span> {{key}}</span><span ng-if="value.length>0">	{{value}}</span>
 									</li>
-									<li>
+								<!-- 	<li>
 										<div class="key-high-proptext">
 											<div class="key-high-bold">
 												<span class="fa fa-circle color-red not-allowed-cross"></span> Non-Veg
@@ -109,8 +110,8 @@
 											</div>
 											(per plate)
 										</div>
-									</li>
-									<li>
+									</li> -->
+									<!-- <li>
 										<span class="fa fa-check color-green allowed-tick"></span> Inhouse Catering
 									</li>
 									<li>
@@ -131,7 +132,7 @@
 									<li>
 										<span class="fa fa-check color-green allowed-tick"></span> Outhouse DJ allowed
 									</li>
-
+ -->
 									<!-- Catering specific Highlights -->
 									<li ng-if="vm.detailedData.isPureVeg != null">
 										<span ng-if="vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg Only</span>
@@ -224,7 +225,7 @@
 							{{vm.detailedData.description}}
 						</div>
 					</section>
-					<section id="areas" class="details-page-sections box-type-layout">
+					<section id="areas" class="details-page-sections box-type-layout" ng-if="vm.detailedData.amenityDetailsTabMap">
 						<div>
 							<h3>Party Areas &amp; Rooms</h3>
 							<div ng-repeat="(key, value) in vm.detailedData.amenityDetailsTabMap">
@@ -293,7 +294,7 @@
 						</div>
 
 					</section>
-					<section id="foodBeverages" class="details-page-sections">
+					<section id="foodBeverages" class="details-page-sections" ng-if="vm.selectedCategory == 'VENUE' || vm.selectedCategory == 'CATERER'">
 						<h3>FOOD &amp; BEVERAGES</h3>
 						<div class="row" ng-repeat ="(key, value) in vm.detailedData.inHouseOfferingsTabMap" ng-if="key == 'In House Catering'">
 							<div class="col-sm-12 marginTop10">
@@ -400,11 +401,11 @@
 
 							</div>
 					</section>
-					<section id="additionalInfo" class="details-page-sections desc-type-layout">
+					<section id="additionalInfo" ng-if="vm.detailedData.additionalServices || vm.detailedData.additionalInfo" class="details-page-sections desc-type-layout">
 						<div class="additionalInfo-container">
 							<h3>Additional Info</h3>
 							<div class="row">
-								<div class="col-sm-6 col-md-4" data-ng-if="{{vm.detailedData.additionalInfo.outstationExpenses}}">
+								<div class="col-sm-6 col-md-4" data-ng-if="vm.detailedData.additionalInfo.outstationExpenses">
 									<div class="detail-addinfo-contnr">
 										<div class="detail-addinfo-infotext">
 											Outstation Travel and Stay Expense
@@ -414,7 +415,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4" data-ng-if="{{vm.detailedData.additionalInfo.genre}}">
+								<div class="col-sm-6 col-md-4" data-ng-if="vm.detailedData.additionalInfo.genre">
 									<div class="detail-addinfo-contnr">
 
 										<div class="detail-addinfo-infotext">
@@ -426,7 +427,7 @@
 
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4" data-ng-if="{{vm.detailedData.additionalInfo.experience}}">
+								<div class="col-sm-6 col-md-4" data-ng-if="vm.detailedData.additionalInfo.experience">
 									<div class="detail-addinfo-contnr">
 
 										<div class="detail-addinfo-infotext">
@@ -438,19 +439,19 @@
 
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<div ng-if="vm.detailedData.additionalServices" ng-repeat="(key, value) in vm.detailedData.additionalServices" class="col-sm-6 col-md-4">
 									<div class="detail-addinfo-contnr">
 
 										<div class="detail-addinfo-infotext">
-											Corkage per bottle
+											{{key}}
 										</div>
 										<div class="detail-addinfo-infofigure">
-											<span class="fa fa-fw fa-inr"></span>600
+											<span class="fa fa-fw fa-inr"></span>{{value}}
 										</div>
 
 									</div>
 								</div>
-								<div class="col-sm-6 col-md-4">
+								<!-- <div class="col-sm-6 col-md-4">
 									<div class="detail-addinfo-contnr">
 
 										<div class="detail-addinfo-infotext">
@@ -461,8 +462,8 @@
 										</div>
 
 									</div>
-								</div>
-								<div class="col-sm-6 col-md-4">
+								</div> -->
+								<!-- <div class="col-sm-6 col-md-4">
 									<div class="detail-addinfo-contnr">
 
 										<div class="detail-addinfo-infotext">
@@ -473,7 +474,7 @@
 										</div>
 
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</section>
@@ -482,8 +483,8 @@
 							<h3>Booking Policies</h3>
 							<ol class="policies-ordered-list">
 
-								<li>
-									{{vm.detailedData.policies}}
+								<li ng-repeat="policy in vm.detailedData.policies">
+									{{policy}}
 
 								</li>
 							</ol>
@@ -697,5 +698,7 @@
 	</div>
 	<a href="javascript:void(0)" class="gallery-close-btn" data-ng-click="vm.closeGallery();"></a>
 </div>
-
+<button type="button" class="btn btn-success" ng-click="vm.openAvailabilityForm()">Check Availability</button>
 </div>
+
+<div data-ng-include="'views/detail/checkAvailability.html'"></div>

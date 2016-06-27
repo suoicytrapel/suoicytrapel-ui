@@ -28,6 +28,12 @@ app.factory('DataFactory', function (Constants, $resource) {
                 } 
             }
         }),
+        checkAvailability: $resource(Constants.API_HOST + '/checkAvailability', {},{
+            submit : {
+                method: "POST",
+                isArray: false
+            }
+        })
         /*
         attachments: $resource(Constants.API_HOST + '/fetch/filters', {},{
                     fetchAttachments : {

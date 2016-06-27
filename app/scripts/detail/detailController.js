@@ -16,6 +16,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.city = $routeParams.city;
 		vm.category = $routeParams.category;
 		vm.categoryInitials = vm.category.slice(0,1);
+		vm.isFormValid = true;
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
@@ -356,5 +357,77 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.defineListeners();
 	vm.populateDynamicCaptcha();
 	vm.emitPageDataPopulated();
+
+	vm.validateAvailabilityForm = function(){
+		if(vm.availabilityForm.email || vm.availabilityForm.phoneNumber){
+			return true;
+		}
+		else{
+			vm.isFormValid = false;
+			return vm.isFormValid;
+		}
+	};
+
+	vm.openAvailabilityForm = function() {
+		$("#captcha1").html("");
+		var template = '<simple-captcha valid="captchaValid"></simple-captcha>';
+		var captchaTemplate = angular.element(template);
+		//Now compile the template with scope $scope
+		$compile(captchaTemplate)($scope);
+		angular.element('#captcha1').append(captchaTemplate);
+		$('#checkAvailabilityModal').modal('toggle');
+	};
+
+	vm.closeAvailabilityForm = function() {
+		vm.submitted = false;
+		$scope.form.availabilityForm.$setPristine();
+		$scope.form.availabilityForm.$setUntouched();
+		$('#checkAvailabilityModal').modal('toggle');
+	};
+
+	vm.checkAvailability = function(){
+		$('#checkAvailabilityModal').modal('toggle');
+		$.toaster({
+			priority : 'success',
+			title : 'Sending',
+			message : 'Sending Email',
+			settings : {
+				'timeout' : 2000,
+			}
+		});
+		vm.availabilityForm.vendorName = vm.detailedData.name;
+		vm.availabilityForm.vendorEmailAddress = vm.detailedData.email;
+		vm.availabilityForm.vendorType = vm.category;
+		DataFactory.checkAvailability.submit(vm.availabilityForm).$promise.then(function(data) {
+			vm.availabilityForm = {};
+			$scope.form.availabilityForm.$setPristine();
+			$scope.form.availabilityForm.$setUntouched();
+			vm.submitted = false;
+			//$('#contactModal').modal('toggle');
+			$.toaster({
+				priority : 'success',
+				title : 'Success',
+				message : 'Email has been sent',
+				settings : {
+					'timeout' : 3000,
+				}
+			});
+		}, function(error) {
+			vm.availabilityForm = {};
+			$scope.form.availabilityForm.$setPristine();
+			$scope.form.availabilityForm.$setUntouched();
+			//$('#contactModal').modal('toggle');
+			console.log(error);
+			$.toaster({
+				priority : 'warning',
+				title : 'Please Try Again',
+				message : 'Error Sending Email',
+				settings : {
+					'timeout' : 3000,
+				}
+			});
+		});
+
+	};
 
 });
