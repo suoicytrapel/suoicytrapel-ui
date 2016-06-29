@@ -7,6 +7,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 	vm.init = function() {
 		$rootScope.showCover = false;
+		$rootScope.currentPage = 'detailPage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.breadCrumbLinks['Home'] = '/';
 		$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $rootScope.dataPageBreadCrumbPath ? $rootScope.dataPageBreadCrumbPath : '/vendors/' + baseFactory.getSelectedCity() + '/' + $routeParams.category;

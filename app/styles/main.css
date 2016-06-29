@@ -46,6 +46,10 @@ html, body {
 	-webkit-touch-callout: none !important; 
 }
 
+input:focus{
+  outline:none;
+}
+
 /* Fix for padding when bootstrap modal opens - legit Issue */
 
 body.modal-open{
@@ -145,18 +149,22 @@ a:hover, a:focus {
 	background-color: #f37254;
 }
 .theme-color {
-	color: #f37254;
+	    color: #f37254;
 }
+.theme-color-white{
+	color: #ffffff;
+}
+.theme-color  hr{    width: 10%;
+    border-top: 3px solid #848484;
+    margin-top: 32px;
+    margin-bottom: 50px;}
+	
 .bg-grey {
 	background-color: #EEEEEE;
 }
 
 .marginTopBottom20{
 	margin: 20px 0px;
-}
-
-.mBottom30{
-	margin-bottom: 30px;	
 }
 
 .fontSize16{
@@ -227,10 +235,15 @@ color: #ffffff;
 /* Footer css */
 
 #footer {
-	padding-top: 2em;
-	padding-bottom: 2em;
-	background-color: #414042;
-	color: #fff;
+	    /* padding-top: 2em; */
+    /* padding-bottom: 2em; */
+    background-color: #414042;
+    color: #fff;
+    background-image: url('/images/footer_bg.jpg');
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center center;
+    padding: 55px 0;
 }
 
 #footer a {
@@ -327,8 +340,10 @@ p.info, p.connect {
 }
 
 .lp-copyrights{
-	border-top: 2px solid #ffffff;
-	padding-top: 8px;	
+	    /* border-top: 2px solid #ffffff; */
+    background: #000;
+    padding: 20px 0;
+    color: #fff;	
 }
 
 /* Footer css ends*/
@@ -467,13 +482,19 @@ p.info, p.connect {
 span.lp-selected-city:empty::before {
     content: 'Choose City';
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 span.lp-selected-category:empty::before{
 	content: 'Choose Vendor';
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
+}
+
+.category-icons.fa-user{
+	color: #f37254;
+    font-size: 20px;
+    line-height: 46px;
 }
 
 .lp-select-category-text{
@@ -549,7 +570,7 @@ background: white;
 	padding-right: 6px;
 }
 
-.lp-select-category-text > .lp-selected-category > .category-icons{
+.category-icons{
 		color: #f37254;
 	font-size: 20px;
 	line-height: 46px;
@@ -752,7 +773,7 @@ background: white;
 }
 
 .swiper-button-prev{
-	background-position: 0px !important;
+	background-position: 0px !important;     left: 34px;
 }
 
 .lp-global-breadcrumb{
@@ -782,7 +803,6 @@ background: white;
 	color: #ffffff;
 	text-decoration: underline;
 }
-
 
 
 @media only screen and (max-width: 767px) and (min-width: 0)

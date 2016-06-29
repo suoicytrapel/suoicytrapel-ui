@@ -1,37 +1,69 @@
-<section class="row">
+<section class="row venue_includes">
 	<div class="col-xs-12">
-		<h4 class="theme-color subcategory-heading">IS THIS WHAT YOU ARE LOOKING FOR</h4>
-						<!-- Sub Category Carousel -->
-						<div class="subcategory-carousel">
-							<div class="swiper-container subcategory-swiper-container" data-ng-repeat="(key,value) in vm.subCategoriesMap" ng-class="'{{key}}'" data-ng-show="vm.selectedCategory == '{{key}}'">
-								<!-- Additional required wrapper -->
-								<div class="swiper-wrapper subcategory-swiper-wrapper">
-									<!-- Slides -->
-									<div class="swiper-slide subcategory-swiper-slide" ng-repeat="subcategory in value" on-last-repeat-element on-finish-callback="vm.applySwiperOnSubcategories('{{key}}');">
-										<a class="subcategory-icon-outer-background">
-										<div class="subcategory-icon-border-inner-background">
-											<div class="subcategory-icon-inner-background">
-											<div class="subcategory-icon"  ng-class="'{{subcategory}}'"></div>
-										</div>
-										</div>
-										<div class="subcategory-icon-text">
-											{{subcategory}}
-										</div> </a>
-									</div>
-
-								</div>
-								<!-- If we need pagination -->
-								<a href="javascript:void(0)" class="swiper-button-prev subcategory-swiper-button-prev" ng-class="'{{key}}'"></a>
-								<a href="javascript:void(0)" class="swiper-button-next subcategory-swiper-button-next" ng-class="'{{key}}'"></a>
-
+		<h2>WE PLAN YOUR MEMORIES</h2>
+		<hr>
+		<p>
+			We help you plan your memories the way you would like to cherish them in the future.
+			We bring you our vivid collection of vendors so that you can choose better.
+		</p>
+		<h4 class="theme-color-white subcategory-heading">OUR OFFERINGS YOUR CHOICE <span class="help-text hidden-sm hidden-xs" title="choose your option and see what do we offer">?</span></h4>
+		<form name="subcategory-selection-form">
+			<div class="row subcat-row">
+				<div class="radio-inline radio subcat-inline-btns col-md-4" data-ng-repeat="(key, value) in vm.categoryMap">
+					<input type="radio" name="category" id="{{key}}" ng-value="key" ng-checked="key == 'VENUE'" ng-model="vm.subCategorySelected">
+					<label for="{{key}}"> {{value}} </label>
+				</div>
+			</div>
+		</form>
+		<!-- Sub Category Carousel -->
+		<div class="subcategory-carousel">
+			<div class="swiper-container subcategory-swiper-container" data-ng-repeat="(key,value) in vm.subCategoriesMap" ng-class="'{{key}}'" data-ng-if="vm.subCategorySelected == key" swiper-carousel effect="slide" grab-cursor="false" speed="500" slides-per-view="3" pagination="{{key}}.subcategory-swiper-pagination" pagination-clickable="true" autoplay="2000" space-between="10" breakpoints="vm.subcategorySwiperBrkpoints">
+				<!-- Additional required wrapper -->
+				<div class="swiper-wrapper subcategory-swiper-wrapper">
+					<!-- Slides -->
+					<div class="swiper-slide subcategory-swiper-slide" ng-repeat="subcategory in value">
+						<a class="subcategory-icon-outer-background">
+						<div class="subcategory-icon-border-inner-background">
+							<div class="subcategory-icon-inner-background">
+								<div class="subcategory-icon"  ng-class="'{{subcategory}}'"></div>
 							</div>
+							<div class="subcategory-icon-text">
+							{{subcategory}}
 						</div>
+						</div>
+						 </a>
 					</div>
+
+				</div>
+				<!-- If we need pagination -->
+				<!--
+				<a href="javascript:void(0)" class="swiper-button-prev subcategory-swiper-button-prev" ng-class="'{{key}}'"></a>
+				<a href="javascript:void(0)" class="swiper-button-next subcategory-swiper-button-next" ng-class="'{{key}}'"></a>-->
+				<div class="swiper-pagination subcategory-swiper-pagination" ng-class="'{{key}}'"></div>
+
+			</div>
+		</div>
+	</div>
 </section>
+
+<!-- LePartycious section starts -->
+<section class="container text-center welcome">
+	<h2 class="theme-color-white">NAMASTEY !! LEPARTYCIOUS WELCOMES YOU</h2>
+	<p>
+		Established in October 2015, LePartycious is an online platform for planning events which provides you with the relevant
+
+		information regarding different venues, caterers, photographers, decorators and much more. Its all about bringing all the vendors under
+
+		one roof so that they coordinate well and work towards the success story of an event.
+		So precisely we are here to make your work convenient and hassel free by helping you choose from the diversified options
+
+		available, at the same time meeting your budget too.
+	</p>
+</section>
+
 <!-- Recently Added section starts -->
-<!--
 <section class="bg-grey row">
-	<h2 class="text-center theme-color">RECENTLY ADDED</h2>
+	<h2 class="text-center theme-color-white">RECENTLY ADDED</h2>
 	<div ng-repeat="(key, value) in vm.recentlyAddedData" class="col-xs-10 col-sm-5 col-xs-offset-1 recently-added-section">
 		<div class="recently-added-category-name col-xs-12">
 			{{key}}
@@ -42,28 +74,17 @@
 			</li>
 		</ul>
 	</div>
-</section>-->
-
-<!-- LePartycious section starts -->
-<section class="container text-center">
-	<h2 class="theme-color">WELCOME TO LEPARTYCIOUS</h2>
-	<p>
-		Established in October 2015, LePartycious is an online platform for organising events which provides you with the relevant
-
-			information regarding different venues, caterers, photographers, decorators and many more. Its all about bringing all the vendors under
-
-			one roof so that they coordinate well and work towards a success story of  an event.
-			So precisely we are here to make your work convenient and hassel free by helping you choose from the diversified options
-
-			available, that fits in your pocket.
-	</p>
 </section>
+
 <!-- Services section starts -->
-<section class="row bg-grey">
-	<div class="container text-center">
-		<div class="h2 theme-color mBottom30">
+<section class="row bg-grey all_Services">
+	<div class="container text-center services_text">
+		<div class="h2 theme-color-white">
 			WHAT DO WE HAVE FOR YOU
+
+			<hr>
 		</div>
+
 		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons">
 			<div>
 				<span class="lp-venue-icon lp-sprite"></span>
@@ -121,23 +142,102 @@
 		</div>
 	</div>
 </section>
+
+<!-- feedback section starts -->
+<div class="container feedback_section">
+	<div class="row">
+		<div class='col-md-offset-2 col-md-8 text-center'>
+			<h2>What Our Customers Have To Say</h2>
+
+		</div>
+	</div>
+	<div class='row'>
+		<div class='col-md-offset-1 col-md-10'>
+			
+		
+		<!-- Applying swiper Carousel -->
+		<div class="swiper-container customerssay-swiper-container" swiper-carousel speed="300" space-between="0" autoplay="3000" effect="slide" pagination="customerssay-swiper-pagination" pagination-type="bullets" pagination-clickable="true">
+		<!-- Additional required wrapper -->
+		<div class="swiper-wrapper customerssay-swiper-wrapper">
+			<!-- Slides -->
+			<div class="swiper-slide customerssay-swiper-slide">
+				<blockquote>
+							<div class="row">
+								<div class="col-sm-3 text-center">
+									<img class="img-circle" src="../../images/128.jpg" style="width: 100px;height:100px;">
+									<!--<img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" style="width: 100px;height:100px;">-->
+								</div>
+								<div class="col-sm-9">
+									<p>
+										Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!
+									</p>
+									<small>Someone famous</small>
+								</div>
+							</div>
+						</blockquote>
+			</div>
+			<!-- quote2 -->
+			<div class="swiper-slide customerssay-swiper-slide">
+				<blockquote>
+							<div class="row">
+								<div class="col-sm-3 text-center">
+									<img class="img-circle" src="../../images/129.jpg" style="width: 100px;height:100px;">
+								</div>
+								<div class="col-sm-9">
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam auctor nec lacus ut tempor. Mauris.
+									</p>
+									<small>Someone famous</small>
+								</div>
+							</div>
+						</blockquote>
+			</div>
+			<!-- quote3 -->
+			<div class="swiper-slide customerssay-swiper-slide">
+				<blockquote>
+							<div class="row">
+								<div class="col-sm-3 text-center">
+									<img class="img-circle" src="../../images/130.jpg" style="width: 100px;height:100px;">
+								</div>
+								<div class="col-sm-9">
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum elit in arcu blandit, eget pretium nisl accumsan. Sed ultricies commodo tortor, eu pretium mauris.
+									</p>
+									<small>Someone famous</small>
+								</div>
+							</div>
+						</blockquote>
+			</div>
+
+		</div>
+		<!-- If we need pagination -->
+		<div class="swiper-pagination customerssay-swiper-pagination"></div>
+
+	</div>
+		</div>
+	</div>
+</div>
+
+<!-- feedback section close -->
+
 <!-- Portfolio section starts -->
-<section class='portfolioSlider row text-center'>
-	<div class="h2 theme-color">
+<section class='portfolioSlider row text-center portfolio_section'>
+	<div class="h2 theme-color-white">
 		OUR PORTFOLIO
+		
 	</div>
 	<!-- Slider main container -->
-	<div class="swiper-container portfolio-swiper-container">
+	<div class="swiper-container portfolio-swiper-container" swiper-carousel initial-slide="2" effect="coverflow" grab-cursor="true" centered-slides="true" slides-per-view="auto" next-button="portfolio-swiper-button-next" prev-button="portfolio-swiper-button-prev" preload-images="false" lazy-loading="true" space-between="20" coverflow="vm.showcaseSwiperCoverflow">
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper">
 			<!-- Slides -->
 			<div class="swiper-slide" data-ng-repeat="(key, value) in vm.portfolioImages" style="background-image:url({{value.EventCover}})" on-last-repeat-element on-finish-callback="vm.applyLibrariesOnPortfolio()">
 				<a data-ng-repeat="(childKey, childValue) in value" href="{{childValue}}" class="{{key}}" title="{{childKey}}" data-gallery="{{key}}">
-			<button data-ng-if="$index == 0" class="btn default-theme-btn view-event-btn">
-				Full Event
-			</button> </a> 
-			</div>	
-									
+				<button data-ng-if="$index == 0" class="btn default-theme-btn view-event-btn">
+					Full Event
+				</button> </a>
+			</div>
+
 		</div>
 
 		<!-- If we need navigation buttons -->

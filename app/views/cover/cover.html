@@ -35,7 +35,7 @@
 						<div class="quarter-gap"></div>-->
 
 						<form action="" autocomplete="off" class="home-page-form">
-							<div class="col-xs-12 col-sm-2 form-group">
+							<div class="col-xs-12 col-sm-2 col-md-2 form-group">
 								<div class="row">
 									<div class="lp-select-city">
 										<div class="lp-select-city-text" data-ng-class="!vm.selectedCity && !vm.cityUntouched ? 'noselection-error' : ''" ng-click="vm.toggleDropdown()">
@@ -52,12 +52,13 @@
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-2 form-group">
+							<div class="col-xs-12 col-sm-3 col-md-2 form-group">
 								<div class="row">
 									<div class="lp-select-category">
 										<div class="lp-select-category-text" ng-click="vm.toggleCategoryDropdown()" data-ng-class="!vm.selectedCategory && !vm.categoryUntouched ? 'noselection-error' : ''">
 											<!--<span class="lp-label-category">VENDOR TYPE</span>-->
-											<span class="lp-selected-category">{{vm.categoryMap[vm.selectedCategory]}}<span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIconsMap[vm.selectedCategory]'}}" data-ng-if="vm.selectedCategory"></span></span>
+											<span class="lp-selected-category">{{vm.categoryMap[vm.selectedCategory]}}</span>
+											<span class="fa fa-fw float-right category-icons" data-ng-class="vm.selectedCategory ? {{'vm.categoryIconsMap[vm.selectedCategory]'}} : 'fa-user'"></span>
 
 										</div>
 										<ul class="lp-category-dropdown">
@@ -69,7 +70,7 @@
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-6 search-input-box form-group">
+							<div class="col-xs-12 col-sm-5 col-md-6 search-input-box form-group">
 								<div class="row">
 									<input id="searchedText" type="text" placeholder="Vendor Name or Search All" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
 									</input>

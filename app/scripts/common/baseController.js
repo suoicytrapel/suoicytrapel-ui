@@ -10,6 +10,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	//Application level variables
 	$rootScope.showCover = true;
+	$rootScope.currentPage = 'homePage';
 	$rootScope.breadCrumbLinks = {};
 
 	/*
@@ -28,7 +29,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.citiesPopulated = false;
 		vm.routeChangeSuccessInvoked = false;
 		vm.pageDataPopulated = false;
-		
+
 		/* city and category fields untouched parameters */
 		vm.cityUntouched = true;
 		vm.categoryUntouched = true;
@@ -83,10 +84,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		$(document).on('click', function(e) {
-			if (!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon') || $(e.target).hasClass('lp-label-city')))
+			if (!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon') || $(e.target).hasClass('lp-label-city'))){
+				//$('.venue_includes').removeClass('slide-down');
 				$('.lp-city-dropdown').slideUp();
-			if (!($(e.target).hasClass('lp-select-category-text') || $(e.target).hasClass('lp-selected-category') || $(e.target).hasClass('category-icons') || $(e.target).hasClass('lp-label-category')))
+			}				
+			if (!($(e.target).hasClass('lp-select-category-text') || $(e.target).hasClass('lp-selected-category') || $(e.target).hasClass('category-icons') || $(e.target).hasClass('lp-label-category'))){
+				$('.venue_includes').removeClass('slide-down');
 				$('.lp-category-dropdown').slideUp();
+			}				
 		});
 
 		/*
@@ -98,6 +103,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$(window).on('scroll', function() {
 			animateHeaderBgColor();
 		});
+
+		
+		/*
+		 
+		 * 
+		 * To call autoResizeCover on window resize
+		 */
+		window.onresize = autoResizeCover;
+
 
 		/*
 		 * is invoked
@@ -160,17 +174,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.clicked = function() {
-			if((!vm.cityUntouched && vm.selectedCity) && (!vm.categoryUntouched && vm.selectedCategory)){
-			$route.reload();
-			//baseFactory.setCoverUrl(vm.selectedCategory);
-			baseFactory.setMainCoverHeading(vm.selectedCategory);
-			if (vm.searchData == undefined || vm.searchData == null) {
-				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+			if ((!vm.cityUntouched && vm.selectedCity) && (!vm.categoryUntouched && vm.selectedCategory)) {
+				$route.reload();
+				//baseFactory.setCoverUrl(vm.selectedCategory);
+				baseFactory.setMainCoverHeading(vm.selectedCategory);
+				if (vm.searchData == undefined || vm.searchData == null) {
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				} else {
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+				}
 			} else {
-				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
-			}
-			}
-			else{
 				vm.cityUntouched = false;
 				vm.categoryUntouched = false;
 			}
@@ -233,6 +246,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.toggleDropdown = function() {
 			vm.cityUntouched = false;
 			$('.lp-city-dropdown').slideToggle();
+			//$('.venue_includes').toggleClass('slide-down');
 		};
 
 		/*
@@ -243,6 +257,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.toggleCategoryDropdown = function() {
 			vm.categoryUntouched = false;
 			$('.lp-category-dropdown').slideToggle();
+			$('.venue_includes').toggleClass('slide-down');
 		};
 
 		/*
@@ -325,6 +340,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.startLoader();
 		populateCities();
 		applyAutocomplete();
+		autoResizeCover();
 	};
 
 	/*
@@ -349,18 +365,18 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//Code for Default Selected City Commented
 			//Now the choose city placeholder is to be kept
 			/*
-			var counter = 0;
-						if (vm.citiesList && vm.citiesList != null) {
-							angular.forEach(vm.citiesList, function(value, key) {
-								if (counter == 0) {
-									vm.selectedCity = value;
-									baseFactory.setSelectedCity(key);
-								}
-								counter = counter + 1;
-			
-							});
-						}*/
-			
+			 var counter = 0;
+			 if (vm.citiesList && vm.citiesList != null) {
+			 angular.forEach(vm.citiesList, function(value, key) {
+			 if (counter == 0) {
+			 vm.selectedCity = value;
+			 baseFactory.setSelectedCity(key);
+			 }
+			 counter = counter + 1;
+
+			 });
+			 }*/
+
 			vm.citiesPopulated = true;
 			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated)
 				vm.stopLoader();
@@ -387,9 +403,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			});
 			/* when closing modal on clicking outside modal area
 			 * the modal element should be removed form DOM */
-			modal.element.on('hidden.bs.modal', function () {
-            modal.controller.closePopup();
-        });
+			modal.element.on('hidden.bs.modal', function() {
+				modal.controller.closePopup();
+			});
 		});
 	};
 	/*
@@ -455,6 +471,18 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		}
 
 	}
+	
+	/*
+		 * To set the height of cover Page
+		 * as per the window height
+		 *
+		 * */
+		function autoResizeCover() {
+			$timeout(function(){
+				$("#coverPage").height(window.innerHeight);
+			},0);
+		}
+
 
 	/*
 	 *

@@ -2,6 +2,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 
 	var vm = this;
 	$rootScope.showCover = true;
+	$rootScope.currentPage = 'dataPage';
 	$rootScope.breadCrumbLinks = {};
 	$rootScope.breadCrumbLinks['Home'] = '/';
 	$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $location.path();

@@ -2,12 +2,39 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
+		$rootScope.currentPage = 'homePage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.dataPageBreadCrumbPath = null;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
 		vm.subCategoriesMap = baseFactory.subCategoriesMap;
 		vm.selectedCategory = baseFactory.getSelectedCategory();
+		vm.categoryMap = baseFactory.categoryMap;
+		vm.subCategorySelected = 'VENUE';
+		vm.subcategorySwiperBrkpoints = {
+				// when window width is <= 767px
+				767 : {
+					slidesPerView : 1,
+					spaceBetweenSlides : 5
+				},
+				// when window width is <= 991px
+				991 : {
+					slidesPerView : 2,
+					spaceBetweenSlides : 10
+				},
+				// when window width is <= 1199px
+				1199 : {
+					slidesPerView : 3,
+					spaceBetweenSlides : 10
+				}
+		};
+		vm.showcaseSwiperCoverflow = {
+				rotate : 22,
+				stretch : 0,
+				depth : 110,
+				modifier : 1,
+				slideShadows : true
+		};
 	};
 
 	/* Listens to cityChangedEvent
@@ -16,21 +43,8 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		vm.fetchRecentAdditions();
 	});
 
-	$scope.$watch(function() {
-		return baseFactory.selectedCategory;
-	}, function(newValue, oldValue) {
-		if (newValue !== oldValue) {
-			vm.selectedCategory = newValue;
-			var lowerCaseValue = newValue.toLowerCase();
-			if(!($('.subcategory-carousel').hasClass(lowerCaseValue))){
-				$('.subcategory-carousel').addClass(lowerCaseValue);
-				$timeout(function(){vm.applySwiperOnSubcategories(newValue);});
-			}		
-		}
-	});
-
+	
 	vm.applyLibrariesOnPortfolio = function() {
-		showcasePortfolio();
 		for (var k in vm.portfolioImages) {
 			angular.element('.' + k).boxer({
 				formatter : formatCaptions,
@@ -54,62 +68,6 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 
 	};
 
-	function showcasePortfolio() {
-		var mySwiper = new Swiper('.portfolio-swiper-container', {
-			initialSlide : 2,
-			effect : 'coverflow',
-			grabCursor : true,
-			centeredSlides : true,
-			slidesPerView : 'auto',
-			coverflow : {
-				rotate : 22,
-				stretch : 0,
-				depth : 110,
-				modifier : 1,
-				slideShadows : true
-			},
-			nextButton : '.portfolio-swiper-button-next',
-			prevButton : '.portfolio-swiper-button-prev',
-			preloadImages : false,
-			lazyLoading : true,
-			spaceBetween : 20,
-		});
-
-	}
-
-
-	vm.applySwiperOnSubcategories = function(className) {
-		//mySwiper.destroy();
-		new Swiper('.subcategory-swiper-container.' + className, {
-			effect : 'slide',
-			grabCursor : true,
-			speed: 500, 
-			slidesPerView : '4',
-			nextButton : '.' + className + '.subcategory-swiper-button-next',
-			prevButton : '.' + className + '.subcategory-swiper-button-prev',
-			spaceBetween : 10,
-			breakpoints : {
-				// when window width is <= 767px
-				767 : {
-					slidesPerView : 2,
-					spaceBetweenSlides : 5
-				},
-				// when window width is <= 991px
-				991 : {
-					slidesPerView : 4,
-					spaceBetweenSlides : 10
-				},
-				// when window width is <= 1199px
-				1199 : {
-					slidesPerView : 4,
-					spaceBetweenSlides : 10
-				}
-			}
-
-		});
-		//mySwiper.slideTo(0);
-	};
-
 	vm.fetchRecentAdditions = function() {
 		var cityId = baseFactory.getSelectedCity();
 		HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
@@ -129,7 +87,7 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	vm.emitPageDataPopulated = function() {
 		$scope.$emit('pageDataPopulated');
 	};
-
+	
 	vm.init();
 	vm.emitPageDataPopulated();
 
