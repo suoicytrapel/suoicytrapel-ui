@@ -97,48 +97,14 @@
 										</div>
 										<span ng-if="key != 'Veg' && key != 'Non-Veg'" class="fa fa-check color-green allowed-tick"></span><span> {{key}}</span><span ng-if="value.length>0">	{{value}}</span>
 									</li>
-								<!-- 	<li>
-										<div class="key-high-proptext">
-											<div class="key-high-bold">
-												<span class="fa fa-circle color-red not-allowed-cross"></span> Non-Veg
-											</div>
-											(starts from)
-										</div>
-										<div class="key-high-amt">
-											<div class="key-high-bold">
-												<span class="fa fa-fw fa-inr"></span>{{vm.detailedData.inHouseOfferingsTabMap['In House Catering'].minNonVegPrice}}
-											</div>
-											(per plate)
-										</div>
-									</li> -->
-									<!-- <li>
-										<span class="fa fa-check color-green allowed-tick"></span> Inhouse Catering
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Outhouse Catering allowed
-									</li>
-									<li>
-										<span class="fa fa-times color-red not-allowed-cross"></span> Non-Veg food allowed
-									</li>
-									<li>
-										<span class="fa fa-times color-red not-allowed-cross"></span> Inhouse Alcohol allowed
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Outhouse Alcohol allowed
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Inhouse DJ
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Outhouse DJ allowed
-									</li>
- -->
+								
 									<!-- Catering specific Highlights -->
 									<li ng-if="vm.detailedData.isPureVeg != null">
 										<span ng-if="vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg Only</span>
 										<span ng-if="!vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg/Non-Veg both</span>
 									</li>
 								</ul>
+								<button type="button" class="btn btn-success btn-checkavail" ng-click="vm.openAvailabilityForm()">CHECK AVAILABILITY</button>
 							</div>
 						</div>
 					</div>
@@ -494,7 +460,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 <div class="row bg-grey">
 	<div class="gap20"></div>
 	<div class="col-xs-12 col-sm-offset-1 col-sm-6">
@@ -698,7 +664,7 @@
 	</div>
 	<a href="javascript:void(0)" class="gallery-close-btn" data-ng-click="vm.closeGallery();"></a>
 </div>
-<button type="button" class="btn btn-success" ng-click="vm.openAvailabilityForm()">Check Availability</button>
+<!--<button type="button" class="btn btn-success" ng-click="vm.openAvailabilityForm()">Check Availability</button>-->
 </div>
 
 <div data-ng-include="'views/detail/checkAvailability.html'"></div>

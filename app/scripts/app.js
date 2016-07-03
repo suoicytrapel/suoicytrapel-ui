@@ -17,7 +17,6 @@ var app = angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
     'angularUtils.directives.dirPagination',
     'ui.router',
     'angularSpinner',
