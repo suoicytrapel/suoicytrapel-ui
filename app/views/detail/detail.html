@@ -95,7 +95,7 @@
 											</div>
 											(per plate)
 										</div>
-										<span ng-if="key != 'Veg' && key != 'Non-Veg'" class="fa fa-check color-green allowed-tick"></span><span> {{key}}</span><span ng-if="value.length>0">	{{value}}</span>
+										<span ng-if="key != 'Veg' && key != 'Non-Veg'" class="fa fa-check color-green allowed-tick"></span><span ng-if="key != 'Veg' && key != 'Non-Veg'"> {{key}}</span><span ng-if="key != 'Veg' && key != 'Non-Veg' && value.length>0">	{{value}}</span>
 									</li>
 								
 									<!-- Catering specific Highlights -->
