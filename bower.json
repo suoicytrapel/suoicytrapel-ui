@@ -21,7 +21,8 @@
     "angular-ui-router": "^0.2.18",
     "angular-spinner": "~0.8.0",
     "angular-modal-service": "^0.9.10",
-    "angularjs-datepicker": "^2.1.6"
+    "angularjs-datepicker": "^2.1.6",
+    "spring-security-csrf-token-interceptor": "^0.1.5"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

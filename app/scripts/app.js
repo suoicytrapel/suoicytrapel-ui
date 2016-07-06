@@ -22,6 +22,7 @@ var app = angular
     'ui.router',
     'angularSpinner',
     'angularModalService',
-    '720kb.datepicker'
+    '720kb.datepicker',
+    'spring-security-csrf-token-interceptor'
   ])
   

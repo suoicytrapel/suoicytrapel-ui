@@ -4,57 +4,55 @@
  * accessible throughout the login module
  */
 
-app.controller('loginController', function($scope, ModalService, close, $element) {
+app.controller('loginController', function($scope, $http) {
 
 	var vm = this;
 
-	vm.showSignUpPopup = function() {
-		vm.closePopup();
-		ModalService.showModal({
-			templateUrl : "/views/login/signup.html",
-			controller : "signupController",
-			controllerAs : "vm",
-		}).then(function(modal) {
-			/* Opening a modal via javascript */
-			modal.element.modal();
-			/* returning a promise on closing a modal */
-			modal.close.then(function(result) {
-				console.log(result);
-			});
-			/* when closing modal on clicking outside modal area
-			 * the modal element should be removed form DOM */
-			modal.element.on('hidden.bs.modal', function () {
-            modal.controller.closePopup();
-        });
-		});
-	};
 	
-		vm.showfgtpwdPopup = function() {
-		vm.closePopup();
-		ModalService.showModal({
-			templateUrl : "/views/login/forgotpwd.html",
-			controller : "fgtpwdController",
-			controllerAs : "vm",
-		}).then(function(modal) {
-			/* Opening a modal via javascript */
-			modal.element.modal();
-			/* returning a promise on closing a modal */
-			modal.close.then(function(result) {
-				console.log(result);
-			});
-			/* when closing modal on clicking outside modal area
-			 * the modal element should be removed form DOM */
-			modal.element.on('hidden.bs.modal', function () {
-            modal.controller.closePopup();
-        });
-		});
-	};
 
-	vm.closePopup = function() {
-		/* closing the modal using javascript instead of data attrs */
-		$element.modal('hide');
-		close('close popup');
-	};
+	vm.onLogin = function () {
+            console.log('Attempting login with username ' + $scope.vm.username + ' and password ' + $scope.vm.password);
+
+            $scope.vm.submitted = true;
+
+            if ($scope.form.$invalid) {
+                return;
+            }
+
+            $scope.login('hello', vm.password);
+
+        };
+
+     $scope.login = function (username, password) {
+            var postData = $scope.preparePostData();
+
+            $http({
+                method: 'POST',
+                url: 'http://localhost:8080/api/rest/v1/authenticate',
+                data: postData,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-Requested-With": 'XMLHttpRequest'
+                }
+            })
+            .then(function(response) {
+                if (response.data == 'ok') {
+                    window.location.replace('/resources/calories-tracker.html');
+                }
+                else {
+                    $scope.vm.errorMessages = [];
+                    $scope.vm.errorMessages.push({description: 'Access denied'});
+                }
+            });
+        };
+
+         $scope.preparePostData = function () {
+            var username = $scope.vm.username != undefined ? $scope.vm.username : '';
+            var password = $scope.vm.password != undefined ? $scope.vm.password : '';
+            var email = $scope.vm.email != undefined ? $scope.vm.email : '';
+
+            return 'username=' + username + '&password=' + password + '&email=' + email;
+        };
 
 
 }); 
