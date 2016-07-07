@@ -110,6 +110,26 @@
 	font-family: 'OpenSans-Semibold';
 }
 
+.pamphlet-title-price{
+	/*font-size: 22px;*/
+}
+
+.venue-capacity-heading{
+	    color: #706f6d;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.venue-gathering-range{
+	margin-left: 5px;
+}
+
+.pamphlet-plate-price{
+	color: #706f6d;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
 .pamphlet-title-desc > div{
 	width: 200px;
 	text-overflow: ellipsis;

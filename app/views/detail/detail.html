@@ -126,13 +126,13 @@
 						<li>
 							<a href="#description"><span class="fa fa-fw fa-align-left"></span>Description</a>
 						</li>
-						<li>
+						<li ng-if="vm.detailedData.amenityDetailsTabMap">
 							<a href="#areas"><span class="fa fa-fw fa-university"></span>Lawns, Halls &amp; Rooms</a>
 						</li>
-						<li>
+						<li ng-if="vm.selectedCategory == 'VENUE' || vm.selectedCategory == 'CATERER'">
 							<a href="#foodBeverages"><span class="fa fa-fw fa-cutlery"></span>Food &amp; Beverages</a>
 						</li>
-						<li>
+						<li ng-if="vm.detailedData.additionalServices || vm.detailedData.additionalInfo">
 							<a href="#additionalInfo"><span class="fa fa-fw fa-info-circle"></span>Additional Info</a>
 						</li>
 						<li>
