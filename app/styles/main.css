@@ -73,6 +73,7 @@ ul, ol {
 	margin: 0px;
 	list-style: none;
 	list-style-type: none;
+	line-height: initial;
 }
 
 a {
@@ -81,6 +82,12 @@ a {
 
 a:hover, a:focus {
 	text-decoration: none;
+}
+
+/* overriding material design lite functionality */
+blockquote:before,
+blockquote:after{
+	content: '';
 }
 
 /*Common functionality*/
@@ -146,10 +153,10 @@ a:hover, a:focus {
 }
 
 .bg-theme-color {
-	background-color: #f37254;
+	background-color: #ee3e20;
 }
 .theme-color {
-	    color: #f37254;
+	    color: #ee3e20;
 }
 .theme-color-white{
 	color: #ffffff;
@@ -204,7 +211,7 @@ a:hover, a:focus {
 
 .default-white-btn:hover, .default-white-btn:focus {
 	background-color: rgba(255,255,255,1);
-	color: #F37254;
+	color: #ee3e20;
 }
 
 .default-theme-btn {
@@ -352,7 +359,7 @@ p.info, p.connect {
 
 
 .navbar-inverse{
-	/*background-color: #f37254;	*/
+	/*background-color: #ee3e20;	*/
 	background-color: transparent;	
 }
 
@@ -450,7 +457,7 @@ p.info, p.connect {
     font-size: 12px;
     left: 6px;
     font-family: OpenSans-bold;
-    color: #f37254;
+    color: #ee3e20;
 }
 
 .lp-select-city-menu option{
@@ -474,8 +481,8 @@ p.info, p.connect {
 
 .lp-select-city-text.noselection-error,
 .lp-select-category-text.noselection-error{
-	border: 1px solid #f37254;
-    box-shadow: 0px 0px 7px #f37254 inset;
+	border: 1px solid #ee3e20;
+    box-shadow: 0px 0px 7px #ee3e20 inset;
     color: brown;
 }
 
@@ -492,7 +499,7 @@ span.lp-selected-category:empty::before{
 }
 
 .category-icons.fa-user{
-	color: #f37254;
+	color: #ee3e20;
     font-size: 20px;
     line-height: 46px;
 }
@@ -571,13 +578,13 @@ background: white;
 }
 
 .category-icons{
-		color: #f37254;
+		color: #ee3e20;
 	font-size: 20px;
 	line-height: 46px;
 }
 
 .location-icon{
-	color: #f37254;
+	color: #ee3e20;
 	font-size: 20px;
 	line-height: 46px;
 }

@@ -9,18 +9,18 @@
 */
 
 .btn-checkavail{
-	background-color: #f37254 !important;
+	background-color: #ee3e20 !important;
 	box-shadow: 0 2px 10px 0 rgba(125,124,122,0.5) !important;
 	width: 100%;
 	margin-top: 20px;
-	border-color: #f37254 !important;
+	border-color: #ee3e20 !important;
 	color: #ffffff !important;
 }
 
 .btn-checkavail:hover{
 	background-color: white !important;
-	color: #f37254 !important;
-	border-color: #f37254 !important;
+	color: #ee3e20 !important;
+	border-color: #ee3e20 !important;
 }
 
 #myModalLabel{
@@ -64,7 +64,7 @@
 	margin-bottom: 0;
 	font-size: 16px;
 	font-weight: 600;
-	color: #f37254;
+	color: #ee3e20;
 	text-transform: uppercase;
 }
 
@@ -81,8 +81,8 @@
 	border-top: 0;
 	border-left: 0;
 	background-color: #eee;
-	border-bottom: solid 5px #f37254;
-	color: #f37254;
+	border-bottom: solid 5px #ee3e20;
+	color: #ee3e20;
 }
 
 .nav-tabs.nav-justified > li > a {
@@ -150,7 +150,7 @@
 	margin-bottom: 0;
 	font-size: 16px;
 	font-weight: 600;
-	color: #f37254;
+	color: #ee3e20;
 	text-transform: uppercase;
 }
 
@@ -425,7 +425,7 @@ ul.details-page-social-section {
 
 .lp-call-lp a {
 	font-family: 'OpenSans-Semibold';
-	color: #f37254;
+	color: #ee3e20;
 	font-size: 24px;
 	text-shadow: 1px 1px 1px rgba(0,0,0,.8);
 }
@@ -504,7 +504,7 @@ ul.details-page-social-section {
 }
 
 .details-fixed-component li.active {
-	background-color: #f37254;
+	background-color: #ee3e20;
 }
 
 .details-fixed-component li a {
@@ -519,11 +519,11 @@ ul.details-page-social-section {
 
 .details-fixed-component li.active a:focus, .details-fixed-component li.active a:hover {
 	color: #ffffff;
-	background-color: #f37254;
+	background-color: #ee3e20;
 }
 
 .details-fixed-component li a:focus, .details-fixed-component li a:hover {
-	color: #f37254;
+	color: #ee3e20;
 }
 
 .details-fixed-component li a span {
@@ -745,7 +745,7 @@ ul.details-page-social-section {
 	font-size: 32px;
 	display: table;
 	text-align: center;
-	background: #f37254;
+	background: #ee3e20;
 	color: #ffffff;
 	box-shadow: 0 2px 5px 0 rgba(125,124,122,.5);
 }
@@ -757,7 +757,7 @@ ul.details-page-social-section {
 
 .ad-panel-bottom-content span.fa{
 	font-size: 20px;
-	color: #F37254;
+	color: #ee3e20;
 }
 
 .ad-panel-bottom-content a{
@@ -787,7 +787,7 @@ ul.details-page-social-section {
     text-align: center;
     line-height: 50px;
     border-radius: 5px;
-    background: #f37254;
+    background: #ee3e20;
     box-shadow: 0 2px 10px 0 rgba(125,124,122,0.5);
     text-transform: uppercase;
     color: #FFFFFF;

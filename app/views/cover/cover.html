@@ -42,6 +42,7 @@
 											<!--<span class="lp-label-city">CITY</span>-->
 											<span class="lp-selected-city">{{vm.selectedCity}}</span>
 											<span class="fa fa-fw fa-map-marker float-right location-icon"></span>
+											<div ng-if="!vm.selectedCity && !vm.cityUntouched" class="city-err-msg">Please choose a city</div>
 										</div>
 										<ul class="lp-city-dropdown">
 											<li data-ng-repeat = '(key, value) in vm.citiesList'>
@@ -59,7 +60,7 @@
 											<!--<span class="lp-label-category">VENDOR TYPE</span>-->
 											<span class="lp-selected-category">{{vm.categoryMap[vm.selectedCategory]}}</span>
 											<span class="fa fa-fw float-right category-icons" data-ng-class="vm.selectedCategory ? {{'vm.categoryIconsMap[vm.selectedCategory]'}} : 'fa-user'"></span>
-
+											<div ng-if="!vm.selectedCategory && !vm.categoryUntouched" class="vendor-err-msg">Please choose a vendor</div>
 										</div>
 										<ul class="lp-category-dropdown">
 											<li data-ng-repeat = '(key, value) in vm.categoryMap' data-key = "{{key}}">

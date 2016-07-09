@@ -35,6 +35,7 @@
 	width: 10%;
 	border-top: 3px solid #ea8259;
 	color: #ea8259;
+	margin: 20px auto;
 }
 .venue_includes p {
 	width: 80%;
@@ -50,7 +51,8 @@
 	padding-top: 0;
 	padding-bottom: 43px;
 }
-.welcome h2 {
+.welcome h2,
+.recentlyAdded h2 {
 	color: #262626;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
 }
@@ -83,6 +85,12 @@
 	color: #fff;
 }
 
+#showHideCatButn{
+	background-color: #EE3E20;
+	position: relative;
+    bottom: 10px;
+}
+
 .portfolio_section {
 	background-image: linear-gradient(rgba(0, 0, 0, 0.72),rgba(0, 0, 0, 0.83)), url('/images/portfolio_bg.jpg');
 	background-repeat: no-repeat !important;
@@ -104,6 +112,8 @@
 	border-top: 3px solid #848484;
 	margin-top: 32px;
 	margin-bottom: 50px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .item blockquote {
@@ -234,7 +244,7 @@ blockquote .col-sm-9 {
 
 #coverPage .home-search-btn {
 	width: 100%;
-	background-color: #f37254;
+	background-color: #ee3e20;
 	color: rgb(255, 255, 255);
 	border: none;
 	padding: 11px 16px;
@@ -249,7 +259,7 @@ blockquote .col-sm-9 {
 	outline: none;
 	width: 100%;
 	padding-left: 6px;
-	color: #F37254;
+	color: #ee3e20;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.75);
 	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.75);
@@ -291,7 +301,7 @@ blockquote .col-sm-9 {
 
 #coverPage .clear-searchedText {
 	position: absolute;
-	color: #f37254;
+	color: #ee3e20;
 	top: 0px;
 	right: 4px;
 	font-size: 24px;
@@ -387,6 +397,12 @@ blockquote .col-sm-9 {
 	top: 250px;
 }
 
+.vendor-err-msg,
+.city-err-msg{
+	    color: #ffffff;
+    font-size: 12px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+}
 /* Sub Category Styling  */
 /*.subcategory-swiper-container.CATERER,
  .subcategory-swiper-container.DECORATOR,
@@ -409,7 +425,7 @@ blockquote .col-sm-9 {
  }
 
  .subcategory-icon-border-inner-background{
- border: 2px solid #f37254;
+ border: 2px solid #ee3e20;
  border-radius: 50%
  }
 
@@ -604,7 +620,7 @@ blockquote .col-sm-9 {
 	width: 16px;
 	height: 16px;
 	top: 8px;
-	background: #f37254;
+	background: #ee3e20;
 }
 
 .radio label {

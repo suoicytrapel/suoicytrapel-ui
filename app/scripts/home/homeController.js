@@ -88,6 +88,10 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		$scope.$emit('pageDataPopulated');
 	};
 	
+	vm.showHideSubCategories = function(){
+		$('#subcategoryForm').slideToggle();
+	};
+	
 	vm.init();
 	vm.emitPageDataPopulated();
 

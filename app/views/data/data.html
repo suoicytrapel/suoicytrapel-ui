@@ -55,8 +55,8 @@
 									<div class="col-xs-8 text-left pamphlet-title-desc" ng-if="vm.selectedCategory != 'VENUE'"><div>{{result.name}}</div><span class="pamphlet-title-city">{{result.locality}}</span>
 									
 									</div>
-									<div class="col-xs-4 text-left pamphlet-title-price border-left-1px" ng-if="vm.selectedCategory == 'CATERER' || vm.selectedCatgory == 'VENUE'"><div class="pamphlet-plate-price">PRICE PER PLATE</div><span class="fa fa-fw fa-inr"></span><span class="pamphlet-title-rate"><!--{{result.startingPrice}}-->400</span></div>
-									<div class="col-xs-4 text-left pamphlet-title-price border-left-1px" ng-if="vm.selectedCategory != 'CATERER' && vm.selectedCatgory != 'VENUE'"><div class="pamphlet-plate-price">STARTS FROM</div><span class="fa fa-fw fa-inr"></span><span class="pamphlet-title-rate">{{result.startingPrice}}</span></div>
+									<div class="col-xs-4 text-left pamphlet-title-price border-left-1px" ng-if="vm.selectedCategory == 'CATERER' || vm.selectedCategory == 'VENUE'"><div class="pamphlet-plate-price">PRICE PER PLATE</div><span class="fa fa-fw fa-inr"></span><span class="pamphlet-title-rate rateLargeFont">400</span></div>
+									<div class="col-xs-4 text-left pamphlet-title-price border-left-1px" ng-if="vm.selectedCategory != 'CATERER' && vm.selectedCategory != 'VENUE'"><div class="pamphlet-plate-price">STARTS FROM</div><span class="fa fa-fw fa-inr"></span><span class="pamphlet-title-rate">{{result.startingPrice}}</span></div>
 								</div>
 								</div>
 							</div>

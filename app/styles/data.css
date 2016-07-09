@@ -131,7 +131,7 @@
 }
 
 .pamphlet-title-desc > div{
-	width: 200px;
+	width: 100%;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
@@ -171,39 +171,11 @@ height: 32px;
 
 
 .filter-btn {
-	background-color: #f37254;
-	font-weight: 600;
-	font-size: 14px;
-	border: 2px solid #f37254;
-	color: #ffffff;
-	text-transform: uppercase;
-	border-radius: 4px;
-	padding: 8px 12px;
-}
-
-.filter-btn:hover,
-.filter-btn:focus{
-	background-color: #f37254;
-	border: 2px solid #f37254;
-	color: #ffffff;
+	background-color: #ee3e20 !important;
 }
 
 .reset-btn {
-	background-color: rgba(0,0,0,0);
-	font-weight: 600;
-	font-size: 14px;
-	border: 2px solid #656565;
-	color: #656565;
-	text-transform: uppercase;
-	border-radius: 4px;
-	padding: 8px 12px;
-}
-
-.reset-btn:hover,
-.reset-btn:focus{
-	background-color: rgba(0,0,0,0);
-	border: 2px solid #656565;
-	color: #656565;
+	background-color: rgba(0,0,0,0) !important;
 }
 
 .no-records-found{
@@ -221,7 +193,7 @@ height: 32px;
 	display: inline-block;
 	height: 40px;
 	width: 40px;
-	background: #f37254;
+	background: #ee3e20;
 	border-radius: 4px;
 }
 
@@ -237,6 +209,10 @@ height: 32px;
     margin-bottom: 8px;
     margin-left: 6px;
     width: 70%;
+}
+
+.rateLargeFont{
+	font-size: 22px;
 }
 
 .filter-ribbon-button span:nth-child(2){

@@ -6,8 +6,18 @@
 			We help you plan your memories the way you would like to cherish them in the future.
 			We bring you our vivid collection of vendors so that you can choose better.
 		</p>
-		<h4 class="theme-color-white subcategory-heading">OUR OFFERINGS YOUR CHOICE <span class="help-text hidden-sm hidden-xs" title="choose your option and see what do we offer">?</span></h4>
-		<form name="subcategory-selection-form">
+		<h4 class="theme-color-white subcategory-heading">TYPE OF VENDORS LISTED WITH US <span class="help-text hidden-sm hidden-xs" id="helpText">?</span>
+			<div class="mdl-tooltip" for="helpText">
+				Choose the vendor type<br>to see what all do we offer
+			</div>
+			<button id="showHideCatButn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored pull-right mdl-button--mini-fab hidden-xs" ng-click="vm.showHideSubCategories();">
+  				<i class="material-icons">add</i>
+			</button>
+			<div class="mdl-tooltip" for="showHideCatButn">
+				Click me to<br>show/hide categories
+			</div>
+		</h4>
+		<form name="subcategory-selection-form" id="subcategoryForm">
 			<div class="row subcat-row">
 				<div class="radio-inline radio subcat-inline-btns col-md-4" data-ng-repeat="(key, value) in vm.categoryMap">
 					<input type="radio" name="category" id="{{key}}" ng-value="key" ng-checked="key == 'VENUE'" ng-model="vm.subCategorySelected">
@@ -62,7 +72,7 @@
 </section>
 
 <!-- Recently Added section starts -->
-<section class="bg-grey row">
+<section class="bg-grey row recentlyAdded">
 	<h2 class="text-center theme-color-white">RECENTLY ADDED</h2>
 	<div ng-repeat="(key, value) in vm.recentlyAddedData" class="col-xs-10 col-sm-5 col-xs-offset-1 recently-added-section">
 		<div class="recently-added-category-name col-xs-12">

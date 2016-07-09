@@ -177,8 +177,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			if ((!vm.cityUntouched && vm.selectedCity) && (!vm.categoryUntouched && vm.selectedCategory)) {
 				$route.reload();
 				//baseFactory.setCoverUrl(vm.selectedCategory);
-				baseFactory.setMainCoverHeading(vm.selectedCategory);
-				if (vm.searchData == undefined || vm.searchData == null) {
+				//baseFactory.setMainCoverHeading(vm.selectedCategory);
+				if (vm.searchData == undefined || vm.searchData == null || vm.searchData == '') {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
 				} else {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
