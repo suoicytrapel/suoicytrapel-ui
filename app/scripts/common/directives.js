@@ -92,7 +92,7 @@ app.directive('swiperCarousel', function($timeout) {
 			slidesPerView : "@",
 			pagination : "@",
 			paginationClickable : "@",
-			autoplay : "@",
+			autoPlay : "@",
 			spaceBetween : "@",
 			breakpoints : "=",
 			paginationType : "@",
@@ -118,8 +118,8 @@ app.directive('swiperCarousel', function($timeout) {
 				propertiesObj.pagination = '.' + scope.pagination;
 			if (scope.paginationClickable)
 				propertiesObj.paginationClickable = Boolean(scope.paginationClickable);
-			if (scope.autoplay)
-				propertiesObj.autoplay = Number(scope.autoplay);
+			if (scope.autoPlay)
+				propertiesObj.autoplay = Number(scope.autoPlay);
 			if (scope.spaceBetween)
 				propertiesObj.spaceBetween = Number(scope.spaceBetween);
 			if (scope.breakpoints)

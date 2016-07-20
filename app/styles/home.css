@@ -614,13 +614,18 @@ blockquote .col-sm-9 {
 	height: 22px;
 	width: 22px;
 	top: 5px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+	border-radius: initial;
 }
 
 .radio label::after {
 	width: 16px;
 	height: 16px;
-	top: 8px;
-	background: #ee3e20;
+	top: -12px;
+	background-color: transparent;
+	content: '✓';
+    color: #269221;
+    font-size: 32px;
 }
 
 .radio label {
