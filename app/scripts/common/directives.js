@@ -109,7 +109,7 @@ app.directive('swiperCarousel', function($timeout) {
 			if (scope.effect)
 				propertiesObj.effect = scope.effect;
 			if (scope.grabCursor)
-				propertiesObj.grabCursor = Boolean(scope.grabCursor);
+				propertiesObj.grabCursor = scope.grabCursor === 'true' ? true : false;
 			if (scope.speed)
 				propertiesObj.speed = Number(scope.speed);
 			if (scope.slidesPerView)
@@ -117,7 +117,7 @@ app.directive('swiperCarousel', function($timeout) {
 			if (scope.pagination)
 				propertiesObj.pagination = '.' + scope.pagination;
 			if (scope.paginationClickable)
-				propertiesObj.paginationClickable = Boolean(scope.paginationClickable);
+				propertiesObj.paginationClickable = scope.paginationClickable === 'true' ? true : false;;
 			if (scope.autoPlay)
 				propertiesObj.autoplay = Number(scope.autoPlay);
 			if (scope.spaceBetween)
@@ -133,13 +133,13 @@ app.directive('swiperCarousel', function($timeout) {
 			if (scope.prevButton)
 				propertiesObj.prevButton = '.' + scope.prevButton;
 			if (scope.preloadImages)
-				propertiesObj.preloadImages = Boolean(scope.preloadImages);
+				propertiesObj.preloadImages = scope.preloadImages === 'true' ? true : false ;
 			if (scope.lazyLoading)
-				propertiesObj.lazyLoading = Boolean(scope.lazyLoading);
+				propertiesObj.lazyLoading = scope.lazyLoading === 'true' ? true : false;
 			if (scope.initialSlide)
 				propertiesObj.initialSlide = Number(scope.initialSlide);
 			if (scope.centeredSlides)
-				propertiesObj.centeredSlides = Boolean(scope.centeredSlides);
+				propertiesObj.centeredSlides = scope.centeredSlides === 'true' ? true : false;
 			/* Binding swiper to the element */
 			/* $timeout with time as 0ms will execute after the page has loaded
 			 * i.e. after all the ng-repeats have executed */
