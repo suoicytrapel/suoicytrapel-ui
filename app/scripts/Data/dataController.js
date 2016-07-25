@@ -1,4 +1,4 @@
-app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, filters, $routeParams, initiallyFetchedRecords, $timeout) {
+app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, $routeParams, response, $timeout) {
 
 	var vm = this;
 	$rootScope.showCover = true;
@@ -18,7 +18,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.offset = null;
 	$scope.pageSize = 6;
 	$scope.currentPage = 1;
-	vm.filters = filters;
+	vm.filters = response.filters;
+	vm.initiallyFetchedRecords = response.initiallyFetchedRecords;
 	vm.showServiceFilters = false;
 	vm.showEstablishmentFilters = true;
 	vm.showAmenityFilters = false;
@@ -37,6 +38,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showMoreFilters = false;
 	vm.smallScreen = false;
 	vm.openFilterRibbon = false;
+	vm.showPhotographFilters = true;
 	vm.selectedCategory = $routeParams.category;
 	
 	vm.detectScreenSize = function(){
@@ -62,7 +64,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			rentalList : [],
 			othersList : [],
 			capacityList : [],
-			catererTypeList : []
+			catererTypeList : [],
+			photographerTypeList : []
 		};
 		if (vm.offset == null) {
 			vm.offset = 1;
@@ -170,6 +173,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		angular.element('#catererTypeDiv').collapse('toggle');
 	};
 
+	vm.expandCollapsePhotographerTypeFilter = function() {
+		vm.showPhotographFilters = !vm.showPhotographFilters;
+		angular.element('#photographerTypeDiv').collapse('toggle');
+	};
+
 	$scope.pageChangeHandler = function(newPageNumber) {
 		$scope.currentPage = newPageNumber;
 		vm.offset = newPageNumber;
@@ -225,6 +233,9 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		for (var k in vm.filters.catererType) {
 			vm.filters.catererType[k].checked = false;
 		}
+		for (var k in vm.filters.photographerType) {
+			vm.filters.photographerType[k].checked = false;
+		}
 		vm.selectedFilters = {
 			serviceList : [],
 			localityList : [],
@@ -236,7 +247,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 			rentalList : [],
 			othersList : [],
 			capacityList : [],
-			catererTypeList : []
+			catererTypeList : [],
+			photographerTypeList : []
 		};
 		vm.fetchData(false);
 	};
@@ -297,6 +309,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 				vm.selectedFilters.catererTypeList.push(vm.filters.catererType[k].id);
 			}
 		}
+		for (var k in vm.filters.photographerType) {
+			if (vm.filters.photographerType[k].checked) {
+				vm.selectedFilters.photographerTypeList.push(vm.filters.photographerType[k].id);
+			}
+		}
 	};
 
 	vm.setRecordNumber = function() {
@@ -314,13 +331,13 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 
 	//vm.fetchData(false);
 	/* Populated data based on call written in resolve block */
-	if (initiallyFetchedRecords && !(initiallyFetchedRecords.errorCode)) {
-		vm.resultList = initiallyFetchedRecords.searchResponseDTOList;
-		vm.serviceList = initiallyFetchedRecords.services;
-		vm.totalRecords = initiallyFetchedRecords.resultCount;
+	if (vm.initiallyFetchedRecords && !(vm.initiallyFetchedRecords.errorCode)) {
+		vm.resultList = vm.initiallyFetchedRecords.searchResponseDTOList;
+		vm.serviceList = vm.initiallyFetchedRecords.services;
+		vm.totalRecords = vm.initiallyFetchedRecords.resultCount;
 		vm.setRecordNumber();
 	} else {
-		console.log(initiallyFetchedRecords.data.errorCode);
+		console.log(vm.initiallyFetchedRecords.data.errorCode);
 		vm.resultList = [];
 		vm.totalRecords = 0;
 	}

@@ -29,14 +29,14 @@ app.factory('baseFactory', function($location) {
 		'OTHERS' : 'fa-external-link-square',
 	};
 	
-	baseFactory.subCategoriesMap = {
+	/*baseFactory.subCategoriesMap = {
 		'VENUE' : ['hotels','restaurants','marriage-palaces','banquet-halls','clubs','others'],
 		'CATERER': ['veg','non-veg','bartender'],
 		 'DECORATOR': ['tenting','lighting','floral','candles','balloons'],
 		 'PHOTOGRAPHER': ['photography','videography'],
 		 'ENTERTAINMENT': ['dj','singers','dancers','musicians','choreographers','anchors','fireworks','other-acts'],
 		 'OTHERS' : ['makeup-artist','jewellery','invites','cab-services','ecoverage','gift-shops','trousseau-packer','accessories','mehendi-artist','clothing'], 
-	};
+	};*/
 	baseFactory.ourPortfolioImageUrls = {
 		'Happy-Birthday-Mrs-Kalra': {
 		'EventCover': '/images/rkb1.jpg',

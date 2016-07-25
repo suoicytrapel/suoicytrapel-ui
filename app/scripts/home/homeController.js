@@ -1,4 +1,4 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
@@ -7,7 +7,7 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		$rootScope.dataPageBreadCrumbPath = null;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
-		vm.subCategoriesMap = baseFactory.subCategoriesMap;
+		vm.subCategoriesMap = subCategories;
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.subCategorySelected = 'VENUE';
@@ -90,6 +90,13 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	
 	vm.showHideSubCategories = function(){
 		$('#subcategoryForm').slideToggle();
+	};
+
+	vm.setSelectedFilter = function (category, subcategory){
+		var filterName = subcategory.name;
+		DataFactory.setSelectedFilterName(filterName);
+		baseFactory.setSelectedCategory(category);
+		$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + category);
 	};
 	
 	vm.init();

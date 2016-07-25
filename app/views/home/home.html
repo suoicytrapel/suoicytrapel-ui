@@ -32,13 +32,13 @@
 				<div class="swiper-wrapper subcategory-swiper-wrapper">
 					<!-- Slides -->
 					<div class="swiper-slide subcategory-swiper-slide" ng-repeat="subcategory in value">
-						<a class="subcategory-icon-outer-background">
+						<a class="subcategory-icon-outer-background" ng-click="vm.setSelectedFilter(key,subcategory);">
 						<div class="subcategory-icon-border-inner-background">
 							<div class="subcategory-icon-inner-background">
-								<div class="subcategory-icon"  ng-class="'{{subcategory}}'"></div>
+								<div class="subcategory-icon"  ng-class="'{{subcategory.name}}'"></div>
 							</div>
 							<div class="subcategory-icon-text">
-							{{subcategory}}
+							{{subcategory.name}}
 						</div>
 						</div>
 						 </a>

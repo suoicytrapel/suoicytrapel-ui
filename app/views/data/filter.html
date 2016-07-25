@@ -4,7 +4,7 @@
 				<div ng-class="filter.checked ? 'checkbox checkbox-primary' : 'checkbox'" ng-repeat="filter in filterNodes">
 				    <input ng-model='filter.checked' type='checkbox'>
 				    <label>
-		            	<a class= "link-text-color" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
+		            	<a class= "link-text-color" style="text-transform: uppercase;" href="" ng-click="filter.checked = !filter.checked">{{filter.name}}</a>
 		        	</label>
 				</div>
 			</div>
