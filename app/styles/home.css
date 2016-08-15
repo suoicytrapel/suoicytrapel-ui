@@ -1,5 +1,10 @@
 /* Overriding styling for ui-widget for autocomplete */
 
+.vendors-subcategories{
+	background-position: center center;
+	background-image: url('/images/offeringsbg.jpg');	
+}
+
 /*shivani*/
 .venue_includes {
 	width: 80%;
@@ -8,6 +13,8 @@
 	bottom: 100px;
 	z-index: 2;
 	background: #EE3E20;
+	padding-top: 2em;
+	padding-bottom: 2em;
 	-webkit-transition: bottom 0.5s;
 	-moz-transition: bottom 0.5s;
 	-o-transition: bottom 0.5s;
