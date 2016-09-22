@@ -7,10 +7,10 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	$rootScope.breadCrumbLinks['Home'] = '/';
 	$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $location.path();
 	$rootScope.dataPageBreadCrumbPath = $location.path();
-	baseFactory.setCoverUrl($routeParams.category);
-	baseFactory.setMainCoverHeading($routeParams.category);
+	/* Updating base Factory on the basis of changes made on this page */
 	baseFactory.setSelectedCategory($routeParams.category);
 	baseFactory.setSelectedCity($routeParams.city);
+	
 	$scope.$emit('updateBaseControllerData', {
 		routeParamsCity : $routeParams.city,
 		routeParamsCategory : $routeParams.category

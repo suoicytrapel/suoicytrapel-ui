@@ -102,7 +102,8 @@ app.directive('swiperCarousel', function($timeout) {
 			preloadImages : "@",
 			lazyLoading : "@",
 			initialSlide : "@",
-			centeredSlides: "@"
+			centeredSlides: "@",
+			swiperObj: "=",
 		},
 		link : function(scope, elem, attr) {
 			var propertiesObj = {};
@@ -145,10 +146,43 @@ app.directive('swiperCarousel', function($timeout) {
 			 * i.e. after all the ng-repeats have executed */
 
 			$timeout(function() {
-				new Swiper(elem, propertiesObj);
+				scope.swiperObj = new Swiper(elem, propertiesObj);
 			}, 0);
 
 		}
 	};
 
+});
+
+/*
+ * Directive for Tile Component
+ *
+ * */
+app.directive('tileComponent',function(){
+	return {
+		template: '<div class="tile-comp-container" ng-mouseover="hoverOverElem();" ng-mouseleave="blurFromElem();"><a href="javascript:void(0)" class=""><img src="" alt=""></img><span class="subcategory-name"></span><div class="overlay_and_text" ng-show="showOverlay">Click to View</div></a></div>',
+		scope: {
+			width: '@',
+			height: '@',
+			source: '@',
+			hoverText: '@'
+		},
+		link: function(scope, element, attribute, controller){
+			var animationEffects = ['bounce','pulse','rubberBand','shake','swing','tada','wobble','bounceIn','zoomIn'];
+			scope.showOverlay = false;
+			scope.hoverOverElem = function(){
+				var randIndex = Math.floor((Math.random() * 10));
+				scope.showOverlay = true;
+				element.find('a').addClass('animated ' + animationEffects[randIndex]);
+			};
+			scope.blurFromElem = function(){
+				scope.showOverlay = false;
+				element.find('a').removeClass();
+			};
+			element.find('img').attr('src',scope.source);
+			element.find('.subcategory-name').text(scope.hoverText);
+
+		}
+	};
+	
 });

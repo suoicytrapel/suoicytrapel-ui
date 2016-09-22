@@ -5,9 +5,11 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		$rootScope.currentPage = 'homePage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.dataPageBreadCrumbPath = null;
+		vm.subcatSwiperObj = null;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
 		vm.subCategoriesMap = subCategories;
+		vm.mergedSubCategoriesMap = mergeSubCategoriesMap();
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.subCategorySelected = 'VENUE';
@@ -24,8 +26,8 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 				},
 				// when window width is <= 1199px
 				1199 : {
-					slidesPerView : 3,
-					spaceBetweenSlides : 10
+					slidesPerView : 4,
+					spaceBetweenSlides : 5
 				}
 		};
 		vm.showcaseSwiperCoverflow = {
@@ -35,6 +37,31 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 				modifier : 1,
 				slideShadows : true
 		};
+	};
+	
+	/* Method for updating subcategories carousel
+	 * when the user toggles category buttons */
+	
+	vm.updateSubCategories = function(event,subcategory){
+		angular.element(event.currentTarget).parent().toggleClass('active');
+		angular.element('.subcategory-swiper-slide.'+subcategory).toggleClass('invisible');
+		if(vm.subcatSwiperObj)
+		vm.subcatSwiperObj.update(true);
+	};
+	
+	/* Method to merge subCategories Map so that every 
+	   subcategory becomes the part of an object
+	   Done as per latest design to be shown on UI*/
+	  
+	function mergeSubCategoriesMap(){
+		var mergedList = [];
+		angular.forEach(vm.subCategoriesMap, function(value, key){
+			angular.forEach(value, function(value1, key1){
+				value1.parent = key.toLowerCase();
+				mergedList.push(value1);
+			});
+		});
+		return mergedList;
 	};
 
 	/* Listens to cityChangedEvent

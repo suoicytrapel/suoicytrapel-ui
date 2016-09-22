@@ -21,7 +21,8 @@ var app = angular
     'ui.router',
     'angularSpinner',
     'angularModalService',
-    '720kb.datepicker'
+    '720kb.datepicker',
+    'ngMaterial'
   ])
   
 app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {

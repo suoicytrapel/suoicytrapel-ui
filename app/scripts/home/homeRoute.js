@@ -1,5 +1,9 @@
-app.config(['$routeProvider', '$httpProvider', '$locationProvider',
-function($routeProvider, $httpProvider, $locationProvider) {
+app.config(['$routeProvider', '$httpProvider', '$locationProvider', '$mdThemingProvider',
+function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
+	
+	$mdThemingProvider.theme('default')
+    .primaryPalette('deep-orange')
+    .accentPalette('green');
 
 	$routeProvider.when('/', {
 		url : '/login',
@@ -297,6 +301,33 @@ function($routeProvider, $httpProvider, $locationProvider) {
 		url : '/faq',
 		controller : '',
 		templateUrl : 'views/faq/faq.html',
+		resolve : {
+			hideCover : function($rootScope) {
+				$rootScope.showCover = false;
+			}
+		}
+	}).when('/disclaimer/', {
+		url : '/disclaimer',
+		controller : '',
+		templateUrl : 'views/disclaimer/disclaimer.html',
+		resolve : {
+			hideCover : function($rootScope) {
+				$rootScope.showCover = false;
+			}
+		}
+	}).when('/privacy-policy/', {
+		url : '/privacy-policy',
+		controller : '',
+		templateUrl : 'views/privacypolicy/privacypolicy.html',
+		resolve : {
+			hideCover : function($rootScope) {
+				$rootScope.showCover = false;
+			}
+		}
+	}).when('/terms-of-use/', {
+		url : '/terms-of-use',
+		controller : '',
+		templateUrl : 'views/termsofuse/termsofuse.html',
 		resolve : {
 			hideCover : function($rootScope) {
 				$rootScope.showCover = false;

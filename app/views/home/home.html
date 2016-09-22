@@ -1,80 +1,51 @@
 <section class="row vendors-subcategories">
-	<div class="venue_includes clearfix">
-	<div class="col-xs-12">
-		<h2>WE PLAN YOUR MEMORIES</h2>
-		<hr>
-		<p>
-			We help you plan your memories the way you would like to cherish them in the future.
-			We bring you our vivid collection of vendors so that you can choose better.
-		</p>
-		<h4 class="theme-color-white subcategory-heading">TYPE OF VENDORS LISTED WITH US <span class="help-text hidden-sm hidden-xs" id="helpText">?</span>
-			<div class="mdl-tooltip" for="helpText">
-				Choose the vendor type<br>to see what all do we offer
-			</div>
-			<button id="showHideCatButn" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored pull-right mdl-button--mini-fab hidden-xs" ng-click="vm.showHideSubCategories();">
-  				<i class="material-icons">add</i>
-			</button>
-			<div class="mdl-tooltip" for="showHideCatButn">
-				Click me to<br>show/hide categories
-			</div>
-		</h4>
-		<form name="subcategory-selection-form" id="subcategoryForm">
-			<div class="row subcat-row">
-				<div class="radio-inline radio subcat-inline-btns col-md-4" data-ng-repeat="(key, value) in vm.categoryMap">
-					<input type="radio" name="category" id="{{key}}" ng-value="key" ng-checked="key == 'VENUE'" ng-model="vm.subCategorySelected">
-					<label for="{{key}}"> {{value}} </label>
-				</div>
-			</div>
-		</form>
-		<!-- Sub Category Carousel -->
-		<div class="subcategory-carousel">
-			<div class="swiper-container subcategory-swiper-container" data-ng-repeat="(key,value) in vm.subCategoriesMap" ng-class="'{{key}}'" data-ng-if="vm.subCategorySelected == key" swiper-carousel effect="slide" grab-cursor="false" speed="500" slides-per-view="3" pagination="{{key}}.subcategory-swiper-pagination" pagination-clickable="true" auto-play="2000" space-between="10" breakpoints="vm.subcategorySwiperBrkpoints">
-				<!-- Additional required wrapper -->
-				<div class="swiper-wrapper subcategory-swiper-wrapper">
-					<!-- Slides -->
-					<div class="swiper-slide subcategory-swiper-slide" ng-repeat="subcategory in value">
-						<a class="subcategory-icon-outer-background" ng-click="vm.setSelectedFilter(key,subcategory);">
-						<div class="subcategory-icon-border-inner-background">
-							<div class="subcategory-icon-inner-background">
-								<div class="subcategory-icon"  ng-class="'{{subcategory.name}}'"></div>
-							</div>
-							<div class="subcategory-icon-text">
-							{{subcategory.name}}
-						</div>
-						</div>
-						 </a>
-					</div>
-
-				</div>
-				<!-- If we need pagination -->
-				<!--
-				<a href="javascript:void(0)" class="swiper-button-prev subcategory-swiper-button-prev" ng-class="'{{key}}'"></a>
-				<a href="javascript:void(0)" class="swiper-button-next subcategory-swiper-button-next" ng-class="'{{key}}'"></a>-->
-				<div class="swiper-pagination subcategory-swiper-pagination" ng-class="'{{key}}'"></div>
-
-			</div>
+		<div class="subcategories-header col-xs-12">
+			<ul>
+				<li class="active"><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'venue')" class='venue-subcat'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'caterer')" class='caterer-subcat'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'decorator')" class='decorator-subcat'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'photographer')" class='photographer-subcat'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'entertainment')" class='entertainment-subcat'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'others')" class='others-subcat'></a></li>
+			</ul>
+			<p class="subcat-filter-text hidden-xs">FILTER: </p>
 		</div>
-	</div>
+	<div class="col-xs-12">
+		<!--<h2>OUR VENDORS</h2>
+		<hr>-->
+		
+		<!-- Sub Category Carousel -->
+		
+		<div class="subcategory-carousel">
+					<div class="swiper-container subcategory-swiper-container" swiper-carousel effect="slide" grab-cursor="false" speed="700" slides-per-view="3" pagination="subcategory-swiper-pagination" pagination-clickable="true" auto-play="5000" space-between="10" breakpoints="vm.subcategorySwiperBrkpoints" swiper-obj="vm.subcatSwiperObj">
+						
+						<div class="swiper-wrapper subcategory-swiper-wrapper">
+						
+							<div class="swiper-slide subcategory-swiper-slide {{listitem.parent}}" ng-repeat="listitem in vm.mergedSubCategoriesMap" ng-class="{'invisible': listitem.parent !== 'venue' }">
+								<a class="subcategory-icon-outer-background" ng-click="vm.setSelectedFilter(key,subcategory);">
+								<div class="subcategory-icon-border-inner-background">
+									<div class="subcategory-icon-inner-background">
+										<div class="subcategory-icon"  ng-class="listitem.name"></div>
+									</div>
+									<div class="subcategory-icon-text">
+									{{listitem.name}}
+								</div>
+								</div>
+								 </a>
+							</div>
+		
+						</div>
+						
+						<div class="swiper-pagination subcategory-swiper-pagination" ng-class="'{{key}}'"></div>
+		
+					</div>
+				</div>
 	</div>
 </section>
 
-<!-- LePartycious section starts -->
-<section class="container text-center welcome">
-	<h2 class="theme-color-white">NAMASTEY !! LEPARTYCIOUS WELCOMES YOU</h2>
-	<p>
-		Established in October 2015, LePartycious is an online platform for planning events which provides you with the relevant
-
-		information regarding different venues, caterers, photographers, decorators and much more. Its all about bringing all the vendors under
-
-		one roof so that they coordinate well and work towards the success story of an event.
-		So precisely we are here to make your work convenient and hassel free by helping you choose from the diversified options
-
-		available, at the same time meeting your budget too.
-	</p>
-</section>
 
 <!-- Recently Added section starts -->
-<section class="bg-grey row recentlyAdded">
+<!--<section class="bg-grey row recentlyAdded">
 	<h2 class="text-center theme-color-white">RECENTLY ADDED</h2>
 	<div ng-repeat="(key, value) in vm.recentlyAddedData" class="col-xs-10 col-sm-5 col-xs-offset-1 recently-added-section">
 		<div class="recently-added-category-name col-xs-12">
@@ -86,7 +57,7 @@
 			</li>
 		</ul>
 	</div>
-</section>
+</section>-->
 
 <!-- Services section starts -->
 <section class="row bg-grey all_Services">
@@ -158,9 +129,10 @@
 <!-- feedback section starts -->
 <div class="container feedback_section">
 	<div class="row">
-		<div class='col-md-offset-2 col-md-8 text-center'>
-			<h2>What Our Customers Have To Say</h2>
+		<div class="h2 theme-color text-center">
+			WORLD IS BUZZING
 
+			<hr>
 		</div>
 	</div>
 	<div class='row'>
@@ -168,59 +140,51 @@
 			
 		
 		<!-- Applying swiper Carousel -->
-		<div class="swiper-container customerssay-swiper-container" swiper-carousel speed="300" space-between="0" auto-play="3000" effect="slide" pagination="customerssay-swiper-pagination" pagination-type="bullets" pagination-clickable="true">
+		<div class="swiper-container customerssay-swiper-container" swiper-carousel speed="700" space-between="0" auto-play="10000" effect="slide" pagination="customerssay-swiper-pagination" pagination-type="bullets" pagination-clickable="true">
 		<!-- Additional required wrapper -->
 		<div class="swiper-wrapper customerssay-swiper-wrapper">
 			<!-- Slides -->
 			<div class="swiper-slide customerssay-swiper-slide">
-				<blockquote>
-							<div class="row">
-								<div class="col-sm-3 text-center">
-									<img class="img-circle" src="../../images/128.jpg" style="width: 100px;height:100px;">
-									<!--<img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" style="width: 100px;height:100px;">-->
-								</div>
-								<div class="col-sm-9">
-									<p>
-										Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!
-									</p>
-									<small>Someone famous</small>
-								</div>
-							</div>
-						</blockquote>
+				<div class="row">
+				<div class="events-space-online col-xs-10 col-sm-8 col-md-8 col-xs-offset-1 col-sm-offset-2" md-whiteframe="4">
+					<p class="text-justify">
+						<!-- Reference:  https://inc42.com/resources/technology-changing-event-industry-india/ -->
+						Organizing an event does not need to be like flying blind without a parachute! There are enough mobile and web apps available to make your event as suave and techy as flying in an Iron Man suit with Jarvis guiding the way!
+					</p>
+				</div>
+				</div>
+				<div class="row">
+				<img src="/images/inc42-logo.png" alt="inc42-logo" class="col-xs-offset-1 col-sm-offset-2" style="border: 1px solid #656565;"/>
+				</div>
 			</div>
 			<!-- quote2 -->
 			<div class="swiper-slide customerssay-swiper-slide">
-				<blockquote>
-							<div class="row">
-								<div class="col-sm-3 text-center">
-									<img class="img-circle" src="../../images/129.jpg" style="width: 100px;height:100px;">
-								</div>
-								<div class="col-sm-9">
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam auctor nec lacus ut tempor. Mauris.
-									</p>
-									<small>Someone famous</small>
-								</div>
-							</div>
-						</blockquote>
+				<div class="row">
+				<div class="events-space-online col-xs-10 col-sm-8 col-xs-offset-1 col-sm-offset-2" md-whiteframe="4">
+					<p class="text-justify">
+						<!-- Reference:  https://www.entrepreneur.com/article/250863 -->
+						Marriages are made in heaven then planned, organised and solemnised on earth – So far, this used to be the story we all grew up hearing. But that is gradually changing. The pain of planning and organising the entire wedding by oneself or through a traditional wedding planner who charge exorbitantly is now getting mitigated – Courtesy, a string of online wedding planning start-ups aiming to grab a share of around Rs 2.5-lakh crore Indian wedding market.
+					</p>
+				</div>
+				</div>
+				<div class="row">
+				<img src="/images/entrepreneur-india-logo.png" alt="entrepreneur-india-logo" class="col-xs-offset-1 col-sm-offset-2" style=""/>
+				</div>
 			</div>
 			<!-- quote3 -->
 			<div class="swiper-slide customerssay-swiper-slide">
-				<blockquote>
-							<div class="row">
-								<div class="col-sm-3 text-center">
-									<img class="img-circle" src="../../images/130.jpg" style="width: 100px;height:100px;">
-								</div>
-								<div class="col-sm-9">
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum elit in arcu blandit, eget pretium nisl accumsan. Sed ultricies commodo tortor, eu pretium mauris.
-									</p>
-									<small>Someone famous</small>
-								</div>
-							</div>
-						</blockquote>
+				<div class="row">
+				<div class="events-space-online col-xs-10 col-sm-8 col-xs-offset-1 col-sm-offset-2" md-whiteframe="4">
+					<p class="text-justify">
+						<!-- Reference:  https://yourstory.com/2016/04/wedding-startups-india/ -->
+						Ever ask a newlywed couple about the wedding preparation, and the answer is bound to be ‘overwhelming’. Choosing the perfect wedding dress, jewellery, unique invitations, caterers, photographers or venue, even pundits can be daunting. This is where online wedding platforms step in.
+					</p>
+				</div>
+				</div>
+				<div class="row">
+				<img src="/images/your-story-logo.png" alt="your-story-logo" class="col-xs-offset-1 col-sm-offset-2" style="border: 1px solid #656565;"/>
+				</div>
 			</div>
-
 		</div>
 		<!-- If we need pagination -->
 		<div class="swiper-pagination customerssay-swiper-pagination"></div>

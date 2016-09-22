@@ -33,12 +33,12 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-9">
 						<div class="row details-basicinfo-contnr">
-							<div class="col-xs-2">
+							<div class="hidden-xs col-sm-2">
 								<div class="detail-category-icon-contnr" title="{{vm.category}}">
 									{{vm.categoryInitials}}
 								</div>
 							</div>
-							<div class="col-xs-10 details-basicinfo-right-panel">
+							<div class="col-xs-12 col-sm-10 details-basicinfo-right-panel">
 								<h2 class="details-name">{{vm.detailedData.name}}</h2>
 								<div class="details-address">
 									{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
@@ -578,28 +578,25 @@
 							<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
 							<div class="pamphlet-container">
 								<div class="pamphlet-header">
-									<div class="featured-ribbon">
-										<span class="featured-ribbon-text">LEPARTYCIOUS</span>
-									</div>
-									<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
+									<div class="featured-ribbon"><span class="featured-ribbon-text">HAND PICKED</span></div>
+									<div class="vendor-cover-img" style="background-image: url('{{vm.getImageURL(reccomendation.mainImagerURL)}}')" class="vertical-center"></div>
+								<!--<div class="pamphlet-title-price" ng-if="result.startingPrice"><span class="fa fa-fw fa-inr"></span>{{result.startingPrice}}</div>
+								<div class="pamphlet-title-price" ng-if="!result.startingPrice">Get Quote</div>-->
+									<!--<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">-->
 								</div>
 								<div class="pamphlet-body">
-									<div class="pamphlet-body">
-										<div class="pamphlet-title col-xs-12 text-center recommended-small-font">
+									
+										<div class="pamphlet-title text-center">
 											<div class="row">
-												<div class="col-xs-8 text-left pamphlet-title-desc">
-													<div>
-														{{reccomendation.name}}
-													</div><span class="pamphlet-title-city">{{reccomendation.locality}}</span>
+												
+												<div class="col-xs-12 text-left pamphlet-title-desc" ng-if="vm.selectedCategory == 'VENUE'"><div title="{{reccomendation.name}}, {{reccomendation.locality}}" class="theme-color" style="font-size: 15px;">{{reccomendation.name}}</div><div class="pamphlet-title-city">{{reccomendation.locality}}</div>
 												</div>
-												<div class="col-xs-4 text-left pamphlet-title-price border-left-1px">
-													<div>
-														Starts from
-													</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span>
-												</div>
+									<div class="col-xs-12 text-left pamphlet-title-desc" ng-if="vm.selectedCategory != 'VENUE'"><div title="{{reccomendation.name}}, {{reccomendation.locality}}" class="theme-color" style="font-size: 15px;">{{reccomendation.name}}</div><div class="pamphlet-title-city">{{reccomendation.locality}}</div>
+									
+									</div>
 											</div>
 										</div>
-									</div>
+									
 								</div>
 								<div class="pamphlet-footer"></div>
 							</div> </a>

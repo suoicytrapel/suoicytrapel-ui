@@ -49,6 +49,33 @@
 	padding-bottom: 20px;
 }
 
+.disclaimer #coverPage,
+.privacypolicy #coverPage,
+.termsofuse #coverPage{
+	height: 50vh !important;
+}
+
+.termsofuse ul{
+	padding: initial;
+    margin: initial;
+    list-style: initial;
+    list-style-type: initial;
+    line-height: initial;
+    -webkit-padding-start: 40px;
+}
+
 .faq-cover{
 	background-image: url('/images/faq_cover.jpg') !important;
+}
+
+.disclaimer-cover{
+	background-image: url('/images/disclaimer.jpg') !important;
+}
+
+.termsofuse-cover{
+	background-image: url('/images/tou.jpg') !important;
+}
+
+.privacypolicy-cover{
+	background-image: url('/images/privacypolicy.jpg') !important;
 }
