@@ -1006,6 +1006,81 @@ md-autocomplete input:not(.md-input){
 	height: 100%;
 }
 
+.vendor_dropdown_icons{
+	height: 28px;
+	width: 28px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.vendor_type .md-text{
+	width: 100%;
+}
+
+.md-select-menu-container .venue.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/venue_inactive.png');
+}
+
+.md-select-menu-container .caterer.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/caterer_inactive.png');
+}
+
+.md-select-menu-container .decorator.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/decorator_inactive.png');
+}
+
+.md-select-menu-container .photographer.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/photographer_inactive.png');
+}
+
+.md-select-menu-container .entertainment.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/entertainment_inactive.png');
+}
+
+.md-select-menu-container .others.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/others_inactive.png');
+}
+
+.md-select-value .venue.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/venue_active.png');
+}
+
+.md-select-value .caterer.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/caterer_active.png');
+}
+
+.md-select-value .decorator.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/decorator_active.png');
+}
+
+.md-select-value .photographer.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/photographer_active.png');
+}
+
+.md-select-value .entertainment.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/entertainment_active.png');
+}
+
+.md-select-value .others.vendor_dropdown_icons{
+	background-image: url('/images/vendor_dropdown_icons/others_active.png');
+}
+
+.md-select-value .vendor-title{
+	color: #EE3E20;
+}
+
+.md-select-value .venue.vendor_dropdown_icons,
+.md-select-value .caterer.vendor_dropdown_icons{
+	    margin-left: 4px;
+}
+
+.vendor-type-dropdown .md-select-value span{
+	margin-left: 2px;
+}
+
+.md-select-value .horiz-gap{
+	display: none;
+}
 
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {

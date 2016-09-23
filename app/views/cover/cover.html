@@ -71,8 +71,12 @@
 								<!--<md-input-container class="md-block vendor-type-dropdown">
 								<label>Vendor</label>-->
 								<md-select name="vendor" ng-model="vm.selectedCategory" ng-change="vm.setCategory()" class="md-no-underline vendor-type-dropdown" placeholder="Vendor" md-no-asterisk="true">
-									<md-option value="{{key}}" ng-repeat = '(key, value) in vm.categoryMap'>
-										{{value}}
+									<md-option value="{{key}}" ng-repeat = '(key, value) in vm.categoryMap' class="{{key | lowercase}} vendor_type">
+										<div layout="row" layout-align="center center">
+											<div class="vendor-title">{{value}}</div>
+											<span flex class="horiz-gap"></span>
+										<div class="vendor_dropdown_icons {{key | lowercase}}"></div>
+										</div>
 									</md-option>
 
 								</md-select>
