@@ -168,9 +168,16 @@ blockquote:after{
 	color: #ffffff;
 }
 .theme-color  hr{    width: 10%;
-    border-top: 3px solid #848484;
+    border-top: 3px solid #ee3e20;
     margin-top: 32px;
     margin-bottom: 50px;}
+
+.theme-color-white hr{
+	    width: 10%;
+    border-top: 3px solid #ffffff;
+    margin-top: 32px;
+    margin-bottom: 50px;
+}    
 	
 .bg-grey {
 	background-color: #EEEEEE;
@@ -178,6 +185,10 @@ blockquote:after{
 
 .marginTopBottom20{
 	margin: 20px 0px;
+}
+
+.marginBottom20{
+	margin-bottom: 20px;
 }
 
 .fontSize16{

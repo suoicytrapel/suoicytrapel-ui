@@ -135,7 +135,8 @@
 }
 
 .portfolio_section {
-	background-image: linear-gradient(rgba(0, 0, 0, 0.72),rgba(0, 0, 0, 0.83)), url('/images/portfolio_bg.jpg');
+	/*background-image: linear-gradient(rgba(0, 0, 0, 0.72),rgba(0, 0, 0, 0.83)), url('/images/portfolio_bg.jpg');*/
+	background-image: url('/images/portfolio_bg.jpg');
 	background-repeat: no-repeat !important;
 	background-size: cover !important;
 	background-position: center center;
@@ -153,7 +154,7 @@
 
 .services_text  hr {
 	width: 10%;
-	border-top: 3px solid #848484;
+	border-top: 3px solid #ffffff;
 	margin-top: 32px;
 	margin-bottom: 50px;
 	margin-left: auto;
@@ -238,27 +239,27 @@ blockquote .col-sm-9 {
 }
 
 #coverPage .cover-swiper-wrapper .cover-swiper-slide:nth-child(1) {
-	background-image: url('/images/main_cover.jpg') !important;
+	background-image: url('/images/mainpage_covers/mainpagecover1.jpg') !important;
 }
 
 #coverPage .cover-swiper-wrapper .cover-swiper-slide:nth-child(2) {
-	background-image: url('/images/venues_cover.jpg') !important;
+	background-image: url('/images/mainpage_covers/mainpagecover2.jpg') !important;
 }
 
 #coverPage .cover-swiper-wrapper .cover-swiper-slide:nth-child(3) {
-	background-image: url('/images/caterer_cover.jpg') !important;
+	background-image: url('/images/mainpage_covers/mainpagecover3.jpg') !important;
 }
 
 #coverPage .cover-swiper-wrapper .cover-swiper-slide:nth-child(4) {
-	background-image: url('/images/decor_cover.jpg') !important;
+	background-image: url('/images/mainpage_covers/mainpagecover4.jpg') !important;
 }
 
 #coverPage .cover-swiper-wrapper .cover-swiper-slide:nth-child(5) {
-	background-image: url('/images/photography_cover.jpg') !important;
+	background-image: url('/images/mainpage_covers/mainpagecover5.jpg') !important;
 }
 
 #coverPage .cover-swiper-wrapper .cover-swiper-slide:nth-child(6) {
-	background-image: url('/images/rentals_cover.jpg') !important;
+	background-image: url('/images/mainpage_covers/mainpagecover6.jpg') !important;
 }
 
 #coverPage .content-wrapper {
@@ -359,6 +360,10 @@ blockquote .col-sm-9 {
 	display: inline-block;
 	width: 128px;
 	height: 128px;
+}
+
+.lp-event-icon{
+	background-image: url('/images/event.png');
 }
 
 .lp-venue-icon {
@@ -726,6 +731,34 @@ blockquote .col-sm-9 {
     margin: 0;
     line-height: 27px;
 }
+
+.howitworks-step1,
+.howitworks-step2,
+.howitworks-step3{
+	height: 300px;
+	width: 270px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin: auto;
+	}
+	
+.howitworks-step1{
+	background-image: url('/images/howitworks-step1.png');
+}
+
+.howitworks-step2{
+	background-image: url('/images/howitworks-step2.png');
+}
+
+.howitworks-step3{
+	background-image: url('/images/howitworks-step3.png');
+}
+
+.howitworks-step1:hover,
+.howitworks-step2:hover,
+.howitworks-step3:hover{ /* applied as per md-whiteframe='12' */
+	box-shadow: 0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12);
+}	
 
 @media only screen and (min-width: 0px) and (max-width: 767px) {
 	#coverPage .home-search-btn {

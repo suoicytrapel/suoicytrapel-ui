@@ -39,42 +39,42 @@ app.factory('baseFactory', function($location) {
 	};*/
 	baseFactory.ourPortfolioImageUrls = {
 		'Happy-Birthday-Mrs-Kalra': {
-		'EventCover': '/images/rkb1.jpg',
-		'Happy Bithday Mrs Kalra Moment2': '/images/rkb2.jpg',
-		'Happy Bithday Mrs Kalra Moment3': '/images/rkb3.jpg',
-		'Happy Bithday Mrs Kalra Moment4': '/images/rkb4.jpg',
-		'Happy Bithday Mrs Kalra Moment5': '/images/rkb5.jpg',	
+		'EventCover': '/images/rkb/rkb1.jpg',
+		'Happy Bithday Mrs Kalra Moment2': '/images/rkb/rkb2.jpg',
+		'Happy Bithday Mrs Kalra Moment3': '/images/rkb/rkb3.jpg',
+		'Happy Bithday Mrs Kalra Moment4': '/images/rkb/rkb4.jpg',
+		'Happy Bithday Mrs Kalra Moment5': '/images/rkb/rkb5.jpg',	
 },
 
 'Gurmeet-Weds-Ravleen':{
-		'EventCover': '/images/gws1.jpg',	
-		'Gurmeet Weds Ravleen Moment2': '/images/gws2.jpg',
-		'Gurmeet Weds Ravleen Moment3': '/images/gws3.jpg',
-		'Gurmeet Weds Ravleen Moment4': '/images/gws4.jpg',
-		'Gurmeet Weds Ravleen Moment5': '/images/gws5.jpg',
-		'Gurmeet Weds Ravleen Moment6': '/images/gws6.jpg',
+		'EventCover': '/images/gws/gws1.jpg',	
+		'Gurmeet Weds Ravleen Moment2': '/images/gws/gws2.jpg',
+		'Gurmeet Weds Ravleen Moment3': '/images/gws/gws3.jpg',
+		'Gurmeet Weds Ravleen Moment4': '/images/gws/gws4.jpg',
+		'Gurmeet Weds Ravleen Moment5': '/images/gws/gws5.jpg',
+		'Gurmeet Weds Ravleen Moment6': '/images/gws/gws6.jpg',
 		
 },
 'Mehul-Weds-Uma':{
-		'EventCover': '/images/mwu1.jpg',
-		'Mehul Weds Uma Moment2': '/images/mwu2.jpg',
-		'Mehul Weds Uma Moment3': '/images/mwu3.jpg',
-		'Mehul Weds Uma Moment4': '/images/mwu4.jpg',
+		'EventCover': '/images/mwu/mwu1.jpg',
+		'Mehul Weds Uma Moment2': '/images/mwu/mwu2.jpg',
+		'Mehul Weds Uma Moment3': '/images/mwu/mwu3.jpg',
+		'Mehul Weds Uma Moment4': '/images/mwu/mwu4.jpg',
 		
-		'Mehul Weds Uma Moment5': '/images/mwu5.jpg',	
-		'Mehul Weds Uma Moment6': '/images/mwu6.jpg',
+		'Mehul Weds Uma Moment5': '/images/mwu/mwu5.jpg',	
+		'Mehul Weds Uma Moment6': '/images/mwu/mwu6.jpg',
 },
 'New-Year-Bash-2016':{
-		'EventCover': '/images/nyb1.jpg',
-		'New Year Bash 2016 Moment2': '/images/nyb2.jpg',
-		'New Year Bash 2016 Moment3': '/images/nyb3.jpg',
+		'EventCover': '/images/nyb/nyb1.jpg',
+		'New Year Bash 2016 Moment2': '/images/nyb/nyb2.jpg',
+		'New Year Bash 2016 Moment3': '/images/nyb/nyb3.jpg',
 		
-		'New Year Bash 2016 Moment4': '/images/nyb4.jpg',
-		'New Year Bash 2016 Moment5': '/images/nyb5.jpg',	
+		'New Year Bash 2016 Moment4': '/images/nyb/nyb4.jpg',
+		'New Year Bash 2016 Moment5': '/images/nyb/nyb5.jpg',	
 },
 'Lohri-2016':{
-	'EventCover' : '/images/lohri1.jpg',
-	'Lohri 2016 Moment2': '/images/lohri2.jpg',
+	'EventCover' : '/images/lohri/lohri1.jpg',
+	'Lohri 2016 Moment2': '/images/lohri/lohri2.jpg',
 },
 
 };
