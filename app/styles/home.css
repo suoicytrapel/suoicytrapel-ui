@@ -487,6 +487,10 @@ blockquote .col-sm-9 {
  }
  */
 
+.subcategory-swiper-slide{
+	padding-bottom: 70px;
+}
+
 .subcategory-icon-text {
 	text-align: center;
 	text-transform: uppercase;
@@ -501,10 +505,32 @@ blockquote .col-sm-9 {
 .subcategory-icon {
 	/*background-image: url('/images/subcategory-icons.png');*/
 	background-repeat: no-repeat;
-	height: 285px;
+	height: 238px;
 	width: 214px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.left-side-connector{
+	    height: 50%;
+    width: 50%;
+    border: 1px solid #ffffff;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    border-bottom: 0px;
+    border-right: 0px;
+}
+
+.right-side-connector{
+	    height: 50%;
+    width: 50%;
+    border: 1px solid #ffffff;
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    border-bottom: 0px;
+    border-left: 0px;
 }
 
 /* Venue subcategory */

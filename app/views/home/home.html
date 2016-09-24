@@ -1,12 +1,12 @@
 <section class="row vendors-subcategories">
 		<div class="subcategories-header col-xs-12">
 			<ul>
-				<li class="active"><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'venue')" class='venue-subcat'></a></li>
-				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'caterer')" class='caterer-subcat'></a></li>
-				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'decorator')" class='decorator-subcat'></a></li>
-				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'photographer')" class='photographer-subcat'></a></li>
-				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'entertainment')" class='entertainment-subcat'></a></li>
-				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'others')" class='others-subcat'></a></li>
+				<li class="active"><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'venue')" class='venue-subcat' title='venue'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'caterer')" class='caterer-subcat' title='caterer'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'decorator')" class='decorator-subcat' title='decorator'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'photographer')" class='photographer-subcat' title='photographer'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'entertainment')" class='entertainment-subcat' title='entertainment'></a></li>
+				<li><a href="javascript:void(0)" ng-click="vm.updateSubCategories($event,'others')" class='others-subcat' title='others'></a></li>
 			</ul>
 			<p class="subcat-filter-text hidden-xs">FILTER: </p>
 		</div>
@@ -25,7 +25,7 @@
 								<a class="subcategory-icon-outer-background" ng-click="vm.setSelectedFilter(key,subcategory);">
 								<div class="subcategory-icon-border-inner-background">
 									<div class="subcategory-icon-inner-background">
-										<div class="subcategory-icon"  ng-class="listitem.name"></div>
+										<div class="subcategory-icon"  ng-class="listitem.name" md-whiteframe="8"></div>
 									</div>
 									<div class="subcategory-icon-text">
 									{{listitem.name}}
@@ -67,7 +67,21 @@
 
 			<hr>
 		</div>
-
+		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons hidden-sm hidden-xs" style="height: 229px;">
+			<div class="left-side-connector"></div>
+		</div>	
+		<div class="col-xs-12 col-md-4 text-center home-page-icons">
+			<div>
+				<span class="lp-event-icon lp-sprite"></span>
+			</div>
+			<h3>YOUR EVENT</h3>
+			<p>
+				A success story
+			</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons hidden-sm hidden-xs" style="height: 229px;">
+			<div class="right-side-connector"></div>
+		</div>	
 		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons">
 			<div>
 				<span class="lp-venue-icon lp-sprite"></span>
@@ -76,6 +90,8 @@
 			<p>
 				A perfect venue for you
 			</p>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons hidden-sm hidden-xs" style="height: 229px;">
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons">
 			<div>
@@ -95,7 +111,8 @@
 				Delicious options to choose from
 			</p>
 		</div>
-
+		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons hidden-sm hidden-xs" style="height: 229px;">
+		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons">
 			<div>
 				<span class="lp-photography-icon lp-sprite"></span>
@@ -114,6 +131,8 @@
 				Feeling the beats within you
 			</p>
 		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons hidden-sm hidden-xs" style="height: 229px;">
+		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 home-page-icons">
 			<div>
 				<span class="lp-others-icon lp-sprite"></span>
@@ -123,15 +142,7 @@
 				Small things, large impact
 			</p>
 		</div>
-			<div class="col-xs-12 text-center home-page-icons">
-			<div>
-				<span class="lp-event-icon lp-sprite"></span>
-			</div>
-			<h3>YOUR EVENT</h3>
-			<p>
-				A success story
-			</p>
-		</div>
+			
 	</div>
 </section>
 
