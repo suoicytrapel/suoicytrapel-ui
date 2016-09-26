@@ -498,6 +498,10 @@ ul.details-page-social-section {
 	top: 80px;
 }
 
+.details-fixed-component.relative{
+	position: relative;
+}
+
 .details-fixed-component li {
 	padding: 12px;
 	background-color: #eeeeee;

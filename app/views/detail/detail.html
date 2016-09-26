@@ -121,22 +121,22 @@
 				<div class="fixed-tabs-container" id="left_nav_container">
 					<ul class="side-nav-fixed nav">
 						<li>
-							<a href="#facilities"><span class="fa fa-fw fa-gears"></span>Facilities</a>
+							<a  href="#facilities" ng-click="vm.leftNavContClkHandler($event, 'facilities');"><span class="fa fa-fw fa-gears"></span>Facilities</a>
 						</li>
 						<li>
-							<a href="#description"><span class="fa fa-fw fa-align-left"></span>Description</a>
+							<a  href="#description" ng-click="vm.leftNavContClkHandler($event, 'description');"><span class="fa fa-fw fa-align-left"></span>Description</a>
 						</li>
 						<li ng-if="vm.detailedData.amenityDetailsTabMap">
-							<a href="#areas"><span class="fa fa-fw fa-university"></span>Lawns, Halls &amp; Rooms</a>
+							<a href="#areas" ng-click="vm.leftNavContClkHandler($event, 'areas');"><span class="fa fa-fw fa-university"></span>Lawns, Halls &amp; Rooms</a>
 						</li>
 						<li ng-if="vm.selectedCategory == 'VENUE' || vm.selectedCategory == 'CATERER'">
-							<a href="#foodBeverages"><span class="fa fa-fw fa-cutlery"></span>Food &amp; Beverages</a>
+							<a  href="#foodBeverages" ng-click="vm.leftNavContClkHandler($event, 'foodBeverages');"><span class="fa fa-fw fa-cutlery"></span>Food &amp; Beverages</a>
 						</li>
 						<li ng-if="vm.detailedData.additionalServices || vm.detailedData.additionalInfo">
-							<a href="#additionalInfo"><span class="fa fa-fw fa-info-circle"></span>Additional Info</a>
+							<a href="#additionalInfo" ng-click="vm.leftNavContClkHandler($event, 'additionalInfo');"><span class="fa fa-fw fa-info-circle"></span>Additional Info</a>
 						</li>
 						<li>
-							<a href="#policies"><span class="fa fa-fw fa-file"></span>Booking Policies</a>
+							<a href="#policies" ng-click="vm.leftNavContClkHandler($event, 'policies');"><span class="fa fa-fw fa-file"></span>Booking Policies</a>
 						</li>
 					</ul>
 				</div>

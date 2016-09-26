@@ -67,22 +67,46 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		$scope.form = {};
 
 	};
-	vm.defineListeners = function() {
+	
+	/* Defining listener after view is loaded successfully
+	 * This event is broadcasted from baseCOntroller
+	 *  */
+	$scope.$on('viewLoadedSuccessfully',function(){
+			var fixedStartLimit, fixedEndLimit, fixedElemWidth, fixedElemHeight, contentHeight;
+			
+			/* Subtracting 100 so as to subtract the height of header which is 80 and 20 extra*/
+			fixedStartLimit = $('.detail-info-section').offset().top + $('.detail-info-section').height() - 100;
+			fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
+			fixedElemWidth = $('.details-fixed-component').width();
+			fixedElemHeight = $('.details-fixed-component').height();
+			contentHeight = $('.details-tabs-content').height();
+
 
 		$(window).on('scroll', function() {
-			/* Subtracting 100 so as to subtract the height of header which is 80 and 20 extra*/
-			/* Subtracting window height/2 so that the below content should not get impacted */
-			var fixedStartLimit = $('.detail-info-section').offset().top + $('.detail-info-section').height() - 100;
-			var fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
-			var fixedElemWidth = $('.details-fixed-component').width();
+						
 
-			if ($(window).scrollTop() < fixedStartLimit || $(window).scrollTop() > fixedEndLimit)
-				$('.details-fixed-component').removeClass('sticky');
+			if ($(window).scrollTop() < fixedStartLimit || $(window).scrollTop() > fixedEndLimit){
+				$('.details-fixed-component').removeClass('sticky relative');
+				$('.details-fixed-component').css('top','initial');
+			}	
 			else {
-				$('.details-fixed-component').addClass('sticky');
+				if($(window).scrollTop() > (fixedEndLimit - fixedElemHeight)){
+					$('.details-fixed-component').css('top',(contentHeight - fixedElemHeight -25));
+					$('.details-fixed-component').removeClass('sticky').addClass('relative');
+				}
+				else{
+				$('.details-fixed-component').css('top','80px');
+				$('.details-fixed-component').removeClass('relative').addClass('sticky');
+				}
 				$('.details-fixed-component').width(fixedElemWidth);
 			}
 		});
+		
+		});
+	
+	vm.defineListeners = function() {
+		
+		
 
 		vm.openGallery = function(index) {
 			$window.ga('send', 'event', 'View Gallery', 'File Name');
@@ -168,20 +192,16 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 		});
 
-		$("#left_nav_container ul li a[href^='#']").on('click', function(e) {
-
-			// prevent default anchor click behavior
-			e.preventDefault();
-
-			// store hash
-			var hash = this.hash;
-
-			// animate
-			$('html, body').animate({
-				scrollTop : $(hash).offset().top - 100
+	};
+	
+	vm.leftNavContClkHandler = function(event, tab){
+		$('html, body').animate({
+				scrollTop : $('#'+ tab).offset().top - 100
 			}, 300);
-
-		});
+			/* href is important for scrollspy */
+			/* so for disabling the page navigation through href below two statements are necessary */
+			event.preventDefault();
+			return false;
 	};
 	vm.fetchDetails = function() {
 		if (details && !(details.error)) {

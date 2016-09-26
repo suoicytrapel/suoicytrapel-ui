@@ -67,15 +67,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$rootScope.$on("$routeChangeSuccess", function() {
 
 			vm.showFooter = true;
-			window.scrollTo(0, 0);
 			vm.routeChangeSuccessInvoked = true;
 			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/' || $location.path() == '/disclaimer/' || $location.path() == '/privacy-policy/' || $location.path() == '/terms-of-use/')
 				vm.pageDataPopulated = true;
 			else if ($location.path() == '/')
 				applyAutocomplete();
 			if ((vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated) || $location.path() == '/bad-request/')
-				vm.stopLoader();
-
+				vm.stopLoader();	
+			$timeout(function(){
+				$scope.$broadcast('viewLoadedSuccessfully');
+			},100);
 		});
 
 		/*
@@ -128,6 +129,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
 				vm.stopLoader();
 		});
+		
+		/*
+		 * called when the page unloads
+		 * is used to scroll up the page as soon as the user hits refresh
+		 *
+		 * */
+		$(window).on('unload', function() {
+			$(window).scrollTop(0);
+		});
 
 	};
 
@@ -173,18 +183,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.vendorSearchClickHandlr = function() {
-			
-			if(!vm.selectedCity){
-				$timeout(function(){
-				angular.element('.location-button').triggerHandler('click');
-			},0);
-			}
-			else if(!vm.selectedCategory){
-				$timeout(function(){
-				angular.element('.vendor-type-dropdown').triggerHandler('click');
-			},0);
-			}
-			else{
+
+			if (!vm.selectedCity) {
+				$timeout(function() {
+					angular.element('.location-button').triggerHandler('click');
+				}, 0);
+			} else if (!vm.selectedCategory) {
+				$timeout(function() {
+					angular.element('.vendor-type-dropdown').triggerHandler('click');
+				}, 0);
+			} else {
 				if (!vm.searchData) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
 				} else {
@@ -200,7 +208,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * different option from city dropdown
 		 *
 		 * */
-		vm.setCity = function() {			
+		vm.setCity = function() {
 			baseFactory.setSelectedCity(vm.selectedCity);
 			vm.searchData = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
@@ -514,27 +522,25 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			$("#coverPage").height(window.innerHeight);
 		}, 0);
 	}
-	
-	
+
 	/* callback function for md-autocomplete
 	 * returns promise and data */
-	vm.querySearch = function(searchText){
+	vm.querySearch = function(searchText) {
 		if (searchText.length > 0) {
-						var searchRequestDTO = {
-							searchType : baseFactory.getSelectedCategory(),
-							searchString : searchText,
-							cityId : baseFactory.getSelectedCity(),
-						};
-						var promise = HomeFactory.loadList.populate(searchRequestDTO).$promise;
-						
-						return promise.then(function(data) {
-							return data;
-						}, function(error) {
-							$location.path('/bad-request/');
-						});
-						
-						
-					}					
+			var searchRequestDTO = {
+				searchType : baseFactory.getSelectedCategory(),
+				searchString : searchText,
+				cityId : baseFactory.getSelectedCity(),
+			};
+			var promise = HomeFactory.loadList.populate(searchRequestDTO).$promise;
+
+			return promise.then(function(data) {
+				return data;
+			}, function(error) {
+				$location.path('/bad-request/');
+			});
+
+		}
 	};
 
 	/*

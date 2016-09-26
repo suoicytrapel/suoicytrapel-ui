@@ -51,7 +51,9 @@
 
 .disclaimer #coverPage,
 .privacypolicy #coverPage,
-.termsofuse #coverPage{
+.termsofuse #coverPage,
+.faq-page #coverPage,
+.about-us-page #coverPage{
 	height: 50vh !important;
 }
 

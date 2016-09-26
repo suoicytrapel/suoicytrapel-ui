@@ -557,6 +557,10 @@ blockquote .col-sm-9 {
 	background-image: url('/images/subcategories/others.png');
 }
 
+.subcategory-icon.Resort {
+	background-image: url('/images/subcategories/resort.png');
+}
+
 /* Caterer subcategory */
 
 .subcategory-icon.veg {
