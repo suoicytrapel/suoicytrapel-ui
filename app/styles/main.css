@@ -45,6 +45,8 @@ html, body {
 	-o-user-select: none;
 	-ms-user-select: none;
 	-webkit-touch-callout: none !important; 
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 	height: auto; /* angular-material override */
 }
 
