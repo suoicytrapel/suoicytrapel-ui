@@ -76,15 +76,19 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			
 			/* Subtracting 100 so as to subtract the height of header which is 80 and 20 extra*/
 			fixedStartLimit = $('.detail-info-section').offset().top + $('.detail-info-section').height() - 100;
-			fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
+			//fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
 			fixedElemWidth = $('.details-fixed-component').width();
 			fixedElemHeight = $('.details-fixed-component').height();
-			contentHeight = $('.details-tabs-content').height();
+			/* contentHeight was not calculating accurately */
+			//contentHeight = $('.details-tabs-content').height();
 
 
-		$(window).on('scroll', function() {
-						
-
+		$(window).on('scroll', function() {			
+			if(!fixedEndLimit)
+				fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
+			if(!contentHeight)
+				contentHeight = $('.details-tabs-content').height();
+					
 			if ($(window).scrollTop() < fixedStartLimit || $(window).scrollTop() > fixedEndLimit){
 				$('.details-fixed-component').removeClass('sticky relative');
 				$('.details-fixed-component').css('top','initial');
@@ -185,7 +189,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 		$("body").scrollspy({
 			target : "#left_nav_container",
-			offset : 100
+			offset : 300
 		});
 
 		$("#left_nav_container").on("activate.bs.scrollspy", function() {
@@ -196,7 +200,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	
 	vm.leftNavContClkHandler = function(event, tab){
 		$('html, body').animate({
-				scrollTop : $('#'+ tab).offset().top - 100
+				scrollTop : $('#'+ tab).offset().top - 300
 			}, 300);
 			/* href is important for scrollspy */
 			/* so for disabling the page navigation through href below two statements are necessary */
