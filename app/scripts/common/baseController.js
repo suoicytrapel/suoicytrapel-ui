@@ -259,7 +259,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				targetEvent : $event,
 				openFrom : 'left',
 				closeTo : 'top',
-				templateUrl : '/views/selectcitydialog/selectcitydialog.html',
+				templateUrl : 'views/selectcitydialog/selectcitydialog.html',
 				scope : $scope, //Use parent scope in template
 				preserveScope : true,
 				//controller: 'baseController',
