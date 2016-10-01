@@ -1098,7 +1098,7 @@ md-autocomplete input:not(.md-input){
 	display: none;
 }
 
-md-input-container #captcha input
+md-input-container #captcha input{
 	color: #656565 !important;
 }
 
