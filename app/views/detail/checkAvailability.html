@@ -8,8 +8,8 @@
       </div>
       <div class="modal-body">
         <form name="form.availabilityForm" class="col-sm-12" novalidate>
-        	<!--<span style="color:brown;">All Fields marked with * are mandatory.</span>-->
-        <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your name" type="text" ng-model="vm.availabilityForm.name" name="name" required>
+        	
+        <!--<div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your name" type="text" ng-model="vm.availabilityForm.name" name="name" required>
           <span style="color:brown;" ng-show="(form.availabilityForm.name.$touched || vm.submitted) && form.availabilityForm.name.$invalid">Name is mandatory.</span>
       	</div>
 
@@ -19,7 +19,7 @@
         </div>
 
           <div class="form-group" style="width:50%"><label>Occassion</label><input class="form-control" placeholder="Occassion(Event)" ng-model="vm.availabilityForm.occassion" name="occassion"></input>          	
-          	<!--<span style="color:brown;" ng-show="(form.availabilityForm.message.$touched || vm.submitted) && form.availabilityForm.message.$invalid">Message is mandatory.</span>-->
+          	
           </div>
           
            <div class="form-group" style="width:50%"><label class="required">Gathering</label><input class="form-control" placeholder="Number of Guests" ng-model="vm.availabilityForm.gathering" name="gathering" required ng-pattern="/^[0-9]{1,4}$/"></input>
@@ -42,13 +42,74 @@
           	
           	</div>
             <span style="color:brown;" ng-show="vm.submitted && !captchaValid">Captcha is Invalid.</span>
-          </div>
+          </div>-->
+          <div layout="row" layout-wrap layout-align="space-between center">
+          	<md-input-container class="md-block" flex="45">
+						<label>Name</label>
+						
+						<input ng-model="vm.availabilityForm.name" name="name" required type="text" placeholder="Your Name">
+						<span style="color:brown;" ng-show="(form.availabilityForm.name.$touched || vm.submitted) && form.availabilityForm.name.$invalid">Name is mandatory.</span>
+					</md-input-container>
+					
+				<md-input-container class="md-block" flex="45">
+				<label>Enter Date of function</label>
+						<md-datepicker ng-model="vm.availabilityForm.bookingDate"
+            md-min-date="vm.minDate" class="eventDate" required></md-datepicker>
+            <div style="color:brown;" ng-show="(form.availabilityForm.bookingDate.$touched || vm.submitted) && form.availabilityForm.bookingDate.$invalid">Booking Date is mandatory.</div>
+					</md-input-container>	
+					
+				<md-input-container class="md-block" flex="45">
+						<label>Occassion(Event)</label>
+						
+						<input ng-model="vm.availabilityForm.occassion" name="occassion" type="text" placeholder="wedding/sangeet/any other">
+						
+					</md-input-container>
+					
+				<md-input-container class="md-block" flex="45">
+						<label>Gathering</label>
+						
+						<input ng-model="vm.availabilityForm.gathering" name="gathering" required ng-pattern="/^[0-9]{1,4}$/" type="text" placeholder="Number of Guests">
+						<span style="color:brown;" ng-show="(form.availabilityForm.gathering.$touched || vm.submitted) && form.availabilityForm.gathering.$invalid">Gathering is mandatory.</span>
+          	<span style="color:brown;" ng-show="form.availabilityForm.gathering.$touched && form.availabilityForm.gathering.$error.pattern">Gathering should be a number</span>
+					</md-input-container>
+					
+					<md-input-container class="md-block" flex="45">
+						<label>E-Mail</label>
+						
+						<input placeholder="email@you.com" type="email" name="email" ng-model="vm.availabilityForm.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+						<span style="color:brown;" ng-show="form.availabilityForm.email.$touched && form.availabilityForm.email.$error.pattern">Email is invalid.</span>
+						<span style="color:brown;" ng-if="!vm.isFormValid">Email or Phone is mandatory</span>	
+					</md-input-container>
+					
+					<md-input-container class="md-block" flex="45">
+						<label>Phone</label>
+						
+						<input type="text" ng-model="vm.availabilityForm.phoneNumber" placeholder="Your Contact Number" name="phone" ng-pattern="/^[0-9]{10}$/">
+						<span style="color:brown;" ng-show="form.availabilityForm.phone.$touched  && form.availabilityForm.phone.$error.pattern">Phone is Invalid.</span>
+						<span style="color:brown;" ng-if="!vm.isFormValid">Email or Phone is mandatory</span>	
+					</md-input-container>	
+					
+				<div flex="45">
+					<label style="color: rgba(0,0,0,0.38)">Test your math skill</label>
+					<div id="captcha1">
+          	
+          	</div>
+            <span style="color:brown;" ng-show="vm.submitted && !captchaValid">Captcha is Invalid.</span>
+				</div>
+				
+ 
+
+          		
+         
           
         </form>
       </div>
       <div class="modal-footer">
-      	<button type="button" ng-click="vm.submitted=true;form.availabilityForm.$valid && captchaValid && vm.validateAvailabilityForm() && vm.checkAvailability();" class="btn btn-success">Submit</button>
-        <button class="btn pull-right" ng-click="vm.closeAvailabilityForm();" aria-hidden="true">Cancel</button>
+      	<!--<button type="button" ng-click="vm.submitted=true;form.availabilityForm.$valid && captchaValid && vm.validateAvailabilityForm() && vm.checkAvailability();" class="btn btn-success">Submit</button>
+        <button class="btn pull-right" ng-click="vm.closeAvailabilityForm();" aria-hidden="true">Cancel</button>-->
+      
+      <md-button class="md-raised md-primary" ng-click="vm.submitted=true;form.availabilityForm.$valid && captchaValid && vm.validateAvailabilityForm() && vm.checkAvailability();">Submit</md-button>
+				<md-button class="md-raised" ng-click="vm.closeAvailabilityForm();">Cancel</md-button>
       </div>
     </div>
   </div>

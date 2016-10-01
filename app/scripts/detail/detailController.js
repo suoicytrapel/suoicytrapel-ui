@@ -18,6 +18,9 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.category = $routeParams.category;
 		vm.categoryInitials = vm.category.slice(0,1);
 		vm.isFormValid = true;
+		vm.minDate = new Date();
+		vm.availabilityForm = {};
+		vm.availabilityForm.bookingDate = new Date();
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',

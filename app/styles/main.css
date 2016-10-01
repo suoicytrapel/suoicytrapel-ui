@@ -218,6 +218,9 @@ blockquote:after{
 	border-top: none;
 }
 
+.dodgerblue-color{
+	color: #98a2ab;
+}
 
 .default-white-btn {
 	color: #ffffff;
@@ -373,7 +376,7 @@ p.info {
 }
 
 .global-nav-header{
-	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+	/*text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);*/
 }
 
 #footer .social li span:hover,
@@ -1094,6 +1097,12 @@ md-autocomplete input:not(.md-input){
 .md-select-value .horiz-gap{
 	display: none;
 }
+
+md-input-container #captcha input
+	color: #656565 !important;
+}
+
+
 
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {

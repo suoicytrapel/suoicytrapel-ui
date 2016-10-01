@@ -24,9 +24,9 @@
 }
 
 #myModalLabel{
-	font-size: 20px;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
-    color: #000000;
+	/*font-size: 20px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.8);*/
+    color: rgba(0,0,0,0.64);
 }
 
 .details-container {
@@ -838,6 +838,14 @@ ul.details-page-social-section {
 .menu-bolder-text{
 	font-weight: 600;
 	font-size: 18px;
+}
+
+.eventDate .md-datepicker-input-container{
+	width: 70%;
+}
+
+.md-datepicker-calendar-pane.md-pane-open{
+	z-index: 1050;	
 }
 
 @media (max-width: 767px) {
