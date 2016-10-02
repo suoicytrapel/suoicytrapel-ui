@@ -21,7 +21,6 @@ var app = angular
     'ui.router',
     'angularSpinner',
     'angularModalService',
-    '720kb.datepicker',
     'ngMaterial'
   ])
   
