@@ -438,7 +438,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.showSignInPopup = function() {
 
 		ModalService.showModal({
-			templateUrl : "/views/login/signin.html",
+			templateUrl : "views/login/signin.html",
 			controller : "loginController",
 			controllerAs : "vm",
 		}).then(function(modal) {
