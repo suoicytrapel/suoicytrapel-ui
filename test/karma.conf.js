@@ -41,7 +41,6 @@ module.exports = function(config) {
       'bower_components/spin.js/spin.js',
       'bower_components/angular-spinner/angular-spinner.js',
       'bower_components/angular-modal-service/dst/angular-modal-service.js',
-      'bower_components/angularjs-datepicker/dist/angular-datepicker.min.js',
       'bower_components/angular-material/angular-material.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
