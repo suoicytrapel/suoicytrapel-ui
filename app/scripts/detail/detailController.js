@@ -21,6 +21,12 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.minDate = new Date();
 		vm.availabilityForm = {};
 		vm.availabilityForm.bookingDate = new Date();
+		vm.newReviewModel = {
+			vendorRating: 0,
+			reviewMoney: '',
+			reviewComment: '',
+			submitReview: function(){},
+		};
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',

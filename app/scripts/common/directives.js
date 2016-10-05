@@ -186,3 +186,21 @@ app.directive('tileComponent',function(){
 	};
 	
 });
+
+app.directive('giveReview',function(){
+	return{
+		templateUrl: 'views/giveReview/giveReview.html',
+		scope: {
+			vendorRating: '=',
+			editable: "@",
+			starsCount: "@",
+			showGrade: "@",
+			reviewComment: "=",
+			reviewMoney: "=",
+			submitReview: "&",
+		},
+		link: function(scope, element, attribute, controller){
+			
+		}	
+	};
+});

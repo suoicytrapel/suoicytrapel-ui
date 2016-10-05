@@ -848,6 +848,15 @@ ul.details-page-social-section {
 	z-index: 1050;	
 }
 
+.mLeft15{
+	margin-left: 15px;
+}
+
+.mRight15{
+	margin-right: 15px;
+}
+
+
 @media (max-width: 767px) {
 	.li-inline-alignment {
 		display: inline-block;

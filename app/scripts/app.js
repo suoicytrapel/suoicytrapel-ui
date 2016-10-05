@@ -21,7 +21,8 @@ var app = angular
     'ui.router',
     'angularSpinner',
     'angularModalService',
-    'ngMaterial'
+    'ngMaterial',
+    'ngRating'
   ])
   
 app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {

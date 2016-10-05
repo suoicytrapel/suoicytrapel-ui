@@ -138,6 +138,9 @@
 						<li>
 							<a href="#policies" ng-click="vm.leftNavContClkHandler($event, 'policies');"><span class="fa fa-fw fa-file"></span>Booking Policies</a>
 						</li>
+						<li>
+							<a href="#recentReviews" ng-click="vm.leftNavContClkHandler($event, 'recentReviews');"><span class="fa fa-fw fa-commenting"></span>Recent Reviews</a>
+						</li>
 					</ul>
 				</div>
 
@@ -456,10 +459,17 @@
 							</ol>
 						</div>
 					</section>
+					<section id="recentReviews" class="details-page-sections desc-type-layout">
+						<div class="recentReviews-container">
+							<h3>Recent Reviews</h3>
+						</div>
+					</section>		
 				</div>
 			</div>
 		</div>
 	</div>
+
+<give-review editable="true" vendor-rating="vm.newReviewModel.vendorRating" stars-count="5" show-grade="true" review-money="vm.newReviewModel.reviewMoney" review-comment="vm.newReviewModel.reviewComment" submit-review="vm.newReviewModel.submitReview();" ></give-review>
 
 <div class="row bg-grey">
 	<div class="gap20"></div>
