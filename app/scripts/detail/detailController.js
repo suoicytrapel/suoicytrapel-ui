@@ -27,6 +27,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			reviewComment: '',
 			submitReview: function(){},
 		};
+		vm.postedReviewRating = 5;
+		vm.showReviewsPage = false;
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
@@ -120,7 +122,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.defineListeners = function() {
 		
 		
-
+		vm.viewAllReviews = function(){
+			vm.showReviewsPage = true;	
+		};
+		
 		vm.openGallery = function(index) {
 			$window.ga('send', 'event', 'View Gallery', 'File Name');
 			vm.applySwipe();

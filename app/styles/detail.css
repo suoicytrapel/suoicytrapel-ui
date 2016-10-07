@@ -856,6 +856,28 @@ ul.details-page-social-section {
 	margin-right: 15px;
 }
 
+.reviewer_img{
+	height: 50px;
+	width: 50px;
+	background-size: cover;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+}
+
+.reviewer_name{
+	font-weight: 600;
+}
+
+.review_starRating{
+	font-weight: 600;
+	position: relative;
+    left: 5px;
+    top: -4px;
+}
+
+.reviewCommentItem{
+	margin-top: 15px;
+}
 
 @media (max-width: 767px) {
 	.li-inline-alignment {

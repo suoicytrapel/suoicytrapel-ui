@@ -1,4 +1,4 @@
-<div class="ng-cloak">
+<div class="ng-cloak" data-ng-show="!vm.showReviewsPage">
 	<div class="cover-container">
 		<div id="coverPage" class="detail-cover text-center" style="background-image:url({{vm.coverbgImageURL}})">
 			<!--
@@ -461,7 +461,28 @@
 					</section>
 					<section id="recentReviews" class="details-page-sections desc-type-layout">
 						<div class="recentReviews-container">
-							<h3>Recent Reviews</h3>
+							<h3>Recent Reviews<a href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
+							<div class="reviewCommentItem">
+							<div class="row">
+								<div class="col-xs-4 col-sm-2">
+									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');"></div>
+									
+								</div>
+								<div class="col-xs-6 col-sm-8">
+									<div class="reviewer_name">Ankit</div>
+									<div class="review_date">Reviewed on: 10-06-2016</div>
+								</div>
+								<div class="col-xs-2 col-sm-2">
+									<ng-rating  ng-model="vm.postedReviewRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="review_starRating">4.5</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-offset-4 col-sm-offset-2 review_comment col-xs-8 col-sm-10">
+									I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.
+									
+								</div>
+							</div>
+						</div>
 						</div>
 					</section>		
 				</div>
@@ -674,4 +695,5 @@
 <!--<button type="button" class="btn btn-success" ng-click="vm.openAvailabilityForm()">Check Availability</button>-->
 </div>
 
-<div data-ng-include="'views/detail/checkAvailability.html'"></div>
+<div data-ng-include="'views/detail/reviews.html'" data-ng-show="vm.showReviewsPage"></div>
+<div data-ng-include="'views/detail/checkAvailability.html'" data-ng-show="!vm.showReviewsPage"></div>
