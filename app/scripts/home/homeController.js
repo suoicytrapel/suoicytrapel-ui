@@ -6,6 +6,8 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.dataPageBreadCrumbPath = null;
 		vm.subcatSwiperObj = null;
+		vm.customersaySwiperObj = null;
+		vm.portfolioSwiperObj = null;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
 		vm.subCategoriesMap = subCategories;

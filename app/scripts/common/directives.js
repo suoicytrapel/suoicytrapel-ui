@@ -51,7 +51,7 @@ app.directive('onLastRepeatElement', function($timeout) {
 			if (scope.$last && attrs.onFinishCallback)
 				$timeout(function() {
 					scope.$eval(attrs.onFinishCallback);
-				});
+				},200);
 		}
 	};
 });
