@@ -861,6 +861,10 @@ background: white;
 	background-position: 0px !important;     left: 34px;
 }
 
+.swiper-button-next{
+	right: 34px;
+}
+
 .lp-global-breadcrumb{
 	min-height: 50px;
 }

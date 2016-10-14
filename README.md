@@ -30,10 +30,14 @@ Steps to run  the application on Production (VPS) :-
 2) Run the 'grunt build' command to generate the dist folder.
 3) Copy the contents of dist folder to '/var/www/html' folder on VPS server.
 4) Make changes in application.properties file to set the production db params.
+4)i) Login to Putty and shut down tomcat server using command 'sudo service tomcat7 stop'
 5) Run the gradle tasks in the following order :- 'clean' & then 'build'.
-6) Copied the 'lepartycious.war' file from build folder to '/var/lib/tomcat7/webapps' folder on VPS server.
+5)i) first navigate to 'cd /var/lib/tomcat7/webapps' folder and run command 'ls -ltr' for listing the content of folder/drive.
+5)ii) Remove lepartycious.war and lepartycious folder (rm lepartycious.war && rm -rf lepartycious(folder)
+6) Copied the 'lepartycious.war' file from build folder to 'cd /var/lib/tomcat7/webapps' folder on VPS server.
+
 7) Restart the tomcat server by executing below command on VPS server :-
-	'sudo service tomcat7 restart'
+	'sudo service tomcat7 start'
 8) Restart the apache server by executing the below command on VPS server :-
 	'sudo service apache2 restart'
 9) Run the application by typing 'lepartycious' in the browser window.

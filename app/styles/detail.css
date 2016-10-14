@@ -879,6 +879,21 @@ ul.details-page-social-section {
 	margin-top: 15px;
 }
 
+.reviewPage_content{
+	margin-top: 80px;
+}
+
+.reviewPage_cover{
+	min-height: 200px !important;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+.repeated-item{
+	padding-top: 20px;
+}
+
 @media (max-width: 767px) {
 	.li-inline-alignment {
 		display: inline-block;

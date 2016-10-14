@@ -1,3 +1,56 @@
-<div layout-xs="column" layout-gt-xs="row">
-	<div flex="40" md-whiteframe="4"></div>
-</div>
+<md-content class="reviewPage_content">
+<div layout="row">
+	<div flex="30" md-whiteframe="4" layout="column" layout-padding>
+		<div flex style="background-image:url({{vm.coverbgImageURL}})" class="reviewPage_cover"></div>
+			<div><span class="md-title">{{vm.detailedData.name}}</span><br/>
+				{{vm.detailedData.city}}, {{vm.detailedData.state}}
+			</div>
+			<div>
+				<ng-rating  ng-model="vm.vendorAverageRating" editable="false" show-grade="true" stars-count="5"></ng-rating>
+			</div>
+			<div>
+				<give-review editable="true" vendor-rating="vm.newReviewModel.vendorRating" stars-count="5" show-grade="true" review-money="vm.newReviewModel.reviewMoney" review-comment="vm.newReviewModel.reviewComment" submit-review="vm.newReviewModel.submitReview();" ></give-review>
+			</div>
+	</div>
+	<div flex="70" layout-padding>
+		<div layout="row" flex="100">
+			<div class="md-title" flex=>REVIEWS</div>
+			<span flex></span>
+			<div flex class="text-right">
+				<a href="javascript:void(0)" ng-click="vm.closeAllReviews();">
+          <md-icon class="material-icons md-24">
+      			 	close
+      	</md-icon>
+        </a>
+			</div>
+		</div>
+		
+		 <md-virtual-repeat-container id="vertical-container" flex="100" style="height: 90%">
+      <div md-virtual-repeat="reviewItem in vm.dynamicItems"
+          class="repeated-item" flex>
+        <div layout="row" layout-wrap>
+								<div flex-xs="50" flex-offset-gt-xs="5" flex-gt-xs="15">
+									<div class="reviewer_img" style="background-image: url('{{reviewItem.img}}');"></div>
+									
+								</div>
+								<div flex-xs="50" flex-gt-xs="40" layout="column">
+									<div class="reviewer_name">{{reviewItem.name}}</div>
+									<div class="review_date">Reviewed on: {{reviewItem.date}}</div>
+								</div>
+								<div flex-xs="100" flex-gt-xs="40">
+									<ng-rating  ng-model="reviewItem.rating" editable="false" show-grade="false" stars-count="5"></ng-rating><span class="review_starRating">{{reviewItem.rating}}</span>
+								</div>
+							</div>
+							<div layout="row" layout-wrap>
+								<div class="review_comment" flex-xs="100" flex-offset-gt-xs="20" flex-gt-xs="80">
+									{{reviewItem.comment}}
+									
+									
+								</div>
+							</div>
+      </div>
+    </md-virtual-repeat-container>
+    
+	</div>
+	</div>
+</md-content>

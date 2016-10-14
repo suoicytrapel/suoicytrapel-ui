@@ -28,7 +28,22 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			submitReview: function(){},
 		};
 		vm.postedReviewRating = 5;
+		vm.vendorAverageRating = 4.6;
 		vm.showReviewsPage = false;
+		vm.dynamicItems = [{
+			name: 'Ankit',
+			rating: 4,
+			date: '13-10-2016',
+			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
+			img: '/images/blank_frame.jpg',
+		},
+		{
+			name: 'Mohit',
+			rating: 3,
+			date: '10-10-2016',
+			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
+			img: '/images/blank_frame.jpg',
+		}];
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
@@ -124,6 +139,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		
 		vm.viewAllReviews = function(){
 			vm.showReviewsPage = true;	
+		};
+		
+		vm.closeAllReviews = function(){
+			vm.showReviewsPage = false;
 		};
 		
 		vm.openGallery = function(index) {
