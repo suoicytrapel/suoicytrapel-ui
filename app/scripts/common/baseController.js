@@ -79,23 +79,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			},100);
 		});
 
-		/*
-		 * handler for sliding
-		 * the location dropdown up
-		 * for click of document
-		 *
-		 * */
-		$(document).on('click', function(e) {
-			if (!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon') || $(e.target).hasClass('lp-label-city'))) {
-				//$('.venue_includes').removeClass('slide-down');
-				$('.lp-city-dropdown').slideUp();
-			}
-			if (!($(e.target).hasClass('lp-select-category-text') || $(e.target).hasClass('lp-selected-category') || $(e.target).hasClass('category-icons') || $(e.target).hasClass('lp-label-category'))) {
-				$('.venue_includes').removeClass('slide-down');
-				$('.lp-category-dropdown').slideUp();
-			}
-		});
-
+		
 		/*
 		 * Apply bg color
 		 * change for header
@@ -148,7 +132,24 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 
 	vm.defineMethods = function() {
-
+		
+		/*
+		 
+		 * Method for checking city and vendor is selected before autocomplete
+		 * */
+		vm.vendorAutocompleteClkHandler = function(){
+			if (!vm.selectedCity) {
+				angular.element('#vendor-autocomplete-input-id').blur();
+				$timeout(function() {
+					angular.element('.location-button').triggerHandler('click');
+				}, 0);
+			} else if (!vm.selectedCategory) {
+				angular.element('#vendor-autocomplete-input-id').blur();
+				$timeout(function() {
+					angular.element('.vendor-type-dropdown').triggerHandler('click');
+				}, 0);
+			} 
+		};
 		/*
 		 *
 		 *Method for showing the loader screen
@@ -193,10 +194,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 					angular.element('.vendor-type-dropdown').triggerHandler('click');
 				}, 0);
 			} else {
-				if (!vm.searchData) {
+				if (!vm.searchText) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
 				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchText);
 				}
 			}
 
@@ -210,13 +211,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.setCity = function() {
 			baseFactory.setSelectedCity(vm.selectedCity);
-			vm.searchData = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				if (vm.searchData == undefined || vm.searchData == null) {
+				
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
-				}
+				
 			}
 			/* Code for emitting data on city change
 			 *  so as to change recently added block */
@@ -237,11 +235,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			angular.element('.home-search-box').val('');
 			vm.searchText = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				if (vm.searchData == undefined || vm.searchData == null) {
+				
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
-				}
+				
 			}
 		};
 
@@ -393,12 +389,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/*
 	 * Method for clearing searched data
 	 * */
-	vm.clearSearchedText = function() {
+	/*vm.clearSearchedText = function() {
 		angular.element('.home-search-box').val('');
 		vm.searchData = '';
 		//$scope.$apply();
 		return false;
-	};
+	};*/
 
 	/*
 	 *
@@ -526,7 +522,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/* callback function for md-autocomplete
 	 * returns promise and data */
 	vm.querySearch = function(searchText) {
-		if (searchText.length > 0) {
+		if (searchText.length > 0 && baseFactory.getSelectedCategory() && baseFactory.getSelectedCity()) {
 			var searchRequestDTO = {
 				searchType : baseFactory.getSelectedCategory(),
 				searchString : searchText,
@@ -554,7 +550,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		//Apply autocomplete when content is loaded on the page
 		//$timeout is used so that autocomplete is binded in the next digest cycle
 		$timeout(function() {
-			angular.element('.home-search-box').autocomplete({
+			/*angular.element('.home-search-box').autocomplete({
 				source : function(request, response) {
 					if (request.term.length > 0) {
 						var searchRequestDTO = {
@@ -584,15 +580,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 					} else
 						vm.searchData = (ui.item.label);
 				}
-			});
+			});*/
 
-			//Binding search button value on input field value length
-			$scope.$watch("vm.searchData", function(newValue, oldvalue) {
-				if (newValue && newValue.length > 0)
-					$('.home-search-btn').text('SEARCH');
-				else
-					$('.home-search-btn').text('SEARCH ALL');
-			});
+			
 
 			$('[data-toggle="tooltip"]').tooltip({
 				placement : 'top'
@@ -604,7 +594,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				}, "slow");
 				return false;
 			});
-
+			
 			var mySwiper = new Swiper('.cover-swiper-container', {
 				speed : 300,
 				spaceBetween : 0,

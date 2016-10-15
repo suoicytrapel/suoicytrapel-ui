@@ -37,56 +37,57 @@
 	width: 100%;
 	display: block;
 	background-repeat: no-repeat;
-	background-position: center;
+	/*background-position: center;*/
+	background-image: url('/images/sprite-icons.png');
 }
 
 
 .subcategories-header ul li a.venue-subcat{
-	background-image: url('/images/subcategory_header_icons/venue_inactive.png');
+	background-position: -286px -80px;
 }
 
 .subcategories-header ul li.active a.venue-subcat{
-	background-image: url('/images/subcategory_header_icons/venue_active.png');
+	background-position: -280px -10px;
 }
 
 .subcategories-header ul li a.caterer-subcat{
-	background-image: url('/images/subcategory_header_icons/caterer_inactive.png');
+	background-position: -168px -10px;
 }
 
 .subcategories-header ul li.active a.caterer-subcat{
-	background-image: url('/images/subcategory_header_icons/caterer_active.png');
+	background-position: -54px -10px;
 }
 
 .subcategories-header ul li a.decorator-subcat{
-	background-image: url('/images/subcategory_header_icons/decorator_inactive.png');
+	background-position: -166px -80px;
 }	
 
 .subcategories-header ul li.active a.decorator-subcat{
-	background-image: url('/images/subcategory_header_icons/decorator_active.png');
+	background-position: -10px -80px;
 }
 
 .subcategories-header ul li a.entertainment-subcat{
-	background-image: url('/images/subcategory_header_icons/entertainment_inactive.png');
+	 background-position: -80px -150px;
 }
 
 .subcategories-header ul li.active a.entertainment-subcat{
-	background-image: url('/images/subcategory_header_icons/entertainment_active.png');
+	background-position: -10px -150px;
 }
 
 .subcategories-header ul li a.photographer-subcat{
-	background-image: url('/images/subcategory_header_icons/photographer_inactive.png');
+	background-position: -120px -220px;
 }
 
 .subcategories-header ul li.active a.photographer-subcat{
-	background-image: url('/images/subcategory_header_icons/photographer_active.png');
+	background-position: -10px -220px;
 }
 
 .subcategories-header ul li a.others-subcat{
-	background-image: url('/images/subcategory_header_icons/others_inactive.png');
+	background-position: -220px -150px;
 }
 
 .subcategories-header ul li.active a.others-subcat{
-	background-image: url('/images/subcategory_header_icons/others_active.png');
+	background-position: -150px -150px;
 }
 
 .main-heading {
@@ -818,7 +819,9 @@ blockquote .col-sm-9 {
 	}
 	
 	.subcategories-header ul{
-		margin-right: 10px;	
+		float: none;
+    margin: auto;
+    text-align: center;
 	}
 
 }

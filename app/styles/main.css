@@ -1016,6 +1016,8 @@ md-autocomplete{
         border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
     display: block;
+    width: 100%;
+    position: absolute;
 }
 
 md-autocomplete md-autocomplete-wrap{
@@ -1030,7 +1032,8 @@ md-autocomplete input:not(.md-input){
 	height: 28px;
 	width: 28px;
 	background-repeat: no-repeat;
-	background-position: center center;
+	margin-left: 5px;
+	background-image: url('/images/sprite-icons.png');
 }
 
 .vendor_type .md-text{
@@ -1038,55 +1041,92 @@ md-autocomplete input:not(.md-input){
 }
 
 .md-select-menu-container .venue.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/venue_inactive.png');
+	/*background-image: url('/images/vendor_dropdown_icons/venue_inactive.png');*/
+	 width: 28px;
+    height: 22px;
+    background-position: -290px -150px;
 }
 
 .md-select-menu-container .caterer.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/caterer_inactive.png');
+	/*background-image: url('/images/vendor_dropdown_icons/caterer_inactive.png');*/
+	 width: 24px;
+    height: 22px;
+    background-position: -124px -10px;
 }
 
 .md-select-menu-container .decorator.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/decorator_inactive.png');
+	/*background-image: url('/images/vendor_dropdown_icons/decorator_inactive.png');*/
+	    width: 22px;
+    height: 23px;
+    background-position: -124px -53px;
 }
 
 .md-select-menu-container .photographer.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/photographer_inactive.png');
+	/*background-image: url('/images/vendor_dropdown_icons/photographer_inactive.png'*/);
+	  width: 20px;
+    height: 20px;
+    background-position: -190px -220px;
 }
 
 .md-select-menu-container .entertainment.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/entertainment_inactive.png');
+	/*background-image: url('/images/vendor_dropdown_icons/entertainment_inactive.png');*/
+	width: 19px;
+    height: 19px;
+    background-position: -80px -92px;
 }
 
 .md-select-menu-container .others.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/others_inactive.png');
+	/*sbackground-image: url('/images/vendor_dropdown_icons/others_inactive.png');*/
+	width: 5px;
+    height: 21px;
+    background-position: -261px -92px;
 }
 
 .md-select-value .venue.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/venue_active.png');
+	/*background-image: url('/images/vendor_dropdown_icons/venue_active.png');*/
+	 width: 28px;
+    height: 22px;
+    background-position: -230px -220px;
 }
 
 .md-select-value .caterer.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/caterer_active.png');
+	/*background-image: url('/images/vendor_dropdown_icons/caterer_active.png');*/
+	width: 24px;
+    height: 22px;
+    background-position: -10px -10px;
 }
 
 .md-select-value .decorator.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/decorator_active.png');
+	/*background-image: url('/images/vendor_dropdown_icons/decorator_active.png');*/
+	width: 22px;
+    height: 23px;
+    background-position: -238px -10px;
 }
 
 .md-select-value .photographer.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/photographer_active.png');
+	/*background-image: url('/images/vendor_dropdown_icons/photographer_active.png');*/
+	    width: 20px;
+    height: 20px;
+    background-position: -80px -220px;
 }
 
 .md-select-value .entertainment.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/entertainment_active.png');
+	/*background-image: url('/images/vendor_dropdown_icons/entertainment_active.png');*/
+	 width: 19px;
+    height: 19px;
+    background-position: -238px -53px;
 }
 
 .md-select-value .others.vendor_dropdown_icons{
-	background-image: url('/images/vendor_dropdown_icons/others_active.png');
+	/*background-image: url('/images/vendor_dropdown_icons/others_active.png');*/
+	 width: 5px;
+    height: 21px;
+    background-position: -236px -92px;
+        margin-left: 10px;
 }
 
 .md-select-value .vendor-title{
-	color: #EE3E20;
+	color: #EE3E20;s
 }
 
 .md-select-value .venue.vendor_dropdown_icons,

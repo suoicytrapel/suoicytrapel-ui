@@ -17,18 +17,23 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		vm.subCategorySelected = 'VENUE';
 		vm.subcategorySwiperBrkpoints = {
 				// when window width is <= 767px
-				767 : {
+				600 : {
 					slidesPerView : 1,
-					spaceBetweenSlides : 5
+					spaceBetweenSlides : 0
 				},
 				// when window width is <= 991px
-				991 : {
-					slidesPerView : 2,
+				960 : {
+					slidesPerView : 3,
 					spaceBetweenSlides : 10
 				},
 				// when window width is <= 1199px
-				1199 : {
+				1280 : {
 					slidesPerView : 4,
+					spaceBetweenSlides : 5
+				},
+				
+				1920 : {
+					slidesPerView : 5,
 					spaceBetweenSlides : 5
 				}
 		};

@@ -4,8 +4,8 @@
 
 app.factory('baseFactory', function($location) {
 	var baseFactory = {};
-	baseFactory.selectedCity = '1';
-	baseFactory.selectedCategory = 'VENUE';
+	baseFactory.selectedCity = null;       /* '1' */
+	baseFactory.selectedCategory = null;   /* 'VENUE' */
 	baseFactory.coverUrl = '/images/main_cover.jpg';
 	baseFactory.mainCoverHeading = 'Your Online Event Planner';
 	

@@ -103,7 +103,9 @@
 								md-items="item in vm.querySearch(vm.searchText)"
 								md-item-text="item"
 								md-min-length="1"
-								placeholder="Search by vendor name">
+								md-input-id="vendor-autocomplete-input-id"
+								placeholder="Search by vendor name"
+								ng-click="vm.vendorAutocompleteClkHandler()">
 									<md-item-template>
 										<span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item}}</span>
 									</md-item-template>
