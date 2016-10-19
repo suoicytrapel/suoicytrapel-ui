@@ -17,7 +17,11 @@
 	padding: 5px;
 	margin-left: auto;
     margin-right: auto;
-    max-width: 220px;
+    /*max-width: 220px;*/
+}
+
+.data-page-container{
+	max-width: 220px;
 }
 
 .pamphlet-container .pamphlet-header {

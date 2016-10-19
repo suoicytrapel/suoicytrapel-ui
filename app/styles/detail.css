@@ -7,6 +7,9 @@
 	position: fixed;
 }
 */
+.recommended-max-width{
+	max-width: 220px;
+}
 
 .btn-checkavail{
 	background-color: #ee3e20 !important;

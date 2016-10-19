@@ -73,11 +73,13 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 
 	/* Listens to cityChangedEvent
 	 * to update recent additions section */
-	$scope.$on('cityChangedEvent', function() {
+	/*$scope.$on('cityChangedEvent', function() {
 		vm.fetchRecentAdditions();
-	});
+	});*/
 
-	
+	/* Applying boxer on Portfolio items
+	 *
+	 *  */
 	vm.applyLibrariesOnPortfolio = function() {
 		for (var k in vm.portfolioImages) {
 			angular.element('.' + k).boxer({
@@ -102,7 +104,10 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 
 	};
 
-	vm.fetchRecentAdditions = function() {
+	/*
+	 Rest Call for fetching Recent Additions Data from backend
+	 * */
+	/*vm.fetchRecentAdditions = function() {
 		var cityId = baseFactory.getSelectedCity();
 		HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
 			vm.recentlyAddedData = data;
@@ -111,26 +116,35 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 			console.log(error);
 		});
 
-	};
-
+	};*/
+	
+	/*
+	 Method for routing to the next page - Details Page
+	 * */
 	vm.fetchDetails = function(name, category) {
 		var searchParam = name;
 		$location.path('/details/' + baseFactory.getSelectedCity() + '/' + category + '/' + searchParam);
 	};
-
+	
+	/*
+	 Method for emitting page data has been populated to the base controller
+	 so that the loader can be stopped
+	 * */
 	vm.emitPageDataPopulated = function() {
 		$scope.$emit('pageDataPopulated');
 	};
 	
-	vm.showHideSubCategories = function(){
-		$('#subcategoryForm').slideToggle();
-	};
-
+	/*
+	 Method for clicking any subcategory icon in the carousel
+	 and navigating to next page(data page) with the filters remembered
+	 * */
 	vm.setSelectedFilter = function (category, subcategory){
+		if(baseFactory.getSelectedCity()){
 		var filterName = subcategory.name;
 		DataFactory.setSelectedFilterName(filterName);
-		baseFactory.setSelectedCategory(category);
-		$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + category);
+		baseFactory.setSelectedCategory(category.toUpperCase());
+		$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + category.toUpperCase());
+	}
 	};
 	
 	vm.init();

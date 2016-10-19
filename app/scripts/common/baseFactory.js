@@ -19,7 +19,7 @@ app.factory('baseFactory', function($location) {
 		 'OTHERS' : 'Others' 
 	};
 	
-	baseFactory.categoryIconsMap = {
+	/*baseFactory.categoryIconsMap = {
 		
 		'VENUE' : 'fa-university',
 		'CATERER' : 'fa-cutlery',
@@ -27,7 +27,7 @@ app.factory('baseFactory', function($location) {
 		'PHOTOGRAPHER' : 'fa-camera',
 		'ENTERTAINMENT' : 'fa-bar-chart',
 		'OTHERS' : 'fa-external-link-square',
-	};
+	};*/
 	
 	/*baseFactory.subCategoriesMap = {
 		'VENUE' : ['hotels','restaurants','marriage-palaces','banquet-halls','clubs','others'],

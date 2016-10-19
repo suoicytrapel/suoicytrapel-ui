@@ -852,13 +852,15 @@ background: white;
 
 .swiper-button-prev, 
 .swiper-button-next{
-	background-position: -35px !important;
+	background-position: -35px 0px !important;
 	-webkit-background-size: initial !important;
 	-moz-background-size: initial !important;
+	width: 27px;
+	background-size: inherit;
 }
 
 .swiper-button-prev{
-	background-position: 0px !important;     left: 34px;
+	background-position: 0px 0px !important;     left: 34px;
 }
 
 .swiper-button-next{

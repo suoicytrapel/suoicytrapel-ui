@@ -64,6 +64,9 @@
     list-style-type: initial;
     line-height: initial;
     -webkit-padding-start: 40px;
+    -moz-padding-start: 40px;
+    -ms-padding-start: 40px;
+	-o-padding-start: 40px;
 }
 
 .faq-cover{

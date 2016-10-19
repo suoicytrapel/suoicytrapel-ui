@@ -3,10 +3,12 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	var vm = this;
 	$rootScope.showCover = true;
 	$rootScope.currentPage = 'dataPage';
+	/* Registering every link with breadCrumbs so that navigation can be made easy */
 	$rootScope.breadCrumbLinks = {};
 	$rootScope.breadCrumbLinks['Home'] = '/';
 	$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $location.path();
 	$rootScope.dataPageBreadCrumbPath = $location.path();
+	
 	/* Updating base Factory on the basis of changes made on this page */
 	baseFactory.setSelectedCategory($routeParams.category);
 	baseFactory.setSelectedCity($routeParams.city);
@@ -15,6 +17,8 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		routeParamsCity : $routeParams.city,
 		routeParamsCategory : $routeParams.category
 	});
+	
+	
 	vm.offset = null;
 	$scope.pageSize = 6;
 	$scope.currentPage = 1;
@@ -41,7 +45,12 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.showPhotographFilters = true;
 	vm.selectedCategory = $routeParams.category;
 	
-	vm.detectScreenSize = function(){
+	/*
+	 Method for defining the screen size, used to 
+	 hide/unhide ribbon filters and normal filters
+	 commenting this as bootstrap classes has been used now
+	 * */
+	/*vm.detectScreenSize = function(){
 		var screenWidth = window.innerWidth;
 		if(screenWidth < 768){
 			vm.smallScreen = true;
@@ -50,7 +59,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 		vm.smallScreen = false;
 	};
 	
-		vm.detectScreenSize();
+		vm.detectScreenSize();*/
 
 	vm.fetchData = function(isFilterSearch) {
 		vm.selectedFilters = {

@@ -607,7 +607,7 @@
 					<div class="swiper-slide recommended-by-us-swiper-slide" data-ng-repeat="reccomendation in vm.detailedData.recommendationList"  on-last-repeat-element on-finish-callback="vm.applySwiperOnRecommended()">
 						<div class="recommended-pamphlet-container">
 							<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
-							<div class="pamphlet-container">
+							<div class="pamphlet-container recommended-max-width">
 								<div class="pamphlet-header">
 									<div class="featured-ribbon"><span class="featured-ribbon-text">HAND PICKED</span></div>
 									<div class="vendor-cover-img" style="background-image: url('{{vm.getImageURL(reccomendation.mainImagerURL)}}')" class="vertical-center"></div>

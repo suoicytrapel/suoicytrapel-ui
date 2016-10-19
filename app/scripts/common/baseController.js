@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window) {
 
 	var vm = this;
 
@@ -25,18 +25,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
+		
 		/* Parameters for hiding the Loader Screen */
-
 		vm.citiesPopulated = false;
 		vm.routeChangeSuccessInvoked = false;
 		vm.pageDataPopulated = false;
 
-		/* city and category fields untouched parameters */
-		//vm.cityUntouched = true;
-		//vm.categoryUntouched = true;
 
 		/*Statically defining the classes for icons present in category dropdown*/
-		vm.categoryIconsMap = baseFactory.categoryIconsMap;
+		/*vm.categoryIconsMap = baseFactory.categoryIconsMap;*/
 		$scope.form = {};
 
 	};
@@ -71,7 +68,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/' || $location.path() == '/disclaimer/' || $location.path() == '/privacy-policy/' || $location.path() == '/terms-of-use/')
 				vm.pageDataPopulated = true;
 			else if ($location.path() == '/')
-				applyAutocomplete();
+				baseOperations();
 			if ((vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated) || $location.path() == '/bad-request/')
 				vm.stopLoader();	
 			$timeout(function(){
@@ -107,7 +104,13 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			setCityOnRouteParams(args.routeParamsCity);
 			setCategoryOnRouteParams(args.routeParamsCategory);
 		});
-
+		
+		/*
+		 * is invoked
+		 * when the pageDataPopulated event 
+		 * is emitted by other pages when all the data is populated
+		 *
+		 * */
 		$scope.$on('pageDataPopulated', function() {
 			vm.pageDataPopulated = true;
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
@@ -231,7 +234,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-key');
 			baseFactory.setSelectedCategory(vm.selectedCategory);
 			//vm.selectedCategory = selectedCategoryValue;
-			//vm.toggleCategoryDropdown();
 			angular.element('.home-search-box').val('');
 			vm.searchText = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
@@ -274,30 +276,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		};
 		/*
 		 *
-		 * toggle city dropdown
-		 *
-		 * */
-		vm.toggleDropdown = function() {
-			vm.cityUntouched = false;
-			$('.lp-city-dropdown').slideToggle();
-			//$('.venue_includes').toggleClass('slide-down');
-		};
-
-		/*
-		 *
-		 * toggle category dropdown
-		 *
-		 * */
-		vm.toggleCategoryDropdown = function() {
-			vm.categoryUntouched = false;
-			$('.lp-category-dropdown').slideToggle();
-			$('.venue_includes').toggleClass('slide-down');
-		};
-
-		/*
-		 *
 		 * Called when user clicks
-		 * contactus from footer
+		 * contactus button
 		 *
 		 * */
 		vm.openContactForm = function() {
@@ -382,7 +362,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.invokeInitialMethods = function() {
 		vm.startLoader();
 		populateCities();
-		applyAutocomplete();
+		baseOperations();
 		autoResizeCover();
 	};
 
@@ -404,22 +384,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	function populateCities() {
 		HomeFactory.loadCities.populateCities().$promise.then(function(data) {
 			vm.citiesList = data.toJSON();
-			//vm.selectedCity = null;
-			//Code for Default Selected City Commented
-			//Now the choose city placeholder is to be kept
-			/*
-			 var counter = 0;
-			 if (vm.citiesList && vm.citiesList != null) {
-			 angular.forEach(vm.citiesList, function(value, key) {
-			 if (counter == 0) {
-			 vm.selectedCity = value;
-			 baseFactory.setSelectedCity(key);
-			 }
-			 counter = counter + 1;
-
-			 });
-			 }*/
-
+			
 			vm.citiesPopulated = true;
 			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated)
 				vm.stopLoader();
@@ -457,9 +422,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 *
 	 * */
 	function animateHeaderBgColor() {
-		var pageYoffset = window.pageYOffset, coverPage = document.getElementById("coverPage");
+		var pageYoffset = $window.pageYOffset, coverPage = angular.element("#coverPage")[0];
 		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined" && typeof coverPage != null && typeof coverPage != "undefined")
-			$("#navbar").css("background-color", "rgba(238 ,62 ,32 , " + pageYoffset / coverPage.clientHeight + ")");
+			angular.element("#navbar").css("background-color", "rgba(238 ,62 ,32 , " + pageYoffset / coverPage.clientHeight + ")");
 
 		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined")
 			angular.element('#back-to-top').removeClass().addClass('show-' + Math.floor(pageYoffset / 200));
@@ -515,7 +480,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 	function autoResizeCover() {
 		$timeout(function() {
-			$("#coverPage").height(window.innerHeight);
+			angular.element("#coverPage").height($window.innerHeight);
 		}, 0);
 	}
 
@@ -546,54 +511,23 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * after page load is written in $timeout
 	 *
 	 * */
-	function applyAutocomplete() {
+	function baseOperations() {
 		//Apply autocomplete when content is loaded on the page
 		//$timeout is used so that autocomplete is binded in the next digest cycle
 		$timeout(function() {
-			/*angular.element('.home-search-box').autocomplete({
-				source : function(request, response) {
-					if (request.term.length > 0) {
-						var searchRequestDTO = {
-							searchType : baseFactory.getSelectedCategory(),
-							searchString : request.term,
-							cityId : baseFactory.getSelectedCity(),
-						};
-						HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
-							if (data.length == 0)
-								response(['No Results Found']);
-							else
-								response(data);
-						}, function(error) {
-							$location.path('/bad-request/');
-						});
-					}
-
-				},
-				select : function(event, ui) {
-					//stateid = (ui.item.lable);
-					console.log(ui.item.label);
-					if (ui.item.label == 'No Results Found') {
-						angular.element('.home-search-box').val('');
-						vm.searchData = '';
-						$scope.$apply();
-						return false;
-					} else
-						vm.searchData = (ui.item.label);
-				}
-			});*/
-
-			
-
+			//Binding tooltip on back to top button
 			$('[data-toggle="tooltip"]').tooltip({
 				placement : 'top'
 			});
 
+			//Click operation on back to top button
 			angular.element("#back-to-top").on('click', function() {
 				$("html, body").animate({
 					scrollTop : 0
 				}, "slow");
 				return false;
 			});
+			
 			
 			var mySwiper = new Swiper('.cover-swiper-container', {
 				speed : 300,
@@ -616,7 +550,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//Hiding loader screen when view has loaded completely
 			window.scrollTo(0, 0);
 
-			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
+			//vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
 		}, 1000);
 	};
@@ -627,6 +561,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.defineMethods();
 	vm.invokeInitialMethods();
 	/* Invoking method for preloading Images */
-	preloadImages('/images/about_us_cover.jpg', '/images/faq_cover.jpg');
+	preloadImages('/images/about_us_cover.jpg', '/images/faq_cover.jpg', '/images/disclaimer.jpg', '/images/tou.jpg', '/images/privacypolicy.jpg');
 
 });

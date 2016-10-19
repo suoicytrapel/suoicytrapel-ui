@@ -22,10 +22,10 @@
 						<div class="swiper-wrapper subcategory-swiper-wrapper">
 						
 							<div class="swiper-slide subcategory-swiper-slide {{listitem.parent}}" ng-repeat="listitem in vm.mergedSubCategoriesMap" ng-class="{'invisible': listitem.parent !== 'venue' }">
-								<a class="subcategory-icon-outer-background" ng-click="vm.setSelectedFilter(key,subcategory);">
+								<a class="subcategory-icon-outer-background" href="javascript:void(0)" ng-click="vm.setSelectedFilter(listitem.parent,listitem);">
 								<div class="subcategory-icon-border-inner-background">
 									<div class="subcategory-icon-inner-background">
-										<div class="subcategory-icon"  ng-class="listitem.name" md-whiteframe="4"></div>
+										<div class="subcategory-icon"  ng-class="listitem.name" ></div>
 									</div>
 									<div class="subcategory-icon-text">
 									{{listitem.name}}

@@ -8,8 +8,8 @@
 <div class='row data-list'>
 	<div class='col-xs-12 col-sm-3'>
 		<div class='col-xs-12'>
-			<h4 class='theme-color'><a href="" class="filter-ribbon-button" data-ng-if='vm.smallScreen' ng-click="vm.filterRibbonButtonHandler();"><span></span><span></span><span></span></a> <span ng-class="vm.smallScreen ? 'repositionText' : ''">FILTERS</span></h4>
-			<div class="filters" data-ng-if='!vm.smallScreen'>
+			<h4 class='theme-color'><a href="" class="filter-ribbon-button show-xs hide-sm hide-md hide-lg" ng-click="vm.filterRibbonButtonHandler();"><span></span><span></span><span></span></a> <span class="repositionText show-xs hide-sm hide-md hide-lg">FILTERS</span> <span class="hide-xs show-sm">FILTERS</span></h4>
+			<div class="filters hide-xs show-sm">
 				<div data-ng-include="'views/data/filters.html'"></div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 					
 					
 						<a href="" ng-click="vm.fetchDetails(result.name);" class="pamphlet-anchor">
-						<div class="pamphlet-container">
+						<div class="pamphlet-container data-page-container">
 							<div class="pamphlet-header"> <!-- Removed the class for min-height(pamphlet-header-minHeight) -->
 									<div class="featured-ribbon"><span class="featured-ribbon-text">HAND PICKED</span></div>
 								<!--<img src="{{vm.getImageURL(result.mainImagerURL)}}" alt='cover-photo' class="vertical-center"></img>-->
@@ -86,5 +86,5 @@
 
 <dir-pagination-controls boundry-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/templates/dirPagination.tpl.html" pagination-id="dataPagination" ng-if="vm.resultList.length > 0"></dir-pagination-controls>
 
-<div data-ng-include="'views/ribbon/ribbon.html'" data-ng-if='vm.smallScreen'></div>
+<div data-ng-include="'views/ribbon/ribbon.html'"  class="hide-sm show-xs hide-md hide-lg"></div>
 

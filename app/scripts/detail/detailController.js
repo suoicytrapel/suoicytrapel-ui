@@ -335,18 +335,22 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			breakpoints : {
 				// when window width is <= 320px
 				767 : {
-					slidesPerView : 2,
-					//spaceBetweenSlides : 10
+					slidesPerView : 1,
+					spaceBetweenSlides : 5
 				},
 				// when window width is <= 480px
 				991 : {
 					slidesPerView : 3,
-					spaceBetweenSlides : 20
+					spaceBetweenSlides : 5
 				},
 				// when window width is <= 640px
 				1199 : {
 					slidesPerView : 4,
-					spaceBetweenSlides : 20
+					spaceBetweenSlides : 10
+				},
+				1980 : {
+					slidesPerView : 5,
+					spaceBetweenSlides : 10
 				}
 			}
 		});
