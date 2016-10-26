@@ -1148,7 +1148,10 @@ md-input-container #captcha input{
 	color: #656565 !important;
 }
 
-
+.formatter-class{
+	    position: absolute;
+    top: 60px !important;
+}
 
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {

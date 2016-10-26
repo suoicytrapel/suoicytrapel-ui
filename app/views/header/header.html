@@ -13,15 +13,32 @@
 							<span class="fa fa-fw fa-map-marker location-icon"></span>
 						</md-button>
 					</li>
-					<li class="hidden-xs">
+					<li class="hidden-xs" ng-if="!vm.loggedInUser">
 						<md-button style="color: white;" ng-click="vm.showSignInPopup();">
 							SIGN IN
 						</md-button>
 					</li>
-					<li class="hidden-xs">
+					<li class="hidden-xs" ng-if="!vm.loggedInUser">
 						<md-button style="color: white;" ng-click="vm.showSignUpPopup();">
 							SIGN UP
 						</md-button>
+					</li>
+					<li ng-if="vm.loggedInUser">
+						<md-menu md-position-mode="target target" >
+          <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" style="color: white;">
+            Welcome anku171<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
+          </md-button>
+          <md-menu-content width="3" id="loggedInuser_md_menu_content">
+            <md-menu-item>
+              <md-button ng-click="">
+                  <div layout="row" flex>                
+                    <md-icon md-menu-align-target class="material-icons">power_settings_new</md-icon>
+                    <p flex>Logout</p>
+                  </div>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
 					</li>
 					<li>
 						<md-button ng-click="vm.toggleRight();" class="global_menu_button md-icon-button">

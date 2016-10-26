@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element) {
 
 	var vm = this;
 
@@ -25,16 +25,17 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
-		
+
 		/* Parameters for hiding the Loader Screen */
 		vm.citiesPopulated = false;
 		vm.routeChangeSuccessInvoked = false;
 		vm.pageDataPopulated = false;
 
-
 		/*Statically defining the classes for icons present in category dropdown*/
 		/*vm.categoryIconsMap = baseFactory.categoryIconsMap;*/
 		$scope.form = {};
+
+		vm.loggedInUser = false;
 
 	};
 
@@ -70,13 +71,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			else if ($location.path() == '/')
 				baseOperations();
 			if ((vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated) || $location.path() == '/bad-request/')
-				vm.stopLoader();	
-			$timeout(function(){
+				vm.stopLoader();
+			$timeout(function() {
 				$scope.$broadcast('viewLoadedSuccessfully');
-			},100);
+			}, 100);
 		});
 
-		
 		/*
 		 * Apply bg color
 		 * change for header
@@ -104,10 +104,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			setCityOnRouteParams(args.routeParamsCity);
 			setCategoryOnRouteParams(args.routeParamsCategory);
 		});
-		
+
 		/*
 		 * is invoked
-		 * when the pageDataPopulated event 
+		 * when the pageDataPopulated event
 		 * is emitted by other pages when all the data is populated
 		 *
 		 * */
@@ -116,7 +116,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
 				vm.stopLoader();
 		});
-		
+
 		/*
 		 * called when the page unloads
 		 * is used to scroll up the page as soon as the user hits refresh
@@ -124,6 +124,17 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		$(window).on('unload', function() {
 			$(window).scrollTop(0);
+		});
+
+		//for adding a custom class for md-menu-container for giving some styling
+
+		$scope.$on('$mdMenuOpen', function() {
+			$timeout(function() {
+				//getting menu content container by tag id from html
+				var menuContentContainer = angular.element('#loggedInuser_md_menu_content');
+				// Using parent() method to get parent warper with .md-open-menu-container class and adding custom class.
+				menuContentContainer.parent().addClass('formatter-class');
+			});
 		});
 
 	};
@@ -135,12 +146,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 
 	vm.defineMethods = function() {
-		
+
 		/*
-		 
+
 		 * Method for checking city and vendor is selected before autocomplete
 		 * */
-		vm.vendorAutocompleteClkHandler = function(){
+		vm.vendorAutocompleteClkHandler = function() {
 			if (!vm.selectedCity) {
 				angular.element('#vendor-autocomplete-input-id').blur();
 				$timeout(function() {
@@ -151,7 +162,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				$timeout(function() {
 					angular.element('.vendor-type-dropdown').triggerHandler('click');
 				}, 0);
-			} 
+			}
 		};
 		/*
 		 *
@@ -215,9 +226,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		vm.setCity = function() {
 			baseFactory.setSelectedCity(vm.selectedCity);
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				
+
+				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+
 			}
 			/* Code for emitting data on city change
 			 *  so as to change recently added block */
@@ -237,9 +248,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			angular.element('.home-search-box').val('');
 			vm.searchText = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				
+
+				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+
 			}
 		};
 
@@ -370,11 +381,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * Method for clearing searched data
 	 * */
 	/*vm.clearSearchedText = function() {
-		angular.element('.home-search-box').val('');
-		vm.searchData = '';
-		//$scope.$apply();
-		return false;
-	};*/
+	 angular.element('.home-search-box').val('');
+	 vm.searchData = '';
+	 //$scope.$apply();
+	 return false;
+	 };*/
 
 	/*
 	 *
@@ -384,7 +395,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	function populateCities() {
 		HomeFactory.loadCities.populateCities().$promise.then(function(data) {
 			vm.citiesList = data.toJSON();
-			
+
 			vm.citiesPopulated = true;
 			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated)
 				vm.stopLoader();
@@ -395,7 +406,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		});
 	}
 
-
+	/*
+	 *
+	 * method for showing sign in popup
+	 *
+	 * */
 	vm.showSignInPopup = function() {
 
 		ModalService.showModal({
@@ -416,6 +431,32 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			});
 		});
 	};
+	/*
+	 *
+	 * method for showing sign up popup
+	 *
+	 * */
+	vm.showSignUpPopup = function() {
+		//vm.closePopup();
+		ModalService.showModal({
+			templateUrl : "/views/login/signup.html",
+			controller : "signupController",
+			controllerAs : "vm",
+		}).then(function(modal) {
+			/* Opening a modal via javascript */
+			modal.element.modal();
+			/* returning a promise on closing a modal */
+			modal.close.then(function(result) {
+				console.log(result);
+			});
+			/* when closing modal on clicking outside modal area
+			 * the modal element should be removed form DOM */
+			modal.element.on('hidden.bs.modal', function() {
+				modal.controller.closePopup();
+			});
+		});
+	};
+
 	/*
 	 *
 	 * Call for header bg color animation
@@ -527,8 +568,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				}, "slow");
 				return false;
 			});
-			
-			
+
 			var mySwiper = new Swiper('.cover-swiper-container', {
 				speed : 300,
 				spaceBetween : 0,
