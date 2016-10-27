@@ -22,10 +22,11 @@ var app = angular
     'angularSpinner',
     'angularModalService',
     'ngMaterial',
-    'ngRating'
+    'ngRating',
+    'angular-storage'
   ])
   
-app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+app.config(['usSpinnerConfigProvider', 'storeProvider', function (usSpinnerConfigProvider, storeProvider) {
     usSpinnerConfigProvider.setDefaults({
     	color: 'rgb(243, 114, 84)',
     	length: 0,
@@ -34,5 +35,8 @@ app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
     	lines: 15
     	
     	});
+    	
+    	    // Store defaults to localStorage but we can set sessionStorage or cookieStorage.
+    storeProvider.setStore('sessionStorage');
 }]); 
   
