@@ -42,6 +42,7 @@ module.exports = function(config) {
       'bower_components/angular-spinner/angular-spinner.js',
       'bower_components/angular-modal-service/dst/angular-modal-service.js',
       'bower_components/angular-material/angular-material.js',
+      'bower_components/a0-angular-storage/dist/angular-storage.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
