@@ -457,6 +457,27 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		});
 	};
 
+
+	vm.showResetPwdPopup = function() {
+		ModalService.showModal({
+			templateUrl : "/views/login/resetpwd.html",
+			controller : "resetpwdController",
+			controllerAs : "vm",
+		}).then(function(modal) {
+			/* Opening a modal via javascript */
+			modal.element.modal();
+			/* returning a promise on closing a modal */
+			modal.close.then(function(result) {
+				console.log(result);
+			});
+			/* when closing modal on clicking outside modal area
+			 * the modal element should be removed form DOM */
+			modal.element.on('hidden.bs.modal', function () {
+            modal.controller.closePopup();
+        });
+		});
+	};
+
 	/*
 	 *
 	 * Call for header bg color animation
