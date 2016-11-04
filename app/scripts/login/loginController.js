@@ -28,11 +28,11 @@ app.controller('loginController', function($scope, $http) {
 
             $http({
                 method: 'POST',
-                url: 'http://localhost:8080/api/rest/v1/authenticate',
-                data: postData,
+                url: 'http://localhost:8080/oauth/token',
+                data: 'scope=ui&grant_type=password&username=mohit2256&password=admin',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "X-Requested-With": 'XMLHttpRequest'
+                    "authorization": 'Basic YnJvd3Nlcjo='
                 }
             })
             .then(function(response) {
