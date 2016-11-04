@@ -20,7 +20,7 @@
     "awesome-bootstrap-checkbox": "^0.3.5",
     "angular-ui-router": "^0.2.18",
     "angular-spinner": "~0.8.0",
-    "angular-modal-service": "^0.9.10",
+    "angular-modal-service": "^0.10.1",
     "angularjs-datepicker": "^2.1.6",
     "spring-security-csrf-token-interceptor": "^0.1.5"
   },
