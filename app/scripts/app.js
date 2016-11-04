@@ -23,7 +23,8 @@ var app = angular
     'angularModalService',
     'ngMaterial',
     'ngRating',
-    'angular-storage'
+    'angular-storage',
+    'leparticiousWizard'
   ])
   
 app.config(['usSpinnerConfigProvider', 'storeProvider', function (usSpinnerConfigProvider, storeProvider) {

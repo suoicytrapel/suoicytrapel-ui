@@ -1,0 +1,145 @@
+<wizard on-finish="finishedWizard()"> 
+    <wz-step wz-title="Basic Details">
+    <md-content>
+        <h1>Basic Details</h1>
+        <form name="basicDetails">
+        	<fieldset ng-disabled="false">
+        		<div layout="row" layout-wrap layout-margin>
+        			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Name</label>
+        				<input ng-model="basicDetails.name" type="text">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Type</label>
+        				 <md-select ng-model="basicDetails.type">
+            			<md-option ng-repeat="type in vm.venueTypes" value="{{type}}">{{type}}</md-option>
+      				</md-select>
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Address</label>
+        				<textarea ng-model="basicDetails.address" rows="3" type="text"></textarea>
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Short Description</label>
+        				<textarea ng-model="basicDetails.description" rows="3" type="text" md-maxlength="500"></textarea>
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Primary Contact No</label>
+        				<input ng-model="basicDetails.primaryContactNo" type="number">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Secondary Contact No</label>
+        				<input ng-model="basicDetails.secondaryContactNo" type="number">
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Primary Email ID</label>
+        				<input ng-model="basicDetails.primaryEmailId" type="email">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Secondary Email ID</label>
+        				<input ng-model="basicDetails.secondaryEmailId" type="email">
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Website</label>
+        				<input ng-model="basicDetails.website" type="text">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>FB Page Link</label>
+        				<input ng-model="basicDetails.fbPageLink" type="text">
+      				</md-input-container>
+        		</div>
+        	</fieldset>
+        </form>
+        <div layout="row" layout-margin>
+        <div flex></div>	
+        <md-button class="md-raised">Back</md-button>
+        <md-button class="md-primary md-raised" wz-next>Next</md-button>
+        </div>
+    </md-content>    
+        <input type="submit" wz-next value="Continue" />
+    </wz-step>
+    <wz-step wz-title="Event Area Details">
+        <h1>Events Details</h1>
+        
+       <div layout="row" layout-margin>
+        <div flex></div>
+        <md-button class="md-primary md-raised" ng-click="vm.createEventArea();">Add EventArea</md-button>
+        </div> 
+        <form name="eventAreaForm" ng-show="vm.showEventAreaForm">
+        	<fieldset ng-disabled="false">
+        		<div layout="row" layout-wrap layout-margin>
+        			
+      			</div>
+      			<div layout="row" layout-margin>
+        <div flex></div>
+        <md-button class="md-primary md-raised" ng-click="vm.createEventArea($event);">Add Event Area</md-button>
+        </div> 
+      			</fieldset>
+      			</form>
+       <div layout="row" layout-margin layout-wrap md-whiteframe="4"> 
+       	<!--<md-toolbar class="md-table-toolbar md-default" flex="100">
+  <div class="md-toolbar-tools">
+    <span>Event Areas</span>
+  </div>
+</md-toolbar>-->
+
+<md-table-container flex="100">
+  <table md-table md-progress="promise">
+    <thead md-head md-order="" md-on-reorder="" class="lp-wizard-thead">
+      <tr md-row>
+        
+        <th md-column>Area Type</th>
+        <th md-column>Area Name</th>
+        <th md-column>Max Accomodation</th>
+        <th md-column>Price</th>
+        <th md-column>Tax(%)</th>
+        <th md-column>Full A/C</th>
+        <th md-column>Modify</th>
+        <th md-column>Delete</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="eventArea" md-select-id="$index" md-auto-select ng-repeat="eventArea in vm.eventAreas">
+        <td md-cell>{{eventArea.type}}</td>
+        <td md-cell>{{eventArea.name}}</td>
+        <td md-cell>{{eventArea.accomodation}}</td>
+        <td md-cell>{{eventArea.price}}</td>
+        <td md-cell>{{eventArea.tax}}</td>
+        <td md-cell>{{eventArea.fullAc}}</td>
+        <td md-cell><md-button class="md-icon-button" ng-click="vm.modifyEventArea($event,$index,eventArea)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
+        <td md-cell><md-button class="md-icon-button" ng-click="vm.deleteEventArea($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
+      </tr>
+      <tr md-row  ng-if="vm.eventAreas.length === 0">
+      <td md-cell>No Event Areas Added</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+</div>
+
+<div layout="row" layout-margin layout-wrap layout-align="start center">
+	<div flex-xs="100" flex-gt-xs="100">
+		<h2 class="md-title">Select Services You Provide</h2>
+
+    <md-chips ng-model="vm.selectedAreaServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+	</div>
+	<div flex-xs="100" flex-gt-xs="100">
+		<wan-select placeholder="" source-data="::vm.areaServices" selected-data="vm.selectedAreaServices" select-changed=""></wan-select>
+	</div>	
+</div>
+<!--<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>-->
+    </wz-step>
+    <wz-step wz-title="More steps">
+        <p>Even more steps!!</p>
+        <input type="submit" wz-next value="Finish now" />
+    </wz-step>
+</wizard>

@@ -35,7 +35,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		/*vm.categoryIconsMap = baseFactory.categoryIconsMap;*/
 		$scope.form = {};
 
-		vm.loggedInUser = false;
+		vm.loggedInUser = true;
 
 	};
 
@@ -66,7 +66,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 			vm.showFooter = true;
 			vm.routeChangeSuccessInvoked = true;
-			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/' || $location.path() == '/disclaimer/' || $location.path() == '/privacy-policy/' || $location.path() == '/terms-of-use/')
+			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/' || $location.path() == '/disclaimer/' || $location.path() == '/privacy-policy/' || $location.path() == '/terms-of-use/' || $location.path() == '/wizard/')
 				vm.pageDataPopulated = true;
 			else if ($location.path() == '/')
 				baseOperations();

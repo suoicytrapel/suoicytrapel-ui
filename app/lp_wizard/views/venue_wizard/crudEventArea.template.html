@@ -1,0 +1,71 @@
+<md-dialog aria-label="CRUD EventArea" flex="50">
+            <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add New EventArea</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                <i class="material-icons">close</i>
+                </md-button>
+            </div>
+            </md-toolbar>
+            <md-dialog-content>
+            <div class="md-dialog-content mcp-margin0">
+            	<form name="vm.newEventAreaForm">
+            		<div layout="row" layout-wrap>
+            			
+            			<div flex="100" class="err-msg-content" ng-show="vm.errorMsg.length > 0" style="margin-bottom: 20px;"><i class="material-icons" style="vertical-align: bottom">cancel</i>{{vm.errorMsg}}</div>
+            			
+            			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Type</label>
+        				<input ng-model="vm.eventArea.type" placeholder="Banquet Hall, Open Area etc" type="text">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Name</label>
+        				<input ng-model="vm.eventArea.name" placeholder="Name of the Event Area" type="text">
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Max Accomodation</label>
+        				 <input ng-model="vm.eventArea.accomodation" placeholder="Max Pax it can accomodate" type="text">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Price (Excludes per plate Cost)</label>
+        				 <md-select ng-model="vm.eventArea.price">
+            			<md-option ng-repeat="priceRange in vm.eventAreaPriceRange" value="{{priceRange}}">{{priceRange}}</md-option>
+      				</md-select>
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Tax(%)</label>
+        				 <input ng-model="vm.eventArea.tax" placeholder="Tax in % as Applicable" type="text">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Full A/C</label>
+        				 <md-select ng-model="vm.eventArea.fullAc">
+            			<md-option ng-repeat="fullAcOption in vm.fullAcOptions" value="{{fullAcOption}}">{{fullAcOption}}</md-option>
+      				</md-select>
+      				</md-input-container>
+            			
+            			
+            		</div>
+            	</form>
+                                 
+            </div>
+            
+           
+            
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised" ng-click="vm.cancel()">
+                Cancel
+            </md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.hide()">
+            	Add
+            </md-button>
+            </md-dialog-actions>
+
+        </md-dialog> 

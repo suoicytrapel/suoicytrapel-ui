@@ -491,6 +491,16 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				$rootScope.showCover = false;
 			}
 		}
+	}).when('/wizard/', {
+		url : '/ahjgkdvko78nhss4fkn5jsdfsdkk2dsdfssd',
+		controller : 'wizardController',
+		controllerAs: 'vm',
+		templateUrl : 'lp_wizard/views/venue_wizard/venue_wizard.html',
+		resolve : {
+			hideCover : function($rootScope) {
+				$rootScope.showCover = false;
+			}
+		}
 	}).when('/bad-request/', {
 		url : '/bad-request',
 		controller : function(usSpinnerService){
