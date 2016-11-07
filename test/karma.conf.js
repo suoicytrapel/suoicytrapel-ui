@@ -45,6 +45,7 @@ module.exports = function(config) {
       'bower_components/a0-angular-storage/dist/angular-storage.js',
       'bower_components/angular-wizard/dist/angular-wizard.min.js',
       'bower_components/angular-material-data-table/dist/md-data-table.js',
+      'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

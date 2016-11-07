@@ -1,7 +1,7 @@
 <md-dialog aria-label="CRUD EventArea" flex="50">
             <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Add New EventArea</h2>
+                <h2>Add New Room</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="vm.cancel()">
                 <i class="material-icons">close</i>
@@ -9,45 +9,44 @@
             </div>
             </md-toolbar>
             <md-dialog-content>
-            <div class="md-dialog-content mcp-margin0">
-            	<form name="vm.newEventAreaForm">
+            <div class="md-dialog-content">
+            	<form name="vm.newRoomForm">
             		<div layout="row" layout-wrap>
             			
             			<div flex="100" class="err-msg-content" ng-show="vm.errorMsg.length > 0" style="margin-bottom: 20px;"><i class="material-icons" style="vertical-align: bottom">cancel</i>{{vm.errorMsg}}</div>
             			
             			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Type</label>
-        				<input ng-model="vm.eventArea.type" placeholder="Banquet Hall, Open Area etc" type="text">
-      				</md-input-container>
-      				<span flex-gt-xs hide-xs></span>
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Name</label>
-        				<input ng-model="vm.eventArea.name" placeholder="Name of the Event Area" type="text">
-      				</md-input-container>
-      				
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Max Accomodation</label>
-        				 <input ng-model="vm.eventArea.accomodation" placeholder="Max Pax it can accomodate" type="text">
-      				</md-input-container>
-      				<span flex-gt-xs hide-xs></span>
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Price (Excludes per plate Cost)</label>
-        				 <md-select ng-model="vm.eventArea.price">
-            			<md-option ng-repeat="priceRange in ::vm.lookup.eventAreaPriceRange" value="{{priceRange}}">{{priceRange}}</md-option>
+        				<md-select ng-model="vm.room.type">
+            			<md-option ng-repeat="roomType in ::vm.lookup.roomTypes" value="{{roomType}}">{{roomType}}</md-option>
       				</md-select>
       				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Number Of Rooms</label>
+        				<input ng-model="vm.room.noOfRooms" placeholder="No of Rooms of this type" type="text">
+      				</md-input-container>
       				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Price Per Room</label>
+        				 <input ng-model="vm.room.price" placeholder="Price Per Room" type="text">
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>      				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Tax(%)</label>
-        				 <input ng-model="vm.eventArea.tax" placeholder="Tax in % as Applicable" type="text">
+        				 <input ng-model="vm.room.tax" placeholder="Tax in % as Applicable" type="text">
       				</md-input-container>
-      				<span flex-gt-xs hide-xs></span>
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Full A/C</label>
-        				 <md-select ng-model="vm.eventArea.fullAc">
-            			<md-option ng-repeat="fullAcOption in ::vm.lookup.eventAreaFullAc" value="{{fullAcOption}}">{{fullAcOption}}</md-option>
-      				</md-select>
-      				</md-input-container>
+      				
+      				<div layout="row" layout-margin layout-wrap layout-align="start center" flex-gt-xs="100" flex-xs="100">
+	<div flex-xs="100" flex-gt-xs="100">
+		<h2 class="md-title">Facilities</h2>
+
+    <md-chips ng-model="vm.selectedRoomFacilities" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+	</div>
+	<div flex-xs="100" flex-gt-xs="100">
+		<wan-select placeholder="" source-data="::vm.lookup.roomFacilities" selected-data="vm.selectedRoomFacilities" select-changed=""></wan-select>
+	</div>	
+</div>            		
             			
             			
             		</div>
