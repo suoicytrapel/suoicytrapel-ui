@@ -11,29 +11,46 @@
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<!-- build:css(.) styles/vendor.css -->
 		<!-- bower:css -->
-		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+		<link rel="stylesheet" href="../bower_components/angular-material/angular-material.css" />
 
 		<!-- endbower -->
 		<!-- endbuild -->
 		<!-- build:css(.tmp) styles/main.css -->
 
 		<!-- including the css for jquery-ui -->
-		    <link rel="icon" href="/images/favicon.png" type="image/x-icon"/>
-	<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon"/>
+		    <link rel="icon" href="images/favicon.png" type="image/x-icon"/>
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon"/>
 
-		<link rel="stylesheet" href="styles/main.css">
+		<!--<link rel="stylesheet" href="styles/main.css">-->
 		<style>
-			.navbar-inverse{
-				background-color: #f37254;
+			.page_bg{
+				position: absolute;
+				background-image: url('images/404/bg.jpg');
+				background-repeat: no-repeat;
+				height: 100%;
+				width: 100%;
 			}
 			
-			.marginTop100{
-				margin-top: 100px;
+			.404_text{
+				background-image: url('images/404/404_text.png');
+				background-repeat: no-repeat;
+				width: 339px;
+				height: 142px;
 			}
 			
-			.back-home-btn{
-				border-radius: 6px;
-				letter-spacing: 1px;
+			.caution{
+				background-image: url('images/404/caution.png');
+				background-repeat: no-repeat;
+				width: 40px;
+				height: 40px;
+			}
+			
+			.banner{
+				background-image: url('images/404/banner.png');
+				background-repeat: no-repeat;
+				width: 535px;
+				height: 212px;
 			}
 		</style>
 	</head>
@@ -44,43 +61,28 @@
 
 		<!-- Add your site or application content here new -->
 
-		<!--Adding the header component of the application-->
-
-		<nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-
-					<a class="navbar-brand" href="/"> <img src="/images/lp_logo.png" height="60px;" alt="LePartycious - Your Online Event Planner"></a>
-
+		<md-content>
+			<div class="page_bg">
+				<div layout="row" layout-wrap>
+					<div flex="100">
+						<div class="404_text"></div>
+					</div>
+					<div flex="100">
+						<div class="caution"></div>Oops! The page you requested was not found!
+					</div>
+					<div flex="100">
+						<div class="banner"></div>
+						you can go to <a href="">Home</a> page from here
+					</div>
 				</div>
 			</div>
-		</nav>
-<div class="container marginTop100">
-		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<img src='/images/page_not_found.png' class='img-responsive'/>
-			</div>
-			<div class="col-xs-12 col-sm-6">
-				<div>
-					<h1>404</h1>
-					<h2>Page Not Found</h2>
-					<p>
-						You have just landed onto a 404 page and it is quite clear
-						that you will not find here what you are looking for. So click
-						on the Back to Home button to explore vendors again.
-					</p>
-					<a class="btn default-theme-btn back-home-btn" href='/'>
-				Back To Home
-			</a>
-				</div>
-			</div>
-		</div>
-		</div>
+		</md-content>
 
+		
 		<!-- build:js(.) scripts/vendor.js -->
 		<!-- bower:js -->
-		<script src="bower_components/jquery/dist/jquery.js"></script>
-		<script src="bower_components/angular/angular.js"></script>
+		<script src="../bower_components/jquery/dist/jquery.js"></script>
+		<script src="../bower_components/angular/angular.js"></script>
 
 	</body>
 </html>

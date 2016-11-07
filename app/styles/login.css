@@ -1,4 +1,5 @@
-#signinModal .social-buttons a {
+#signinModal .social-buttons a,
+#signupModal  .social-buttons a{
     width: 49%;
     border-radius: 0px;
 }
@@ -28,14 +29,14 @@
 
 .btn-login{
 	    color: #fff;
-    background-color: #f37254;
-    border: 2px solid #f37254;
+    background-color: #ee3e20;
+    border: 2px solid #ee3e20;
     width: 100%;
 }
 
 .btn-login:hover,
 .btn-login:focus {
-    color: #f37254;
+    color: #ee3e20;
     background-color: #ffffff;
 }
 

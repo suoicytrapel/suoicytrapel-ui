@@ -7,13 +7,17 @@
 app.controller('fgtpwdController', function($scope, ModalService, close, $element) {
 
 	var vm = this;
-	
+	vm.submitted = false;
 	
 	 vm.closePopup = function(){
 	 	/* closing the modal using javascript instead of data attrs */
 	 	$element.modal('hide');
 	 	close();
 	 	};
+	 vm.sendDetails = function(){
+	 	vm.submitted = true;
+	 	/* Rest call to be written here */
+	 };	
 
 		vm.showSignInPopup = function() {
 		vm.closePopup();

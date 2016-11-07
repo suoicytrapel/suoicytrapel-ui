@@ -1,4 +1,4 @@
-<div class="ng-cloak">
+<div class="ng-cloak" data-ng-show="!vm.showReviewsPage">
 	<div class="cover-container">
 		<div id="coverPage" class="detail-cover text-center" style="background-image:url({{vm.coverbgImageURL}})">
 			<!--
@@ -33,12 +33,12 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-md-9">
 						<div class="row details-basicinfo-contnr">
-							<div class="col-xs-2">
+							<div class="hidden-xs col-sm-2">
 								<div class="detail-category-icon-contnr" title="{{vm.category}}">
 									{{vm.categoryInitials}}
 								</div>
 							</div>
-							<div class="col-xs-10 details-basicinfo-right-panel">
+							<div class="col-xs-12 col-sm-10 details-basicinfo-right-panel">
 								<h2 class="details-name">{{vm.detailedData.name}}</h2>
 								<div class="details-address">
 									{{vm.detailedData.addressLine1}} {{vm.detailedData.addressLine2}}
@@ -95,50 +95,16 @@
 											</div>
 											(per plate)
 										</div>
-										<span ng-if="key != 'Veg' && key != 'Non-Veg'" class="fa fa-check color-green allowed-tick"></span><span> {{key}}</span><span ng-if="value.length>0">	{{value}}</span>
+										<span ng-if="key != 'Veg' && key != 'Non-Veg'" class="fa fa-check color-green allowed-tick"></span><span ng-if="key != 'Veg' && key != 'Non-Veg'"> {{key}}</span><span ng-if="key != 'Veg' && key != 'Non-Veg' && value.length>0">	{{value}}</span>
 									</li>
-								<!-- 	<li>
-										<div class="key-high-proptext">
-											<div class="key-high-bold">
-												<span class="fa fa-circle color-red not-allowed-cross"></span> Non-Veg
-											</div>
-											(starts from)
-										</div>
-										<div class="key-high-amt">
-											<div class="key-high-bold">
-												<span class="fa fa-fw fa-inr"></span>{{vm.detailedData.inHouseOfferingsTabMap['In House Catering'].minNonVegPrice}}
-											</div>
-											(per plate)
-										</div>
-									</li> -->
-									<!-- <li>
-										<span class="fa fa-check color-green allowed-tick"></span> Inhouse Catering
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Outhouse Catering allowed
-									</li>
-									<li>
-										<span class="fa fa-times color-red not-allowed-cross"></span> Non-Veg food allowed
-									</li>
-									<li>
-										<span class="fa fa-times color-red not-allowed-cross"></span> Inhouse Alcohol allowed
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Outhouse Alcohol allowed
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Inhouse DJ
-									</li>
-									<li>
-										<span class="fa fa-check color-green allowed-tick"></span> Outhouse DJ allowed
-									</li>
- -->
+								
 									<!-- Catering specific Highlights -->
 									<li ng-if="vm.detailedData.isPureVeg != null">
 										<span ng-if="vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg Only</span>
 										<span ng-if="!vm.detailedData.isPureVeg"><span class="fa fa-check color-green allowed-tick"></span> Veg/Non-Veg both</span>
 									</li>
 								</ul>
+								<button type="button" class="btn btn-success btn-checkavail" ng-click="vm.openAvailabilityForm()">CHECK AVAILABILITY</button>
 							</div>
 						</div>
 					</div>
@@ -155,22 +121,25 @@
 				<div class="fixed-tabs-container" id="left_nav_container">
 					<ul class="side-nav-fixed nav">
 						<li>
-							<a href="#facilities"><span class="fa fa-fw fa-gears"></span>Facilities</a>
+							<a  href="#facilities" ng-click="vm.leftNavContClkHandler($event, 'facilities');"><span class="fa fa-fw fa-gears"></span>Facilities</a>
 						</li>
 						<li>
-							<a href="#description"><span class="fa fa-fw fa-align-left"></span>Description</a>
+							<a  href="#description" ng-click="vm.leftNavContClkHandler($event, 'description');"><span class="fa fa-fw fa-align-left"></span>Description</a>
+						</li>
+						<li ng-if="vm.detailedData.amenityDetailsTabMap">
+							<a href="#areas" ng-click="vm.leftNavContClkHandler($event, 'areas');"><span class="fa fa-fw fa-university"></span>Lawns, Halls &amp; Rooms</a>
+						</li>
+						<li ng-if="vm.selectedCategory == 'VENUE' || vm.selectedCategory == 'CATERER'">
+							<a  href="#foodBeverages" ng-click="vm.leftNavContClkHandler($event, 'foodBeverages');"><span class="fa fa-fw fa-cutlery"></span>Food &amp; Beverages</a>
+						</li>
+						<li ng-if="vm.detailedData.additionalServices || vm.detailedData.additionalInfo">
+							<a href="#additionalInfo" ng-click="vm.leftNavContClkHandler($event, 'additionalInfo');"><span class="fa fa-fw fa-info-circle"></span>Additional Info</a>
 						</li>
 						<li>
-							<a href="#areas"><span class="fa fa-fw fa-university"></span>Lawns, Halls &amp; Rooms</a>
+							<a href="#policies" ng-click="vm.leftNavContClkHandler($event, 'policies');"><span class="fa fa-fw fa-file"></span>Booking Policies</a>
 						</li>
 						<li>
-							<a href="#foodBeverages"><span class="fa fa-fw fa-cutlery"></span>Food &amp; Beverages</a>
-						</li>
-						<li>
-							<a href="#additionalInfo"><span class="fa fa-fw fa-info-circle"></span>Additional Info</a>
-						</li>
-						<li>
-							<a href="#policies"><span class="fa fa-fw fa-file"></span>Booking Policies</a>
+							<a href="#recentReviews" ng-click="vm.leftNavContClkHandler($event, 'recentReviews');"><span class="fa fa-fw fa-commenting"></span>Recent Reviews</a>
 						</li>
 					</ul>
 				</div>
@@ -490,11 +459,39 @@
 							</ol>
 						</div>
 					</section>
+					<section id="recentReviews" class="details-page-sections desc-type-layout">
+						<div class="recentReviews-container">
+							<h3>Recent Reviews<a href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
+							<div class="reviewCommentItem">
+							<div class="row">
+								<div class="col-xs-4 col-sm-2">
+									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');"></div>
+									
+								</div>
+								<div class="col-xs-6 col-sm-8">
+									<div class="reviewer_name">Ankit</div>
+									<div class="review_date">Reviewed on: 10-06-2016</div>
+								</div>
+								<div class="col-xs-2 col-sm-2">
+									<ng-rating  ng-model="vm.postedReviewRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="review_starRating">4.5</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-offset-4 col-sm-offset-2 review_comment col-xs-8 col-sm-10">
+									I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.
+									
+								</div>
+							</div>
+						</div>
+						</div>
+					</section>	
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
+<give-review editable="true" vendor-rating="vm.newReviewModel.vendorRating" stars-count="5" show-grade="true" review-money="vm.newReviewModel.reviewMoney" review-comment="vm.newReviewModel.reviewComment" submit-review="vm.newReviewModel.submitReview();" apply-margin="true" ></give-review>
+
 <div class="row bg-grey">
 	<div class="gap20"></div>
 	<div class="col-xs-12 col-sm-offset-1 col-sm-6">
@@ -610,30 +607,27 @@
 					<div class="swiper-slide recommended-by-us-swiper-slide" data-ng-repeat="reccomendation in vm.detailedData.recommendationList"  on-last-repeat-element on-finish-callback="vm.applySwiperOnRecommended()">
 						<div class="recommended-pamphlet-container">
 							<a href="" ng-click="vm.getReccomendationDetails(reccomendation.name);" class="pamphlet-anchor">
-							<div class="pamphlet-container">
+							<div class="pamphlet-container recommended-max-width">
 								<div class="pamphlet-header">
-									<div class="featured-ribbon">
-										<span class="featured-ribbon-text">LEPARTYCIOUS</span>
-									</div>
-									<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">
+									<div class="featured-ribbon"><span class="featured-ribbon-text">HAND PICKED</span></div>
+									<div class="vendor-cover-img" style="background-image: url('{{vm.getImageURL(reccomendation.mainImagerURL)}}')" class="vertical-center"></div>
+								<!--<div class="pamphlet-title-price" ng-if="result.startingPrice"><span class="fa fa-fw fa-inr"></span>{{result.startingPrice}}</div>
+								<div class="pamphlet-title-price" ng-if="!result.startingPrice">Get Quote</div>-->
+									<!--<img src="{{vm.getImageURL(reccomendation.mainImagerURL)}}" alt="cover-photo" class="vertical-center">-->
 								</div>
 								<div class="pamphlet-body">
-									<div class="pamphlet-body">
-										<div class="pamphlet-title col-xs-12 text-center recommended-small-font">
+									
+										<div class="pamphlet-title text-center">
 											<div class="row">
-												<div class="col-xs-8 text-left pamphlet-title-desc">
-													<div>
-														{{reccomendation.name}}
-													</div><span class="pamphlet-title-city">{{reccomendation.locality}}</span>
+												
+												<div class="col-xs-12 text-left pamphlet-title-desc" ng-if="vm.selectedCategory == 'VENUE'"><div title="{{reccomendation.name}}, {{reccomendation.locality}}" class="theme-color" style="font-size: 15px;">{{reccomendation.name}}</div><div class="pamphlet-title-city">{{reccomendation.locality}}</div>
 												</div>
-												<div class="col-xs-4 text-left pamphlet-title-price border-left-1px">
-													<div>
-														Starts from
-													</div><span class="fa fa-fw fa-inr theme-color"></span><span class="pamphlet-title-rate theme-color">{{reccomendation.startingPrice}}</span>
-												</div>
+									<div class="col-xs-12 text-left pamphlet-title-desc" ng-if="vm.selectedCategory != 'VENUE'"><div title="{{reccomendation.name}}, {{reccomendation.locality}}" class="theme-color" style="font-size: 15px;">{{reccomendation.name}}</div><div class="pamphlet-title-city">{{reccomendation.locality}}</div>
+									
+									</div>
 											</div>
 										</div>
-									</div>
+									
 								</div>
 								<div class="pamphlet-footer"></div>
 							</div> </a>
@@ -698,7 +692,8 @@
 	</div>
 	<a href="javascript:void(0)" class="gallery-close-btn" data-ng-click="vm.closeGallery();"></a>
 </div>
-<button type="button" class="btn btn-success" ng-click="vm.openAvailabilityForm()">Check Availability</button>
+<!--<button type="button" class="btn btn-success" ng-click="vm.openAvailabilityForm()">Check Availability</button>-->
 </div>
 
-<div data-ng-include="'views/detail/checkAvailability.html'"></div>
+<div data-ng-include="'views/detail/reviews.html'" data-ng-show="vm.showReviewsPage"></div>
+<div data-ng-include="'views/detail/checkAvailability.html'" data-ng-show="!vm.showReviewsPage"></div>

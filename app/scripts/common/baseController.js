@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element) {
 
 	var vm = this;
 
@@ -20,23 +20,22 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.init = function() {
 
 		vm.selectedCategory = null;
+		vm.selectedCity = null;
 		vm.categoryMap = baseFactory.categoryMap;
 
 		//vm.coverUrl = baseFactory.getCoverUrl();
 		vm.contactForm = {};
-		/* Parameters for hiding the Loader Screen */
 
+		/* Parameters for hiding the Loader Screen */
 		vm.citiesPopulated = false;
 		vm.routeChangeSuccessInvoked = false;
 		vm.pageDataPopulated = false;
 
-		/* city and category fields untouched parameters */
-		vm.cityUntouched = true;
-		vm.categoryUntouched = true;
-
 		/*Statically defining the classes for icons present in category dropdown*/
-		vm.categoryIconsMap = baseFactory.categoryIconsMap;
+		/*vm.categoryIconsMap = baseFactory.categoryIconsMap;*/
 		$scope.form = {};
+
+		vm.loggedInUser = true;
 
 	};
 
@@ -66,32 +65,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$rootScope.$on("$routeChangeSuccess", function() {
 
 			vm.showFooter = true;
-			window.scrollTo(0, 0);
 			vm.routeChangeSuccessInvoked = true;
-			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/')
+			if ($location.path() == '/faq/' || $location.path() == '/aboutus/' || $location.path() == '/bad-request/' || $location.path() == '/disclaimer/' || $location.path() == '/privacy-policy/' || $location.path() == '/terms-of-use/' || $location.path() == '/wizard/')
 				vm.pageDataPopulated = true;
 			else if ($location.path() == '/')
-				applyAutocomplete();
+				baseOperations();
 			if ((vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated) || $location.path() == '/bad-request/')
 				vm.stopLoader();
-
-		});
-
-		/*
-		 * handler for sliding
-		 * the location dropdown up
-		 * for click of document
-		 *
-		 * */
-		$(document).on('click', function(e) {
-			if (!($(e.target).hasClass('lp-select-city-text') || $(e.target).hasClass('lp-selected-city') || $(e.target).hasClass('location-icon') || $(e.target).hasClass('lp-label-city'))){
-				//$('.venue_includes').removeClass('slide-down');
-				$('.lp-city-dropdown').slideUp();
-			}				
-			if (!($(e.target).hasClass('lp-select-category-text') || $(e.target).hasClass('lp-selected-category') || $(e.target).hasClass('category-icons') || $(e.target).hasClass('lp-label-category'))){
-				$('.venue_includes').removeClass('slide-down');
-				$('.lp-category-dropdown').slideUp();
-			}				
+			$timeout(function() {
+				$scope.$broadcast('viewLoadedSuccessfully');
+			}, 100);
 		});
 
 		/*
@@ -104,14 +87,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			animateHeaderBgColor();
 		});
 
-		
 		/*
-		 
-		 * 
+
+		 *
 		 * To call autoResizeCover on window resize
 		 */
 		window.onresize = autoResizeCover;
-
 
 		/*
 		 * is invoked
@@ -124,10 +105,36 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			setCategoryOnRouteParams(args.routeParamsCategory);
 		});
 
+		/*
+		 * is invoked
+		 * when the pageDataPopulated event
+		 * is emitted by other pages when all the data is populated
+		 *
+		 * */
 		$scope.$on('pageDataPopulated', function() {
 			vm.pageDataPopulated = true;
 			if (vm.citiesPopulated && vm.routeChangeSuccessInvoked && vm.pageDataPopulated)
 				vm.stopLoader();
+		});
+
+		/*
+		 * called when the page unloads
+		 * is used to scroll up the page as soon as the user hits refresh
+		 *
+		 * */
+		$(window).on('unload', function() {
+			$(window).scrollTop(0);
+		});
+
+		//for adding a custom class for md-menu-container for giving some styling
+
+		$scope.$on('$mdMenuOpen', function() {
+			$timeout(function() {
+				//getting menu content container by tag id from html
+				var menuContentContainer = angular.element('#loggedInuser_md_menu_content');
+				// Using parent() method to get parent warper with .md-open-menu-container class and adding custom class.
+				menuContentContainer.parent().addClass('formatter-class');
+			});
 		});
 
 	};
@@ -140,6 +147,23 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	vm.defineMethods = function() {
 
+		/*
+
+		 * Method for checking city and vendor is selected before autocomplete
+		 * */
+		vm.vendorAutocompleteClkHandler = function() {
+			if (!vm.selectedCity) {
+				angular.element('#vendor-autocomplete-input-id').blur();
+				$timeout(function() {
+					angular.element('.location-button').triggerHandler('click');
+				}, 0);
+			} else if (!vm.selectedCategory) {
+				angular.element('#vendor-autocomplete-input-id').blur();
+				$timeout(function() {
+					angular.element('.vendor-type-dropdown').triggerHandler('click');
+				}, 0);
+			}
+		};
 		/*
 		 *
 		 *Method for showing the loader screen
@@ -173,19 +197,22 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * is clicked from the cover section
 		 *
 		 * */
-		vm.clicked = function() {
-			if ((!vm.cityUntouched && vm.selectedCity) && (!vm.categoryUntouched && vm.selectedCategory)) {
-				$route.reload();
-				//baseFactory.setCoverUrl(vm.selectedCategory);
-				baseFactory.setMainCoverHeading(vm.selectedCategory);
-				if (vm.searchData == undefined || vm.searchData == null) {
+		vm.vendorSearchClickHandlr = function() {
+
+			if (!vm.selectedCity) {
+				$timeout(function() {
+					angular.element('.location-button').triggerHandler('click');
+				}, 0);
+			} else if (!vm.selectedCategory) {
+				$timeout(function() {
+					angular.element('.vendor-type-dropdown').triggerHandler('click');
+				}, 0);
+			} else {
+				if (!vm.searchText) {
 					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
 				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
+					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchText);
 				}
-			} else {
-				vm.cityUntouched = false;
-				vm.categoryUntouched = false;
 			}
 
 		};
@@ -196,20 +223,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * different option from city dropdown
 		 *
 		 * */
-		vm.setCity = function($event) {
-			var selectedCityName = angular.element($event.currentTarget)[0].innerHTML;
-			vm.selectedCity = selectedCityName;
-			var selectedCityId = angular.element($event.currentTarget)[0].getAttribute('data-id');
-			baseFactory.setSelectedCity(selectedCityId);
-			vm.toggleDropdown();
-			angular.element('.home-search-box').val('');
-			vm.searchData = '';
+		vm.setCity = function() {
+			baseFactory.setSelectedCity(vm.selectedCity);
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				if (vm.searchData == undefined || vm.searchData == null) {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
-				}
+
+				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+
 			}
 			/* Code for emitting data on city change
 			 *  so as to change recently added block */
@@ -222,48 +241,54 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * different option from category dropdown
 		 *
 		 * */
-		vm.setCategory = function($event) {
-			var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-key');
-			baseFactory.setSelectedCategory(selectedCategoryValue);
-			vm.selectedCategory = selectedCategoryValue;
-			vm.toggleCategoryDropdown();
+		vm.setCategory = function() {
+			//var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-key');
+			baseFactory.setSelectedCategory(vm.selectedCategory);
+			//vm.selectedCategory = selectedCategoryValue;
 			angular.element('.home-search-box').val('');
-			vm.searchData = '';
+			vm.searchText = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
-				if (vm.searchData == undefined || vm.searchData == null) {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
-				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchData);
-				}
+
+				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+
 			}
 		};
 
 		/*
 		 *
-		 * toggle city dropdown
+		 * city dialog Angular Material
 		 *
 		 * */
-		vm.toggleDropdown = function() {
-			vm.cityUntouched = false;
-			$('.lp-city-dropdown').slideToggle();
-			//$('.venue_includes').toggleClass('slide-down');
+		vm.openCityDialog = function($event) {
+			var parentEl = angular.element(document.body);
+			//
+			//angular.element(document.body).addClass('height100');
+			$mdDialog.show({
+				parent : parentEl,
+				targetEvent : $event,
+				openFrom : 'left',
+				closeTo : 'top',
+				templateUrl : 'views/selectcitydialog/selectcitydialog.html',
+				scope : $scope, //Use parent scope in template
+				preserveScope : true,
+				//controller: 'baseController',
+				clickOutsideToClose : true,
+			});
+
 		};
 
-		/*
-		 *
-		 * toggle category dropdown
-		 *
-		 * */
-		vm.toggleCategoryDropdown = function() {
-			vm.categoryUntouched = false;
-			$('.lp-category-dropdown').slideToggle();
-			$('.venue_includes').toggleClass('slide-down');
+		//Method to hide mdDialog select city Dialog
+		vm.closeDialog = function() {
+			$mdDialog.hide();
+			//angular.element(document.body).removeClass('height100');
+			/* Insert the value in baseFactory so that it can be used throughout
+			 * the application */
+			baseFactory.setSelectedCity(vm.selectedCity);
 		};
-
 		/*
 		 *
 		 * Called when user clicks
-		 * contactus from footer
+		 * contactus button
 		 *
 		 * */
 		vm.openContactForm = function() {
@@ -329,6 +354,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 		};
 
+		/* Methods for defining global side Navigation */
+		vm.toggleLeft = buildToggler('left');
+		vm.toggleRight = buildToggler('right');
+		function buildToggler(componentId) {
+			return function() {
+				$mdSidenav(componentId).toggle();
+			};
+		}
+
 	};
 
 	/*
@@ -339,19 +373,19 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.invokeInitialMethods = function() {
 		vm.startLoader();
 		populateCities();
-		applyAutocomplete();
+		baseOperations();
 		autoResizeCover();
 	};
 
 	/*
 	 * Method for clearing searched data
 	 * */
-	vm.clearSearchedText = function() {
-		angular.element('.home-search-box').val('');
-		vm.searchData = '';
-		//$scope.$apply();
-		return false;
-	};
+	/*vm.clearSearchedText = function() {
+	 angular.element('.home-search-box').val('');
+	 vm.searchData = '';
+	 //$scope.$apply();
+	 return false;
+	 };*/
 
 	/*
 	 *
@@ -361,21 +395,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	function populateCities() {
 		HomeFactory.loadCities.populateCities().$promise.then(function(data) {
 			vm.citiesList = data.toJSON();
-			vm.selectedCity = null;
-			//Code for Default Selected City Commented
-			//Now the choose city placeholder is to be kept
-			/*
-			 var counter = 0;
-			 if (vm.citiesList && vm.citiesList != null) {
-			 angular.forEach(vm.citiesList, function(value, key) {
-			 if (counter == 0) {
-			 vm.selectedCity = value;
-			 baseFactory.setSelectedCity(key);
-			 }
-			 counter = counter + 1;
-
-			 });
-			 }*/
 
 			vm.citiesPopulated = true;
 			if (vm.routeChangeSuccessInvoked && vm.citiesPopulated && vm.pageDataPopulated)
@@ -387,11 +406,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		});
 	}
 
-
+	/*
+	 *
+	 * method for showing sign in popup
+	 *
+	 * */
 	vm.showSignInPopup = function() {
 
 		ModalService.showModal({
-			templateUrl : "/views/login/signin.html",
+			templateUrl : "views/login/signin.html",
 			controller : "loginController",
 			controllerAs : "vm",
 		}).then(function(modal) {
@@ -410,13 +433,60 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	};
 	/*
 	 *
+	 * method for showing sign up popup
+	 *
+	 * */
+	vm.showSignUpPopup = function() {
+		//vm.closePopup();
+		ModalService.showModal({
+			templateUrl : "/views/login/signup.html",
+			controller : "signupController",
+			controllerAs : "vm",
+		}).then(function(modal) {
+			/* Opening a modal via javascript */
+			modal.element.modal();
+			/* returning a promise on closing a modal */
+			modal.close.then(function(result) {
+				console.log(result);
+			});
+			/* when closing modal on clicking outside modal area
+			 * the modal element should be removed form DOM */
+			modal.element.on('hidden.bs.modal', function() {
+				modal.controller.closePopup();
+			});
+		});
+	};
+
+
+	vm.showResetPwdPopup = function() {
+		ModalService.showModal({
+			templateUrl : "/views/login/resetpwd.html",
+			controller : "resetpwdController",
+			controllerAs : "vm",
+		}).then(function(modal) {
+			/* Opening a modal via javascript */
+			modal.element.modal();
+			/* returning a promise on closing a modal */
+			modal.close.then(function(result) {
+				console.log(result);
+			});
+			/* when closing modal on clicking outside modal area
+			 * the modal element should be removed form DOM */
+			modal.element.on('hidden.bs.modal', function () {
+            modal.controller.closePopup();
+        });
+		});
+	};
+
+	/*
+	 *
 	 * Call for header bg color animation
 	 *
 	 * */
 	function animateHeaderBgColor() {
-		var pageYoffset = window.pageYOffset, coverPage = document.getElementById("coverPage");
+		var pageYoffset = $window.pageYOffset, coverPage = angular.element("#coverPage")[0];
 		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined" && typeof coverPage != null && typeof coverPage != "undefined")
-			$("#navbar").css("background-color", "rgba(243, 114, 84, " + pageYoffset / coverPage.clientHeight + ")");
+			angular.element("#navbar").css("background-color", "rgba(238 ,62 ,32 , " + pageYoffset / coverPage.clientHeight + ")");
 
 		if ( typeof pageYoffset != null && typeof pageYoffset != "undefined")
 			angular.element('#back-to-top').removeClass().addClass('show-' + Math.floor(pageYoffset / 200));
@@ -429,14 +499,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 *
 	 * */
 	function setCityOnRouteParams(cityId) {
-		if (vm.citiesList && typeof vm.citiesList == 'object') {
-			for (var key in vm.citiesList) {
-				if (key == cityId) {
-					vm.selectedCity = vm.citiesList[key];
-					break;
-				}
-			}
-		}
+		vm.selectedCity = cityId;
 
 	}
 
@@ -471,18 +534,37 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		}
 
 	}
-	
-	/*
-		 * To set the height of cover Page
-		 * as per the window height
-		 *
-		 * */
-		function autoResizeCover() {
-			$timeout(function(){
-				$("#coverPage").height(window.innerHeight);
-			},0);
-		}
 
+	/*
+	 * To set the height of cover Page
+	 * as per the window height
+	 *
+	 * */
+	function autoResizeCover() {
+		$timeout(function() {
+			angular.element("#coverPage").height($window.innerHeight);
+		}, 0);
+	}
+
+	/* callback function for md-autocomplete
+	 * returns promise and data */
+	vm.querySearch = function(searchText) {
+		if (searchText.length > 0 && baseFactory.getSelectedCategory() && baseFactory.getSelectedCity()) {
+			var searchRequestDTO = {
+				searchType : baseFactory.getSelectedCategory(),
+				searchString : searchText,
+				cityId : baseFactory.getSelectedCity(),
+			};
+			var promise = HomeFactory.loadList.populate(searchRequestDTO).$promise;
+
+			return promise.then(function(data) {
+				return data;
+			}, function(error) {
+				$location.path('/bad-request/');
+			});
+
+		}
+	};
 
 	/*
 	 *
@@ -491,54 +573,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * after page load is written in $timeout
 	 *
 	 * */
-	function applyAutocomplete() {
+	function baseOperations() {
 		//Apply autocomplete when content is loaded on the page
 		//$timeout is used so that autocomplete is binded in the next digest cycle
 		$timeout(function() {
-			angular.element('.home-search-box').autocomplete({
-				source : function(request, response) {
-					if (request.term.length > 0) {
-						var searchRequestDTO = {
-							searchType : baseFactory.getSelectedCategory(),
-							searchString : request.term,
-							cityId : baseFactory.getSelectedCity(),
-						};
-						HomeFactory.loadList.populate(searchRequestDTO).$promise.then(function(data) {
-							if (data.length == 0)
-								response(['No Results Found']);
-							else
-								response(data);
-						}, function(error) {
-							$location.path('/bad-request/');
-						});
-					}
-
-				},
-				select : function(event, ui) {
-					//stateid = (ui.item.lable);
-					console.log(ui.item.label);
-					if (ui.item.label == 'No Results Found') {
-						angular.element('.home-search-box').val('');
-						vm.searchData = '';
-						$scope.$apply();
-						return false;
-					} else
-						vm.searchData = (ui.item.label);
-				}
-			});
-
-			//Binding search button value on input field value length
-			$scope.$watch("vm.searchData", function(newValue, oldvalue) {
-				if (newValue && newValue.length > 0)
-					$('.home-search-btn').text('SEARCH');
-				else
-					$('.home-search-btn').text('SEARCH ALL');
-			});
-
+			//Binding tooltip on back to top button
 			$('[data-toggle="tooltip"]').tooltip({
 				placement : 'top'
 			});
 
+			//Click operation on back to top button
 			angular.element("#back-to-top").on('click', function() {
 				$("html, body").animate({
 					scrollTop : 0
@@ -567,7 +611,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//Hiding loader screen when view has loaded completely
 			window.scrollTo(0, 0);
 
-			vm.mainCoverHeading = baseFactory.getMainCoverHeading();
+			//vm.mainCoverHeading = baseFactory.getMainCoverHeading();
 
 		}, 1000);
 	};
@@ -578,6 +622,6 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	vm.defineMethods();
 	vm.invokeInitialMethods();
 	/* Invoking method for preloading Images */
-	preloadImages('/images/about_us_cover.jpg', '/images/faq_cover.jpg');
+	preloadImages('/images/about_us_cover.jpg', '/images/faq_cover.jpg', '/images/disclaimer.jpg', '/images/tou.jpg', '/images/privacypolicy.jpg');
 
 });

@@ -1,4 +1,6 @@
 app.factory('DataFactory', function (Constants, $resource) {
+    var filterName = null;
+    var selectedFilter = null;
 
     return {
         fetchData: $resource(Constants.API_HOST + '/fetch', {}, {
@@ -33,7 +35,22 @@ app.factory('DataFactory', function (Constants, $resource) {
                 method: "POST",
                 isArray: false
             }
-        })
+        }),
+        getSelectedFilterName : function() {
+            return this.filterName;
+        },
+
+        setSelectedFilterName : function(filterName) {
+            this.filterName = filterName;
+        },
+        getSelectedFilters : function() {
+            return this.selectedFilter;
+        },
+
+        setSelectedFilters : function(selectedFilter) {
+            this.selectedFilter = selectedFilter;
+        }
+        
         /*
         attachments: $resource(Constants.API_HOST + '/fetch/filters', {},{
                     fetchAttachments : {
@@ -46,4 +63,6 @@ app.factory('DataFactory', function (Constants, $resource) {
                 })*/
         
     };
+
+    
 });

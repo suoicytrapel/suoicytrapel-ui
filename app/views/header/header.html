@@ -1,32 +1,72 @@
 <nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
 	<div class="container-fluid">
-	<div class="navbar-header">
-		
-		<!--
-		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							</button>-->
-		
-		
-			<a class="navbar-brand" href="/">
-				<img src="/images/lp_logo.png" height="60px;" alt="LePartycious - Your Online Event Planner" title="LePartycious - Your Online Event Planner"></a>
-				
-				
-				</div><!-- Collect the nav links, forms, and other content for toggling -->
-				
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					
-					<ul class="nav navbar-nav">
-											<li class="active h3"><a href="#"></a></li>
-											</ul>
-					
-						
-						<ul class="nav navbar-nav navbar-right lp-header-navbar-nav">
-													<li><a href="javascript:void(0)" ng-click="vm.showSignInPopup();">SIGN IN</a></li>
-												</ul>
-						</div>
-					</div>
-				</nav>
+		<div class="navbar-header">
+
+			<a class="navbar-brand" href="/"> <img src="/images/lp_logo.png" height="60px;" alt="LePartycious - Your Online Event Planner" title="LePartycious - Your Online Event Planner"></a>
+
+			<!-- Custom Header Elements -->
+			<div class="lp-custom-header">
+				<ul>
+					<li>
+						<md-button class="md-raised location-button" ng-click="vm.openCityDialog($event)">
+							<span class="lp-selected-city">{{vm.citiesList[vm.selectedCity]}}</span>
+							<span class="fa fa-fw fa-map-marker location-icon"></span>
+						</md-button>
+					</li>
+					<li class="hidden-xs" ng-if="!vm.loggedInUser">
+						<md-button style="color: white;" ng-click="vm.showSignInPopup();">
+							SIGN IN
+						</md-button>
+					</li>
+					<li class="hidden-xs" ng-if="!vm.loggedInUser">
+						<md-button style="color: white;" ng-click="vm.showSignUpPopup();">
+							SIGN UP
+						</md-button>
+					</li>
+					<li ng-if="vm.loggedInUser">
+						<md-menu md-position-mode="target target" >
+          <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" style="color: white;">
+            Welcome anku171<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
+          </md-button>
+          <md-menu-content width="3" id="loggedInuser_md_menu_content">
+            <md-menu-item>
+              <md-button ng-click="" href="/wizard">
+                  <div layout="row" flex>                
+                    <md-icon md-menu-align-target class="material-icons">assignment</md-icon>
+                    <p flex>Wizard</p>
+                  </div>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="vm.showResetPwdPopup();">
+                  <div layout="row" flex>                
+                    <md-icon md-menu-align-target class="material-icons">settings_backup_restore</md-icon>
+                    <p flex>Reset Password</p>
+                  </div>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="">
+                  <div layout="row" flex>                
+                    <md-icon md-menu-align-target class="material-icons">power_settings_new</md-icon>
+                    <p flex>Logout</p>
+                  </div>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+					</li>
+					<li>
+						<md-button ng-click="vm.toggleRight();" class="global_menu_button md-icon-button">
+							<md-icon md-font-library="material-icons" style="color: white;">
+								menu
+							</md-icon>
+						</md-button>
+
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</nav>

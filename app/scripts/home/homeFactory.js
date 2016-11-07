@@ -27,6 +27,15 @@ app.factory('HomeFactory', function (Constants, $resource) {
                     return angular.fromJson(data);
                 } 
             }
+            }),
+        fetchSubCategories: $resource(Constants.API_HOST + '/search/subCategories', {},{
+            subCategories : {
+                method: "GET",
+                isArray: false,
+                transformResponse: function(data, header) {
+                    return angular.fromJson(data);
+                } 
+            }
             })
         };
 });

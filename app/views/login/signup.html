@@ -3,11 +3,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close"  ng-click="vm.closePopup();" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">SIGN UP</h3>
+        <h3 id="myModalLabel">SIGN UP <span class="h6">(Takes less than 30 seconds)</span></h3>
       </div>
       <div class="modal-body">
       	
-      		<div class="social-buttons">
+      	<md-content>
+    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+      <md-tab label="User">
+        <md-content class="md-padding">
+        	<div class="social-buttons">
 									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
 									<a href="#" class="btn btn-gg"><i class="fa fa-google"></i> Google</a>
 								</div>
@@ -16,22 +20,22 @@
 																<div class="text-center">OR</div>-->
 								
       		<hr>
-        <form name="form.signupForm" class="col-sm-12" novalidate>
+        <form name="form.signupFormUser" class="col-sm-12" novalidate>
         
-        <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your Name" type="text" ng-model="vm.signupForm.name" name="name" required>
-          <span style="color:brown;" ng-show="(form.contactForm.name.$touched || vm.submitted) && form.contactForm.name.$invalid">Name is mandatory.</span>
+        <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your Name" type="text" ng-model="vm.signupUser.name" name="name" required>
+          <span style="color:brown;" ng-show="(form.signupFormUser.name.$touched || vm.submitted) && form.signupFormUser.name.$invalid">Name is mandatory.</span>
       	</div>	
         	
-        <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.signinForm.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-          <span style="color:brown;" ng-show="(form.contactForm.name.$touched || vm.submitted) && form.contactForm.name.$invalid">Name is mandatory.</span>
+        <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.signupUser.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+          <span style="color:brown;" ng-show="(form.signupFormUser.email.$touched || vm.submitted) && form.signupFormUser.email.$invalid">Email is mandatory.</span>
       	</div>
 
-          <div class="form-group"><label class="required">Password</label><input class="form-control required" placeholder="Your password" type="password" ng-model="vm.signin.password" name="password" required></input>
-          	<span style="color:brown;" ng-show="(form.contactForm.message.$touched || vm.submitted) && form.contactForm.message.$invalid">Message is mandatory.</span>
+          <div class="form-group"><label class="required">Password</label><input class="form-control required" placeholder="Your password" type="password" ng-model="vm.signupUser.password" name="password" required></input>
+          	<span style="color:brown;" ng-show="(form.signupFormUser.password.$touched || vm.submitted) && form.signupFormUser.password.$invalid">Password is mandatory.</span>
           </div>
           
-           <div class="form-group"><label class="required">Confirm Password</label><input class="form-control required" placeholder="Retype password" type="password" ng-model="vm.signupForm.password" name="confirmPassword" required></input>
-          	<span style="color:brown;" ng-show="(form.contactForm.message.$touched || vm.submitted) && form.contactForm.message.$invalid">Message is mandatory.</span>
+           <div class="form-group"><label class="required">Confirm Password</label><input class="form-control required" placeholder="Retype password" type="password" ng-model="vm.signupUser.confirmPassword" name="confirmPassword" required></input>
+          	<span style="color:brown;" ng-show="(form.signupFormUser.confirmPassword.$touched || vm.submitted) && form.signupFormUser.confirmPassword.$invalid">Confirm your Password</span>
           </div>
 		
 		<div>	
@@ -49,6 +53,72 @@
          
           
         </form>
+        
+          </md-content>
+      </md-tab>
+      <md-tab label="Vendor">
+        <md-content class="md-padding">
+        	<!--<div class="social-buttons">
+									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+									<a href="#" class="btn btn-gg"><i class="fa fa-google"></i> Google</a>
+								</div>
+								
+      		<hr>-->
+        <form name="form.signupFormVendor" class="col-sm-12" novalidate>
+        
+        <div class="form-group" style="margin-top:10px;"><label class="required">Name</label><input class="form-control required" placeholder="Your Name" type="text" ng-model="vm.signupVendor.name" name="name" required>
+          <span style="color:brown;" ng-show="(form.signupFormVendor.name.$touched || vm.submitted) && form.signupFormVendor.name.$invalid">Name is mandatory.</span>
+      	</div>	
+        	
+        <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.signupVendor.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+          <span style="color:brown;" ng-show="(form.signupFormVendor.email.$touched || vm.submitted) && form.signupFormVendor.email.$invalid">Email is mandatory.</span>
+      	</div>
+
+          <div class="form-group"><label class="required">Password</label><input class="form-control required" placeholder="Your password" type="password" ng-model="vm.signupVendor.password" name="password" required></input>
+          	<span style="color:brown;" ng-show="(form.signupFormVendor.password.$touched || vm.submitted) && form.signupFormVendor.password.$invalid">Password is mandatory.</span>
+          </div>
+          
+           <div class="form-group"><label class="required">Confirm Password</label><input class="form-control required" placeholder="Retype password" type="password" ng-model="vm.signupVendor.confirmPassword" name="confirmPassword" required></input>
+          	<span style="color:brown;" ng-show="(form.signupFormVendor.confirmPassword.$touched || vm.submitted) && form.signupFormVendor.confirmPassword.$invalid">Confirm your Password</span>
+          </div>
+          
+          <div class="form-group"><label>Brand Name</label><input class="form-control required" placeholder="Your Brand Name" type="text" ng-model="vm.signupVendor.brandName" name="brandName"></input>
+          </div>
+          
+          <div class="form-group"><label class="required">Select Vendor Type</label><br/>
+          	<select ng-model="vm.signupVendor.vendorType" name="vendorType" required placeholder="Choose">
+          		<option value="venue">VENUES</option>
+          		<option value="caterer">CATERER</option>
+          		<option value="decorator">DECORATOR</option>
+          		<option value="photographer">PHOTOGRAPHER</option>
+          		<option value="entertainment">ENTERTAINMENT</option>
+          		<option value="other">OTHERS</option>
+          	</select>
+          	<span style="color:brown;" ng-show="(form.signupFormVendor.vendorType.$touched || vm.submitted) && form.signupFormVendor.vendorType.$invalid">Please select a Vendor Type</span>
+          </div>
+		
+		<div>	
+          <a href="#" class="btn btn-login">CREATE MY ACCOUNT</a>
+</div>
+		<div class="text-center mTop10">
+      	Already have an account ? <a href="javascript:void(0)" class="log-in-link" data-ng-click="vm.closePopup();vm.showSignInPopup();">LOG IN</a>
+      </div>
+         <!--
+          <div class="form-group"><label class="required">Test your math skill</label>
+                       <div id="captcha">
+                                                      </div>
+                     <span style="color:brown;" ng-show="vm.submitted && !captchaValid">Captcha is Invalid.</span>
+                   </div>-->
+         
+          
+        </form>
+        
+          </md-content>
+      </md-tab>
+      
+    </md-tabs>
+  </md-content>
+      	
       </div>
       <div class="modal-footer">
       	

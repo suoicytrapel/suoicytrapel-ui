@@ -34,65 +34,106 @@
 						</div>
 						<div class="quarter-gap"></div>-->
 
-						<form action="" autocomplete="off" class="home-page-form">
-							<div class="col-xs-12 col-sm-2 col-md-2 form-group">
-								<div class="row">
-									<div class="lp-select-city">
-										<div class="lp-select-city-text" data-ng-class="!vm.selectedCity && !vm.cityUntouched ? 'noselection-error' : ''" ng-click="vm.toggleDropdown()">
-											<!--<span class="lp-label-city">CITY</span>-->
-											<span class="lp-selected-city">{{vm.selectedCity}}</span>
-											<span class="fa fa-fw fa-map-marker float-right location-icon"></span>
+						<form action="" autocomplete="off" class="home-page-form" name="vendorSearchForm">
+							<!--<div class="col-xs-12 col-sm-2 col-md-2 form-group">
+							<div class="row">
+							<div class="lp-select-city">
+							<div class="lp-select-city-text" data-ng-class="!vm.selectedCity && !vm.cityUntouched ? 'noselection-error' : ''" ng-click="vm.toggleDropdown()">
+							<span class="lp-selected-city">{{vm.selectedCity}}</span>
+							<span class="fa fa-fw fa-map-marker float-right location-icon"></span>
+							<div ng-if="!vm.selectedCity && !vm.cityUntouched" class="city-err-msg">Please choose a city</div>
+							</div>
+							<ul class="lp-city-dropdown">
+							<li data-ng-repeat = '(key, value) in vm.citiesList'>
+							<span class="fa fa-fw fa-map-marker float-right location-dropdown-icon"></span><a href='javascript:void(0)' data-ng-click='vm.setCity($event)' data-id='{{key}}'>{{value}}</a>
+							</li>
+							</ul>
+							</div>
+							</div>
+							</div>-->
+
+							<div class="col-xs-12 col-sm-3 col-md-2 col-sm-offset-1 form-group">
+								<!--<div class="row">
+								<div class="lp-select-category">
+								<div class="lp-select-category-text" ng-click="vm.toggleCategoryDropdown()" data-ng-class="!vm.selectedCategory && !vm.categoryUntouched ? 'noselection-error' : ''">
+								<span class="lp-selected-category">{{vm.categoryMap[vm.selectedCategory]}}</span>
+								<span class="fa fa-fw float-right category-icons" data-ng-class="vm.selectedCategory ? {{'vm.categoryIconsMap[vm.selectedCategory]'}} : 'fa-user'"></span>
+								<div ng-if="!vm.selectedCategory && !vm.categoryUntouched" class="vendor-err-msg">Please choose a vendor</div>
+								</div>
+								<ul class="lp-category-dropdown">
+								<li data-ng-repeat = '(key, value) in vm.categoryMap' data-key = "{{key}}">
+								<a href='javascript:void(0)' data-ng-click='vm.setCategory($event)' data-key = "{{key}}">{{value}} <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIconsMap[key]'}}"></span></a>
+								</li>
+								</ul>
+								</div>
+								</div> -->
+
+								<!--<md-input-container class="md-block vendor-type-dropdown">
+								<label>Vendor</label>-->
+								<md-select name="vendor" ng-model="vm.selectedCategory" ng-change="vm.setCategory()" class="md-no-underline vendor-type-dropdown" placeholder="Vendor" md-no-asterisk="true">
+									<md-option value="{{key}}" ng-repeat = '(key, value) in vm.categoryMap' class="{{key | lowercase}} vendor_type">
+										<div layout="row" layout-align="center center">
+											<div class="vendor-title">{{value}}</div>
+											<span flex class="horiz-gap"></span>
+										<div class="vendor_dropdown_icons {{key | lowercase}}"></div>
 										</div>
-										<ul class="lp-city-dropdown">
-											<li data-ng-repeat = '(key, value) in vm.citiesList'>
-												<span class="fa fa-fw fa-map-marker float-right location-dropdown-icon"></span><a href='javascript:void(0)' data-ng-click='vm.setCity($event)' data-id='{{key}}'>{{value}}</a>
-											</li>
-										</ul>
-									</div>
+									</md-option>
+
+								</md-select>
+								<!--<div class="errors" ng-messages="vendorSearchForm.vendor.$error">
+								<div ng-message="required">
+								Please choose a vendor
 								</div>
+								</div>
+								</md-input-container>-->
 							</div>
 
-							<div class="col-xs-12 col-sm-3 col-md-2 form-group">
-								<div class="row">
-									<div class="lp-select-category">
-										<div class="lp-select-category-text" ng-click="vm.toggleCategoryDropdown()" data-ng-class="!vm.selectedCategory && !vm.categoryUntouched ? 'noselection-error' : ''">
-											<!--<span class="lp-label-category">VENDOR TYPE</span>-->
-											<span class="lp-selected-category">{{vm.categoryMap[vm.selectedCategory]}}</span>
-											<span class="fa fa-fw float-right category-icons" data-ng-class="vm.selectedCategory ? {{'vm.categoryIconsMap[vm.selectedCategory]'}} : 'fa-user'"></span>
-
-										</div>
-										<ul class="lp-category-dropdown">
-											<li data-ng-repeat = '(key, value) in vm.categoryMap' data-key = "{{key}}">
-												<a href='javascript:void(0)' data-ng-click='vm.setCategory($event)' data-key = "{{key}}">{{value}} <span class="fa fa-fw float-right category-icons" data-ng-class="{{'vm.categoryIconsMap[key]'}}"></span></a>
-											</li>
-										</ul>
-									</div>
-								</div>
+							<div class="col-xs-12 col-sm-5 col-md-7 search-input-box form-group">
+								<!--<div class="row">
+								<input id="searchedText" type="text" placeholder="Vendor Name or Search All" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
+								</input>
+								<span class="fa fw fa-times clear-searchedText" data-ng-show="vm.searchData.length > 0" data-ng-click="vm.clearSearchedText()" title="clear"></span>
+								</div>-->
+								<md-autocomplete class="vendor-name-autocomplete md-no-underline"
+								md-no-cache="true"
+								md-selected-item="vm.selectedItem"
+								md-search-text-change="vm.searchTextChange(vm.searchText)"
+								md-search-text="vm.searchText"
+								md-selected-item-change="vm.selectedItemChange(item)"
+								md-items="item in vm.querySearch(vm.searchText)"
+								md-item-text="item"
+								md-min-length="1"
+								md-input-id="vendor-autocomplete-input-id"
+								placeholder="Search by vendor name"
+								ng-click="vm.vendorAutocompleteClkHandler()">
+									<md-item-template>
+										<span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item}}</span>
+									</md-item-template>
+									<md-not-found>
+										No vendors matching "{{vm.searchText}}" were found.
+									</md-not-found>
+								</md-autocomplete>
 							</div>
 
-							<div class="col-xs-12 col-sm-5 col-md-6 search-input-box form-group">
-								<div class="row">
-									<input id="searchedText" type="text" placeholder="Vendor Name or Search All" class="form-control input-lg no-border-top-right-radius no-border-bottom-right-radius home-search-box" ng-model="vm.searchData">
-									</input>
-									<span class="fa fw fa-times clear-searchedText" data-ng-show="vm.searchData.length > 0" data-ng-click="vm.clearSearchedText()" title="clear"></span>
-								</div>
-							</div>
-
-							<div class="col-xs-12 col-sm-2 search-button form-group">
-								<div class="row">
-									<button class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" ng-click="vm.clicked();">
-										SEARCH ALL
-									</button>
-								</div>
+							<div class="col-xs-4 col-xs-offset-4 col-sm-offset-0 col-sm-2 col-md-1 search-button form-group">
+								<!--<div class="row">
+								<button class="btn btn-lg btn-default home-search-btn no-border-bottom-left-radius no-border-top-left-radius" type="button" ng-click="vm.clicked();">
+								SEARCH ALL
+								</button>
+								</div>-->
+								<md-button class="md-raised vendor-search-button" ng-click="vm.vendorSearchClickHandlr();">
+									<md-icon class="material-icons md-48" style="color: white;">
+										search
+									</md-icon>
+								</md-button>
 							</div>
 
 						</form>
-						
-					
+
 					</div>
-					
+
 				</div>
-				
+
 			</div>
 
 		</div>
