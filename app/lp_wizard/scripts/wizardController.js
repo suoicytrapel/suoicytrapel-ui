@@ -1,4 +1,4 @@
-wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup) {
+wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload) {
 	var vm = this;
 	vm.eventAreaSelected = [];
 	vm.lookup = venueLookup;
@@ -9,6 +9,7 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 	vm.removable = false; 
 	vm.eventAreas = [];
 	vm.rooms = [];
+	vm.menuImages = [];
 	
 	vm.createEventArea = function(event){
 		crudEventAreaService.showDialog(event).then(function(data){
@@ -89,5 +90,28 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 			console.log(error.status);
 		});
 	};
+	
+	vm.uploadFiles = function (files) {
+	  var duplicateFile = false;	
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          //Upload.upload({..., data: {file: files[i]}, ...})...;
+          Upload.base64DataUrl(files[i]).then(function(url){
+          	for(var k = 0; k < vm.menuImages.length; k++){
+          		if(url === vm.menuImages[k]){
+          			duplicateFile = true;
+          			break;
+          		}
+          	}
+          	if(!duplicateFile)
+          	vm.menuImages.push(url);
+          });
+        }
+        // or send them all together for HTML5 browsers:
+        //Upload.upload({..., data: {file: files}, ...})...;
+      }
+    }
+   
+   
 	
 });
