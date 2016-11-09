@@ -188,7 +188,7 @@
     <wz-step wz-title="Catering & Decor Details">
     <md-content>
         <h1>Catering & Decor Details</h1>
-    	<form name="cateringDecorDetails">
+    	<form name="vm.cateringDecorDetails">
         	<fieldset ng-disabled="false">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
@@ -263,14 +263,20 @@
 					</div>
 					
         		</div>
-        	</fieldset>
-        </form>
+        	
         <!-- For Image Uploading -->
         <div layout="column" layout-wrap>
         	<h2 class="md-title">Upload Menu Images</h2>
         	<div layout="row" layout-wrap layout-margin layout-align="start center">
-        	<md-button class="md-accent md-raised" ngf-select="vm.uploadFiles($files)" ngf-multiple="true" ngf-pattern="'image/*'" flex="20" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4">Upload</md-button>
+        	<div flex="100">
+        		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
+        		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.pattern">Only Image Files are allowed to be Uploaded</span>
+        		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxFiles">Maximum of 4 files are allowed</span>
+        		<span style="color: brown" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
+        	</div>	
+        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4"></input>
   			<div>(Max 4 Image Files, Max size 256KB for each File)</div>
+  			     
   			</div>
   			<!--Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>-->
   			<div layout="row" layout-fill layout-wrap layout-margin>
@@ -279,6 +285,9 @@
   				</div>
   			</div>
         </div>
+        </fieldset>
+        </form>
+        
         
     </md-content>    
         <input type="submit" wz-next value="Finish now" />

@@ -92,7 +92,8 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 	};
 	
 	vm.uploadFiles = function (files) {
-	  var duplicateFile = false;	
+	  var duplicateFile = false;
+	  vm.imageUploadCustomErrorMsg = '';	
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           //Upload.upload({..., data: {file: files[i]}, ...})...;
@@ -103,8 +104,16 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
           			break;
           		}
           	}
-          	if(!duplicateFile)
+          	if(!duplicateFile && vm.menuImages.length < 4)
           	vm.menuImages.push(url);
+          	else{
+          		if(duplicateFile){
+          			vm.imageUploadCustomErrorMsg = 'Duplicate Upload is not allowed';	
+          		}
+          		else
+          			vm.imageUploadCustomErrorMsg = 'Maximum of 4 images can be uploaded';
+          	}
+          	
           });
         }
         // or send them all together for HTML5 browsers:
