@@ -2,6 +2,10 @@
 wizardApp.factory('venueLookup', function() {
 	var lookup = {};
 	
+	lookup.venueType = ['Hotel','Banquet Hall','Marriage Palace','Restaurant','Club','Resort','Other'];
+	
+	lookup.venueCity = ['Chandigarh','Bikaner'];
+	
 	lookup.eventAreaServices = ['Restaurant','Bar','Gym','Spa','Room Service','Medical','Pool','Laundry','Wi-Fi','Parking'];
 
 	lookup.eventAreaPriceRange = ['0 - 50,000', '50,0001 - 1.0Lac', '1.01Lac - 1.5Lacs', '1.51Lacs - 2.0Lacs', '2.01Lacs - 2.5Lacs', '2.51Lacs - 3.0Lacs', '3.01Lacs - 3.5Lacs', '3.51Lacs - 4.0Lacs', '4.01Lacs - 5.0Lacs', '> 5Lacs', 'Get Quote'];

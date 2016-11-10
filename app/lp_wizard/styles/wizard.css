@@ -6,3 +6,17 @@
 	color: #ffffff;
 	font-weight: 600;
 }
+
+.uploaded-img-container{
+	position: relative;
+}
+
+.md-button.md-icon-button.delete-uploaded-img{
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 0px;
+    margin: 0px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 0%;
+}

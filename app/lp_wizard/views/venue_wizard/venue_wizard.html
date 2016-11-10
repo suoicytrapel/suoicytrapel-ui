@@ -1,7 +1,10 @@
-<wizard on-finish="finishedWizard()"> 
+<md-content style="padding-top: 80px;">
+<wizard on-finish="finishedWizard()" indicators-position="top"> 
     <wz-step wz-title="Basic Details">
     <md-content>
-        <h1>Basic Details</h1>
+		<div layout="row" layout-wrap layout-margin>
+        <h2 class="md-title">Basic Details</h2>
+        </div>
         <form name="basicDetails">
         	<fieldset ng-disabled="false">
         		<div layout="row" layout-wrap layout-margin>
@@ -13,7 +16,7 @@
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Type</label>
         				 <md-select ng-model="basicDetails.type">
-            			<md-option ng-repeat="type in vm.venueTypes" value="{{type}}">{{type}}</md-option>
+            			<md-option ng-repeat="type in ::vm.lookup.venueType" value="{{type}}">{{type}}</md-option>
       				</md-select>
       				</md-input-container>
       				
@@ -56,20 +59,29 @@
         				<label>FB Page Link</label>
         				<input ng-model="basicDetails.fbPageLink" type="text">
       				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>City</label>
+        				 <md-select ng-model="basicDetails.city">
+            			<md-option ng-repeat="city in ::vm.lookup.venueCity" value="{{city}}">{{city}}</md-option>
+      				</md-select>
+      				</md-input-container>
         		</div>
         	</fieldset>
         </form>
         <div layout="row" layout-margin>
         <div flex></div>	
-        <md-button class="md-raised">Back</md-button>
+        <md-button class="md-raised" disabled>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
         </div>
     </md-content>    
-        <input type="submit" wz-next value="Continue" />
+        <!--<input type="submit" wz-next value="Continue" />-->
     </wz-step>
     <wz-step wz-title="Event Area Details">
      <md-content>
-        <h1>Events Details</h1>
+        <div layout="row" layout-wrap layout-margin>
+        <h2 class="md-title">Event Area Details</h2>
+        </div>
         
        <div layout="row" layout-margin>
         <div flex></div>
@@ -187,7 +199,9 @@
     </wz-step>
     <wz-step wz-title="Catering & Decor Details">
     <md-content>
-        <h1>Catering & Decor Details</h1>
+    <div layout="row" layout-wrap layout-margin>
+        <h2 class="md-title">Catering & Decor Details</h2>
+        </div>
     	<form name="vm.cateringDecorDetails">
         	<fieldset ng-disabled="false">
         		<div layout="row" layout-wrap layout-margin>
@@ -208,7 +222,7 @@
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Per Plate(Veg)</label>
+        				<label>Price Per Plate Veg (In Indian Rupees)</label>
         				 <md-select ng-model="cateringDecorDetails.vegPerPlateCost">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
@@ -216,7 +230,7 @@
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Per Plate(Veg)</label>
+        				<label>Price Per Plate Non-Veg (In Indian Rupees)</label>
         				 <md-select ng-model="cateringDecorDetails.nonvegPerPlateCost">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
@@ -224,17 +238,17 @@
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Bartending Starts from</label>
+        				<label>Starting Price For Bartending (In Indian Rupees)</label>
         				<input ng-model="cateringDecorDetails.bartendingStartsFrom" type="text">
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Inhouse DJ Starts from</label>
+        				<label>Starting Price for Inhouse DJ (In Indian Rupees)</label>
         				<input ng-model="cateringDecorDetails.inhouseDjStartsFrom" type="text">
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Inhouse Decor Starts from</label>
+        				<label>Starting Price for Inhouse Decor (In Indian Rupees)</label>
         				<input ng-model="cateringDecorDetails.inhouseDecorStartsFrom" type="text">
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
@@ -266,7 +280,7 @@
         	
         <!-- For Image Uploading -->
         <div layout="column" layout-wrap>
-        	<h2 class="md-title">Upload Menu Images</h2>
+        	<h2 class="md-title" style="margin-left: 16px;">Upload Menu Images</h2>
         	<div layout="row" layout-wrap layout-margin layout-align="start center">
         	<div flex="100">
         		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
@@ -282,14 +296,24 @@
   			<div layout="row" layout-fill layout-wrap layout-margin>
   				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.menuImages">
   					<img style="width: 100%;" data-ng-src="{{image}}"/>
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg($index)">
+					<md-icon class="material-icons md-24" style="color: white;">
+						close
+					</md-icon>
+				</md-button>
   				</div>
   			</div>
         </div>
         </fieldset>
         </form>
         
-        
+        <div layout="row" layout-margin>
+        <div flex></div>	
+        <md-button class="md-raised">Back</md-button>
+        <md-button class="md-primary md-raised" wz-next>Next</md-button>
+        </div>
     </md-content>    
-        <input type="submit" wz-next value="Finish now" />
+        <!--<input type="submit" wz-next value="Finish now" />-->
     </wz-step>
 </wizard>
+</md-content>

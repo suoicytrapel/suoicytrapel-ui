@@ -121,6 +121,9 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
       }
     }
    
-   
+   vm.removeSelectedImg = function(index){
+   	console.log(vm.uploadedMenuImages);
+   		vm.menuImages.splice(index,1);
+   };
 	
 });
