@@ -12,8 +12,8 @@
       <md-tab label="User">
         <md-content class="md-padding">
         	<div class="social-buttons">
-									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-									<a href="#" class="btn btn-gg"><i class="fa fa-google"></i> Google</a>
+									<a href="#" class="btn btn-fb" ng-click="fbLogin()"><i class="fa fa-facebook"></i> Facebook</a>
+									<a href="#" class="btn btn-gg" ng-click="googleLogin()"><i class="fa fa-google"></i> Google</a>
 								</div>
 								<hr>
 								<div class="text-center">OR</div>
@@ -51,7 +51,7 @@
 			<a href="javascript:void(0)" data-ng-click="vm.showfgtpwdPopup();">Forgot Password?</a>
 		</div>
 		<div>	
-          <a href="#" class="btn btn-login">LOG IN</a>
+          <a href="javascript:void(0)" class="btn btn-login" ng-click="vm.login();">LOG IN</a>
 </div>
 		<div class="text-center mTop10">
       	New to LePartycious ? <a href="javascript:void(0)" class="join-us-link" data-ng-click="vm.showSignUpPopup();">JOIN US</a>
@@ -86,10 +86,10 @@
 			<a href="javascript:void(0)" data-ng-click="vm.showfgtpwdPopup();">Forgot Password?</a>
 		</div>
 		<div>	
-          <a href="#" class="btn btn-login">LOG IN</a>
+          <a href="#" class="btn btn-login" ng-click="vm.login();">LOG IN</a>
 </div>
 		<div class="text-center mTop10">
-      	New to LePartycious ? <a href="javascript:void(0)" class="join-us-link" data-ng-click="vm.showSignUpPopup();">JOIN US</a>
+      	New to LePartycious ? <a class="join-us-link" data-ng-click="vm.showSignUpPopup();">JOIN US</a>
       </div>
           
         </form>

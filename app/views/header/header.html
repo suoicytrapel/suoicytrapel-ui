@@ -1,6 +1,7 @@
 <nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
+			<div id="fb-root"></div>
 
 			<a class="navbar-brand" href="/"> <img src="/images/lp_logo.png" height="60px;" alt="LePartycious - Your Online Event Planner" title="LePartycious - Your Online Event Planner"></a>
 
@@ -13,7 +14,7 @@
 							<span class="fa fa-fw fa-map-marker location-icon"></span>
 						</md-button>
 					</li>
-					<li class="hidden-xs" ng-if="!vm.loggedInUser">
+					<li>
 						<md-button style="color: white;" ng-click="vm.showSignInPopup();">
 							SIGN IN
 						</md-button>
@@ -46,7 +47,7 @@
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button ng-click="">
+              <md-button ng-click="vm.logout();">
                   <div layout="row" flex>                
                     <md-icon md-menu-align-target class="material-icons">power_settings_new</md-icon>
                     <p flex>Logout</p>

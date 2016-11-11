@@ -22,7 +22,7 @@ var app = angular
     'angularSpinner',
     'angularModalService',
     '720kb.datepicker',
-    'spring-security-csrf-token-interceptor'
+    'spring-security-csrf-token-interceptor',
     'ngMaterial',
     'ngRating',
     'angular-storage',

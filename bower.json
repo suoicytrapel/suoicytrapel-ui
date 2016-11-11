@@ -22,7 +22,7 @@
     "angular-spinner": "~0.8.0",
     "angular-modal-service": "^0.9.10",
     "angularjs-datepicker": "^2.1.6",
-    "spring-security-csrf-token-interceptor": "^0.1.5"
+    "spring-security-csrf-token-interceptor": "^0.1.5",
     "angular-modal-service": "^0.10.1",
     "angular-material": "^1.1.0",
     "ng-rating": "^0.0.9",
