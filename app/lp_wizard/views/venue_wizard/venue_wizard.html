@@ -179,13 +179,13 @@
 <!-- Rooms Details Table Ends -->
 
 <div layout="row" layout-margin layout-wrap layout-align="start center">
-	<div flex-xs="100" flex-gt-xs="100">
-		<h2 class="md-title">Select Services You Provide</h2>
-
-    <md-chips ng-model="vm.selectedAreaServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+	<div flex-xs="100" flex-gt-xs="100" layout="row" layout-align="start center" layout-wrap>
+		<h2 class="md-title" flex-xs="100" flex-gt-xs="40">Select Services You Provide</h2>
+	<wan-select flex-xs="100" flex-gt-xs="60" placeholder="" source-data="::vm.lookup.eventAreaServices" selected-data="vm.selectedAreaServices" select-changed=""></wan-select>
+    
 	</div>
 	<div flex-xs="100" flex-gt-xs="100">
-		<wan-select placeholder="" source-data="::vm.lookup.eventAreaServices" selected-data="vm.selectedAreaServices" select-changed=""></wan-select>
+		<md-chips ng-model="vm.selectedAreaServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 	</div>	
 </div>
 
@@ -208,7 +208,7 @@
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>You Provide Catering Services?</label>
         				<md-select ng-model="cateringDecorDetails.provideCateringServices" required>
-            			<md-option ng-repeat="option in ::vm.lookup.provideCateringServicesOptions" value="{{option}}">{{option}}</md-option>
+            			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
@@ -216,7 +216,7 @@
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>You Provide Decor Services?</label>
         				<md-select ng-model="cateringDecorDetails.provideDecorServices" required>
-            			<md-option ng-repeat="option in ::vm.lookup.provideDecorServicesOptions" value="{{option}}">{{option}}</md-option>
+            			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
@@ -255,24 +255,24 @@
       				<div flex-gt-xs="45" hide-xs></div>
       				
       				<div layout="row" layout-margin layout-wrap layout-align="start center" flex-gt-xs="45" flex-xs="100">
-						<div flex-xs="100" flex-gt-xs="100">
-							<h2 class="md-title">Cuisines</h2>
-
-    						<md-chips ng-model="vm.selectedCuisines" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+						<div flex-xs="100" flex-gt-xs="100" layout="row" layout-align="start center" layout-wrap>
+							<h2 flex-gt-xs="70" flex-xs="100" class="md-title" flex>Cuisines</h2>
+							<wan-select flex-gt-xs="30" flex-xs="100" placeholder="" source-data="::vm.lookup.cuisines" selected-data="vm.selectedCuisines" select-changed=""></wan-select>
+    						
 						</div>
 						<div flex-xs="100" flex-gt-xs="100">
-							<wan-select placeholder="" source-data="::vm.lookup.cuisines" selected-data="vm.selectedCuisines" select-changed=""></wan-select>
+							<md-chips ng-model="vm.selectedCuisines" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 						</div>	
 					</div>
 					<span flex-gt-xs hide-xs></span>
 					<div layout="row" layout-margin layout-wrap layout-align="start center" flex-gt-xs="45" flex-xs="100">
-						<div flex-xs="100" flex-gt-xs="100">
-							<h2 class="md-title">Basic Catering Services</h2>
-
-    						<md-chips ng-model="vm.selectedBasicCateringServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+						<div flex-xs="100" flex-gt-xs="100" layout="row" layout-align="start center" layout-wrap>
+							<h2 flex-gt-xs="70" flex-xs="100" class="md-title">Basic Catering Services</h2>
+							<wan-select flex-gt-xs="30" flex-xs="100" placeholder="" source-data="::vm.lookup.basicCateringServices" selected-data="vm.selectedBasicCateringServices" select-changed=""></wan-select>
+    						
 						</div>
 						<div flex-xs="100" flex-gt-xs="100">
-							<wan-select placeholder="" source-data="::vm.lookup.basicCateringServices" selected-data="vm.selectedBasicCateringServices" select-changed=""></wan-select>
+							<md-chips ng-model="vm.selectedBasicCateringServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 						</div>	
 					</div>
 					
@@ -288,7 +288,7 @@
         		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxFiles">Maximum of 4 files are allowed</span>
         		<span style="color: brown" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
-        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4"></input>
+        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files, vm.menuImages, 4)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4"></input>
   			<div>(Max 4 Image Files, Max size 256KB for each File)</div>
   			     
   			</div>
@@ -296,7 +296,7 @@
   			<div layout="row" layout-fill layout-wrap layout-margin>
   				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.menuImages">
   					<img style="width: 100%;" data-ng-src="{{image}}"/>
-  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg($index)">
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.menuImages, $index)">
 					<md-icon class="material-icons md-24" style="color: white;">
 						close
 					</md-icon>
@@ -315,5 +315,95 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Finish now" />-->
     </wz-step>
+    <wz-step wz-title="Policies & Images">
+    <md-content>
+    	<form name="vm.policyDetails">
+        	<fieldset ng-disabled="false">
+        		<div layout="row" layout-wrap layout-margin>
+        			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Is OutHouse Catering Allowed?</label>
+        				<md-select ng-model="policyDetails.outhouseCateringAllowed" required>
+            			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
+      				</md-select>
+      				<div class="md-errors-spacer"></div>
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Is OutHouse Decor Allowed?</label>
+        				<md-select ng-model="policyDetails.outhouseDecorAllowed" required>
+            			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
+      				</md-select>
+      				<div class="md-errors-spacer"></div>
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Is OutHouse Liquor Allowed?</label>
+        				<md-select ng-model="policyDetails.outhouseLiquorAllowed" required>
+            			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
+      				</md-select>
+      				<div class="md-errors-spacer"></div>
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Corkage Per Bottle (in Indian Rupees)</label>
+        				<input ng-model="policyDetails.corkagePerBottle" type="text">
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Is OutHouse DJ Allowed?</label>
+        				<md-select ng-model="policyDetails.outhouseDjAllowed" required>
+            			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
+      				</md-select>
+      				<div class="md-errors-spacer"></div>
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<div flex-gt-xs="45" hide-xs>		
+      				</div>
+      				
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Booking Policy</label>
+        				<textarea ng-model="policyDetails.bookingPolicy" rows="3" type="text" md-maxlength="1000"></textarea>
+      				</md-input-container>
+      				<span flex-gt-xs hide-xs></span>
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Cancellation &amp; Refund Policy</label>
+        				<textarea ng-model="policyDetails.refundPolicy" rows="3" type="text" md-maxlength="1000"></textarea>
+      				</md-input-container>
+      				
+      				</div>
+      				
+      				<!-- For Image Uploading -->
+      				<div layout="column" layout-wrap>
+        	<h2 class="md-title" style="margin-left: 16px;">Upload Venue Images</h2>
+        	<div layout="row" layout-wrap layout-margin layout-align="start center">
+        	<div flex="100">
+        		<span style="color: brown" ng-show="vm.policyDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
+        		<span style="color: brown" ng-show="vm.policyDetails.menuImageFile.$error.pattern">Only Image Files are allowed to be Uploaded</span>
+        		<span style="color: brown" ng-show="vm.policyDetails.menuImageFile.$error.maxFiles">Maximum of 10 files are allowed</span>
+        		<span style="color: brown" ng-show="vm.policyDetails.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
+        	</div>	
+        	<input type="file" name="vendorImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedVendorImages" ngf-select="vm.uploadFiles($files, vm.vendorImages, 10)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="512KB" ngf-max-total-size="5MB" ngf-max-files="10"></input>
+  			<div>(Max 10 Image Files, Max size 512KB for each File)</div>
+  			     
+  			</div>
+  			<!--Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>-->
+  			<div layout="row" layout-fill layout-wrap layout-margin>
+  				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.vendorImages">
+  					<img style="width: 100%;" data-ng-src="{{image}}"/>
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.vendorImages, $index)">
+					<md-icon class="material-icons md-24" style="color: white;">
+						close
+					</md-icon>
+				</md-button>
+  				</div>
+  			</div>
+        </div>
+      				
+      		
+      		</fieldset>
+      		</form>		
+    </md-content>
+   </wz-step>
 </wizard>
 </md-content>

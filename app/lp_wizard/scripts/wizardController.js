@@ -10,6 +10,7 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 	vm.eventAreas = [];
 	vm.rooms = [];
 	vm.menuImages = [];
+	vm.vendorImages = [];
 	
 	vm.createEventArea = function(event){
 		crudEventAreaService.showDialog(event).then(function(data){
@@ -91,21 +92,21 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 		});
 	};
 	
-	vm.uploadFiles = function (files) {
+	vm.uploadFiles = function (files, uploadedFilesArray, maxUploadLimit) {
 	  var duplicateFile = false;
 	  vm.imageUploadCustomErrorMsg = '';	
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           //Upload.upload({..., data: {file: files[i]}, ...})...;
           Upload.base64DataUrl(files[i]).then(function(url){
-          	for(var k = 0; k < vm.menuImages.length; k++){
-          		if(url === vm.menuImages[k]){
+          	for(var k = 0; k < uploadedFilesArray.length; k++){
+          		if(url === uploadedFilesArray[k]){
           			duplicateFile = true;
           			break;
           		}
           	}
-          	if(!duplicateFile && vm.menuImages.length < 4)
-          	vm.menuImages.push(url);
+          	if(!duplicateFile && uploadedFilesArray.length < maxUploadLimit)
+          	uploadedFilesArray.push(url);
           	else{
           		if(duplicateFile){
           			vm.imageUploadCustomErrorMsg = 'Duplicate Upload is not allowed';	
@@ -121,9 +122,9 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
       }
     }
    
-   vm.removeSelectedImg = function(index){
+   vm.removeSelectedImg = function(uploadedFilesArray, index){
    	console.log(vm.uploadedMenuImages);
-   		vm.menuImages.splice(index,1);
+   		uploadedFilesArray.splice(index,1);
    };
 	
 });
