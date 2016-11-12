@@ -11,6 +11,11 @@
 <div ng-if="vm.filters.catererType.length > 0" filter expand-collapse-filter-functionality="vm.expandCollapseCatererTypeFilter" expand-filter="vm.showCatererTypeFilters" filter-heading="Caterer Type" filter-id="catererTypeDiv" filter-nodes="vm.filters.catererType">
 	
 </div>	
+
+<div ng-if="vm.filters.photographerType.length > 0" filter expand-collapse-filter-functionality="vm.expandCollapsePhotographerTypeFilter" expand-filter="vm.showPhotographFilters" filter-heading="Service Type" filter-id="photographerTypeDiv" filter-nodes="vm.filters.photographerType">
+	
+</div>
+
 <div ng-if="vm.filters.eventType.length > 0" filter expand-collapse-filter-functionality="vm.expandCollapseEventTypeFilter" expand-filter="vm.showEventsFilters" filter-heading="Event Type" filter-id="eventTypeDiv" filter-nodes="vm.filters.eventType">
 	
 </div>
@@ -22,6 +27,8 @@
 <div ng-if="vm.filters.entertainmentType.length > 0" filter expand-collapse-filter-functionality="vm.expandCollapseEntertainmentTypeFilter" expand-filter="vm.showRentalFilters" filter-heading="Entertainment Type" filter-id="entertainmentTypeDiv" filter-nodes="vm.filters.entertainmentType">
 	
 </div>
+
+
 	
 	<div ng-if="vm.filters.othersType.length > 0" filter expand-collapse-filter-functionality="vm.expandCollapseOthersTypeFilter" expand-filter="vm.showOtherFilters" filter-heading="Service Type" filter-id="othersTypeDiv" filter-nodes="vm.filters.othersType">
 	

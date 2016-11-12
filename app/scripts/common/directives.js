@@ -51,7 +51,7 @@ app.directive('onLastRepeatElement', function($timeout) {
 			if (scope.$last && attrs.onFinishCallback)
 				$timeout(function() {
 					scope.$eval(attrs.onFinishCallback);
-				});
+				},200);
 		}
 	};
 });
@@ -92,7 +92,7 @@ app.directive('swiperCarousel', function($timeout) {
 			slidesPerView : "@",
 			pagination : "@",
 			paginationClickable : "@",
-			autoplay : "@",
+			autoPlay : "@",
 			spaceBetween : "@",
 			breakpoints : "=",
 			paginationType : "@",
@@ -102,14 +102,15 @@ app.directive('swiperCarousel', function($timeout) {
 			preloadImages : "@",
 			lazyLoading : "@",
 			initialSlide : "@",
-			centeredSlides: "@"
+			centeredSlides: "@",
+			swiperObj: "=",
 		},
 		link : function(scope, elem, attr) {
 			var propertiesObj = {};
 			if (scope.effect)
 				propertiesObj.effect = scope.effect;
 			if (scope.grabCursor)
-				propertiesObj.grabCursor = Boolean(scope.grabCursor);
+				propertiesObj.grabCursor = scope.grabCursor === 'true' ? true : false;
 			if (scope.speed)
 				propertiesObj.speed = Number(scope.speed);
 			if (scope.slidesPerView)
@@ -117,9 +118,9 @@ app.directive('swiperCarousel', function($timeout) {
 			if (scope.pagination)
 				propertiesObj.pagination = '.' + scope.pagination;
 			if (scope.paginationClickable)
-				propertiesObj.paginationClickable = Boolean(scope.paginationClickable);
-			if (scope.autoplay)
-				propertiesObj.autoplay = Number(scope.autoplay);
+				propertiesObj.paginationClickable = scope.paginationClickable === 'true' ? true : false;;
+			if (scope.autoPlay)
+				propertiesObj.autoplay = Number(scope.autoPlay);
 			if (scope.spaceBetween)
 				propertiesObj.spaceBetween = Number(scope.spaceBetween);
 			if (scope.breakpoints)
@@ -133,22 +134,74 @@ app.directive('swiperCarousel', function($timeout) {
 			if (scope.prevButton)
 				propertiesObj.prevButton = '.' + scope.prevButton;
 			if (scope.preloadImages)
-				propertiesObj.preloadImages = Boolean(scope.preloadImages);
+				propertiesObj.preloadImages = scope.preloadImages === 'true' ? true : false ;
 			if (scope.lazyLoading)
-				propertiesObj.lazyLoading = Boolean(scope.lazyLoading);
+				propertiesObj.lazyLoading = scope.lazyLoading === 'true' ? true : false;
 			if (scope.initialSlide)
 				propertiesObj.initialSlide = Number(scope.initialSlide);
 			if (scope.centeredSlides)
-				propertiesObj.centeredSlides = Boolean(scope.centeredSlides);
+				propertiesObj.centeredSlides = scope.centeredSlides === 'true' ? true : false;
 			/* Binding swiper to the element */
 			/* $timeout with time as 0ms will execute after the page has loaded
 			 * i.e. after all the ng-repeats have executed */
 
 			$timeout(function() {
-				new Swiper(elem, propertiesObj);
+				scope.swiperObj = new Swiper(elem, propertiesObj);
 			}, 0);
 
 		}
 	};
 
+});
+
+/*
+ * Directive for Tile Component
+ *
+ * */
+app.directive('tileComponent',function(){
+	return {
+		template: '<div class="tile-comp-container" ng-mouseover="hoverOverElem();" ng-mouseleave="blurFromElem();"><a href="javascript:void(0)" class=""><img src="" alt=""></img><span class="subcategory-name"></span><div class="overlay_and_text" ng-show="showOverlay">Click to View</div></a></div>',
+		scope: {
+			width: '@',
+			height: '@',
+			source: '@',
+			hoverText: '@'
+		},
+		link: function(scope, element, attribute, controller){
+			var animationEffects = ['bounce','pulse','rubberBand','shake','swing','tada','wobble','bounceIn','zoomIn'];
+			scope.showOverlay = false;
+			scope.hoverOverElem = function(){
+				var randIndex = Math.floor((Math.random() * 10));
+				scope.showOverlay = true;
+				element.find('a').addClass('animated ' + animationEffects[randIndex]);
+			};
+			scope.blurFromElem = function(){
+				scope.showOverlay = false;
+				element.find('a').removeClass();
+			};
+			element.find('img').attr('src',scope.source);
+			element.find('.subcategory-name').text(scope.hoverText);
+
+		}
+	};
+	
+});
+
+app.directive('giveReview',function(){
+	return{
+		templateUrl: 'views/giveReview/giveReview.html',
+		scope: {
+			vendorRating: '=',
+			editable: "@",
+			starsCount: "@",
+			showGrade: "@",
+			reviewComment: "=",
+			reviewMoney: "=",
+			submitReview: "&",
+			applyMargin: "@",
+		},
+		link: function(scope, element, attribute, controller){
+			
+		}	
+	};
 });

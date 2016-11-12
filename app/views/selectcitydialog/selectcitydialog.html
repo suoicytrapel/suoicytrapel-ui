@@ -1,0 +1,46 @@
+<md-dialog aria-label="Select city dialog" flex="70">
+	<md-dialog-content layout-fill>
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2><i class="material-icons">my_location</i></h2>
+				<h3><b>Location</b></h3>
+				<span flex></span>
+
+				<md-button class="md-icon-button" ng-click="vm.closeDialog()">
+					<md-icon class="material-icons md-24" style="color: white;">
+						close
+					</md-icon>
+				</md-button>
+				
+			</div>
+		</md-toolbar>
+		<div layout="row" style="height: 30px;"></div>
+		<div layout layout-margin layout-padding class="hidden-xs">
+			<h4>Please choose your city </h4>
+		</div>
+		<div layout="row" layout-align="center center">
+
+			<div flex="20">
+				<i class="material-icons" style="font-size: 48px; color: #ee3e20">location_on</i>
+			</div>
+
+			<div flex="50">
+				<md-input-container class="md-block">
+					<label>City</label>
+					<md-select ng-model="vm.selectedCity" ng-change="vm.setCity();">
+
+						<md-option ng-repeat="(key, value) in vm.citiesList" ng-value="key">
+							{{value}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+		</div>
+
+	</md-dialog-content>
+	<md-dialog-actions>
+		<md-button ng-click="vm.closeDialog()" class="md-primary md-raised">
+			Close
+		</md-button>
+	</md-dialog-actions>
+</md-dialog>

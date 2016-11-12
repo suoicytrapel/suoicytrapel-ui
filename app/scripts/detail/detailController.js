@@ -1,9 +1,5 @@
 app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory) {
 	var vm = this;
-	vm.tabName = [];
-	vm.tabData = [];
-	vm.latitude = null;
-	vm.longitude = null;
 
 	vm.init = function() {
 		$rootScope.showCover = false;
@@ -12,12 +8,44 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		$rootScope.breadCrumbLinks['Home'] = '/';
 		$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $rootScope.dataPageBreadCrumbPath ? $rootScope.dataPageBreadCrumbPath : '/vendors/' + baseFactory.getSelectedCity() + '/' + $routeParams.category;
 		$rootScope.breadCrumbLinks[$routeParams.searchParam] = $location.path();
+		
+		
 		vm.selectedCategory = $routeParams.category;
 		vm.name = $routeParams.searchParam;
 		vm.city = $routeParams.city;
 		vm.category = $routeParams.category;
 		vm.categoryInitials = vm.category.slice(0,1);
+		vm.tabName = [];
+		vm.tabData = [];
+		vm.latitude = null;
+		vm.longitude = null;
 		vm.isFormValid = true;
+		vm.minDate = new Date();
+		vm.availabilityForm = {};
+		vm.availabilityForm.bookingDate = new Date();
+		vm.newReviewModel = {
+			vendorRating: 0,
+			reviewMoney: '',
+			reviewComment: '',
+			submitReview: function(){},
+		};
+		vm.postedReviewRating = 5;
+		vm.vendorAverageRating = 4.6;
+		vm.showReviewsPage = false;
+		vm.dynamicItems = [{
+			name: 'Ankit',
+			rating: 4,
+			date: '13-10-2016',
+			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
+			img: '/images/blank_frame.jpg',
+		},
+		{
+			name: 'Mohit',
+			rating: 3,
+			date: '10-10-2016',
+			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
+			img: '/images/blank_frame.jpg',
+		}];
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
@@ -59,31 +87,68 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.show = false;
 		vm.galleryTop = null;
 		vm.galleryThumbs = null;
+		
+		
 		vm.detailsPageFormsubmitted = false;
 		vm.showDetailsFormSpinner = false;
-
 		vm.detailsPageContactForm = {};
 
 		$scope.form = {};
 
 	};
-	vm.defineListeners = function() {
-
-		$(window).on('scroll', function() {
+	
+	/* Defining listener after view is loaded successfully
+	 * This event is broadcasted from baseCOntroller
+	 *  */
+	$scope.$on('viewLoadedSuccessfully',function(){
+			var fixedStartLimit, fixedEndLimit, fixedElemWidth, fixedElemHeight, contentHeight;
+			
 			/* Subtracting 100 so as to subtract the height of header which is 80 and 20 extra*/
-			/* Subtracting window height/2 so that the below content should not get impacted */
-			var fixedStartLimit = $('.detail-info-section').offset().top + $('.detail-info-section').height() - 100;
-			var fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
-			var fixedElemWidth = $('.details-fixed-component').width();
+			fixedStartLimit = $('.detail-info-section').offset().top + $('.detail-info-section').height() - 100;
+			//fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
+			fixedElemWidth = $('.details-fixed-component').width();
+			fixedElemHeight = $('.details-fixed-component').height();
+			/* contentHeight was not calculating accurately */
+			//contentHeight = $('.details-tabs-content').height();
 
-			if ($(window).scrollTop() < fixedStartLimit || $(window).scrollTop() > fixedEndLimit)
-				$('.details-fixed-component').removeClass('sticky');
+
+		$(window).on('scroll', function() {			
+			if(!fixedEndLimit)
+				fixedEndLimit = fixedStartLimit + $('.details-tabs-content').height();
+			if(!contentHeight)
+				contentHeight = $('.details-tabs-content').height();
+					
+			if ($(window).scrollTop() < fixedStartLimit || $(window).scrollTop() > fixedEndLimit){
+				$('.details-fixed-component').removeClass('sticky relative');
+				$('.details-fixed-component').css('top','initial');
+			}	
 			else {
-				$('.details-fixed-component').addClass('sticky');
+				if($(window).scrollTop() > (fixedEndLimit - fixedElemHeight)){
+					$('.details-fixed-component').css('top',(contentHeight - fixedElemHeight -25));
+					$('.details-fixed-component').removeClass('sticky').addClass('relative');
+				}
+				else{
+				$('.details-fixed-component').css('top','80px');
+				$('.details-fixed-component').removeClass('relative').addClass('sticky');
+				}
 				$('.details-fixed-component').width(fixedElemWidth);
 			}
 		});
-
+		
+		});
+	
+	vm.defineListeners = function() {
+		
+		
+		vm.viewAllReviews = function(){
+			vm.showReviewsPage = true;	
+		};
+		
+		vm.closeAllReviews = function(){
+			vm.showReviewsPage = false;
+		};
+		
+		//opening vendor image gallery
 		vm.openGallery = function(index) {
 			$window.ga('send', 'event', 'View Gallery', 'File Name');
 			vm.applySwipe();
@@ -92,13 +157,16 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 				vm.show = true;
 			}, 100);
 		};
-
+		
+		//closing vendor image gallery
 		vm.closeGallery = function() {
 			vm.show = false;
 			vm.galleryTop.slideTo(0);
 			vm.galleryThumbs.slideTo(0);
 		};
-
+		
+		//applying swiper on both galleries that are openened when we open the image gallery
+		//both are controlled by each other
 		vm.applySwipe = function() {
 			vm.galleryTop = new Swiper('.gallery-top', {
 				nextButton : '.swiper-button-next',
@@ -117,7 +185,9 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			vm.galleryThumbs.params.control = vm.galleryTop;
 
 		};
-
+		
+		//mini gallery is the gallery shown on the detail page itself
+		//i.e. the gallery which is present before opening the main one
 		vm.applySwiperMiniGallery = function() {
 			//mySwiper.destroy();
 			new Swiper('.details-mini-swiper-container', {
@@ -148,41 +218,41 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			});
 			//mySwiper.slideTo(0);
 		};
-
+		
+		//Method for changing the slide of top gallery based on click from thumb gallery		
 		vm.changeSlide = function(index) {
 			vm.galleryTop.slideTo(index);
 		};
-
+		
+		//Callback fn after the slide is changed
 		function onSlideChangeCallback() {
 			var activeSlideIndex = vm.galleryTop.activeIndex;
 			angular.element('.gallery-helptext-container li:nth-child(' + (activeSlideIndex + 1) + ')').addClass('active').siblings().removeClass('active');
 		}
 
-
+		//Applying scrollspy on body so that it detects the left_nav_container
 		$("body").scrollspy({
 			target : "#left_nav_container",
-			offset : 100
+			offset : 300
 		});
 
-		$("#left_nav_container").on("activate.bs.scrollspy", function() {
+		//Event handler as soon as the left_nav_container is detected
+		$("#left_nav_container").on("activate.bs.scrollspy", function() {});
 
-		});
-
-		$("#left_nav_container ul li a[href^='#']").on('click', function(e) {
-
-			// prevent default anchor click behavior
-			e.preventDefault();
-
-			// store hash
-			var hash = this.hash;
-
-			// animate
-			$('html, body').animate({
-				scrollTop : $(hash).offset().top - 100
-			}, 300);
-
-		});
 	};
+	
+	//Clk Handler for any of the items clicked from left nav container
+	vm.leftNavContClkHandler = function(event, tab){
+		$('html, body').animate({
+				scrollTop : $('#'+ tab).offset().top - 300
+			}, 300);
+			/* href is important for scrollspy */
+			/* so for disabling the page navigation through href below two statements are necessary */
+			event.preventDefault();
+			return false;
+	};
+	
+	//Fetching the details from the data returned from the REST call written in resolve block of this page
 	vm.fetchDetails = function() {
 		if (details && !(details.error)) {
 			vm.detailedData = details;
@@ -199,13 +269,16 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 			vm.imagesURL = vm.getImageUrlInArray(dataService.getImageURLs());
 			vm.helpTexts = vm.getHelpText(dataService.getImageURLs());
-			//Applying Boxer on the menu images
+			
+			//Applying Boxer on the food menu images
 			vm.loadBoxer = function() {
 				$('.boxer').boxer({
 					fixed : true,
 				});
 			};
 			//google.maps.event.addDomListener(window, 'load', loadMap(28.012496, 73.336364));
+			
+			//checking if the maps API is loaded or not
 			checkForMaps();
 		} else {
 			console.log(details.error);
@@ -213,6 +286,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 
 	};
 
+	//Fetching the image URLs in array to be shown on UI
 	vm.getImageUrlInArray = function(imageURLs) {
 		var images = [];
 		for (var k in imageURLs) {
@@ -221,6 +295,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		return images;
 	};
 
+	//Fetching the help text for each image to be shown in gallery
 	vm.getHelpText = function(imageURLs) {
 		var helpTexts = [];
 		for (var k in imageURLs) {
@@ -229,6 +304,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		return helpTexts;
 	};
 
+	//Checking if the Map object is available or not
 	function checkForMaps() {
 		var interval = setInterval(function() {
 			if ( typeof google === 'object' && typeof google.maps === 'object') {
@@ -238,6 +314,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		}, 100);
 	}
 
+	//Loading the map as per the defined coordinates(latitude, longitude) from backend
 	function loadMap() {
 		var myCenter = new google.maps.LatLng(vm.latitude, vm.longitude);
 		var mapProp = {
@@ -254,17 +331,20 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		marker.setMap(map);
 	};
 
+	//Method for fetching teh image URL dynamically
 	vm.getImageURL = function(imagePath) {
 		return baseFactory.getWebURL() + imagePath;
 	};
-	//
-
+	
+	//Method for fetching and showing the detail of record clicked from recommended section
 	vm.getReccomendationDetails = function(name) {
+		//Google analytics if the user clicks on any recommended details
 		$window.ga('send', 'event', 'View Recommended Item', name, vm.category);
 		//vm.name = name;
 		$location.path('/details/' + vm.city + '/' + vm.category + '/' + name);
 	};
 
+	//Applying swiper on recommeneded section
 	vm.applySwiperOnRecommended = function() {
 		var mySwiper = new Swiper('.recommended-by-us-swiper-container', {
 			effect : 'slide',
@@ -279,22 +359,27 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 				// when window width is <= 320px
 				767 : {
 					slidesPerView : 1,
-					spaceBetweenSlides : 10
+					spaceBetweenSlides : 5
 				},
 				// when window width is <= 480px
 				991 : {
-					slidesPerView : 2,
-					spaceBetweenSlides : 20
+					slidesPerView : 3,
+					spaceBetweenSlides : 5
 				},
 				// when window width is <= 640px
 				1199 : {
-					slidesPerView : 3,
-					spaceBetweenSlides : 20
+					slidesPerView : 4,
+					spaceBetweenSlides : 10
+				},
+				1980 : {
+					slidesPerView : 5,
+					spaceBetweenSlides : 10
 				}
 			}
 		});
 	};
 
+	//For populating a new captcha each time a form is loaded/opened
 	vm.populateDynamicCaptcha = function() {
 		$("#detailsPageCaptcha").html("");
 		var template = '<simple-captcha valid="captchaValid"></simple-captcha>';
@@ -304,6 +389,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		angular.element('#detailsPageCaptcha').append(captchaTemplate);
 	};
 
+	//CLk Handler for submit button for the form present on details page
 	vm.detailsPageFormSubmit = function() {
 
 		vm.showDetailsFormSpinner = true;
@@ -358,7 +444,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 	vm.defineListeners();
 	vm.populateDynamicCaptcha();
 	vm.emitPageDataPopulated();
-
+	
+	//Dynamic validations for check availability form
 	vm.validateAvailabilityForm = function(){
 		if(vm.availabilityForm.email || vm.availabilityForm.phoneNumber){
 			return true;
@@ -368,7 +455,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			return vm.isFormValid;
 		}
 	};
-
+	
+	//open check availability form
 	vm.openAvailabilityForm = function() {
 		$("#captcha1").html("");
 		var template = '<simple-captcha valid="captchaValid"></simple-captcha>';
@@ -386,6 +474,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		$('#checkAvailabilityModal').modal('toggle');
 	};
 
+	//clk handler for submit button clicked on check availablity form
 	vm.checkAvailability = function(){
 		$('#checkAvailabilityModal').modal('toggle');
 		$.toaster({

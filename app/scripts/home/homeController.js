@@ -1,31 +1,40 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
 		$rootScope.currentPage = 'homePage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.dataPageBreadCrumbPath = null;
+		vm.subcatSwiperObj = null;
+		vm.customersaySwiperObj = null;
+		vm.portfolioSwiperObj = null;
 		vm.portfolioImages = baseFactory.ourPortfolioImageUrls;
 		vm.recentlyAddedData = recentAdditions;
-		vm.subCategoriesMap = baseFactory.subCategoriesMap;
+		vm.subCategoriesMap = subCategories;
+		vm.mergedSubCategoriesMap = mergeSubCategoriesMap();
 		vm.selectedCategory = baseFactory.getSelectedCategory();
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.subCategorySelected = 'VENUE';
 		vm.subcategorySwiperBrkpoints = {
 				// when window width is <= 767px
-				767 : {
+				600 : {
 					slidesPerView : 1,
-					spaceBetweenSlides : 5
+					spaceBetweenSlides : 0
 				},
 				// when window width is <= 991px
-				991 : {
-					slidesPerView : 2,
+				960 : {
+					slidesPerView : 3,
 					spaceBetweenSlides : 10
 				},
 				// when window width is <= 1199px
-				1199 : {
-					slidesPerView : 3,
-					spaceBetweenSlides : 10
+				1280 : {
+					slidesPerView : 4,
+					spaceBetweenSlides : 5
+				},
+				
+				1920 : {
+					slidesPerView : 5,
+					spaceBetweenSlides : 5
 				}
 		};
 		vm.showcaseSwiperCoverflow = {
@@ -36,14 +45,41 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 				slideShadows : true
 		};
 	};
+	
+	/* Method for updating subcategories carousel
+	 * when the user toggles category buttons */
+	
+	vm.updateSubCategories = function(event,subcategory){
+		angular.element(event.currentTarget).parent().toggleClass('active');
+		angular.element('.subcategory-swiper-slide.'+subcategory).toggleClass('invisible');
+		if(vm.subcatSwiperObj)
+		vm.subcatSwiperObj.update(true);
+	};
+	
+	/* Method to merge subCategories Map so that every 
+	   subcategory becomes the part of an object
+	   Done as per latest design to be shown on UI*/
+	  
+	function mergeSubCategoriesMap(){
+		var mergedList = [];
+		angular.forEach(vm.subCategoriesMap, function(value, key){
+			angular.forEach(value, function(value1, key1){
+				value1.parent = key.toLowerCase();
+				mergedList.push(value1);
+			});
+		});
+		return mergedList;
+	};
 
 	/* Listens to cityChangedEvent
 	 * to update recent additions section */
-	$scope.$on('cityChangedEvent', function() {
+	/*$scope.$on('cityChangedEvent', function() {
 		vm.fetchRecentAdditions();
-	});
+	});*/
 
-	
+	/* Applying boxer on Portfolio items
+	 *
+	 *  */
 	vm.applyLibrariesOnPortfolio = function() {
 		for (var k in vm.portfolioImages) {
 			angular.element('.' + k).boxer({
@@ -68,7 +104,10 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 
 	};
 
-	vm.fetchRecentAdditions = function() {
+	/*
+	 Rest Call for fetching Recent Additions Data from backend
+	 * */
+	/*vm.fetchRecentAdditions = function() {
 		var cityId = baseFactory.getSelectedCity();
 		HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
 			vm.recentlyAddedData = data;
@@ -77,15 +116,35 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 			console.log(error);
 		});
 
-	};
-
+	};*/
+	
+	/*
+	 Method for routing to the next page - Details Page
+	 * */
 	vm.fetchDetails = function(name, category) {
 		var searchParam = name;
 		$location.path('/details/' + baseFactory.getSelectedCity() + '/' + category + '/' + searchParam);
 	};
-
+	
+	/*
+	 Method for emitting page data has been populated to the base controller
+	 so that the loader can be stopped
+	 * */
 	vm.emitPageDataPopulated = function() {
 		$scope.$emit('pageDataPopulated');
+	};
+	
+	/*
+	 Method for clicking any subcategory icon in the carousel
+	 and navigating to next page(data page) with the filters remembered
+	 * */
+	vm.setSelectedFilter = function (category, subcategory){
+		if(baseFactory.getSelectedCity()){
+		var filterName = subcategory.name;
+		DataFactory.setSelectedFilterName(filterName);
+		baseFactory.setSelectedCategory(category.toUpperCase());
+		$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + category.toUpperCase());
+	}
 	};
 	
 	vm.init();

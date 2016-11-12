@@ -4,7 +4,7 @@
  * accessible throughout the login module
  */
 
-app.controller('signupController', function($scope, ModalService, close, $element) {
+app.controller('signupController', function($scope, ModalService, close, $element, LoginFactory) {
 
 	var vm = this;
 	
@@ -35,5 +35,16 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
         });
 		});
 	};
+
+	vm.createAccount = function(){
+        vm.signupUser.isAppuser = true;
+        var promise = LoginFactory.user.create(vm.signupUser).$promise;
+
+            return promise.then(function(data) {
+                return data;
+            }, function(error) {
+                $location.path('/bad-request/');
+            });
+    }
 
 });

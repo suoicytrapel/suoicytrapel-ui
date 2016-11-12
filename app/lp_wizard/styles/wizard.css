@@ -1,0 +1,8 @@
+.lp-wizard-thead tr.md-row{
+	background: #ee3e20;
+}
+
+.lp-wizard-thead tr.md-row th.md-column{
+	color: #ffffff;
+	font-weight: 600;
+}
