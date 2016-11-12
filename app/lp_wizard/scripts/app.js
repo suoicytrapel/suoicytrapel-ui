@@ -12,7 +12,8 @@ var wizardApp = angular
   .module('leparticiousWizard', [
     'mgo-angular-wizard',
     'md.data.table',
-    'fc.wanSelect'
+    'fc.wanSelect',
+    'ngFileUpload'
   ]);
   
  

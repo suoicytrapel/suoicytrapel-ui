@@ -1,4 +1,4 @@
-wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup) {
+wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload) {
 	var vm = this;
 	vm.eventAreaSelected = [];
 	vm.lookup = venueLookup;
@@ -9,6 +9,8 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 	vm.removable = false; 
 	vm.eventAreas = [];
 	vm.rooms = [];
+	vm.menuImages = [];
+	vm.vendorImages = [];
 	
 	vm.createEventArea = function(event){
 		crudEventAreaService.showDialog(event).then(function(data){
@@ -89,5 +91,40 @@ wizardApp.controller('wizardController', function(crudEventAreaService,crudRoomS
 			console.log(error.status);
 		});
 	};
+	
+	vm.uploadFiles = function (files, uploadedFilesArray, maxUploadLimit) {
+	  var duplicateFile = false;
+	  vm.imageUploadCustomErrorMsg = '';	
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          //Upload.upload({..., data: {file: files[i]}, ...})...;
+          Upload.base64DataUrl(files[i]).then(function(url){
+          	for(var k = 0; k < uploadedFilesArray.length; k++){
+          		if(url === uploadedFilesArray[k]){
+          			duplicateFile = true;
+          			break;
+          		}
+          	}
+          	if(!duplicateFile && uploadedFilesArray.length < maxUploadLimit)
+          	uploadedFilesArray.push(url);
+          	else{
+          		if(duplicateFile){
+          			vm.imageUploadCustomErrorMsg = 'Duplicate Upload is not allowed';	
+          		}
+          		else
+          			vm.imageUploadCustomErrorMsg = 'Maximum of 4 images can be uploaded';
+          	}
+          	
+          });
+        }
+        // or send them all together for HTML5 browsers:
+        //Upload.upload({..., data: {file: files}, ...})...;
+      }
+    }
+   
+   vm.removeSelectedImg = function(uploadedFilesArray, index){
+   	console.log(vm.uploadedMenuImages);
+   		uploadedFilesArray.splice(index,1);
+   };
 	
 });
