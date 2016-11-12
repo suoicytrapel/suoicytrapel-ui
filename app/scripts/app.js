@@ -26,6 +26,7 @@ var app = angular
     'ngMaterial',
     'ngRating',
     'angular-storage',
+    'rx',
     'leparticiousWizard'
   ])
   

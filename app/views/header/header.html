@@ -14,7 +14,7 @@
 							<span class="fa fa-fw fa-map-marker location-icon"></span>
 						</md-button>
 					</li>
-					<li>
+					<li class="hidden-xs" ng-if="!vm.loggedInUser">
 						<md-button style="color: white;" ng-click="vm.showSignInPopup();">
 							SIGN IN
 						</md-button>

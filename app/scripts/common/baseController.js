@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService) {
 
 	var vm = this;
 
@@ -35,7 +35,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		/*vm.categoryIconsMap = baseFactory.categoryIconsMap;*/
 		$scope.form = {};
 
-		vm.loggedInUser = true;
+		vm.loggedInUser = false;
 
 	};
 
@@ -161,6 +161,16 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				// Using parent() method to get parent warper with .md-open-menu-container class and adding custom class.
 				menuContentContainer.parent().addClass('formatter-class');
 			});
+		});
+		
+		/*
+			Subscribing for loginStatusService so that the header menu can 
+			be changed based on that		 
+		 * */
+		
+		loginStatusService.getSubjectToSubscribe().subscribe(function(result){
+			vm.loggedInUser = result.isLoggedIn;
+			loginStatusService.setLoginStatus(result.isLoggedIn);
 		});
 
 	};

@@ -4,13 +4,20 @@
  * accessible throughout the login module
  */
 
-app.controller('loginController', function($scope, $http, ModalService, LoginFactory) {
+app.controller('loginController', function($scope, $http, ModalService, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore) {
 
 	var vm = this;
+	/*vm.vendorSignIn = true;
+	vm.resetSignInForm = function(){
+		vm.vendorSignIn = !vm.vendorSignIn;
+			vm.signin = {};
+			if(vm.form && vm.form.signinForm){
+		     vm.form.signinForm.$setPristine();
+     		vm.form.signinForm.$setUntouched();
+     	}
+	};*/	
 
-	
-
-	vm.onLogin = function () {
+	/*vm.onLogin = function () {
             console.log('Attempting login with username ' + $scope.vm.username + ' and password ' + $scope.vm.password);
 
             $scope.vm.submitted = true;
@@ -21,11 +28,12 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
 
             $scope.login('hello', vm.password);
 
-        };
-
-     vm.login = function (username, password) {
-            var postData = vm.preparePostData();
-
+        };*/
+       
+     vm.login = function (loginType) {
+     	if(($scope.form.signinFormUser.$valid && loginType === 'user') || ($scope.form.signinFormVendor.$valid && loginType === 'vendor')){
+            var postData = vm.preparePostData(loginType);
+            
             $http({
                 method: 'POST',
                 url: 'http://localhost:8080/oauth/token',
@@ -37,18 +45,35 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
             })
             .then(function(response) {
                 if (response.data == 'ok') {
-                    window.location.replace('/resources/calories-tracker.html');
+                	console.log('login successful');
+                	
+                	loginStatusService.getSubjectToSubscribe().onNext({
+						isLoggedIn : true,
+					});
+					
+					var userDetails = loggedInUserDetails('Ankit', 'Anku171@gmail.com', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyy', 'Auth');
+					userDetailsStore.setLoggedInUserDetails(userDetails);		
+					window.location.replace('/resources/calories-tracker.html');
                 }
                 else {
-                    $scope.vm.errorMessages = [];
-                    $scope.vm.errorMessages.push({description: 'Access denied'});
+                    console.log('Access Denied');
                 }
             });
+           }
+           else{
+           	if(loginType === 'user')
+           	$scope.form.signinFormUser.$submitted = true;
+           	else
+           	$scope.form.signinFormVendor.$submitted = true;
+           }
         };
 
-         vm.preparePostData = function () {
-            var username = vm.signinUser.email != undefined ? vm.signinUser.email : '';
-            var password = vm.signinUser.password != undefined ? vm.signinUser.password : '';
+         vm.preparePostData = function (loginType) {
+            //var username = vm.signinUser.email != undefined ? vm.signinUser.email : '';
+            //var password = vm.signinUser.password != undefined ? vm.signinUser.password : '';
+            var username = loginType === 'user' ? vm.signinUser.email : vm.signinVendor.email;
+            var password = loginType === 'user' ? vm.signinUser.password : vm.signinVendor.password;
+            console.log('Attempting login with username= ' + username + ' and password= ' + password);
             return 'scope=ui&grant_type=password&username=' + username + '&password=' + password;
         };
 
@@ -63,7 +88,7 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
         'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
       };
       gapi.auth.signIn(myParams);
-    }
+    };
  
     $scope.fbLogin = function() {
       FB.login(function (response) {
@@ -87,7 +112,7 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
     };
 
     vm.showSignUpPopup = function() {
-        //vm.closePopup();
+        vm.closePopup();
         ModalService.showModal({
             templateUrl : "/views/login/signup.html",
             controller : "signupController",
@@ -109,6 +134,7 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
 
 
     vm.showResetPwdPopup = function() {
+    	vm.closePopup();
         ModalService.showModal({
             templateUrl : "/views/login/resetpwd.html",
             controller : "resetpwdController",
@@ -127,8 +153,29 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
         });
         });
     };
+    
+    vm.showfgtpwdPopup = function(){
+    	vm.closePopup();
+        ModalService.showModal({
+            templateUrl : "/views/login/forgotpwd.html",
+            controller : "fgtpwdController",
+            controllerAs : "vm",
+        }).then(function(modal) {
+            /* Opening a modal via javascript */
+            modal.element.modal();
+            /* returning a promise on closing a modal */
+            modal.close.then(function(result) {
+                console.log(result);
+            });
+            /* when closing modal on clicking outside modal area
+             * the modal element should be removed form DOM */
+            modal.element.on('hidden.bs.modal', function () {
+            modal.controller.closePopup();
+        });
+        });
+    };
 
-    vm.createAccount = function(){
+    /*vm.createAccount = function(){
         var promise = LoginFactory.user.create(vm.signupUser).$promise;
 
             return promise.then(function(data) {
@@ -136,6 +183,12 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
             }, function(error) {
                 $location.path('/bad-request/');
             });
-    }
+    };*/
+    
+    vm.closePopup = function(){
+	 	/* closing the modal using javascript instead of data attrs */
+	 	$element.modal('hide');
+	 	close();
+	 	};
     
 }); 

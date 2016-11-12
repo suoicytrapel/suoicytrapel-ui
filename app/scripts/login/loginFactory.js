@@ -6,6 +6,12 @@ app.factory('LoginFactory', function (Constants, $resource) {
                 method: "POST",
                 isArray: false
             }
+        }),
+        forgotPwd: $resource(Constants.API_HOST + '/forgotPwd/send', {}, {
+            send:{
+                method: "POST",
+                isArray: false
+            }
         })
     };
 });
