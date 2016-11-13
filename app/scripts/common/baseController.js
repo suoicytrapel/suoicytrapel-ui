@@ -46,6 +46,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
         gapi.auth.signOut();
         location.reload();
         FB.logout(function () { document.location.reload(); });
+        
+        loginStatusService.getSubjectToSubscribe().onNext({isLoggedIn: false});
     };
 
 
