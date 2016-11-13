@@ -222,3 +222,14 @@ app.directive('globalMessagebar',function(){
 	};
 });
 
+app.directive('globalProgressbar',function(){
+	return{
+		templateUrl: 'views/globalProgressbar/globalProgressbar.html',
+		scope: {
+			showProgressbar: '=',
+		},
+		link: function(scope, element, attribute, controller){
+		}	
+	};
+});
+

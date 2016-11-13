@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService, progressbarService) {
 
 	var vm = this;
 
@@ -36,6 +36,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$scope.form = {};
 
 		vm.loggedInUser = false;
+		
+		vm.showProgressbar = false;
 
 	};
 
@@ -172,6 +174,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			vm.loggedInUser = result.isLoggedIn;
 			loginStatusService.setLoginStatus(result.isLoggedIn);
 		});
+		
+		/*
+		 	Subscribing for progressbarService to enable disable progressbar
+		 * */
+		
+		progressbarService.getSubjectToSubscribe().subscribe(function(result){
+			vm.showProgressbar = result.showProgressbar;
+			progressbarService.setProgressbarStatus(result.showProgressbar);
+		});
 
 	};
 
@@ -206,8 +217,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.startLoader = function() {
-			usSpinnerService.spin('home-page-spinner');
-			vm.showLoaderScreen = true;
+			//usSpinnerService.spin('home-page-spinner');
+			//vm.showLoaderScreen = true;
+			
+			/*progressbarService.getSubjectToSubscribe().onNext({
+				showProgressbar: true,
+			});*/
+			
+			progressbarService.enableProgressbar(true);
 		};
 
 		/*
@@ -220,8 +237,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//loader screen and spinner is hided
 			//in the next digest cycle
 			$timeout(function() {
-				vm.showLoaderScreen = false;
-				usSpinnerService.stop('home-page-spinner');
+				//vm.showLoaderScreen = false;
+				//usSpinnerService.stop('home-page-spinner');
+				/*progressbarService.getSubjectToSubscribe().onNext({
+				showProgressbar: false,
+			});*/
+			progressbarService.enableProgressbar(false);
 				vm.routeChangeSuccessInvoked = false;
 				vm.pageDataPopulated = false;
 			});

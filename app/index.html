@@ -167,9 +167,9 @@
 
     <!-- Add your site or application content here new -->
     <!-- Loader Screen for the application -->
-        <div class="loader-screen" data-ng-if="vm.showLoaderScreen">
+        <!--<div class="loader-screen" data-ng-if="vm.showLoaderScreen">
     	<span us-spinner="{color: 'rgb(243, 114, 84)'}" spinner-key="home-page-spinner" spinner-start-active="true"></span>
-    	</div>
+    	</div>-->
     
     <!--Adding the header component of the application-->
     
@@ -253,6 +253,7 @@
         <script src="scripts/common/loggedInUserDetails.js"></script>
         <script src="scripts/common/userDetailsStore.js"></script>
         <script src="scripts/common/loginStatusService.js"></script>
+        <script src="scripts/common/progressbarService.js"></script>
         <script src="scripts/detail/detailController.js"></script>
         <script src="scripts/login/loginController.js"></script>
         <script src="scripts/login/signupController.js"></script>
@@ -285,6 +286,9 @@
     
     <div data-ng-include="'views/globalSideNav/globalSideNav.html'"></div>
 
+
+	<global-progressbar show-progressbar="vm.showProgressbar"></global-progressbar>
+	
 </div>
 </body>
 </html>

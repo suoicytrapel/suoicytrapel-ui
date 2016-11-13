@@ -31,14 +31,14 @@ var app = angular
   ])
   
 app.config(['usSpinnerConfigProvider', 'storeProvider', function (usSpinnerConfigProvider, storeProvider) {
-    usSpinnerConfigProvider.setDefaults({
+    /*usSpinnerConfigProvider.setDefaults({
     	color: 'rgb(243, 114, 84)',
     	length: 0,
     	width: 10,
     	radius: 25,
     	lines: 15
     	
-    	});
+    	});*/
     	
     	    // Store defaults to localStorage but we can set sessionStorage or cookieStorage.
     storeProvider.setStore('sessionStorage');

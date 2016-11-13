@@ -17,9 +17,7 @@ app.factory('HomeFactory', function (Constants, $resource) {
                 transformResponse: function(data, header) {
                     return angular.fromJson(data);
                 },
-                headers: { 
-                	'Content-Type': 'application/json; charset=utf-8',
-                	'Authorization': 'BEARER xxxxxxxxxxxxx'} 
+              
             }
             }),
         fetchAdditions: $resource(Constants.API_HOST + '/search/city/recentAdditions', {},{
