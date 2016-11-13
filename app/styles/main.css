@@ -1153,6 +1153,25 @@ md-input-container #captcha input{
     top: 60px !important;
 }
 
+/* global message bar classes */
+.err-msg-content{
+	color: #b20000;
+	line-height: 24px;
+}
+
+.success-msg-content{
+	color: #2a7d05;
+	line-height: 24px;
+}
+
+.bg-white{
+	background: rgb(255, 255, 255);
+}
+
+.mBottom8{
+	margin-bottom: 8px;
+}
+
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {
     float: left;

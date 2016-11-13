@@ -1,0 +1,11 @@
+<div layout-fill class="global-message-bar bg-white mBottom8" layout="row" layout-align="start center"  md-whiteframe="4" ng-show="messageBarMessage.length > 0 && messageType.length > 0">
+    	<div class="message-content" flex="90">
+    	<span class="err-msg-content" ng-show="messageType == 'Error'"><i class="material-icons" style="vertical-align: bottom">cancel</i> {{messageBarMessage}}</span>
+    	<span class="success-msg-content" ng-show="messageType == 'Success'"><i class="material-icons" style="vertical-align: bottom">check_circle</i> {{messageBarMessage}}</span>
+    	</div>
+    	<div class="message-close-btn" flex="10" style="text-align: center;">
+    	<md-button class="md-icon-button" ng-click="closeMessageBar()">
+        <i class="material-icons">close</i>
+        </md-button>
+    	</div>
+    </div>

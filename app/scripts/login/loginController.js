@@ -7,6 +7,14 @@
 app.controller('loginController', function($scope, $http, ModalService, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore) {
 
 	var vm = this;
+	
+	vm.messageType = ''; /* Accepts only 'Error' or 'Success' as values */
+	vm.messageBarMessage = '';
+	
+	vm.clearMessageBar = function(){
+		vm.messageType = '';
+		vm.messageBarMessage = '';
+	};
 	/*vm.vendorSignIn = true;
 	vm.resetSignInForm = function(){
 		vm.vendorSignIn = !vm.vendorSignIn;
@@ -46,6 +54,8 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
             .then(function(response) {
                 if (response.data == 'ok') {
                 	console.log('login successful');
+                	vm.messageType = 'Success';
+					vm.messageBarMessage = 'Success Message: Login Successful';
                 	
                 	loginStatusService.getSubjectToSubscribe().onNext({
 						isLoggedIn : true,
@@ -57,7 +67,12 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
                 }
                 else {
                     console.log('Access Denied');
+                    vm.messageType = 'Error';
+				vm.messageBarMessage = 'Error Message: Access Denied';
                 }
+            },function(error){
+            	vm.messageType = 'Error';
+				vm.messageBarMessage = 'Error Message: Kindly Check your Credentials';
             });
            }
            else{

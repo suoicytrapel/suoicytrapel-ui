@@ -205,3 +205,20 @@ app.directive('giveReview',function(){
 		}	
 	};
 });
+
+app.directive('globalMessagebar',function(){
+	return{
+		templateUrl: 'views/globalMessagebar/globalMessagebar.html',
+		scope: {
+			messageType: '=',
+			messageBarMessage: '='
+		},
+		link: function(scope, element, attribute, controller){
+			scope.closeMessageBar = function(){
+				scope.messageType = '';
+				scope.messageBarMessage = '';
+			};
+		}	
+	};
+});
+
