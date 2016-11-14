@@ -1,12 +1,7 @@
-app.factory('LoginFactory', function (Constants, $resource, userDetailsStore, loginStatusService) {
-   /*var tokenType = null;
-    var accessToken = null;
-
-    loginStatusService.getSubjectToSubscribe().subscribe(function(result){
-        tokenType = userDetailsStore.getLoggedInUserDetails() ? userDetailsStore.getLoggedInUserDetails().tokenType : null;
-        accessToken = userDetailsStore.getLoggedInUserDetails() ? userDetailsStore.getLoggedInUserDetails().accessToken : null;
-    });*/
+app.factory('LoginFactory', function (Constants, $resource) {
+   
     return {
+    	
         createUser: $resource(Constants.API_HOST + '/user/create', {}, {
             create:{
                 method: "POST",
@@ -19,12 +14,14 @@ app.factory('LoginFactory', function (Constants, $resource, userDetailsStore, lo
                 isArray: false
             }
         }),
-        user: $resource(Constants.API_HOST_SECURED + '/getUserDetails', {}, {
+        user: function(token){
+        	return $resource(Constants.API_HOST_SECURED + '/getUserDetails', {}, {
             getLoggedInUser:{
                 method: "GET",
-                headers: {'Authorization': userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken},
+                headers: {'Authorization': token},
                 isArray: false
             }
-        })
+        });
+        }
     };
 });

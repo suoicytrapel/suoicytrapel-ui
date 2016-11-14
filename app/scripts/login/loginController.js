@@ -64,7 +64,8 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 
                    
                 	/* Call for fetching the user details and saving it */
-                     var promise = LoginFactory.user.getLoggedInUser().$promise;
+                	var token = userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken;
+                     var promise = LoginFactory.user(token).getLoggedInUser().$promise;
 
                     return promise.then(function(data) {
                         var userDetails = loggedInUserDetails(data.name, data.email, userDetailsStore.getLoggedInUserDetails().accessToken, userDetailsStore.getLoggedInUserDetails().refreshToken, userDetailsStore.getLoggedInUserDetails().tokenType, data.userRole);

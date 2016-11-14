@@ -51,7 +51,7 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
         		}	
 
         		createAccountParams.username = createAccountParams.email;
-        		createAccountParams.isAppuser = true;
+        		createAccountParams.isAppUser = true;
         		createAccountParams.confirmPassword = undefined;
 
         var promise = LoginFactory.createUser.create(createAccountParams).$promise;

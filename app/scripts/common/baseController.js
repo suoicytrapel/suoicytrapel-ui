@@ -49,7 +49,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
         FB.logout(function () { document.location.reload(); });
         
         loginStatusService.getSubjectToSubscribe().onNext({isLoggedIn: false});
-        userDetailsStore.setLoggedInUserDetails(null);
+        //userDetailsStore.setLoggedInUserDetails(null);
+        userDetailsStore.removeLoggedInUserDetails();
     };
 
 
