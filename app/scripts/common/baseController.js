@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService, progressbarService) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService, progressbarService, userDetailsStore) {
 
 	var vm = this;
 
@@ -36,6 +36,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		$scope.form = {};
 
 		vm.loggedInUser = false;
+		vm.loggedInUsername = null;
 		
 		vm.showProgressbar = false;
 
@@ -48,6 +49,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
         FB.logout(function () { document.location.reload(); });
         
         loginStatusService.getSubjectToSubscribe().onNext({isLoggedIn: false});
+        userDetailsStore.setLoggedInUserDetails(null);
     };
 
 
@@ -174,6 +176,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		
 		loginStatusService.getSubjectToSubscribe().subscribe(function(result){
 			vm.loggedInUser = result.isLoggedIn;
+			vm.loggedInUsername = userDetailsStore.getLoggedInUserDetails().name;
 			loginStatusService.setLoginStatus(result.isLoggedIn);
 		});
 		
@@ -470,7 +473,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * method for showing sign in popup
 	 *
 	 * */
-	vm.showSignInPopup = function() {
+	$scope.showSignInPopup = function() {
 
 		ModalService.showModal({
 			templateUrl : "views/login/signin.html",
@@ -495,7 +498,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * method for showing sign up popup
 	 *
 	 * */
-	vm.showSignUpPopup = function() {
+	$scope.showSignUpPopup = function() {
 		//vm.closePopup();
 		ModalService.showModal({
 			templateUrl : "/views/login/signup.html",
@@ -517,7 +520,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	};
 
 
-	vm.showResetPwdPopup = function() {
+	$scope.showResetPwdPopup = function() {
 		ModalService.showModal({
 			templateUrl : "/views/login/resetpwd.html",
 			controller : "resetpwdController",

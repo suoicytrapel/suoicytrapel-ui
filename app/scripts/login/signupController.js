@@ -7,7 +7,8 @@
 app.controller('signupController', function($scope, ModalService, close, $element, LoginFactory) {
 
 	var vm = this;
-	
+	vm.messageType = ''; /* Accepts only 'Error' or 'Success' as values */
+	vm.messageBarMessage = '';
 	
 	 vm.closePopup = function(){
 	 	/* closing the modal using javascript instead of data attrs */
@@ -40,15 +41,29 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
         //vm.signupUser.isAppuser = true;
         var createAccountParams = null;
         if(($scope.form.signupFormUser.$valid && accountType === 'user') || ($scope.form.signupFormVendor.$valid && accountType === 'vendor')){
-        	if(accountType === 'user')
+        	if(accountType === 'user'){
         		createAccountParams = angular.copy(vm.signupUser);
-        	else
-        		createAccountParams = angular.copy(vm.signupVendor);		
-        var promise = LoginFactory.user.create(createAccountParams).$promise;
+        		createAccountParams.userRole = 'USER';
+        		}
+        	else{
+        		createAccountParams = angular.copy(vm.signupVendor);	
+        		createAccountParams.userRole = 'VENDOR';
+        		}	
+
+        		createAccountParams.username = createAccountParams.email;
+        		createAccountParams.isAppuser = true;
+        		createAccountParams.confirmPassword = undefined;
+
+        var promise = LoginFactory.createUser.create(createAccountParams).$promise;
 
             return promise.then(function(data) {
+            	vm.messageType = 'Success'; /* Accepts only 'Error' or 'Success' as values */
+				vm.messageBarMessage = 'Success Message: User Successfully Created';
+				vm.showSignInPopup();
                 return data;
             }, function(error) {
+            	vm.messageType = 'Error'; /* Accepts only 'Error' or 'Success' as values */
+				vm.messageBarMessage = 'Error Message: Error in creating User, Please contact System Admin';
                 //$location.path('/bad-request/');
             });
        }

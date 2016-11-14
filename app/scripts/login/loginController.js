@@ -4,7 +4,7 @@
  * accessible throughout the login module
  */
 
-app.controller('loginController', function($scope, $http, ModalService, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore) {
+app.controller('loginController', function($scope, $http, ModalService, $location, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore) {
 
 	var vm = this;
 	
@@ -38,8 +38,11 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
 
         };*/
        
-     vm.login = function (loginType) {
-     	if(($scope.form.signinFormUser.$valid && loginType === 'user') || ($scope.form.signinFormVendor.$valid && loginType === 'vendor')){
+     vm.login = function (loginType, isAppLogin) {
+     	if(($scope.form.signinFormUser.$valid && loginType === 'user') || ($scope.form.signinFormVendor.$valid && loginType === 'vendor') || (isAppLogin === false)){
+            if(isAppLogin === false)
+            var postData =  'scope=ui&grant_type=password&username=' + vm.signupUser.email + '&password=' + vm.signupUser.email;
+            else   
             var postData = vm.preparePostData(loginType);
             
             $http({
@@ -52,17 +55,36 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
                 }
             })
             .then(function(response) {
-                if (response.data == 'ok') {
+                if (response.status == 200) {
                 	console.log('login successful');
                 	vm.messageType = 'Success';
 					vm.messageBarMessage = 'Success Message: Login Successful';
-                	
-                	loginStatusService.getSubjectToSubscribe().onNext({
-						isLoggedIn : true,
-					});
-					
-					var userDetails = loggedInUserDetails('Ankit', 'Anku171@gmail.com', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyy', 'Auth');
-					userDetailsStore.setLoggedInUserDetails(userDetails);		
+                	var userDetails = loggedInUserDetails(null, null, response.data.access_token, response.data.refresh_token, response.data.token_type, null);
+                    userDetailsStore.setLoggedInUserDetails(userDetails);
+
+                   
+                	/* Call for fetching the user details and saving it */
+                     var promise = LoginFactory.user.getLoggedInUser().$promise;
+
+                    return promise.then(function(data) {
+                        var userDetails = loggedInUserDetails(data.name, data.email, userDetailsStore.getLoggedInUserDetails().accessToken, userDetailsStore.getLoggedInUserDetails().refreshToken, userDetailsStore.getLoggedInUserDetails().tokenType, data.userRole);
+                        userDetailsStore.setLoggedInUserDetails(userDetails);
+
+                         loginStatusService.getSubjectToSubscribe().onNext({
+                        isLoggedIn : true,
+                    });
+                    
+
+                        vm.closePopup();
+                        //return data;
+                    }, function(error) {
+                        //$location.path('/bad-request/');
+                        vm.messageType = 'Error';
+                    vm.messageBarMessage = 'Error Message: Unable to find user details. Please contact your system admin';
+                    });
+                    
+					//var userDetails = loggedInUserDetails('Ankit', 'Anku171@gmail.com', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyy', 'Auth');
+					//userDetailsStore.setLoggedInUserDetails(userDetails);		
 					window.location.replace('/resources/calories-tracker.html');
                 }
                 else {
@@ -93,7 +115,52 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
         };
 
 
-    $scope.googleLogin = function() 
+     function loginCallback(result)
+    {
+        if(result['status']['signed_in'])
+        {
+            var request = gapi.client.plus.people.get(
+            {
+                'userId': 'me'
+            });
+            request.execute(function (resp)
+            {
+                var email = '';
+                if(resp['emails'])
+                {
+                    for(i = 0; i < resp['emails'].length; i++)
+                    {
+                        if(resp['emails'][i]['type'] == 'account')
+                        {
+                            email = resp['emails'][i]['value'];
+                        }
+                    }
+                }
+     
+                var str = "Name:" + resp['displayName'] + "<br>";
+                str += "Image:" + resp['image']['url'] + "<br>";
+                str += "<img src='" + resp['image']['url'] + "' /><br>";
+     
+                str += "URL:" + resp['url'] + "<br>";
+                str += "Email:" + email + "<br>";
+                console.log('User Details:', str);
+                document.getElementById("profile").innerHTML = str;
+                vm.signupUser = {};
+            vm.signupUser.name=resp['displayName'];
+            vm.signupUser.email=email;
+            vm.signupUser.username=email;
+            vm.signupUser.isAppUser = false;
+            vm.signupUser.userRole = 'USER';
+            vm.createAccount();
+
+            vm.login('',false);
+            });
+     
+        }
+     
+    }
+
+     $scope.googleLogin = function() 
     {
       var myParams = {
         'clientid' : '289437307644-2taus4lmi3469r65neo01ha0oj6vo1k1.apps.googleusercontent.com',
@@ -104,6 +171,7 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
       };
       gapi.auth.signIn(myParams);
     };
+
  
     $scope.fbLogin = function() {
       FB.login(function (response) {
@@ -114,8 +182,10 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
             vm.signupUser.email=response.email;
             vm.signupUser.username=response.username;
             vm.signupUser.isAppUser = false;
-            vm.signupUser.userRole = 'enduser';
+            vm.signupUser.userRole = 'USER';
             vm.createAccount();
+
+            vm.login('',false);
             /*FB.api('/me/picture?type=normal', function (response) {
               document.getElementById("profileImage").setAttribute("src", response.data.url);
             });*/
@@ -190,7 +260,7 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
         });
     };
 
-    /*vm.createAccount = function(){
+    vm.createAccount = function(){
         var promise = LoginFactory.user.create(vm.signupUser).$promise;
 
             return promise.then(function(data) {
@@ -198,7 +268,7 @@ app.controller('loginController', function($scope, $http, ModalService, LoginFac
             }, function(error) {
                 $location.path('/bad-request/');
             });
-    };*/
+    };
     
     vm.closePopup = function(){
 	 	/* closing the modal using javascript instead of data attrs */

@@ -15,19 +15,19 @@
 						</md-button>
 					</li>
 					<li class="hidden-xs" ng-if="!vm.loggedInUser">
-						<md-button style="color: white;" ng-click="vm.showSignInPopup();">
+						<md-button style="color: white;" ng-click="showSignInPopup();">
 							SIGN IN
 						</md-button>
 					</li>
 					<li class="hidden-xs" ng-if="!vm.loggedInUser">
-						<md-button style="color: white;" ng-click="vm.showSignUpPopup();">
+						<md-button style="color: white;" ng-click="showSignUpPopup();">
 							SIGN UP
 						</md-button>
 					</li>
 					<li ng-if="vm.loggedInUser">
 						<md-menu md-position-mode="target target" >
           <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" style="color: white;">
-            Welcome anku171<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
+            Welcome {{vm.loggedInUsername}}<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
           </md-button>
           <md-menu-content width="3" id="loggedInuser_md_menu_content">
             <md-menu-item>

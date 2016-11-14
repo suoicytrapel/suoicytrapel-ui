@@ -27,7 +27,9 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			vendorRating: 0,
 			reviewMoney: '',
 			reviewComment: '',
-			submitReview: function(){},
+			submitReview: function(){
+				$scope.showSignInPopup();
+			},
 		};
 		vm.postedReviewRating = 5;
 		vm.vendorAverageRating = 4.6;

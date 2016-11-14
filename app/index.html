@@ -81,42 +81,7 @@
             gapi.client.load('plus', 'v1',function(){});
         }
 
-        function loginCallback(result)
-    {
-        if(result['status']['signed_in'])
-        {
-            var request = gapi.client.plus.people.get(
-            {
-                'userId': 'me'
-            });
-            request.execute(function (resp)
-            {
-                var email = '';
-                if(resp['emails'])
-                {
-                    for(i = 0; i < resp['emails'].length; i++)
-                    {
-                        if(resp['emails'][i]['type'] == 'account')
-                        {
-                            email = resp['emails'][i]['value'];
-                        }
-                    }
-                }
-     
-                var str = "Name:" + resp['displayName'] + "<br>";
-                str += "Image:" + resp['image']['url'] + "<br>";
-                str += "<img src='" + resp['image']['url'] + "' /><br>";
-     
-                str += "URL:" + resp['url'] + "<br>";
-                str += "Email:" + email + "<br>";
-                console.log('User Details:', str);
-                document.getElementById("profile").innerHTML = str;
-            });
-     
-        }
-     
-    }
-
+       
      window.fbAsyncInit = function() {
     FB.init({
       appId      : '1490864197597595',
