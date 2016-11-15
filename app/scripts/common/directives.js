@@ -199,6 +199,7 @@ app.directive('giveReview',function(){
 			reviewMoney: "=",
 			submitReview: "&",
 			applyMargin: "@",
+			allowPostingReview: "&",
 		},
 		link: function(scope, element, attribute, controller){
 			

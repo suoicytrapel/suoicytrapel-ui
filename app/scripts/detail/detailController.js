@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory, userDetailsStore, detailFactory) {
 	var vm = this;
 
 	vm.init = function() {
@@ -28,8 +28,36 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			reviewMoney: '',
 			reviewComment: '',
 			submitReview: function(){
-				$scope.showSignInPopup();
+				if(!userDetailsStore.getLoggedInUserDetails()){
+					$scope.showSignInPopup();
+				}
+				else{
+					/* REST call for submitting the review */
+					var token = userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken;
+					var saveReviewParams = {
+						rating: vm.newReviewModel.vendorRating,
+						comment: vm.newReviewModel.reviewComment,
+						money: vm.newReviewModel.reviewMoney
+					};
+                     var promise = detailFactory.review(token).save(saveReviewParams).$promise;
+
+                    return promise.then(function(data) {
+                        vm.newReviewModel.vendorRating = 0;
+                        vm.newReviewModel.reviewComment = '';
+                        vm.newReviewModel.reviewMoney = '';
+
+                     },function(error){
+                     	console.log('Error in submitting review');
+                     });
+                    }
+				
 			},
+			allowPostingReview: function(e){
+				if(!userDetailsStore.getLoggedInUserDetails()){
+				$scope.showSignInPopup();
+				angular.element(e.currentTarget).blur();
+				}
+			}
 		};
 		vm.postedReviewRating = 5;
 		vm.vendorAverageRating = 4.6;

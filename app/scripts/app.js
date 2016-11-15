@@ -41,5 +41,13 @@ app.config(['usSpinnerConfigProvider', 'storeProvider', function (usSpinnerConfi
     	
     	    // Store defaults to localStorage but we can set sessionStorage or cookieStorage.
     storeProvider.setStore('sessionStorage');
-}]); 
+}]).run(function(userDetailsStore, loginStatusService, $timeout){
+	if(userDetailsStore.getLoggedInUserDetails() && userDetailsStore.getLoggedInUserDetails().email){
+	$timeout(function(){
+		loginStatusService.getSubjectToSubscribe().onNext({
+                        isLoggedIn : true,
+                    });
+                 },500);
+                   }
+}); 
   

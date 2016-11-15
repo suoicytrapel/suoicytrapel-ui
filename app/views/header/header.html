@@ -26,7 +26,7 @@
 					</li>
 					<li ng-if="vm.loggedInUser">
 						<md-menu md-position-mode="target target" >
-          <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" style="color: white;">
+          <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" class="loggedInInfoBtn">
             Welcome {{vm.loggedInUsername}}<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
           </md-button>
           <md-menu-content width="3" id="loggedInuser_md_menu_content">

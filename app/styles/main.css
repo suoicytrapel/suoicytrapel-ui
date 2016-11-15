@@ -1192,6 +1192,11 @@ md-input-container #captcha input{
     margin-left: -25px;
 }
 
+.loggedInInfoBtn{
+	color: #ffffff;
+	text-transform: capitalize;
+}
+
 @media only screen and (max-width: 767px) and (min-width: 0)
 {.navbar-brand {
     float: left;
