@@ -280,7 +280,6 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 	/* REST call for creating User from social (google or FB login) */
     vm.createAccount = function(signupUser){
         var promise = LoginFactory.createUser.create(signupUser).$promise;
-
             return promise.then(function(data) {
             	console.log('user created');
                 console.log(data);
