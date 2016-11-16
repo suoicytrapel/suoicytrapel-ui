@@ -262,7 +262,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
     };
 
     vm.createAccount = function(){
-        var promise = LoginFactory.user.create(vm.signupUser).$promise;
+        var promise = LoginFactory.createUser.create(vm.signupUser).$promise;
 
             return promise.then(function(data) {
                 return data;
