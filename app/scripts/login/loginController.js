@@ -4,7 +4,7 @@
  * accessible throughout the login module
  */
 
-app.controller('loginController', function($scope, $http, ModalService, $location, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore) {
+app.controller('loginController', function($scope, $http, ModalService, $location, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore, $window) {
 
 	var vm = this;
 	
@@ -56,9 +56,22 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             })
             .then(function(response) {
                 if (response.status == 200) {
-                	console.log('login successful');
+                	console.log('authentication successful');
                 	vm.messageType = 'Success';
 					vm.messageBarMessage = 'Success Message: Login Successful';
+					
+					if(isAppLogin === false){ //Flow for Facebook or Google Login
+						var userDetails = loggedInUserDetails(userDetailsStore.getLoggedInUserDetails().name, userDetailsStore.getLoggedInUserDetails().email, response.data.access_token, response.data.refresh_token, response.data.token_type, userDetailsStore.getLoggedInUserDetails().userRole);
+                    	userDetailsStore.setLoggedInUserDetails(userDetails);
+                    	
+                    	loginStatusService.getSubjectToSubscribe().onNext({
+                        isLoggedIn : true,
+                    });
+                    
+                     vm.closePopup();
+					}
+					
+					else{ //Flow for App Login
                 	var userDetails = loggedInUserDetails(null, null, response.data.access_token, response.data.refresh_token, response.data.token_type, null);
                     userDetailsStore.setLoggedInUserDetails(userDetails);
 
@@ -75,7 +88,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                         isLoggedIn : true,
                     });
                     
-
+					
                         vm.closePopup();
                         //return data;
                     }, function(error) {
@@ -83,10 +96,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                         vm.messageType = 'Error';
                     vm.messageBarMessage = 'Error Message: Unable to find user details. Please contact your system admin';
                     });
-                    
-					//var userDetails = loggedInUserDetails('Ankit', 'Anku171@gmail.com', 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyy', 'Auth');
-					//userDetailsStore.setLoggedInUserDetails(userDetails);		
-					window.location.replace('/resources/calories-tracker.html');
+                  }
                 }
                 else {
                     console.log('Access Denied');
@@ -115,8 +125,8 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             return 'scope=ui&grant_type=password&username=' + username + '&password=' + password;
         };
 
-
-     function loginCallback(result)
+	/* Callback function for Google SignIn */
+     $window.loginCallback = function(result)
     {
         if(result['status']['signed_in'])
         {
@@ -145,23 +155,24 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                 str += "URL:" + resp['url'] + "<br>";
                 str += "Email:" + email + "<br>";
                 console.log('User Details:', str);
-                document.getElementById("profile").innerHTML = str;
+                //document.getElementById("profile").innerHTML = str;
                 vm.signupUser = {};
-            vm.signupUser.name=resp['displayName'];
-            vm.signupUser.email=email;
-            vm.signupUser.username=email;
-            vm.signupUser.isAppUser = false;
-            vm.signupUser.userRole = 'USER';
-            vm.createAccount();
+            	vm.signupUser.name=resp['displayName'];
+            	vm.signupUser.email=email;
+            	vm.signupUser.username=email;
+            	vm.signupUser.password=email;
+            	vm.signupUser.isAppUser = false;
+            	vm.signupUser.userRole = 'USER';
+            	vm.createAccount(vm.signupUser);
 
-            vm.login('',false);
+            
             });
      
         }
      
-    }
+    };
 
-     $scope.googleLogin = function() 
+     vm.googleLogin = function() 
     {
       var myParams = {
         'clientid' : '289437307644-2taus4lmi3469r65neo01ha0oj6vo1k1.apps.googleusercontent.com',
@@ -171,10 +182,12 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
         'scope' : 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
       };
       gapi.auth.signIn(myParams);
+      
+      
     };
 
  
-    $scope.fbLogin = function() {
+    vm.fbLogin = function() {
       FB.login(function (response) {
         if (response.authResponse) {
           FB.api('/me?fields=first_name, last_name, picture, email', function (response) {
@@ -182,6 +195,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             vm.signupUser.name=response.first_name;
             vm.signupUser.email=response.email;
             vm.signupUser.username=response.username;
+            vm.signupUser.password=response.email;
             vm.signupUser.isAppUser = false;
             vm.signupUser.userRole = 'USER';
             vm.createAccount();
@@ -192,7 +206,9 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             });*/
           });
         } else {
-          alert("Login attempt failed!");
+          //alert("Login attempt failed!");
+          vm.messageType = 'Error';
+          vm.messageBarMessage = 'Error Message: Login with Facebook Failed';
         }
       });
     };
@@ -260,14 +276,22 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
         });
         });
     };
-
-    vm.createAccount = function(){
-        var promise = LoginFactory.user.create(vm.signupUser).$promise;
+	
+	/* REST call for creating User from social (google or FB login) */
+    vm.createAccount = function(signupUser){
+        var promise = LoginFactory.createUser.create(signupUser).$promise;
 
             return promise.then(function(data) {
-                return data;
+            	console.log('user created');
+                console.log(data);
+                var userDetails = loggedInUserDetails(signupUser.name, signupUser.email, null, null, null, signupUser.userRole);
+                userDetailsStore.setLoggedInUserDetails(userDetails);
+                    
+                    //Now Login User
+                    vm.login('',false);
             }, function(error) {
-                $location.path('/bad-request/');
+                vm.messageType = 'Error';
+          		vm.messageBarMessage = 'Error Message: Unable to Create User';
             });
     };
     

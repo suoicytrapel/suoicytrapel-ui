@@ -11,7 +11,7 @@ app.factory('baseFactory', function($location) {
 	
 	baseFactory.categoryMap = {
 
-		 'Venue': 'Venues',
+		 'VENUE': 'Venues',
 		 'CATERER': 'Caterers',
 		 'DECORATOR': 'Decorators',
 		 'PHOTOGRAPHER': 'Photographers',
