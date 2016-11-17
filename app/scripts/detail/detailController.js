@@ -29,7 +29,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			reviewComment: '',
 			submitReview: function(){
 				if(!userDetailsStore.getLoggedInUserDetails()){
-					$scope.showSignInPopup();
+					$scope.showSignInPopup({type: 'Warning', message: 'Message: Please Login to Post a Review'});
 				}
 				else{
 					/* REST call for submitting the review */
@@ -54,7 +54,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			},
 			allowPostingReview: function(e){
 				if(!userDetailsStore.getLoggedInUserDetails()){
-				$scope.showSignInPopup();
+				$scope.showSignInPopup({type: 'Warning', message: 'Message: Please Login to Post a Review'});
 				angular.element(e.currentTarget).blur();
 				}
 			}

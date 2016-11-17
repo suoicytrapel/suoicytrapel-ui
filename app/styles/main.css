@@ -1164,6 +1164,11 @@ md-input-container #captcha input{
 	line-height: 24px;
 }
 
+.warning-msg-content{
+	color: #00529B;
+	line-height: 24px;
+}
+
 .bg-white{
 	background: rgb(255, 255, 255);
 }

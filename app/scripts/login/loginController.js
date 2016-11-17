@@ -8,7 +8,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 
 	var vm = this;
 	
-	vm.messageType = ''; /* Accepts only 'Error' or 'Success' as values */
+	vm.messageType = ''; /* Accepts only 'Error','Success' or 'Warning' as values */
 	vm.messageBarMessage = '';
 	
 	vm.clearMessageBar = function(){

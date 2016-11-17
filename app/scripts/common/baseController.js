@@ -472,9 +472,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/*
 	 *
 	 * method for showing sign in popup
+	 * Binded with $scope so that it can be called from any page
 	 *
 	 * */
-	$scope.showSignInPopup = function() {
+	$scope.showSignInPopup = function(msg) {
 
 		ModalService.showModal({
 			templateUrl : "views/login/signin.html",
@@ -483,6 +484,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		}).then(function(modal) {
 			/* Opening a modal via javascript */
 			modal.element.modal();
+			if(msg){
+			modal.controller.messageType = msg.type;
+			modal.controller.messageBarMessage = msg.message;
+			}
 			/* returning a promise on closing a modal */
 			modal.close.then(function(result) {
 				console.log(result);
@@ -497,6 +502,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/*
 	 *
 	 * method for showing sign up popup
+	 * Binded with $scope so that it can be called from any page
 	 *
 	 * */
 	$scope.showSignUpPopup = function() {
