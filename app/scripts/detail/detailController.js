@@ -35,9 +35,11 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 					/* REST call for submitting the review */
 					var token = userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken;
 					var saveReviewParams = {
-						rating: vm.newReviewModel.vendorRating,
-						comment: vm.newReviewModel.reviewComment,
-						money: vm.newReviewModel.reviewMoney
+						starRating: vm.newReviewModel.vendorRating,
+						reviewComment: vm.newReviewModel.reviewComment,
+						reviewMoney: vm.newReviewModel.reviewMoney,
+						entityId:1,
+						reviewedBy:userDetailsStore.getLoggedInUserDetails().name
 					};
                      var promise = detailFactory.review(token).save(saveReviewParams).$promise;
 
@@ -45,6 +47,17 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
                         vm.newReviewModel.vendorRating = 0;
                         vm.newReviewModel.reviewComment = '';
                         vm.newReviewModel.reviewMoney = '';
+                        var searchRequestDTO = {
+                        	vendorId : 1,
+                        	offset : 1,
+                        	limit:50
+                        };
+                        detailFactory.getReview().getReviewsByVendor(searchRequestDTO).$promise.then(function(data) {
+	                        vm.dynamicItems = data;
+
+	                     },function(error){
+	                     	console.log('Error in submitting review');
+	                     });
 
                      },function(error){
                      	console.log('Error in submitting review');

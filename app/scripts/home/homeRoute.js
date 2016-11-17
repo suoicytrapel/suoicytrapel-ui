@@ -501,15 +501,24 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				$rootScope.showCover = false;
 			}
 		}
-	}).when('/bad-request/', {
-		url : '/bad-request',
-		controller : function(usSpinnerService){
-			usSpinnerService.stop('home-page-spinner');
-		},
-		templateUrl : 'views/badrequest/badrequest.html'
+	}).when('/wizard/', {
+		url : '/ahjgkdvko78nhss4fkn5jsdfsdkk2dsdfssd',
+		controller : 'wizardController',
+		controllerAs: 'vm',
+		templateUrl : 'lp_wizard/views/venue_wizard/venue_wizard.html',
+		resolve : {
+			hideCover : function($rootScope) {
+				$rootScope.showCover = false;
+			}
+		}
+	})/*.when('/activate/', {
+		url : '/activate',
+		controller : 'signupController',
+		controllerAs: 'vm',
+		templateUrl : 'views/login/activate.html'
 	}).otherwise({
 		redirectTo : '/'
-	});
+	});*/
 
 	$locationProvider.html5Mode(true);
 
