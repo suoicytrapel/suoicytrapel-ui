@@ -33,6 +33,39 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				});
 			}
 		}
+	}).when('/activate-account/:accountDetails', {
+		url : '/login',
+		controller : 'HomeController',
+		templateUrl : 'views/home/home.html',
+		controllerAs : 'vm',
+		resolve : {
+			changeCover : function(baseFactory) {
+				baseFactory.setMainCoverHeading('Your Online Event Planner');
+			},
+			recentAdditions : function(baseFactory, HomeFactory, $location) {
+				/*var cityId = baseFactory.getSelectedCity();
+				return HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
+					return data;
+
+				}, function(error) {
+					$location.path('/bad-request/');
+				});*/
+				return null;
+			},
+			subCategories : function(baseFactory, HomeFactory, $location) {
+				return HomeFactory.fetchSubCategories.subCategories().$promise.then(function(data) {
+					return data;
+
+				}, function(error) {
+					$location.path('/bad-request/');
+				});
+			},
+			activateAccount : function(HomeFactory){
+				var accountDetails = $route.current.params.accountDetails;
+				/* Rest Call to be written here for activating account */
+				return null;
+			}	
+		}
 	}).when('/vendors/:city/:category/:searchParam', {
 		url : '/search',
 		controller : 'DataController',
@@ -501,24 +534,7 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				$rootScope.showCover = false;
 			}
 		}
-	}).when('/wizard/', {
-		url : '/ahjgkdvko78nhss4fkn5jsdfsdkk2dsdfssd',
-		controller : 'wizardController',
-		controllerAs: 'vm',
-		templateUrl : 'lp_wizard/views/venue_wizard/venue_wizard.html',
-		resolve : {
-			hideCover : function($rootScope) {
-				$rootScope.showCover = false;
-			}
-		}
-	})/*.when('/activate/', {
-		url : '/activate',
-		controller : 'signupController',
-		controllerAs: 'vm',
-		templateUrl : 'views/login/activate.html'
-	}).otherwise({
-		redirectTo : '/'
-	});*/
+	});
 
 	$locationProvider.html5Mode(true);
 

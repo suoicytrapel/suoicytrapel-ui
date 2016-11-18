@@ -4,7 +4,7 @@
  * accessible throughout the login module
  */
 
-app.controller('loginController', function($scope, $http, ModalService, $location, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore, $window) {
+app.controller('loginController', function($scope, $http, ModalService, $location, LoginFactory, $element, close, loginStatusService, loggedInUserDetails, userDetailsStore, $window, progressbarService) {
 
 	var vm = this;
 	
@@ -15,28 +15,6 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 		vm.messageType = '';
 		vm.messageBarMessage = '';
 	};
-	/*vm.vendorSignIn = true;
-	vm.resetSignInForm = function(){
-		vm.vendorSignIn = !vm.vendorSignIn;
-			vm.signin = {};
-			if(vm.form && vm.form.signinForm){
-		     vm.form.signinForm.$setPristine();
-     		vm.form.signinForm.$setUntouched();
-     	}
-	};*/	
-
-	/*vm.onLogin = function () {
-            console.log('Attempting login with username ' + $scope.vm.username + ' and password ' + $scope.vm.password);
-
-            $scope.vm.submitted = true;
-
-            if ($scope.form.$invalid) {
-                return;
-            }
-
-            $scope.login('hello', vm.password);
-
-        };*/
        
      vm.login = function (loginType, isAppLogin) {
      	if(($scope.form.signinFormUser.$valid && loginType === 'user') || ($scope.form.signinFormVendor.$valid && loginType === 'vendor') || (isAppLogin === false)){
@@ -69,6 +47,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                     });
                     
                      vm.closePopup();
+                     progressbarService.enableProgressbar(false);
 					}
 					
 					else{ //Flow for App Login
@@ -163,7 +142,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             	vm.signupUser.password=email;
             	vm.signupUser.isAppUser = false;
             	vm.signupUser.userRole = 'USER';
-            	vm.createAccount(vm.signupUser);
+            	vm.createAccount(angular.copy(vm.signupUser));
 
             
             });
@@ -198,9 +177,8 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             vm.signupUser.password=response.email;
             vm.signupUser.isAppUser = false;
             vm.signupUser.userRole = 'USER';
-            vm.createAccount();
+            vm.createAccount(angular.copy(vm.signupUser));
 
-            vm.login('',false);
             /*FB.api('/me/picture?type=normal', function (response) {
               document.getElementById("profileImage").setAttribute("src", response.data.url);
             });*/
@@ -279,6 +257,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 	
 	/* REST call for creating User from social (google or FB login) */
     vm.createAccount = function(signupUser){
+    	progressbarService.enableProgressbar(true);
         var promise = LoginFactory.createUser.create(signupUser).$promise;
             return promise.then(function(data) {
             	console.log('user created');
@@ -289,6 +268,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                     //Now Login User
                     vm.login('',false);
             }, function(error) {
+            	progressbarService.enableProgressbar(false);
                 vm.messageType = 'Error';
           		vm.messageBarMessage = 'Error Message: Unable to Create User';
             });

@@ -1,5 +1,5 @@
 <md-card  class="marginTopBottom20" ng-class="{'mLeft15': applyMargin, 'mRight15': applyMargin}">
-<form name="reviewForm">
+<form name="reviewForm" ng-show="!reviewSubmitted">
 <div layout="column" layout-padding>
 	<div layout="row" layout-align="start center">
 	<div flex="40" class="md-title">Rate this vendor:</div> 
@@ -18,5 +18,8 @@
 	</div>
 </div>
 </form>
+<div layout="row" layout-align="start center" ng-show="reviewSubmitted" layout-margin>
+<h3 >Thank You !! Your Review will definetely help others.</h3>
+</div>
 
 </md-card>

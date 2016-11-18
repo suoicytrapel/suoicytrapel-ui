@@ -20,6 +20,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.latitude = null;
 		vm.longitude = null;
 		vm.isFormValid = true;
+		vm.reviewSubmitted = false;
 		vm.minDate = new Date();
 		vm.availabilityForm = {};
 		vm.availabilityForm.bookingDate = new Date();
@@ -39,11 +40,13 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 						reviewComment: vm.newReviewModel.reviewComment,
 						reviewMoney: vm.newReviewModel.reviewMoney,
 						entityId:1,
-						reviewedBy:userDetailsStore.getLoggedInUserDetails().name
+						reviewedBy: userDetailsStore.getLoggedInUserDetails().name,
+						userImageURL: null,
 					};
                      var promise = detailFactory.review(token).save(saveReviewParams).$promise;
 
                     return promise.then(function(data) {
+                    	vm.reviewSubmitted = true;
                         vm.newReviewModel.vendorRating = 0;
                         vm.newReviewModel.reviewComment = '';
                         vm.newReviewModel.reviewMoney = '';
