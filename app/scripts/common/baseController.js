@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService, progressbarService, userDetailsStore) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService, progressbarService, userDetailsStore, appDetailsStore) {
 
 	var vm = this;
 
@@ -19,8 +19,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 	vm.init = function() {
 
-		vm.selectedCategory = null;
-		vm.selectedCity = null;
+		vm.selectedCategory = appDetailsStore.getAppDetails().selectedCategory;
+		vm.selectedCity = appDetailsStore.getAppDetails().selectedCity;
 		vm.categoryMap = baseFactory.categoryMap;
 
 		//vm.coverUrl = baseFactory.getCoverUrl();
@@ -272,9 +272,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				}, 0);
 			} else {
 				if (!vm.searchText) {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+					$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + appDetailsStore.getAppDetails().selectedCategory);
 				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchText);
+					$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + appDetailsStore.getAppDetails().selectedCategory + '/' + vm.searchText);
 				}
 			}
 
@@ -287,10 +287,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.setCity = function() {
-			baseFactory.setSelectedCity(vm.selectedCity);
+			//baseFactory.setSelectedCity(vm.selectedCity);
+			appDetailsStore.setSelectedCity(vm.selectedCity);
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
 
-				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + vm.selectedCategory);
 
 			}
 			/* Code for emitting data on city change
@@ -306,13 +307,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.setCategory = function() {
 			//var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-key');
-			baseFactory.setSelectedCategory(vm.selectedCategory);
+			//baseFactory.setSelectedCategory(vm.selectedCategory);
+			appDetailsStore.setSelectedCategory(vm.selectedCategory);
 			//vm.selectedCategory = selectedCategoryValue;
 			angular.element('.home-search-box').val('');
 			vm.searchText = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
 
-				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + vm.selectedCategory);
 
 			}
 		};
@@ -346,7 +348,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//angular.element(document.body).removeClass('height100');
 			/* Insert the value in baseFactory so that it can be used throughout
 			 * the application */
-			baseFactory.setSelectedCity(vm.selectedCity);
+			//baseFactory.setSelectedCity(vm.selectedCity);
+			appDetailsStore.setSelectedCity(vm.selectedCity);
 		};
 		/*
 		 *
@@ -618,11 +621,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/* callback function for md-autocomplete
 	 * returns promise and data */
 	vm.querySearch = function(searchText) {
-		if (searchText.length > 0 && baseFactory.getSelectedCategory() && baseFactory.getSelectedCity()) {
+		if (searchText.length > 0 && appDetailsStore.getAppDetails().selectedCategory && appDetailsStore.getAppDetails().selectedCity) {
 			var searchRequestDTO = {
-				searchType : baseFactory.getSelectedCategory(),
+				searchType : appDetailsStore.getAppDetails().selectedCategory,
 				searchString : searchText,
-				cityId : baseFactory.getSelectedCity(),
+				cityId : appDetailsStore.getAppDetails().selectedCity,
 			};
 			var promise = HomeFactory.loadList.populate(searchRequestDTO).$promise;
 

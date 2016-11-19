@@ -1,4 +1,4 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory, appDetailsStore) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
@@ -12,7 +12,7 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 		vm.recentlyAddedData = recentAdditions;
 		vm.subCategoriesMap = subCategories;
 		vm.mergedSubCategoriesMap = mergeSubCategoriesMap();
-		vm.selectedCategory = baseFactory.getSelectedCategory();
+		vm.selectedCategory = appDetailsStore.getAppDetails().selectedCategory;
 		vm.categoryMap = baseFactory.categoryMap;
 		vm.subCategorySelected = 'VENUE';
 		vm.subcategorySwiperBrkpoints = {
@@ -123,7 +123,7 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	 * */
 	vm.fetchDetails = function(name, category) {
 		var searchParam = name;
-		$location.path('/details/' + baseFactory.getSelectedCity() + '/' + category + '/' + searchParam);
+		$location.path('/details/' + appDetailsStore.getAppDetails().selectedCity + '/' + category + '/' + searchParam);
 	};
 	
 	/*
@@ -139,11 +139,12 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 	 and navigating to next page(data page) with the filters remembered
 	 * */
 	vm.setSelectedFilter = function (category, subcategory){
-		if(baseFactory.getSelectedCity()){
+		if(appDetailsStore.getAppDetails().selectedCity){
 		var filterName = subcategory.name;
 		DataFactory.setSelectedFilterName(filterName);
-		baseFactory.setSelectedCategory(category.toUpperCase());
-		$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + category.toUpperCase());
+		//baseFactory.setSelectedCategory(category.toUpperCase());
+		appDetailsStore.setSelectedCategory(category.toUpperCase());
+		$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + category.toUpperCase());
 	}
 	};
 	

@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory, userDetailsStore, detailFactory) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory, userDetailsStore, detailFactory, appDetailsStore) {
 	var vm = this;
 
 	vm.init = function() {
@@ -6,7 +6,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		$rootScope.currentPage = 'detailPage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.breadCrumbLinks['Home'] = '/';
-		$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $rootScope.dataPageBreadCrumbPath ? $rootScope.dataPageBreadCrumbPath : '/vendors/' + baseFactory.getSelectedCity() + '/' + $routeParams.category;
+		$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $rootScope.dataPageBreadCrumbPath ? $rootScope.dataPageBreadCrumbPath : '/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + $routeParams.category;
 		$rootScope.breadCrumbLinks[$routeParams.searchParam] = $location.path();
 		
 		

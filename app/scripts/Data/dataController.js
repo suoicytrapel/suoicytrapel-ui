@@ -1,4 +1,4 @@
-app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, $routeParams, response, $timeout) {
+app.controller('DataController', function(baseFactory, dataService, DataFactory, $rootScope, Constants, $scope, $location, $routeParams, response, $timeout, appDetailsStore) {
 
 	var vm = this;
 	$rootScope.showCover = true;
@@ -9,9 +9,11 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $location.path();
 	$rootScope.dataPageBreadCrumbPath = $location.path();
 	
-	/* Updating base Factory on the basis of changes made on this page */
-	baseFactory.setSelectedCategory($routeParams.category);
-	baseFactory.setSelectedCity($routeParams.city);
+	/* Updating app Details Store on the basis of changes made on this page */
+	//baseFactory.setSelectedCategory($routeParams.category);
+	//baseFactory.setSelectedCity($routeParams.city);
+	appDetailsStore.setSelectedCity($routeParams.city);
+	appDetailsStore.setSelectedCategory($routeParams.category);
 	
 	$scope.$emit('updateBaseControllerData', {
 		routeParamsCity : $routeParams.city,
