@@ -21,6 +21,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.longitude = null;
 		vm.isFormValid = true;
 		vm.reviewSubmitted = false;
+		vm.showValidationErrors = false;
 		vm.minDate = new Date();
 		vm.availabilityForm = {};
 		vm.availabilityForm.bookingDate = new Date();
@@ -33,6 +34,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 					$scope.showSignInPopup({type: 'Warning', message: 'Message: Please Login to Post a Review'});
 				}
 				else{
+					if(vm.newReviewModel.vendorRating > 0 && vm.newReviewModel.reviewComment.length > 0){
+					vm.showValidationErrors = false;
 					/* REST call for submitting the review */
 					var token = userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken;
 					var saveReviewParams = {
@@ -65,6 +68,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
                      },function(error){
                      	console.log('Error in submitting review');
                      });
+                     }
+                     else{
+                     	vm.showValidationErrors = true;
+                     }
                     }
 				
 			},

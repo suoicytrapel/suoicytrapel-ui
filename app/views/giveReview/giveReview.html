@@ -6,7 +6,10 @@
 	<ng-rating ng-model="vendorRating" editable="editable" show-grade="showGrade" stars-count="starsCount" ng-click="allowPostingReview({e: $event});"></ng-rating>
 	</div>
 	<div>
-		<textarea ng-model="reviewComment" aria-label="Review Comment" placeholder="Share your experience with us..." layout-fill style="min-height: 100px;" required ng-focus="allowPostingReview({e: $event});"></textarea>
+		<span class="validation-err-msg" ng-show="showValidationErrors">Please Rate & Tell us something about this vendor</span>
+	</div>
+	<div>
+		<textarea ng-model="reviewComment" name="reviewComment" aria-label="Review Comment" placeholder="Share your experience with us..." layout-fill style="min-height: 100px;" required ng-focus="allowPostingReview({e: $event});"></textarea>		
 	</div>
 	<div>
 		<md-input-container class="md-block">

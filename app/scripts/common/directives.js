@@ -201,6 +201,7 @@ app.directive('giveReview',function(){
 			applyMargin: "@",
 			allowPostingReview: "&",
 			reviewSubmitted: "=",
+			showValidationErrors: "=",
 		},
 		link: function(scope, element, attribute, controller){
 			
@@ -231,6 +232,21 @@ app.directive('globalProgressbar',function(){
 			showProgressbar: '=',
 		},
 		link: function(scope, element, attribute, controller){
+		}	
+	};
+});
+
+app.directive('confirmPassword',function(){
+	return{
+		require: 'ngModel',
+		link: function(scope, elem, attrs, controller){
+			elem.on('blur', function(){
+				scope.$apply(function(){
+					var firstPassword = scope.$eval(attrs.confirmPassword);
+					var v = elem.val()===firstPassword;
+					controller.$setValidity('confirmpassword',v);
+				});
+			});
 		}	
 	};
 });
