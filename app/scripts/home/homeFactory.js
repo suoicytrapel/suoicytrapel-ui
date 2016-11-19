@@ -37,6 +37,15 @@ app.factory('HomeFactory', function (Constants, $resource) {
                     return angular.fromJson(data);
                 } 
             }
-            })
+            }),
+        account: $resource(Constants.API_HOST + '/account/activate', {},{
+            activate : {
+                method: "POST",
+                isArray: false,
+                transformResponse: function(data, header) {
+                    return angular.fromJson(data);
+                } 
+            }
+            }),    
         };
 });

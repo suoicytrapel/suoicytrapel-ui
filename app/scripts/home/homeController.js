@@ -1,10 +1,23 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory, appDetailsStore) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, activateAccount, subCategories, DataFactory, appDetailsStore) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
 		$rootScope.currentPage = 'homePage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.dataPageBreadCrumbPath = null;
+		
+		/* Trigger signIn Popup based on activate Account Result data */
+		if(activateAccount){
+			if(activateAccount == 'Success'){
+				$scope.showSignInPopup({type: 'Success', message: 'Account Activation Successful! Please Sign In with your credentials'});	
+			}
+			else if(activateAccount == 'Error'){
+				$scope.showSignInPopup({type: 'Warning', message: 'Account Activation Error! Please Click on the activation link again'});
+			}
+		}
+		
+		
+		
 		vm.subcatSwiperObj = null;
 		vm.customersaySwiperObj = null;
 		vm.portfolioSwiperObj = null;
