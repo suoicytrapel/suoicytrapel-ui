@@ -11,6 +11,9 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	vm.rooms = [];
 	vm.menuImages = [];
 	vm.vendorImages = [];
+	vm.signOffDetails = {
+		InformationProvidedDate: new Date(),
+	};
 	/* disable progressbar if its still enabled */
 	progressbarService.enableProgressbar(false);
 	
