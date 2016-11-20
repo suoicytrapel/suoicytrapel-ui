@@ -429,6 +429,11 @@ p.info {
 	background-color: transparent;	
 }
 
+/* navbar-color for wizard only */
+.wizard .navbar-inverse{
+	background-color: #ee3e20;		
+}
+
 .navbar-inverse .navbar-toggle{
 	border-color: #ffffff;
 }

@@ -506,7 +506,7 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 		url : '/ahjgkdvko78nhss4fkn5jsdfsdkk2dsdfssd',
 		controller : 'wizardController',
 		controllerAs: 'vm',
-		templateUrl : 'lp_wizard/views/venue_wizard/venue_wizard.html',
+		templateUrl : 'lp_wizard/views/wizard/wizard.html',
 		resolve : {
 			hideCover : function($rootScope) {
 				$rootScope.showCover = false;

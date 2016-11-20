@@ -1,4 +1,4 @@
-<md-content style="padding-top: 80px;">
+<md-content style="padding-top: 80px;" ng-controller="venueWizardController as vm">
 <wizard on-finish="finishedWizard()" indicators-position="top"> 
     <wz-step wz-title="Basic Details">
     <md-content>
@@ -122,7 +122,7 @@
         <td md-cell><md-button class="md-icon-button" ng-click="vm.deleteEventArea($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
       </tr>
       <tr md-row  ng-if="vm.eventAreas.length === 0">
-      <td md-cell>No Event Areas Added</td>
+      <td md-cell colspan="8" style="text-align: center;">No Event Areas Added</td>
       </tr>
     </tbody>
   </table>
@@ -169,7 +169,7 @@
         <td md-cell><md-button class="md-icon-button" ng-click="vm.deleteRoom($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
       </tr>
       <tr md-row  ng-if="vm.rooms.length === 0">
-      <td md-cell>No Rooms Added</td>
+      <td md-cell colspan="7" style="text-align: center;">No Rooms Added</td>
       </tr>
     </tbody>
   </table>
@@ -178,13 +178,25 @@
 
 <!-- Rooms Details Table Ends -->
 
-<div layout="row" layout-margin layout-wrap layout-align="start center">
+<!--<div layout="row" layout-margin layout-wrap layout-align="start center">
 	<div flex-xs="100" flex-gt-xs="100" layout="row" layout-align="start center" layout-wrap>
 		<h2 class="md-title" flex-xs="100" flex-gt-xs="40">Select Services You Provide</h2>
 	<wan-select flex-xs="100" flex-gt-xs="60" placeholder="" source-data="::vm.lookup.eventAreaServices" selected-data="vm.selectedAreaServices" select-changed=""></wan-select>
     
 	</div>
 	<div flex-xs="100" flex-gt-xs="100">
+		<md-chips ng-model="vm.selectedAreaServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+	</div>	
+</div>-->
+
+<div layout="row" layout-margin layout-wrap>
+	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Select Services You Provide</h2>
+	<md-input-container flex-xs="100" flex-gt-xs="45">	
+  <md-select ng-model="vm.selectedAreaServices" multiple= "true" placeholder="You can choose multiple services">
+    <md-option ng-value="eventAreaService" ng-repeat="eventAreaService in ::vm.lookup.eventAreaServices">{{ eventAreaService }}</md-option>
+  </md-select>
+</md-input-container>
+<div flex-xs="100" flex-gt-xs="100">
 		<md-chips ng-model="vm.selectedAreaServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 	</div>	
 </div>
