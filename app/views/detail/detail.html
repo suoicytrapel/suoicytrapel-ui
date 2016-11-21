@@ -462,26 +462,30 @@
 					<section id="recentReviews" class="details-page-sections desc-type-layout">
 						<div class="recentReviews-container">
 							<h3>Recent Reviews<a href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
-							<div class="reviewCommentItem">
+							<div class="reviewCommentItem" ng-repeat="review in vm.vendorReviewComments.reviewComments | limitTo : 2" ng-show="vm.vendorReviewComments.reviewComments.length > 0">
 							<div class="row">
 								<div class="col-xs-4 col-sm-2">
-									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');"></div>
+									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');" ng-show="!review.userImageURL"></div>
+									<div class="reviewer_img" style="background-image: url('{{review.userImageURL}}');" ng-show="review.userImageURL"></div>
 									
 								</div>
 								<div class="col-xs-6 col-sm-8">
-									<div class="reviewer_name">Ankit</div>
-									<div class="review_date">Reviewed on: 10-06-2016</div>
+									<div class="reviewer_name">{{review.reviewedBy}}</div>
+									<div class="review_date">Reviewed on: {{review.reviewedOn}}</div>
 								</div>
 								<div class="col-xs-2 col-sm-2">
-									<ng-rating  ng-model="vm.postedReviewRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="review_starRating">4.5</span>
+									<ng-rating  ng-model="review.starRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="review_starRating">{{review.starRating}}</span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-xs-offset-4 col-sm-offset-2 review_comment col-xs-8 col-sm-10">
-									I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.
+									{{review.reviewComment}}
 									
 								</div>
 							</div>
+						</div>
+						<div class="reviewCommentItem" ng-show="vm.vendorReviewComments.reviewComments.length == 0">
+							There are no reviews for this vendor. Be the first one to review
 						</div>
 						</div>
 					</section>	

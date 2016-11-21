@@ -6,7 +6,7 @@
 				{{vm.detailedData.city}}, {{vm.detailedData.state}}
 			</div>
 			<div>
-				<ng-rating  ng-model="vm.vendorAverageRating" editable="false" show-grade="true" stars-count="5"></ng-rating>
+				<ng-rating  ng-model="vm.vendorReviewComments.averagetRating" editable="false" show-grade="true" stars-count="5"></ng-rating>
 			</div>
 			<div>
 				<give-review editable="true" vendor-rating="vm.newReviewModel.vendorRating" stars-count="5" show-grade="true" review-money="vm.newReviewModel.reviewMoney" review-comment="vm.newReviewModel.reviewComment" submit-review="vm.newReviewModel.submitReview();" ></give-review>
@@ -26,24 +26,25 @@
 		</div>
 		
 		 <md-virtual-repeat-container id="vertical-container" flex="100" style="height: 90%">
-      <div md-virtual-repeat="reviewItem in vm.dynamicItems"
+      <div md-virtual-repeat="reviewItem in vm.vendorReviewComments.reviewComments"
           class="repeated-item" flex>
         <div layout="row" layout-wrap>
 								<div flex-xs="50" flex-offset-gt-xs="5" flex-gt-xs="15">
-									<div class="reviewer_img" style="background-image: url('{{reviewItem.img}}');"></div>
+									<div class="reviewer_img" style="background-image: url('{{reviewItem.userImgURL}}');" ng-show="reviewItem.userImageURL"></div>
+									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');" ng-show="!reviewItem.userImageURL"></div>
 									
 								</div>
 								<div flex-xs="50" flex-gt-xs="40" layout="column">
-									<div class="reviewer_name">{{reviewItem.name}}</div>
-									<div class="review_date">Reviewed on: {{reviewItem.date}}</div>
+									<div class="reviewer_name">{{reviewItem.reviewedBy}}</div>
+									<div class="review_date">Reviewed on: {{reviewItem.reviewedOn}}</div>
 								</div>
 								<div flex-xs="100" flex-gt-xs="40">
-									<ng-rating  ng-model="reviewItem.rating" editable="false" show-grade="false" stars-count="5"></ng-rating><span class="review_starRating">{{reviewItem.rating}}</span>
+									<ng-rating  ng-model="reviewItem.starRating" editable="false" show-grade="false" stars-count="5"></ng-rating><span class="review_starRating">{{reviewItem.starRating}}</span>
 								</div>
 							</div>
 							<div layout="row" layout-wrap>
 								<div class="review_comment" flex-xs="100" flex-offset-gt-xs="20" flex-gt-xs="80">
-									{{reviewItem.comment}}
+									{{reviewItem.reviewComment}}
 									
 									
 								</div>

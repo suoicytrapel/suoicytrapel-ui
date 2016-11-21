@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory, userDetailsStore, detailFactory, appDetailsStore) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, reviewComments, $compile, ContactFactory, userDetailsStore, detailFactory, appDetailsStore) {
 	var vm = this;
 
 	vm.init = function() {
@@ -54,15 +54,16 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
                         vm.newReviewModel.reviewComment = '';
                         vm.newReviewModel.reviewMoney = '';
                         var searchRequestDTO = {
-                        	vendorId : 1,
+                        	vendorType : vm.selectedCategory,
+							vendorName : vm.name,
                         	offset : 1,
                         	limit:50
                         };
                         detailFactory.getReview().getReviewsByVendor(searchRequestDTO).$promise.then(function(data) {
-	                        vm.dynamicItems = data;
+	                        vm.vendorReviewComments = data;
 
 	                     },function(error){
-	                     	console.log('Error in submitting review');
+	                     	console.log('Error in getting reviews');
 	                     });
 
                      },function(error){
@@ -85,20 +86,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.postedReviewRating = 5;
 		vm.vendorAverageRating = 4.6;
 		vm.showReviewsPage = false;
-		vm.dynamicItems = [{
-			name: 'Ankit',
-			rating: 4,
-			date: '13-10-2016',
-			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
-			img: '/images/blank_frame.jpg',
-		},
-		{
-			name: 'Mohit',
-			rating: 3,
-			date: '10-10-2016',
-			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
-			img: '/images/blank_frame.jpg',
-		}];
+		
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
@@ -335,6 +323,13 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			checkForMaps();
 		} else {
 			console.log(details.error);
+		}
+		
+		if(reviewComments){
+			vm.vendorReviewComments = reviewComments;
+		}
+		else{
+			console.log('error in fetching review comments for this vendor');
 		}
 
 	};

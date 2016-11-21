@@ -12,7 +12,7 @@ app.factory('detailFactory', function (Constants, $resource) {
         });
         },
         getReview: function(){
-            return $resource(Constants.API_HOST + 'review/getAllReviews', {}, {
+            return $resource(Constants.API_HOST + '/review/getAllReviews', {}, {
             getReviewsByVendor:{
                 method: "POST",
                 isArray: false

@@ -454,6 +454,21 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				}, function(error) {
 					$location.path('/bad-request/');
 				});
+			},
+			reviewComments : function(detailFactory, $route){
+				var searchRequestDTO = {
+							vendorType : $route.current.params.category,
+							vendorName : $route.current.params.searchParam,
+                        	offset : 1,
+                        	limit:50
+                        };
+                       return detailFactory.getReview().getReviewsByVendor(searchRequestDTO).$promise.then(function(data) {
+	                        return data;
+
+	                     },function(error){
+	                     	console.log('Error in fetching reviews');
+	                     	return null;
+	                     });
 			}
 			
 		}
