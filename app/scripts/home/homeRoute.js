@@ -45,43 +45,25 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 			}
 		}
 	}).when('/activate', {
-		url : '/login',
-		controller : 'HomeController',
-		templateUrl : 'views/home/home.html',
-		controllerAs : 'vm',
+		url : '/activate',
+		controller : '',
+		template : '<div></div>',
 		resolve : {
-			changeCover : function(baseFactory) {
-				baseFactory.setMainCoverHeading('Your Online Event Planner');
-			},
-			recentAdditions : function(baseFactory, HomeFactory, $location) {
-				/*var cityId = baseFactory.getSelectedCity();
-				return HomeFactory.fetchAdditions.recentAdditions(cityId).$promise.then(function(data) {
-					return data;
-
-				}, function(error) {
-					$location.path('/bad-request/');
-				});*/
-				return null;
-			},
-			subCategories : function(baseFactory, HomeFactory, $location) {
-				return HomeFactory.fetchSubCategories.subCategories().$promise.then(function(data) {
-					return data;
-
-				}, function(error) {
-					$location.path('/bad-request/');
-				});
-			},
 			activateAccount: function($location, HomeFactory){
 				if($location.search().activateLink){
-					HomeFactory.user.activate($location.search().activateLink).$promise.then(function(data){
+					HomeFactory.user.activate({activationLink: $location.search().activateLink}).$promise.then(function(data){
+						HomeFactory.setUserActivated({status: true, msg:'Account Activated. Please login with your credentials'});
 						console.log(data);
-						return 'Success';
+						$location.path('/');
 					}, function(error){
-						return 'Error';
+						HomeFactory.setUserActivated({status: false, msg:'There was some problem in activating the account. Kindly click on the activation link again'});
+						$location.path('/');
 					});
 				}
-				else
-				return null;
+				else{
+					$location.path('/');
+				}
+				
 			}
 		}
 	}).when('/vendors/:city/:category/:searchParam', {

@@ -35,8 +35,8 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             .then(function(response) {
                 if (response.status == 200) {
                 	console.log('authentication successful');
-                	vm.messageType = 'Success';
-					vm.messageBarMessage = 'Success Message: Login Successful';
+                	/*vm.messageType = 'Success';
+					vm.messageBarMessage = 'Success Message: Login Successful';*/
 					
 					if(isAppLogin === false){ //Flow for Facebook or Google Login
 						var userDetails = loggedInUserDetails(userDetailsStore.getLoggedInUserDetails().name, userDetailsStore.getLoggedInUserDetails().email, response.data.access_token, response.data.refresh_token, response.data.token_type, userDetailsStore.getLoggedInUserDetails().userRole, userDetailsStore.getLoggedInUserDetails().userImage);
@@ -57,7 +57,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                    
                 	/* Call for fetching the user details and saving it */
                 	var token = userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken;
-                     var promise = LoginFactory.user(token).getLoggedInUser().$promise;
+                     var promise = LoginFactory.user(token).getLoggedInUser({userType: loginType, isAppUser: true}).$promise;
 
                     return promise.then(function(data) {
                         var userDetails = loggedInUserDetails(data.name, data.email, userDetailsStore.getLoggedInUserDetails().accessToken, userDetailsStore.getLoggedInUserDetails().refreshToken, userDetailsStore.getLoggedInUserDetails().tokenType, data.userRole);
