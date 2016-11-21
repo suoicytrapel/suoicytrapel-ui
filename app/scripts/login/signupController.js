@@ -64,7 +64,7 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
             return promise.then(function(data) {
             	vm.messageType = 'Success'; /* Accepts only 'Error' or 'Success' as values */
 				vm.messageBarMessage = 'Success Message: User Successfully Created';
-				vm.showSignInPopup({type: 'Warning', message: 'Message: SignUp successful! Please login to enjoy full privileges'});
+				vm.showSignInPopup({type: 'Warning', message: 'Message: Activation Link has been sent to your registered Email ID. Click on the link to activate your account'});
                 return data;
             }, function(error) {
             	vm.messageType = 'Error'; /* Accepts only 'Error' or 'Success' as values */

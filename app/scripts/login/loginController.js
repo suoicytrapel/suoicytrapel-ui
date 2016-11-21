@@ -138,7 +138,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                 vm.signupUser = {};
             	vm.signupUser.name=resp['displayName'];
             	vm.signupUser.email=email;
-            	vm.signupUser.username=email;
+            	vm.signupUser.username=email+'_socialUser';
             	vm.signupUser.password=email;
             	vm.signupUser.isAppUser = false;
             	vm.signupUser.userRole = 'USER';
@@ -172,12 +172,13 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
         if (response.authResponse) {
           FB.api('/me?fields=first_name, last_name, picture, email', function (response) {
             vm.signupUser = {};
-            vm.signupUser.name=response.first_name;
+            vm.signupUser.name=response.first_name + ' ' + response.last_name;
             vm.signupUser.email=response.email;
-            vm.signupUser.username=response.email;
+            vm.signupUser.username=response.email+'_socialUser';
             vm.signupUser.password=response.email;
             vm.signupUser.isAppUser = false;
             vm.signupUser.userRole = 'USER';
+            vm.signupUser.userImage = response.picture.data.url;
             vm.createAccount(angular.copy(vm.signupUser));
 
             /*FB.api('/me/picture?type=normal', function (response) {
