@@ -38,9 +38,9 @@ app.factory('HomeFactory', function (Constants, $resource) {
                 } 
             }
             }),
-        account: $resource(Constants.API_HOST + '/account/activate', {},{
+        user: $resource(Constants.API_HOST + '/user/activate', {},{
             activate : {
-                method: "POST",
+                method: "GET",
                 isArray: false,
                 transformResponse: function(data, header) {
                     return angular.fromJson(data);
