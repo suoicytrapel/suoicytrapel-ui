@@ -14,7 +14,7 @@
 	</div>
 	<div flex="70" layout-padding>
 		<div layout="row" flex="100">
-			<div class="md-title" flex>REVIEWS</div>
+			<div class="md-title" flex>REVIEWS ({{vm.vendorReviewComments.totalCount}})</div>
 			<span flex></span>
 			<div flex class="text-right">
 				<a href="javascript:void(0)" ng-click="vm.closeAllReviews();">
@@ -30,7 +30,7 @@
           class="repeated-item" flex>
         <div layout="row" layout-wrap>
 								<div flex-xs="50" flex-offset-gt-xs="5" flex-gt-xs="15">
-									<div class="reviewer_img" style="background-image: url('{{reviewItem.userImgURL}}');" ng-show="reviewItem.userImageURL"></div>
+									<div class="reviewer_img" style="background-image: url({{reviewItem.userImageURL}});" ng-show="reviewItem.userImageURL"></div>
 									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');" ng-show="!reviewItem.userImageURL"></div>
 									
 								</div>

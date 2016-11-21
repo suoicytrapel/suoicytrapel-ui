@@ -39,7 +39,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 					vm.messageBarMessage = 'Success Message: Login Successful';
 					
 					if(isAppLogin === false){ //Flow for Facebook or Google Login
-						var userDetails = loggedInUserDetails(userDetailsStore.getLoggedInUserDetails().name, userDetailsStore.getLoggedInUserDetails().email, response.data.access_token, response.data.refresh_token, response.data.token_type, userDetailsStore.getLoggedInUserDetails().userRole);
+						var userDetails = loggedInUserDetails(userDetailsStore.getLoggedInUserDetails().name, userDetailsStore.getLoggedInUserDetails().email, response.data.access_token, response.data.refresh_token, response.data.token_type, userDetailsStore.getLoggedInUserDetails().userRole, userDetailsStore.getLoggedInUserDetails().userImage);
                     	userDetailsStore.setLoggedInUserDetails(userDetails);
                     	
                     	loginStatusService.getSubjectToSubscribe().onNext({
@@ -142,6 +142,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             	vm.signupUser.password=email;
             	vm.signupUser.isAppUser = false;
             	vm.signupUser.userRole = 'USER';
+            	vm.signupUser.userImage = resp.image.url;
             	vm.createAccount(angular.copy(vm.signupUser));
 
             
@@ -173,7 +174,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             vm.signupUser = {};
             vm.signupUser.name=response.first_name;
             vm.signupUser.email=response.email;
-            vm.signupUser.username=response.username;
+            vm.signupUser.username=response.email;
             vm.signupUser.password=response.email;
             vm.signupUser.isAppUser = false;
             vm.signupUser.userRole = 'USER';
@@ -262,7 +263,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             return promise.then(function(data) {
             	console.log('user created');
                 console.log(data);
-                var userDetails = loggedInUserDetails(signupUser.name, signupUser.email, null, null, null, signupUser.userRole);
+                var userDetails = loggedInUserDetails(signupUser.name, signupUser.email, null, null, null, signupUser.userRole, signupUser.userImage);
                 userDetailsStore.setLoggedInUserDetails(userDetails);
                     
                     //Now Login User

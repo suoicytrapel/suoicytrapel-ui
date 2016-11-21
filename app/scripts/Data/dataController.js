@@ -24,6 +24,7 @@ app.controller('DataController', function(baseFactory, dataService, DataFactory,
 	vm.offset = null;
 	$scope.pageSize = 6;
 	$scope.currentPage = 1;
+	vm.averageRatingStarCount = 1;
 	vm.filters = response.filters;
 	vm.initiallyFetchedRecords = response.initiallyFetchedRecords;
 	vm.showServiceFilters = false;

@@ -49,6 +49,9 @@
 								<div class="details-telephone">
 									<a href='tel:{{vm.detailedData.primaryPhoneNumber}}'>{{vm.detailedData.primaryPhoneNumber}}</a>, <a href='tel:{{vm.detailedData.secondaryPhoneNumber}}'>{{vm.detailedData.secondaryPhoneNumber}}</a>
 								</div>
+								<div class="details-starRating">
+									<ng-rating  ng-model="vm.vendorReviewComments.averagetRating" editable="false" show-grade="true" stars-count="5"></ng-rating>
+								</div>
 								<!--
 								<div class="details-food-category" ng-if="vm.detailedData.isPureVeg != null">
 								<span class="veg-only" ng-if="vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
@@ -461,12 +464,12 @@
 					</section>
 					<section id="recentReviews" class="details-page-sections desc-type-layout">
 						<div class="recentReviews-container">
-							<h3>Recent Reviews<a href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
+							<h3>Recent Reviews<a ng-show="vm.vendorReviewComments.reviewComments.length > 0" href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
 							<div class="reviewCommentItem" ng-repeat="review in vm.vendorReviewComments.reviewComments | limitTo : 2" ng-show="vm.vendorReviewComments.reviewComments.length > 0">
 							<div class="row">
 								<div class="col-xs-4 col-sm-2">
 									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');" ng-show="!review.userImageURL"></div>
-									<div class="reviewer_img" style="background-image: url('{{review.userImageURL}}');" ng-show="review.userImageURL"></div>
+									<div class="reviewer_img" style="background-image: url({{review.userImageURL}});" ng-show="review.userImageURL"></div>
 									
 								</div>
 								<div class="col-xs-6 col-sm-8">

@@ -42,9 +42,10 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 						starRating: vm.newReviewModel.vendorRating,
 						reviewComment: vm.newReviewModel.reviewComment,
 						reviewMoney: vm.newReviewModel.reviewMoney,
-						entityId:1,
+						vendorType : vm.selectedCategory,
+						vendorName : vm.name,
 						reviewedBy: userDetailsStore.getLoggedInUserDetails().name,
-						userImageURL: null,
+						userImageURL: userDetailsStore.getLoggedInUserDetails().userImage,
 					};
                      var promise = detailFactory.review(token).save(saveReviewParams).$promise;
 
