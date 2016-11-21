@@ -33,6 +33,31 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				});
 			}
 		}
+	}).when('/activate', {
+		url : '/activate',
+		controller : '',
+		template : '<div></div>',
+		resolve : {
+			activateAccount: function($location, HomeFactory){
+				if($location.search().activateLink){
+					HomeFactory.user.activate({activationLink: $location.search().activateLink}).$promise.then(function(data){
+						HomeFactory.setUserActivated({status: true, msg:'Account Activated. Please login with your credentials'});
+						console.log(data);
+						$location.path('/');
+						$location.url($location.path());
+					}, function(error){
+						HomeFactory.setUserActivated({status: false, msg:'There was some problem in activating the account. Kindly click on the activation link again'});
+						$location.path('/');
+						$location.url($location.path());
+					});
+				}
+				else{
+					$location.path('/');
+					$location.url($location.path());
+				}
+				
+			}
+		}
 	}).when('/vendors/:city/:category/:searchParam', {
 		url : '/search',
 		controller : 'DataController',
@@ -443,6 +468,21 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				}, function(error) {
 					$location.path('/bad-request/');
 				});
+			},
+			reviewComments : function(detailFactory, $route){
+				var searchRequestDTO = {
+							vendorType : $route.current.params.category,
+							vendorName : $route.current.params.searchParam,
+                        	offset : 1,
+                        	limit:50
+                        };
+                       return detailFactory.getReview().getReviewsByVendor(searchRequestDTO).$promise.then(function(data) {
+	                        return data;
+
+	                     },function(error){
+	                     	console.log('Error in fetching reviews');
+	                     	return null;
+	                     });
 			}
 			
 		}
@@ -495,20 +535,12 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 		url : '/ahjgkdvko78nhss4fkn5jsdfsdkk2dsdfssd',
 		controller : 'wizardController',
 		controllerAs: 'vm',
-		templateUrl : 'lp_wizard/views/venue_wizard/venue_wizard.html',
+		templateUrl : 'lp_wizard/views/wizard/wizard.html',
 		resolve : {
 			hideCover : function($rootScope) {
 				$rootScope.showCover = false;
 			}
 		}
-	}).when('/bad-request/', {
-		url : '/bad-request',
-		controller : function(usSpinnerService){
-			usSpinnerService.stop('home-page-spinner');
-		},
-		templateUrl : 'views/badrequest/badrequest.html'
-	}).otherwise({
-		redirectTo : '/'
 	});
 
 	$locationProvider.html5Mode(true);

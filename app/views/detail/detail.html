@@ -49,6 +49,9 @@
 								<div class="details-telephone">
 									<a href='tel:{{vm.detailedData.primaryPhoneNumber}}'>{{vm.detailedData.primaryPhoneNumber}}</a>, <a href='tel:{{vm.detailedData.secondaryPhoneNumber}}'>{{vm.detailedData.secondaryPhoneNumber}}</a>
 								</div>
+								<div class="details-starRating">
+									<ng-rating  ng-model="vm.vendorReviewComments.averagetRating" editable="false" show-grade="true" stars-count="5"></ng-rating>
+								</div>
 								<!--
 								<div class="details-food-category" ng-if="vm.detailedData.isPureVeg != null">
 								<span class="veg-only" ng-if="vm.detailedData.isPureVeg"><span class="fa fw fa-dot-circle-o"></span> Veg Only</span>
@@ -461,27 +464,31 @@
 					</section>
 					<section id="recentReviews" class="details-page-sections desc-type-layout">
 						<div class="recentReviews-container">
-							<h3>Recent Reviews<a href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
-							<div class="reviewCommentItem">
+							<h3>Recent Reviews<a ng-show="vm.vendorReviewComments.reviewComments.length > 0" href="javascript:void(0)" class="pull-right theme-color" style="text-decoration: underline; font-size: 14px;" ng-click="vm.viewAllReviews();">VIEW ALL</a></h3>
+							<div class="reviewCommentItem" ng-repeat="review in vm.vendorReviewComments.reviewComments | limitTo : 2" ng-show="vm.vendorReviewComments.reviewComments.length > 0">
 							<div class="row">
 								<div class="col-xs-4 col-sm-2">
-									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');"></div>
+									<div class="reviewer_img" style="background-image: url('/images/blank_frame.jpg');" ng-show="!review.userImageURL"></div>
+									<div class="reviewer_img" style="background-image: url({{review.userImageURL}});" ng-show="review.userImageURL"></div>
 									
 								</div>
 								<div class="col-xs-6 col-sm-8">
-									<div class="reviewer_name">Ankit</div>
-									<div class="review_date">Reviewed on: 10-06-2016</div>
+									<div class="reviewer_name">{{review.reviewedBy}}</div>
+									<div class="review_date">Reviewed on: {{review.reviewedOn}}</div>
 								</div>
 								<div class="col-xs-2 col-sm-2">
-									<ng-rating  ng-model="vm.postedReviewRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="review_starRating">4.5</span>
+									<ng-rating  ng-model="review.starRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="review_starRating">{{review.starRating}}</span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-xs-offset-4 col-sm-offset-2 review_comment col-xs-8 col-sm-10">
-									I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.
+									{{review.reviewComment}}
 									
 								</div>
 							</div>
+						</div>
+						<div class="reviewCommentItem" ng-show="vm.vendorReviewComments.reviewComments.length == 0">
+							There are no reviews for this vendor. Be the first one to review
 						</div>
 						</div>
 					</section>	
@@ -490,7 +497,7 @@
 		</div>
 	</div>
 
-<give-review editable="true" vendor-rating="vm.newReviewModel.vendorRating" stars-count="5" show-grade="true" review-money="vm.newReviewModel.reviewMoney" review-comment="vm.newReviewModel.reviewComment" submit-review="vm.newReviewModel.submitReview();" apply-margin="true" ></give-review>
+<give-review editable="true" vendor-rating="vm.newReviewModel.vendorRating" stars-count="5" show-grade="true" review-money="vm.newReviewModel.reviewMoney" review-comment="vm.newReviewModel.reviewComment" submit-review="vm.newReviewModel.submitReview();" apply-margin="true" allow-posting-review="vm.newReviewModel.allowPostingReview(e);" review-submitted="vm.reviewSubmitted" show-validation-errors="vm.showValidationErrors"></give-review>
 
 <div class="row bg-grey">
 	<div class="gap20"></div>
@@ -518,29 +525,29 @@
 			</div>
 			<div class="pamphlet-body">
 				<form name="form.detailsPageContactForm" novalidate>
-					<span style="color:brown;">All Fields marked with * are mandatory.</span>
+					<span class="validation-err-msg">All Fields marked with * are mandatory.</span>
 					<div class="form-group" style="margin-top:10px;">
 						<label class="required">Name</label>
 						<input class="form-control required" placeholder="Your name" type="text" ng-model="vm.detailsPageContactForm.name" name="name" required>
-						<span style="color:brown;" ng-show="(form.detailsPageContactForm.name.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.name.$invalid">Name is mandatory.</span>
+						<span class="validation-err-msg" ng-show="(form.detailsPageContactForm.name.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.name.$invalid">Name is mandatory.</span>
 					</div>
 
 					<div class="form-group">
 						<label class="required">Message</label>						<textarea class="form-control" placeholder="Your message here.." ng-model="vm.detailsPageContactForm.message" name="message" required></textarea>
-						<span style="color:brown;" ng-show="(form.detailsPageContactForm.message.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.message.$invalid">Message is mandatory.</span>
+						<span class="validation-err-msg" ng-show="(form.detailsPageContactForm.message.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.message.$invalid">Message is mandatory.</span>
 					</div>
 
 					<div class="form-group">
 						<label>E-Mail</label>
 						<input class="form-control email" placeholder="email@you.com" type="email" name="email" ng-model="vm.detailsPageContactForm.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-						<span style="color:brown;" ng-show="form.detailsPageContactForm.email.$touched && form.detailsPageContactForm.email.$error.pattern">Email is invalid.</span>
+						<span class="validation-err-msg" ng-show="form.detailsPageContactForm.email.$touched && form.detailsPageContactForm.email.$error.pattern">Email is invalid.</span>
 					</div>
 
 					<div class="form-group">
 						<label class="required">Phone</label>
 						<input class="form-control phone" type="text" ng-model="vm.detailsPageContactForm.phoneNumber" placeholder="Your Contact Number" name="phone" required ng-pattern="/^[0-9]{10}$/">
-						<span style="color:brown;" ng-show="(form.detailsPageContactForm.phone.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.phone.$error.required">Phone is mandatory.</span>
-						<span style="color:brown;" ng-show="form.detailsPageContactForm.phone.$error.pattern">Invalid Phone Number</span>
+						<span class="validation-err-msg" ng-show="(form.detailsPageContactForm.phone.$touched || vm.detailsPageFormSubmitted) && form.detailsPageContactForm.phone.$error.required">Phone is mandatory.</span>
+						<span class="validation-err-msg" ng-show="form.detailsPageContactForm.phone.$error.pattern">Invalid Phone Number</span>
 					</div>
 
 					<div class="form-group">
@@ -548,7 +555,7 @@
 						<div id="detailsPageCaptcha">
 
 						</div>
-						<span style="color:brown;" ng-show="vm.detailsPageFormSubmitted && !captchaValid">Captcha is Invalid.</span>
+						<span class="validation-err-msg" ng-show="vm.detailsPageFormSubmitted && !captchaValid">Captcha is Invalid.</span>
 					</div>
 
 					<button type="button" ng-click="vm.detailsPageFormSubmitted=true;form.detailsPageContactForm.$valid && captchaValid &&vm.detailsPageFormSubmit();" class="btn btn-success">

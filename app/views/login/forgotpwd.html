@@ -1,5 +1,5 @@
 <div id="fgtpwdModal" class="modal">
-  <div class="modal-dialog modal-sm">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close"  ng-click="vm.closePopup();" aria-hidden="true">×</button>
@@ -12,7 +12,7 @@
         	
         	
         <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.fgtpwdForm.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-          <span style="color:brown;" ng-show="(form.fgtpwdForm.email.$touched || vm.submitted) && form.fgtpwdForm.email.$invalid">Email is invalid.</span>
+          <span class="validation-err-msg" ng-show="(form.fgtpwdForm.email.$touched || form.fgtpwdForm.$submitted) && form.fgtpwdForm.email.$invalid">Email is invalid.</span>
       	</div>
 
 		

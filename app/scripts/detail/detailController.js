@@ -1,4 +1,4 @@
-app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, $compile, ContactFactory) {
+app.controller('detailController', function($scope, $rootScope, $interval, baseFactory, $timeout, $location, HomeFactory, dataService, DataFactory, Constants, $routeParams, $window, details, reviewComments, $compile, ContactFactory, userDetailsStore, detailFactory, appDetailsStore) {
 	var vm = this;
 
 	vm.init = function() {
@@ -6,7 +6,7 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		$rootScope.currentPage = 'detailPage';
 		$rootScope.breadCrumbLinks = {};
 		$rootScope.breadCrumbLinks['Home'] = '/';
-		$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $rootScope.dataPageBreadCrumbPath ? $rootScope.dataPageBreadCrumbPath : '/vendors/' + baseFactory.getSelectedCity() + '/' + $routeParams.category;
+		$rootScope.breadCrumbLinks['Vendor type: ' + $routeParams.category] = $rootScope.dataPageBreadCrumbPath ? $rootScope.dataPageBreadCrumbPath : '/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + $routeParams.category;
 		$rootScope.breadCrumbLinks[$routeParams.searchParam] = $location.path();
 		
 		
@@ -20,6 +20,8 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 		vm.latitude = null;
 		vm.longitude = null;
 		vm.isFormValid = true;
+		vm.reviewSubmitted = false;
+		vm.showValidationErrors = false;
 		vm.minDate = new Date();
 		vm.availabilityForm = {};
 		vm.availabilityForm.bookingDate = new Date();
@@ -27,25 +29,65 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			vendorRating: 0,
 			reviewMoney: '',
 			reviewComment: '',
-			submitReview: function(){},
+			submitReview: function(){
+				if(!userDetailsStore.getLoggedInUserDetails()){
+					$scope.showSignInPopup({type: 'Warning', message: 'Message: Please Login to Post a Review'});
+				}
+				else{
+					if(vm.newReviewModel.vendorRating > 0 && vm.newReviewModel.reviewComment.length > 0){
+					vm.showValidationErrors = false;
+					/* REST call for submitting the review */
+					var token = userDetailsStore.getLoggedInUserDetails().tokenType + ' ' + userDetailsStore.getLoggedInUserDetails().accessToken;
+					var saveReviewParams = {
+						starRating: vm.newReviewModel.vendorRating,
+						reviewComment: vm.newReviewModel.reviewComment,
+						reviewMoney: vm.newReviewModel.reviewMoney,
+						vendorType : vm.selectedCategory,
+						vendorName : vm.name,
+						reviewedBy: userDetailsStore.getLoggedInUserDetails().name,
+						userImageURL: userDetailsStore.getLoggedInUserDetails().userImage,
+					};
+                     var promise = detailFactory.review(token).save(saveReviewParams).$promise;
+
+                    return promise.then(function(data) {
+                    	vm.reviewSubmitted = true;
+                        vm.newReviewModel.vendorRating = 0;
+                        vm.newReviewModel.reviewComment = '';
+                        vm.newReviewModel.reviewMoney = '';
+                        var searchRequestDTO = {
+                        	vendorType : vm.selectedCategory,
+							vendorName : vm.name,
+                        	offset : 1,
+                        	limit:50
+                        };
+                        detailFactory.getReview().getReviewsByVendor(searchRequestDTO).$promise.then(function(data) {
+	                        vm.vendorReviewComments = data;
+
+	                     },function(error){
+	                     	console.log('Error in getting reviews');
+	                     });
+
+                     },function(error){
+                     	console.log('Error in submitting review');
+                     });
+                     }
+                     else{
+                     	vm.showValidationErrors = true;
+                     }
+                    }
+				
+			},
+			allowPostingReview: function(e){
+				if(!userDetailsStore.getLoggedInUserDetails()){
+				$scope.showSignInPopup({type: 'Warning', message: 'Message: Please Login to Post a Review'});
+				angular.element(e.currentTarget).blur();
+				}
+			}
 		};
 		vm.postedReviewRating = 5;
 		vm.vendorAverageRating = 4.6;
 		vm.showReviewsPage = false;
-		vm.dynamicItems = [{
-			name: 'Ankit',
-			rating: 4,
-			date: '13-10-2016',
-			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
-			img: '/images/blank_frame.jpg',
-		},
-		{
-			name: 'Mohit',
-			rating: 3,
-			date: '10-10-2016',
-			comment: "I had my reception in JW Marriott. It has beautiful banquets and doesn't hurt your wallet as much.",
-			img: '/images/blank_frame.jpg',
-		}];
+		
 		/*vm.menuMap = [{
 			type: 'veg',
 			price: '400',
@@ -282,6 +324,13 @@ app.controller('detailController', function($scope, $rootScope, $interval, baseF
 			checkForMaps();
 		} else {
 			console.log(details.error);
+		}
+		
+		if(reviewComments){
+			vm.vendorReviewComments = reviewComments;
+		}
+		else{
+			console.log('error in fetching review comments for this vendor');
 		}
 
 	};

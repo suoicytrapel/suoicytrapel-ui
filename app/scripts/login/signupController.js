@@ -4,10 +4,11 @@
  * accessible throughout the login module
  */
 
-app.controller('signupController', function($scope, ModalService, close, $element) {
+app.controller('signupController', function($scope, ModalService, close, $element, LoginFactory) {
 
 	var vm = this;
-	
+	vm.messageType = ''; /* Accepts only 'Error','Success' or 'Warning' as values */
+	vm.messageBarMessage = '';
 	
 	 vm.closePopup = function(){
 	 	/* closing the modal using javascript instead of data attrs */
@@ -15,7 +16,7 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
 	 	close();
 	 	};
 
-		vm.showSignInPopup = function() {
+		vm.showSignInPopup = function(msg) {
 		vm.closePopup();
 		ModalService.showModal({
 			templateUrl : "/views/login/signin.html",
@@ -24,6 +25,11 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
 		}).then(function(modal) {
 			/* Opening a modal via javascript */
 			modal.element.modal();
+			
+			if(msg){
+			modal.controller.messageType = msg.type;
+			modal.controller.messageBarMessage = msg.message;
+			}
 			/* returning a promise on closing a modal */
 			modal.close.then(function(result) {
 				console.log(result);
@@ -35,5 +41,43 @@ app.controller('signupController', function($scope, ModalService, close, $elemen
         });
 		});
 	};
+
+	vm.createAccount = function(accountType){
+        //vm.signupUser.isAppuser = true;
+        var createAccountParams = null;
+        if(($scope.form.signupFormUser.$valid && accountType === 'user') || ($scope.form.signupFormVendor.$valid && accountType === 'vendor')){
+        	if(accountType === 'user'){
+        		createAccountParams = angular.copy(vm.signupUser);
+        		createAccountParams.userRole = 'USER';
+        		}
+        	else{
+        		createAccountParams = angular.copy(vm.signupVendor);	
+        		createAccountParams.userRole = 'VENDOR';
+        		}	
+
+        		createAccountParams.username = createAccountParams.email;
+        		createAccountParams.isAppUser = true;
+        		createAccountParams.confirmPassword = undefined;
+
+        var promise = LoginFactory.createUser.create(createAccountParams).$promise;
+
+            return promise.then(function(data) {
+            	vm.messageType = 'Success'; /* Accepts only 'Error' or 'Success' as values */
+				vm.messageBarMessage = 'Success Message: User Successfully Created';
+				vm.showSignInPopup({type: 'Warning', message: 'Message: Activation Link has been sent to your registered Email ID. Click on the link to activate your account'});
+                return data;
+            }, function(error) {
+            	vm.messageType = 'Error'; /* Accepts only 'Error' or 'Success' as values */
+				vm.messageBarMessage = 'Error Message: Error in creating User, Please contact System Admin';
+                //$location.path('/bad-request/');
+            });
+       }
+       else{
+       	if(accountType === 'user')
+       	$scope.form.signupFormUser.$submitted = true;
+       	else
+       	$scope.form.signupFormVendor.$submitted = true;
+       }
+    };
 
 });

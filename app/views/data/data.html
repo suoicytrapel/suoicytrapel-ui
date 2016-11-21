@@ -40,6 +40,8 @@
 									<div class="featured-ribbon"><span class="featured-ribbon-text">HAND PICKED</span></div>
 								<!--<img src="{{vm.getImageURL(result.mainImagerURL)}}" alt='cover-photo' class="vertical-center"></img>-->
 								<div class="vendor-cover-img" style="background-image: url('{{vm.getImageURL(result.mainImagerURL)}}')" class="vertical-center"></div>
+								<div class="pamphlet-average-rating" ng-if="result.averageRating"><ng-rating  ng-model="result.averageRating" editable="false" show-grade="false" stars-count="1"></ng-rating><span class="data_averageRating">{{result.averageRating}}</span></div>
+								<div class="pamphlet-average-rating" ng-if="!result.averageRating">No Reviews</div>
 								<div class="pamphlet-title-price" ng-if="result.startingPrice"><span class="fa fa-fw fa-inr"></span>{{result.startingPrice}}</div>
 								<div class="pamphlet-title-price" ng-if="!result.startingPrice">Get Quote</div>
 

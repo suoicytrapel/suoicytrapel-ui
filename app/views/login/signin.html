@@ -8,12 +8,17 @@
       <div class="modal-body">
       	
       	<md-content>
+      	<!-- Global Message Bar -->
+      	
+      	<global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
+      	
+      	<!-- Global Message Bar Ends -->
     <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
       <md-tab label="User">
         <md-content class="md-padding">
         	<div class="social-buttons">
-									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-									<a href="#" class="btn btn-gg"><i class="fa fa-google"></i> Google</a>
+									<a href="#" class="btn btn-fb" ng-click="vm.fbLogin()"><i class="fa fa-facebook"></i> Facebook</a>
+									<a href="#" class="btn btn-gg" ng-click="vm.googleLogin()"><i class="fa fa-google"></i> Google</a>
 								</div>
 								<hr>
 								<div class="text-center">OR</div>
@@ -21,37 +26,19 @@
         <form name="form.signinFormUser" class="col-sm-12" novalidate>
         	
         <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.signinUser.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-          <span style="color:brown;" ng-show="(form.signinFormUser.email.$touched || vm.submitted) && form.signinFormUser.email.$invalid">Email is invalid.</span>
+          <span class="validation-err-msg" ng-show="(form.signinFormUser.email.$touched || form.signinFormUser.$submitted) && form.signinFormUser.email.$invalid">Email is invalid.</span>
       	</div>
 
           <div class="form-group"><label class="required">Password</label><input class="form-control required" placeholder="Your password" type="password" ng-model="vm.signinUser.password" name="password" required></input>
-          	<span style="color:brown;" ng-show="(form.signinFormUser.password.$touched || vm.submitted) && form.signinFormUser.password.$invalid">Password is invalid.</span>
+          	<span class="validation-err-msg" ng-show="(form.signinFormUser.password.$touched || form.signinFormUser.$submitted) && form.signinFormUser.password.$invalid">Password is invalid.</span>
           </div>
-		
-		<!--<md-input-container class="md-block">
-						
-						<label>Email</label>
-						<input ng-model="vm.signinForm.email" type="email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-						<div ng-messages="form.signinForm.email.$error">
-          <div ng-message="required">Email is required.</div>
-          <div ng-message="pattern">Please input a valid Email ID</div>
-          </div>
-					</md-input-container>
 					
-		<md-input-container class="md-block">
-						
-						<label>Password</label>
-						<input type="password" ng-model="vm.signin.password" name="password" required>
-						<div ng-messages="form.signinForm.password.$error">
-          <div ng-message="required">Password is required.</div>
-          </div>
-					</md-input-container>-->			
 		
 		<div class="text-right fogot-pwd">
 			<a href="javascript:void(0)" data-ng-click="vm.showfgtpwdPopup();">Forgot Password?</a>
 		</div>
 		<div>	
-          <a href="#" class="btn btn-login">LOG IN</a>
+          <a href="javascript:void(0)" class="btn btn-login" ng-click="vm.login('user');">LOG IN</a>
 </div>
 		<div class="text-center mTop10">
       	New to LePartycious ? <a href="javascript:void(0)" class="join-us-link" data-ng-click="vm.showSignUpPopup();">JOIN US</a>
@@ -65,28 +52,22 @@
       <md-tab label="Vendor">
         <md-content class="md-padding">
         
-        	<!--<div class="social-buttons">
-									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-									<a href="#" class="btn btn-gg"><i class="fa fa-google"></i> Google</a>
-								</div>
-								<hr>
-								<div class="text-center">OR</div>
-      		<hr>-->
+
         <form name="form.signinFormVendor" class="col-sm-12" novalidate>
         	
         <div class="form-group" style="margin-top:10px;"><label class="required">Email</label><input class="form-control required" placeholder="Your email address" type="email" ng-model="vm.signinVendor.email" name="email" required ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
-          <span style="color:brown;" ng-show="(form.signinFormVendor.email.$touched || vm.submitted) && form.signinFormVendor.email.$invalid">Email is invalid.</span>
+          <span class="validation-err-msg" ng-show="(form.signinFormVendor.email.$touched || form.signinFormVendor.$submitted) && form.signinFormVendor.email.$invalid">Email is invalid.</span>
       	</div>
 
           <div class="form-group"><label class="required">Password</label><input class="form-control required" placeholder="Your password" type="password" ng-model="vm.signinVendor.password" name="password" required></input>
-          	<span style="color:brown;" ng-show="(form.signinFormVendor.password.$touched || vm.submitted) && form.signinFormVendor.password.$invalid">Password is invalid.</span>
+          	<span class="validation-err-msg" ng-show="(form.signinFormVendor.password.$touched || form.signinFormVendor.$submitted) && form.signinFormVendor.password.$invalid">Password is invalid.</span>
           </div>
 		
 		<div class="text-right fogot-pwd">
 			<a href="javascript:void(0)" data-ng-click="vm.showfgtpwdPopup();">Forgot Password?</a>
 		</div>
 		<div>	
-          <a href="#" class="btn btn-login">LOG IN</a>
+          <a href="javascript:void(0)" class="btn btn-login" ng-click="vm.login('vendor');">LOG IN</a>
 </div>
 		<div class="text-center mTop10">
       	New to LePartycious ? <a href="javascript:void(0)" class="join-us-link" data-ng-click="vm.showSignUpPopup();">JOIN US</a>

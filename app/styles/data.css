@@ -91,7 +91,7 @@
 	opacity: 0;
 }
 
-.pamphlet-title-desc, .pamphlet-title-price{
+.pamphlet-title-desc, .pamphlet-title-price, .pamphlet-average-rating{
 	line-height: 22px;
 	color: #333333;
 	font-family: 'OpenSans-Semibold';
@@ -105,6 +105,17 @@
     background: rgba(0,0,0,0.3);
     color: white;
     padding: 0px 5px;
+}
+
+.pamphlet-average-rating{
+	font-size: 14px;
+	position: absolute;
+    left: 6px;
+    bottom: 51px;
+    background: rgba(0,0,0,0.3);
+    color: white;
+    padding: 0px 5px;
+    font-family: 'OpenSans-Regular';
 }
 
 .venue-capacity-heading{

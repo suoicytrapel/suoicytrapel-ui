@@ -4,7 +4,7 @@
  * accessible throughout the <body> tag
  */
 
-app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element) {
+app.controller('baseController', function($scope, $rootScope, $route, baseFactory, $timeout, $location, HomeFactory, $compile, ContactFactory, usSpinnerService, $routeParams, ModalService, $mdDialog, $mdSidenav, $window, $element, loginStatusService, progressbarService, userDetailsStore, appDetailsStore) {
 
 	var vm = this;
 
@@ -19,8 +19,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 * */
 	vm.init = function() {
 
-		vm.selectedCategory = null;
-		vm.selectedCity = null;
+		vm.selectedCategory = appDetailsStore.getAppDetails().selectedCategory;
+		vm.selectedCity = appDetailsStore.getAppDetails().selectedCity;
 		vm.categoryMap = baseFactory.categoryMap;
 
 		//vm.coverUrl = baseFactory.getCoverUrl();
@@ -35,9 +35,42 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		/*vm.categoryIconsMap = baseFactory.categoryIconsMap;*/
 		$scope.form = {};
 
-		vm.loggedInUser = true;
+		vm.loggedInUser = false;
+		vm.loggedInUsername = null;
+		
+		vm.showProgressbar = false;
 
 	};
+
+	vm.logout = function()
+    {
+        gapi.auth.signOut();
+        location.reload();
+        FB.logout(function () { document.location.reload(); });
+        
+        loginStatusService.getSubjectToSubscribe().onNext({isLoggedIn: false});
+        //userDetailsStore.setLoggedInUserDetails(null);
+        userDetailsStore.removeLoggedInUserDetails();
+    };
+
+
+/*<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1490864197597595',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>*/
 
 	/*
 	 *
@@ -136,6 +169,26 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				menuContentContainer.parent().addClass('formatter-class');
 			});
 		});
+		
+		/*
+			Subscribing for loginStatusService so that the header menu can 
+			be changed based on that		 
+		 * */
+		
+		loginStatusService.getSubjectToSubscribe().subscribe(function(result){
+			vm.loggedInUser = result.isLoggedIn;
+			vm.loggedInUsername = userDetailsStore.getLoggedInUserDetails().name;
+			loginStatusService.setLoginStatus(result.isLoggedIn);
+		});
+		
+		/*
+		 	Subscribing for progressbarService to enable disable progressbar
+		 * */
+		
+		progressbarService.getSubjectToSubscribe().subscribe(function(result){
+			vm.showProgressbar = result.showProgressbar;
+			progressbarService.setProgressbarStatus(result.showProgressbar);
+		});
 
 	};
 
@@ -170,8 +223,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.startLoader = function() {
-			usSpinnerService.spin('home-page-spinner');
-			vm.showLoaderScreen = true;
+			//usSpinnerService.spin('home-page-spinner');
+			//vm.showLoaderScreen = true;
+			
+			/*progressbarService.getSubjectToSubscribe().onNext({
+				showProgressbar: true,
+			});*/
+			
+			progressbarService.enableProgressbar(true);
 		};
 
 		/*
@@ -184,8 +243,12 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//loader screen and spinner is hided
 			//in the next digest cycle
 			$timeout(function() {
-				vm.showLoaderScreen = false;
-				usSpinnerService.stop('home-page-spinner');
+				//vm.showLoaderScreen = false;
+				//usSpinnerService.stop('home-page-spinner');
+				/*progressbarService.getSubjectToSubscribe().onNext({
+				showProgressbar: false,
+			});*/
+			progressbarService.enableProgressbar(false);
 				vm.routeChangeSuccessInvoked = false;
 				vm.pageDataPopulated = false;
 			});
@@ -209,9 +272,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 				}, 0);
 			} else {
 				if (!vm.searchText) {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+					$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + appDetailsStore.getAppDetails().selectedCategory);
 				} else {
-					$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory + '/' + vm.searchText);
+					$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + appDetailsStore.getAppDetails().selectedCategory + '/' + vm.searchText);
 				}
 			}
 
@@ -224,10 +287,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 *
 		 * */
 		vm.setCity = function() {
-			baseFactory.setSelectedCity(vm.selectedCity);
+			//baseFactory.setSelectedCity(vm.selectedCity);
+			appDetailsStore.setSelectedCity(vm.selectedCity);
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
 
-				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + vm.selectedCategory);
 
 			}
 			/* Code for emitting data on city change
@@ -243,13 +307,14 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		 * */
 		vm.setCategory = function() {
 			//var selectedCategoryValue = angular.element($event.currentTarget)[0].getAttribute('data-key');
-			baseFactory.setSelectedCategory(vm.selectedCategory);
+			//baseFactory.setSelectedCategory(vm.selectedCategory);
+			appDetailsStore.setSelectedCategory(vm.selectedCategory);
 			//vm.selectedCategory = selectedCategoryValue;
 			angular.element('.home-search-box').val('');
 			vm.searchText = '';
 			if ($location.path().toString().match(/\/vendors\//i) != null) {
 
-				$location.path('/vendors/' + baseFactory.getSelectedCity() + '/' + vm.selectedCategory);
+				$location.path('/vendors/' + appDetailsStore.getAppDetails().selectedCity + '/' + vm.selectedCategory);
 
 			}
 		};
@@ -283,7 +348,8 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			//angular.element(document.body).removeClass('height100');
 			/* Insert the value in baseFactory so that it can be used throughout
 			 * the application */
-			baseFactory.setSelectedCity(vm.selectedCity);
+			//baseFactory.setSelectedCity(vm.selectedCity);
+			appDetailsStore.setSelectedCity(vm.selectedCity);
 		};
 		/*
 		 *
@@ -409,9 +475,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/*
 	 *
 	 * method for showing sign in popup
+	 * Binded with $scope so that it can be called from any page
 	 *
 	 * */
-	vm.showSignInPopup = function() {
+	$scope.showSignInPopup = function(msg) {
 
 		ModalService.showModal({
 			templateUrl : "views/login/signin.html",
@@ -420,6 +487,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		}).then(function(modal) {
 			/* Opening a modal via javascript */
 			modal.element.modal();
+			if(msg){
+			modal.controller.messageType = msg.type;
+			modal.controller.messageBarMessage = msg.message;
+			}
 			/* returning a promise on closing a modal */
 			modal.close.then(function(result) {
 				console.log(result);
@@ -434,9 +505,10 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/*
 	 *
 	 * method for showing sign up popup
+	 * Binded with $scope so that it can be called from any page
 	 *
 	 * */
-	vm.showSignUpPopup = function() {
+	$scope.showSignUpPopup = function() {
 		//vm.closePopup();
 		ModalService.showModal({
 			templateUrl : "/views/login/signup.html",
@@ -458,7 +530,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	};
 
 
-	vm.showResetPwdPopup = function() {
+	$scope.showResetPwdPopup = function() {
 		ModalService.showModal({
 			templateUrl : "/views/login/resetpwd.html",
 			controller : "resetpwdController",
@@ -549,11 +621,11 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	/* callback function for md-autocomplete
 	 * returns promise and data */
 	vm.querySearch = function(searchText) {
-		if (searchText.length > 0 && baseFactory.getSelectedCategory() && baseFactory.getSelectedCity()) {
+		if (searchText.length > 0 && appDetailsStore.getAppDetails().selectedCategory && appDetailsStore.getAppDetails().selectedCity) {
 			var searchRequestDTO = {
-				searchType : baseFactory.getSelectedCategory(),
+				searchType : appDetailsStore.getAppDetails().selectedCategory,
 				searchString : searchText,
-				cityId : baseFactory.getSelectedCity(),
+				cityId : appDetailsStore.getAppDetails().selectedCity,
 			};
 			var promise = HomeFactory.loadList.populate(searchRequestDTO).$promise;
 

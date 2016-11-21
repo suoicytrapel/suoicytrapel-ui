@@ -1,6 +1,7 @@
 <nav id="navbar" class="navbar navbar-fixed-top navbar-default navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
+			<div id="fb-root"></div>
 
 			<a class="navbar-brand" href="/"> <img src="/images/lp_logo.png" height="60px;" alt="LePartycious - Your Online Event Planner" title="LePartycious - Your Online Event Planner"></a>
 
@@ -14,19 +15,19 @@
 						</md-button>
 					</li>
 					<li class="hidden-xs" ng-if="!vm.loggedInUser">
-						<md-button style="color: white;" ng-click="vm.showSignInPopup();">
+						<md-button style="color: white;" ng-click="showSignInPopup();">
 							SIGN IN
 						</md-button>
 					</li>
 					<li class="hidden-xs" ng-if="!vm.loggedInUser">
-						<md-button style="color: white;" ng-click="vm.showSignUpPopup();">
+						<md-button style="color: white;" ng-click="showSignUpPopup();">
 							SIGN UP
 						</md-button>
 					</li>
 					<li ng-if="vm.loggedInUser">
 						<md-menu md-position-mode="target target" >
-          <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" style="color: white;">
-            Welcome anku171<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
+          <md-button aria-label="Open Logged In Menu"  ng-click="$mdOpenMenu($event)" class="loggedInInfoBtn">
+            Welcome {{vm.loggedInUsername}}<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
           </md-button>
           <md-menu-content width="3" id="loggedInuser_md_menu_content">
             <md-menu-item>
@@ -46,7 +47,7 @@
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button ng-click="">
+              <md-button ng-click="vm.logout();">
                   <div layout="row" flex>                
                     <md-icon md-menu-align-target class="material-icons">power_settings_new</md-icon>
                     <p flex>Logout</p>

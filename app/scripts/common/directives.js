@@ -199,9 +199,55 @@ app.directive('giveReview',function(){
 			reviewMoney: "=",
 			submitReview: "&",
 			applyMargin: "@",
+			allowPostingReview: "&",
+			reviewSubmitted: "=",
+			showValidationErrors: "=",
 		},
 		link: function(scope, element, attribute, controller){
 			
 		}	
 	};
 });
+
+app.directive('globalMessagebar',function(){
+	return{
+		templateUrl: 'views/globalMessagebar/globalMessagebar.html',
+		scope: {
+			messageType: '=',
+			messageBarMessage: '='
+		},
+		link: function(scope, element, attribute, controller){
+			scope.closeMessageBar = function(){
+				scope.messageType = '';
+				scope.messageBarMessage = '';
+			};
+		}	
+	};
+});
+
+app.directive('globalProgressbar',function(){
+	return{
+		templateUrl: 'views/globalProgressbar/globalProgressbar.html',
+		scope: {
+			showProgressbar: '=',
+		},
+		link: function(scope, element, attribute, controller){
+		}	
+	};
+});
+
+app.directive('confirmPassword',function(){
+	return{
+		require: 'ngModel',
+		link: function(scope, elem, attrs, controller){
+			elem.on('blur', function(){
+				scope.$apply(function(){
+					var firstPassword = scope.$eval(attrs.confirmPassword);
+					var v = elem.val()===firstPassword;
+					controller.$setValidity('confirmpassword',v);
+				});
+			});
+		}	
+	};
+});
+

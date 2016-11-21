@@ -1,16 +1,19 @@
 <md-card  class="marginTopBottom20" ng-class="{'mLeft15': applyMargin, 'mRight15': applyMargin}">
-<form name="reviewForm">
+<form name="reviewForm" ng-show="!reviewSubmitted">
 <div layout="column" layout-padding>
 	<div layout="row" layout-align="start center">
 	<div flex="40" class="md-title">Rate this vendor:</div> 
-	<ng-rating ng-model="vendorRating" editable="editable" show-grade="showGrade" stars-count="starsCount"></ng-rating>
+	<ng-rating ng-model="vendorRating" editable="editable" show-grade="showGrade" stars-count="starsCount" ng-click="allowPostingReview({e: $event});"></ng-rating>
 	</div>
 	<div>
-		<textarea ng-model="reviewComment" aria-label="Review Comment" placeholder="Share your experience with us..." layout-fill style="min-height: 100px;" required></textarea>
+		<span class="validation-err-msg" ng-show="showValidationErrors">Please Rate & Tell us something about this vendor</span>
+	</div>
+	<div>
+		<textarea ng-model="reviewComment" name="reviewComment" aria-label="Review Comment" placeholder="Share your experience with us..." layout-fill style="min-height: 100px;" required ng-focus="allowPostingReview({e: $event});"></textarea>		
 	</div>
 	<div>
 		<md-input-container class="md-block">
-						<input ng-model="reviewMoney"  name="money" type="number" placeholder="Tell us your spendings on this vendor (Optional)">				
+						<input ng-model="reviewMoney"  name="money" type="number" placeholder="Tell us your spendings on this vendor (Optional)" ng-focus="allowPostingReview({e: $event});">				
 					</md-input-container>
 	</div>
 	<div>
@@ -18,5 +21,8 @@
 	</div>
 </div>
 </form>
+<div layout="row" layout-align="start center" ng-show="reviewSubmitted" layout-margin>
+<h3 >Thank You !! Your Review will definetely help others.</h3>
+</div>
 
 </md-card>

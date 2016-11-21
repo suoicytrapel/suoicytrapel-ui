@@ -1,6 +1,15 @@
 app.factory('HomeFactory', function (Constants, $resource) {
-
+    var userActivated = {
+        status: false,
+        msg: '',
+    };
      return {
+        setUserActivated: function(obj){
+            userActivated = obj;
+        },
+        getUserActivated: function(){
+            return userActivated;
+        },
         loadList: $resource(Constants.API_HOST + '/search/populateList', {}, {
                     populate:{
                         method: "POST",
@@ -16,7 +25,8 @@ app.factory('HomeFactory', function (Constants, $resource) {
                 isArray: false,
                 transformResponse: function(data, header) {
                     return angular.fromJson(data);
-                } 
+                },
+              
             }
             }),
         fetchAdditions: $resource(Constants.API_HOST + '/search/city/recentAdditions', {},{
@@ -36,6 +46,12 @@ app.factory('HomeFactory', function (Constants, $resource) {
                     return angular.fromJson(data);
                 } 
             }
-            })
+            }),
+        user: $resource(Constants.API_HOST + '/user/activate', {},{
+            activate : {
+                method: "GET",
+                isArray: false
+            }
+            }),    
         };
 });

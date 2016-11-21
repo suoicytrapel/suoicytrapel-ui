@@ -1,0 +1,9 @@
+<div class="wizard-container" ng-switch on="vm.vendorType" ng-init="vm.showProgressbar();">
+      <div class="animate-switch" ng-switch-when="VENUE">
+      	<div data-ng-include="'lp_wizard/views/venue_wizard/venue_wizard.html'"></div>
+      </div>
+
+      <div class="animate-switch" ng-switch-default>
+      	<div data-ng-include="'lp_wizard/views/venue_wizard/venue_wizard.html'"></div>
+      </div>
+  </div>
