@@ -82,12 +82,12 @@
           
           <div class="form-group"><label class="required">Select Vendor Type</label><br/>
           	<select ng-model="vm.signupVendor.vendorType" name="vendorType" required placeholder="Choose">
-          		<option value="venue">VENUES</option>
-          		<option value="caterer">CATERER</option>
-          		<option value="decorator">DECORATOR</option>
-          		<option value="photographer">PHOTOGRAPHER</option>
-          		<option value="entertainment">ENTERTAINMENT</option>
-          		<option value="other">OTHERS</option>
+          		<option value="VENUE">VENUES</option>
+          		<option value="CATERER">CATERER</option>
+          		<option value="DECORATOR">DECORATOR</option>
+          		<option value="PHOTOGRAPHER">PHOTOGRAPHER</option>
+          		<option value="ENTERTAINMENT">ENTERTAINMENT</option>
+          		<option value="OTHERS">OTHERS</option>
           	</select>
           	<span class="validation-err-msg" ng-show="(form.signupFormVendor.vendorType.$touched || form.signupFormVendor.$submitted) && form.signupFormVendor.vendorType.$invalid">Please select a Vendor Type</span>
           </div>

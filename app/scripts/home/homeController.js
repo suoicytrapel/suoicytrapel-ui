@@ -19,8 +19,6 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 			}
 			
 		
-		
-		
 		vm.subcatSwiperObj = null;
 		vm.customersaySwiperObj = null;
 		vm.portfolioSwiperObj = null;

@@ -8,8 +8,14 @@ app.factory('LoginFactory', function (Constants, $resource) {
                 isArray: false
             }
         }),
-        forgotPwd: $resource(Constants.API_HOST + '/forgotPwd/send', {}, {
+        forgotPwd: $resource(Constants.API_HOST + '/user/forgotPassword', {}, {
             send:{
+                method: "GET",
+                isArray: false
+            }
+        }),
+        resetPwd: $resource(Constants.API_HOST_SECURED + '/user/resetPassword', {}, {
+            send:{/* username: encoded string, password: password oldPassword : oldPassword*/
                 method: "POST",
                 isArray: false
             }

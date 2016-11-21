@@ -31,7 +31,8 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				}, function(error) {
 					$location.path('/bad-request/');
 				});
-			}
+			},
+			
 		}
 	}).when('/activate', {
 		url : '/activate',

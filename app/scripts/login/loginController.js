@@ -19,7 +19,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
      vm.login = function (loginType, isAppLogin) {
      	if(($scope.form.signinFormUser.$valid && loginType === 'user') || ($scope.form.signinFormVendor.$valid && loginType === 'vendor') || (isAppLogin === false)){
             if(isAppLogin === false)
-            var postData =  'scope=ui&grant_type=password&username=' + vm.signupUser.email + '&password=' + vm.signupUser.email;
+            var postData =  'scope=ui&grant_type=password&username=' + vm.signupUser.username + '&password=' + vm.signupUser.email;
             else   
             var postData = vm.preparePostData(loginType);
             
@@ -190,7 +190,9 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
           vm.messageType = 'Error';
           vm.messageBarMessage = 'Error Message: Login with Facebook Failed';
         }
-      });
+      },{
+    	scope: 'public_profile,email'
+  });
     };
 
     vm.showSignUpPopup = function() {
