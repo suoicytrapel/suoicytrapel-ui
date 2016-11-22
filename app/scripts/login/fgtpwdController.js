@@ -45,7 +45,6 @@ app.controller('fgtpwdController', function($scope, ModalService, close, $elemen
 	 	if($scope.form && $scope.form.fgtpwdForm.$valid){
 	 		LoginFactory.forgotPwd.send({username: vm.fgtpwdForm.email}).$promise.then(function(){
 	 			console.log('forgot password successful');
-	 			 vm.closePopup();
 	 			 vm.showSignInPopup({type: 'Warning', message: 'Message: Password has been sent to your registered Email ID. Please Login using the same'});
 	 		},function(error){
 	 			vm.messageType = 'Error'; /* Accepts only 'Error' or 'Success' as values */
@@ -56,26 +55,5 @@ app.controller('fgtpwdController', function($scope, ModalService, close, $elemen
 	 		$scope.form.fgtpwdForm.$submitted = true;
 	 	}
 	 };	
-
-		vm.showSignInPopup = function() {
-		vm.closePopup();
-		ModalService.showModal({
-			templateUrl : "/views/login/signin.html",
-			controller : "loginController",
-			controllerAs : "vm",
-		}).then(function(modal) {
-			/* Opening a modal via javascript */
-			modal.element.modal();
-			/* returning a promise on closing a modal */
-			modal.close.then(function(result) {
-				console.log(result);
-			});
-			/* when closing modal on clicking outside modal area
-			 * the modal element should be removed form DOM */
-			modal.element.on('hidden.bs.modal', function () {
-            modal.controller.closePopup();
-        });
-		});
-	};
 
 });

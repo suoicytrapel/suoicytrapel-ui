@@ -42,7 +42,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 
 	};
 
-	vm.logout = function()
+	$scope.logout = function()
     {
         gapi.auth.signOut();
         location.reload();
@@ -178,6 +178,17 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		loginStatusService.getSubjectToSubscribe().subscribe(function(result){
 			vm.loggedInUser = result.isLoggedIn;
 			vm.loggedInUsername = userDetailsStore.getLoggedInUserDetails().name;
+			
+			/* For hiding wizard option from dropdown incase userRole is 'USER' and not 'VENDOR'  */
+			if(userDetailsStore.getLoggedInUserDetails().userRole === 'USER'){
+				vm.isVendorLoggedIn = false;
+			}
+			else if(userDetailsStore.getLoggedInUserDetails().userRole === 'VENDOR'){
+				vm.isVendorLoggedIn = true;
+			}
+			/* For hiding reset password option from dropdown incase user logs in from fb or google */ 
+			vm.isAppUser = userDetailsStore.getLoggedInUserDetails().isAppUser;
+			
 			loginStatusService.setLoginStatus(result.isLoggedIn);
 		});
 		
@@ -479,14 +490,15 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	 *
 	 * */
 	$scope.showSignInPopup = function(msg) {
-
+		
 		ModalService.showModal({
-			templateUrl : "views/login/signin.html",
+			templateUrl : "/views/login/signin.html",
 			controller : "loginController",
 			controllerAs : "vm",
 		}).then(function(modal) {
 			/* Opening a modal via javascript */
 			modal.element.modal();
+			
 			if(msg){
 			modal.controller.messageType = msg.type;
 			modal.controller.messageBarMessage = msg.message;
@@ -497,9 +509,9 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 			});
 			/* when closing modal on clicking outside modal area
 			 * the modal element should be removed form DOM */
-			modal.element.on('hidden.bs.modal', function() {
-				modal.controller.closePopup();
-			});
+			modal.element.on('hidden.bs.modal', function () {
+            modal.controller.closePopup();
+        });
 		});
 	};
 	/*
