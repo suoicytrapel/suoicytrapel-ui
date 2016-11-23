@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
       	
-      	<div class="errMessage" ng-show="vm.errorMsg.length > 0" class="validation-err-msg"><i class="material-icons" style="vertical-align: bottom;">highlight_off</i>{{vm.errorMsg}}</div>
+      	<global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
         <form name="form.resetpwdForm" class="col-sm-12" novalidate>
         	
         	
@@ -21,7 +21,7 @@
       	
       	<div class="form-group" style="margin-top:10px;"><label class="required">Confirm New Password</label><input class="form-control required" placeholder="Confirm New Password" type="password" ng-model="vm.resetpwdForm.confirmNewPassword" confirm-password="vm.resetpwdForm.newPassword" name="confirmNewPassword" required>
           <span class="validation-err-msg" ng-show="(form.resetpwdForm.confirmNewPassword.$touched || form.resetpwdForm.$submitted) && form.resetpwdForm.confirmNewPassword.$error.required">Confirm New Password is Required</span>
-          <span class="validation-err-msg" ng-show="(form.resetpwdForm.confirmNewPassword.$touched || form.resetpwdForm.$submitted) && form.resetpwdForm.confirmNewPassword.$error.$confirmpassword">New Password and Confirm New Password does not match</span>
+          <span class="validation-err-msg" ng-show="(form.resetpwdForm.confirmNewPassword.$touched || form.resetpwdForm.$submitted) && form.resetpwdForm.confirmNewPassword.$error.confirmpassword">New Password and Confirm New Password does not match</span>
       	</div>
 
 		

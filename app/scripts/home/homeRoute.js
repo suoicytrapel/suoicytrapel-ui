@@ -31,6 +31,32 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 				}, function(error) {
 					$location.path('/bad-request/');
 				});
+			},
+			
+		}
+	}).when('/activate', {
+		url : '/activate',
+		controller : '',
+		template : '<div></div>',
+		resolve : {
+			activateAccount: function($location, HomeFactory){
+				if($location.search().activateLink){
+					HomeFactory.user.activate({activationLink: $location.search().activateLink}).$promise.then(function(data){
+						HomeFactory.setUserActivated({status: true, msg:'Account Activated. Please login with your credentials'});
+						console.log(data);
+						$location.path('/');
+						$location.url($location.path());
+					}, function(error){
+						HomeFactory.setUserActivated({status: false, msg:'There was some problem in activating the account. Kindly click on the activation link again'});
+						$location.path('/');
+						$location.url($location.path());
+					});
+				}
+				else{
+					$location.path('/');
+					$location.url($location.path());
+				}
+				
 			}
 		}
 	}).when('/activate', {

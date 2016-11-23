@@ -15,21 +15,7 @@ app.controller('fgtpwdController', function($scope, ModalService, close, $elemen
 	 	close();
 	 	};
 	 
-	 vm.sendDetails = function(){	 	
-	 	/* Rest call to be written here */
-	 	if($scope.form && $scope.form.fgtpwdForm.$valid){
-	 		LoginFactory.forgotPwd.send(angular.copy(vm.fgtpwdForm)).$promise.then(function(){
-	 			console.log('forgot password successful');
-	 		},function(error){
-	 			console.log('forgot password error');
-	 		});
-	 	}
-	 	else{
-	 		$scope.form.fgtpwdForm.$submitted = true;
-	 	}
-	 };	
-
-		vm.showSignInPopup = function() {
+	 vm.showSignInPopup = function(msg) {
 		vm.closePopup();
 		ModalService.showModal({
 			templateUrl : "/views/login/signin.html",
@@ -38,6 +24,11 @@ app.controller('fgtpwdController', function($scope, ModalService, close, $elemen
 		}).then(function(modal) {
 			/* Opening a modal via javascript */
 			modal.element.modal();
+			
+			if(msg){
+			modal.controller.messageType = msg.type;
+			modal.controller.messageBarMessage = msg.message;
+			}
 			/* returning a promise on closing a modal */
 			modal.close.then(function(result) {
 				console.log(result);
@@ -49,5 +40,20 @@ app.controller('fgtpwdController', function($scope, ModalService, close, $elemen
         });
 		});
 	};
+	 vm.sendDetails = function(){	 	
+	 	/* Rest call to be written here */
+	 	if($scope.form && $scope.form.fgtpwdForm.$valid){
+	 		LoginFactory.forgotPwd.send({username: vm.fgtpwdForm.email}).$promise.then(function(){
+	 			console.log('forgot password successful');
+	 			 vm.showSignInPopup({type: 'Warning', message: 'Message: Password has been sent to your registered Email ID. Please Login using the same'});
+	 		},function(error){
+	 			vm.messageType = 'Error'; /* Accepts only 'Error' or 'Success' as values */
+				vm.messageBarMessage = 'Error Message: Error in finding User, Please contact System Admin';
+	 		});
+	 	}
+	 	else{
+	 		$scope.form.fgtpwdForm.$submitted = true;
+	 	}
+	 };	
 
 });

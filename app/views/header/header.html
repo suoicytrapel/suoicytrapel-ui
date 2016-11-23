@@ -30,7 +30,7 @@
             Welcome {{vm.loggedInUsername}}<i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i>
           </md-button>
           <md-menu-content width="3" id="loggedInuser_md_menu_content">
-            <md-menu-item>
+            <md-menu-item ng-if="vm.isVendorLoggedIn">
               <md-button ng-click="" href="/wizard">
                   <div layout="row" flex>                
                     <md-icon md-menu-align-target class="material-icons">assignment</md-icon>
@@ -38,8 +38,8 @@
                   </div>
               </md-button>
             </md-menu-item>
-            <md-menu-item>
-              <md-button ng-click="vm.showResetPwdPopup();">
+            <md-menu-item ng-if="vm.isAppUser">
+              <md-button ng-click="showResetPwdPopup();">
                   <div layout="row" flex>                
                     <md-icon md-menu-align-target class="material-icons">settings_backup_restore</md-icon>
                     <p flex>Reset Password</p>
@@ -47,7 +47,7 @@
               </md-button>
             </md-menu-item>
             <md-menu-item>
-              <md-button ng-click="vm.logout();">
+              <md-button ng-click="logout();">
                   <div layout="row" flex>                
                     <md-icon md-menu-align-target class="material-icons">power_settings_new</md-icon>
                     <p flex>Logout</p>

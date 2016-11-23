@@ -19,7 +19,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
      vm.login = function (loginType, isAppLogin) {
      	if(($scope.form.signinFormUser.$valid && loginType === 'user') || ($scope.form.signinFormVendor.$valid && loginType === 'vendor') || (isAppLogin === false)){
             if(isAppLogin === false)
-            var postData =  'scope=ui&grant_type=password&username=' + vm.signupUser.email + '&password=' + vm.signupUser.email;
+            var postData =  'scope=ui&grant_type=password&username=' + vm.signupUser.username + '&password=' + vm.signupUser.email;
             else   
             var postData = vm.preparePostData(loginType);
             
@@ -39,7 +39,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 					vm.messageBarMessage = 'Success Message: Login Successful';*/
 					
 					if(isAppLogin === false){ //Flow for Facebook or Google Login
-						var userDetails = loggedInUserDetails(userDetailsStore.getLoggedInUserDetails().name, userDetailsStore.getLoggedInUserDetails().email, response.data.access_token, response.data.refresh_token, response.data.token_type, userDetailsStore.getLoggedInUserDetails().userRole, userDetailsStore.getLoggedInUserDetails().userImage);
+						var userDetails = loggedInUserDetails(userDetailsStore.getLoggedInUserDetails().name, userDetailsStore.getLoggedInUserDetails().email, response.data.access_token, response.data.refresh_token, response.data.token_type, userDetailsStore.getLoggedInUserDetails().userRole, userDetailsStore.getLoggedInUserDetails().userImage, userDetailsStore.getLoggedInUserDetails().isAppUser);
                     	userDetailsStore.setLoggedInUserDetails(userDetails);
                     	
                     	loginStatusService.getSubjectToSubscribe().onNext({
@@ -51,7 +51,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
 					}
 					
 					else{ //Flow for App Login
-                	var userDetails = loggedInUserDetails(null, null, response.data.access_token, response.data.refresh_token, response.data.token_type, null);
+                	var userDetails = loggedInUserDetails(null, null, response.data.access_token, response.data.refresh_token, response.data.token_type, null, null, true);
                     userDetailsStore.setLoggedInUserDetails(userDetails);
 
                    
@@ -60,7 +60,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
                      var promise = LoginFactory.user(token).getLoggedInUser({userType: loginType, isAppUser: true}).$promise;
 
                     return promise.then(function(data) {
-                        var userDetails = loggedInUserDetails(data.name, data.email, userDetailsStore.getLoggedInUserDetails().accessToken, userDetailsStore.getLoggedInUserDetails().refreshToken, userDetailsStore.getLoggedInUserDetails().tokenType, data.userRole);
+                        var userDetails = loggedInUserDetails(data.name, data.email, userDetailsStore.getLoggedInUserDetails().accessToken, userDetailsStore.getLoggedInUserDetails().refreshToken, userDetailsStore.getLoggedInUserDetails().tokenType, data.userRole, null, userDetailsStore.getLoggedInUserDetails().isAppUser);
                         userDetailsStore.setLoggedInUserDetails(userDetails);
 
                          loginStatusService.getSubjectToSubscribe().onNext({
@@ -190,7 +190,9 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
           vm.messageType = 'Error';
           vm.messageBarMessage = 'Error Message: Login with Facebook Failed';
         }
-      });
+      },{
+    	scope: 'public_profile,email'
+  });
     };
 
     vm.showSignUpPopup = function() {
@@ -264,7 +266,7 @@ app.controller('loginController', function($scope, $http, ModalService, $locatio
             return promise.then(function(data) {
             	console.log('user created');
                 console.log(data);
-                var userDetails = loggedInUserDetails(signupUser.name, signupUser.email, null, null, null, signupUser.userRole, signupUser.userImage);
+                var userDetails = loggedInUserDetails(signupUser.name, signupUser.email, null, null, null, signupUser.userRole, signupUser.userImage, signupUser.isAppUser);
                 userDetailsStore.setLoggedInUserDetails(userDetails);
                     
                     //Now Login User
