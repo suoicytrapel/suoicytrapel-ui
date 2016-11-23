@@ -125,11 +125,20 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
         // or send them all together for HTML5 browsers:
         //Upload.upload({..., data: {file: files}, ...})...;
       }
-    }
+   };
    
    vm.removeSelectedImg = function(uploadedFilesArray, index){
    	console.log(vm.uploadedMenuImages);
    		uploadedFilesArray.splice(index,1);
+   };
+   
+   vm.exitBasicDetailsStep = function(){
+   	if(vm.basicDetailsForm.$valid)
+   		return true;
+   		else{
+   			vm.basicDetailsForm.$submitted = true;
+   			return false;
+   		}
    };
 	
 });
