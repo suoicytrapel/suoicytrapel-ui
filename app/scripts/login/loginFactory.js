@@ -14,6 +14,18 @@ app.factory('LoginFactory', function (Constants, $resource) {
                 isArray: false
             }
         }),
+        resetForgotPassword: $resource(Constants.API_HOST + '/user/resetPassword', {}, {
+            send:{
+                method: "POST",
+                isArray: false
+            }
+        }),
+        get: $resource(Constants.API_HOST + '/user/decodeString', {}, {
+            decodeUserName:{
+                method: "GET",
+                isArray: false
+            }
+        }),
         resetPwd: function(token){
         	return $resource(Constants.API_HOST_SECURED + '/user/resetPassword', {}, {
             send:{/* username: email, password: password oldPassword : oldPassword*/
