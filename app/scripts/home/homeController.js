@@ -1,4 +1,4 @@
-app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory, appDetailsStore) {
+app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseFactory, $location, ContactFactory, $timeout, recentAdditions, subCategories, DataFactory, appDetailsStore, LoginFactory) {
 	var vm = this;
 	vm.init = function() {
 		$rootScope.showCover = true;
@@ -17,6 +17,18 @@ app.controller('HomeController', function(HomeFactory, $rootScope, $scope, baseF
 				HomeFactory.setUserActivated({status : false, msg: ''});
 			}	
 			}
+			
+		/* Trigger signIn Popup based on activate Account Result data */
+		if(LoginFactory.getResetForgotPass().msg){
+			if(LoginFactory.getResetForgotPass().status){
+				$scope.showResetForgotPwdPopup({type: 'Success', message: LoginFactory.getResetForgotPass().msg});	
+				//HomeFactory.setUserActivated({status : false, msg: ''});
+				}
+			else if(!HomeFactory.getUserActivated().status){
+				$scope.showSignInPopup({type: 'Warning', message: LoginFactory.getResetForgotPass().msg});	
+				LoginFactory.setResetForgotPass({status : false, msg: null, decodedUsername: null});
+			}	
+			}	
 			
 		
 		vm.subcatSwiperObj = null;

@@ -45,7 +45,7 @@ app.controller('fgtpwdController', function($scope, ModalService, close, $elemen
 	 	if($scope.form && $scope.form.fgtpwdForm.$valid){
 	 		LoginFactory.forgotPwd.send({username: vm.fgtpwdForm.email}).$promise.then(function(){
 	 			console.log('forgot password successful');
-	 			 vm.showSignInPopup({type: 'Warning', message: 'Message: Password has been sent to your registered Email ID. Please Login using the same'});
+	 			 vm.showSignInPopup({type: 'Warning', message: 'Message: A link has been sent to your registered Email ID. Please click on the link to renew your password'});
 	 		},function(error){
 	 			vm.messageType = 'Error'; /* Accepts only 'Error' or 'Success' as values */
 				vm.messageBarMessage = 'Error Message: Error in finding User, Please contact System Admin';

@@ -67,9 +67,14 @@ function($routeProvider, $httpProvider, $locationProvider, $mdThemingProvider) {
 			resetPassword: function($location, LoginFactory){
 				if($location.search().reset_token){
 					LoginFactory.get.decodeUserName({username: $location.search().reset_token}).$promise.then(function(data){
-						
+						LoginFactory.setResetForgotPass({status: true, msg: 'Please provide new password to change your account credentials', decodedUsername: data.username});
+						console.log('Username decoded and obtained');
+						$location.path('/');
+						$location.url($location.path());
 					}, function(error){
-						
+						LoginFactory.setResetForgotPass({status: false, msg: 'Error in retrieving username, Please try after sometime', decodedUsername: null});
+						$location.path('/');
+						$location.url($location.path());
 					});
 				}
 				else{

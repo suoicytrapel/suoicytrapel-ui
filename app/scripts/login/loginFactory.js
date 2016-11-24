@@ -1,6 +1,16 @@
 app.factory('LoginFactory', function (Constants, $resource) {
-   
+   var resetForgotPass= {
+        status: false,
+        msg: null,
+        decodedUsername: null,
+    };
     return {
+    	setResetForgotPass: function(obj){
+            resetForgotPass = obj;
+        },
+        getResetForgotPass: function(){
+            return resetForgotPass;
+        },
     	
         createUser: $resource(Constants.API_HOST + '/user/create', {}, {
             create:{
@@ -23,7 +33,10 @@ app.factory('LoginFactory', function (Constants, $resource) {
         get: $resource(Constants.API_HOST + '/user/decodeString', {}, {
             decodeUserName:{
                 method: "GET",
-                isArray: false
+                isArray: false,
+                transformResponse: function(data, header) {
+                            return angular.fromJson(data);
+                        }
             }
         }),
         resetPwd: function(token){

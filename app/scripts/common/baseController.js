@@ -542,7 +542,7 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 	};
 
 
-	$scope.showResetPwdPopup = function() {
+	$scope.showResetPwdPopup = function(msg) {
 		ModalService.showModal({
 			templateUrl : "/views/login/resetpwd.html",
 			controller : "resetpwdController",
@@ -550,6 +550,36 @@ app.controller('baseController', function($scope, $rootScope, $route, baseFactor
 		}).then(function(modal) {
 			/* Opening a modal via javascript */
 			modal.element.modal();
+			
+			if(msg){
+			modal.controller.messageType = msg.type;
+			modal.controller.messageBarMessage = msg.message;
+			}
+			/* returning a promise on closing a modal */
+			modal.close.then(function(result) {
+				console.log(result);
+			});
+			/* when closing modal on clicking outside modal area
+			 * the modal element should be removed form DOM */
+			modal.element.on('hidden.bs.modal', function () {
+            modal.controller.closePopup();
+        });
+		});
+	};
+	
+	$scope.showResetForgotPwdPopup = function(msg) {
+		ModalService.showModal({
+			templateUrl : "/views/login/resetforgotpwd.html",
+			controller : "resetforgotpwdController",
+			controllerAs : "vm",
+		}).then(function(modal) {
+			/* Opening a modal via javascript */
+			modal.element.modal();
+			
+			if(msg){
+			modal.controller.messageType = msg.type;
+			modal.controller.messageBarMessage = msg.message;
+			}
 			/* returning a promise on closing a modal */
 			modal.close.then(function(result) {
 				console.log(result);
