@@ -16,7 +16,7 @@ wizardApp.factory('venueLookup', function() {
 	
 	lookup.roomFacilities = ['A/C', 'LCD/LED', 'Hot Water', 'Refrigerator', 'Locker'];	
 	
-	lookup.perPlateCostOptions = ['0 - 500', '501 - 800', '801 - 1000', '1001 - 1200', '1201 - 1500', '1501 - 1800', '1801 - 2000', '> 2000'];
+	lookup.perPlateCostOptions = ['0 - 500', '501 - 800', '801 - 1000', '1001 - 1200', '1201 - 1500', '1501 - 1800', '1801 - 2000', '> 2000', 'Get Quote'];
 	
 	lookup.cuisines = ['Indian', 'Italian', 'Mexican', 'Continental', 'Chaat & Street Food', 'Chinese', 'Thai', 'Lebanese'];
 	

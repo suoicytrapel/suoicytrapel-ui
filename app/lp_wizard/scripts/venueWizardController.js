@@ -1,5 +1,7 @@
 wizardApp.controller('venueWizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload, progressbarService) {
 	var vm = this;
+	vm.messageType = '';
+	vm.messageBarMessage = '';
 	vm.eventAreaSelected = [];
 	vm.lookup = venueLookup;
 	vm.selectedAreaServices = [];
@@ -139,6 +141,59 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    			vm.basicDetailsForm.$submitted = true;
    			return false;
    		}
+   };
+   
+   vm.exitEventAreaStep = function(){
+   	if(vm.eventAreas.length < 1){
+   		vm.messageType = 'Error';
+   		vm.messageBarMessage = "Error Message: Please Enter your venue's eventarea details";
+   		return false;
+   	}
+   	else if(vm.selectedAreaServices.length < 1){
+   		vm.messageType = 'Error';
+   		vm.messageBarMessage = "Error Message: Please select atleast one service you provide";
+   		return false;
+   	}
+   	else{
+   		vm.messageType = '';
+   		vm.messageBarMessage = "";
+   		return true;
+   	}
+   		
+   };
+   
+   vm.exitCateringDecorStep = function(){
+   	
+   	if(vm.cateringDecorDetailsForm.$valid){
+   		if(vm.cateringDecorDetails.provideCateringServices === 'Yes'){
+   			if(!vm.cateringDecorDetails.selectedCuisines || vm.cateringDecorDetails.selectedCuisines.length < 1){
+   				vm.messageType = 'Error';
+   				vm.messageBarMessage = "Error Message: Please select atleast one cuisine that you provide in your catering services";
+   				return false;
+   			}
+   			else if(!vm.cateringDecorDetails.selectedBasicCateringServices || vm.cateringDecorDetails.selectedBasicCateringServices.length < 1){
+   				vm.messageType = 'Error';
+   				vm.messageBarMessage = "Error Message: Please select atleast one catering service that you provide";
+   				return false;
+   			}
+   			else{
+   				vm.messageType = '';
+   				vm.messageBarMessage = '';
+   				return true;
+   			}
+   		}
+   		else{
+   			return true;
+   		}
+   		
+   	}
+   		else{
+   			vm.cateringDecorDetailsForm.$submitted = true;
+   			return false;
+   		}
+   		
+   		
+   		
    };
 	
 });

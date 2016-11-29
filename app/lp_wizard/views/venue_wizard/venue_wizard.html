@@ -1,4 +1,5 @@
 <md-content style="padding-top: 80px;" ng-controller="venueWizardController as vm">
+<global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
 <wizard on-finish="" name="venueWizard" edit-mode="false" ng-model="vm.venueWizardCurrentStep" indicators-position="top"> 
     <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep">
     <md-content>
@@ -14,7 +15,7 @@
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Name</label>
-        				<input name="venueName" ng-model="vm.basicDetails.venueName" type="text" required>
+        				<input name="venueName" ng-model="vm.basicDetails.venueName" type="text" placeholder="eg. Hotel Taj or City Palace or Nijhawan Banquets etc" required>
         				<div ng-messages="vm.basicDetailsForm.venueName.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Venue Name is Required.</div>
               			 </div>
@@ -35,7 +36,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Address</label>
-        				<textarea name="venueAddress" ng-model="vm.basicDetails.venueAddress" rows="3" type="text" required></textarea>
+        				<textarea name="venueAddress" ng-model="vm.basicDetails.venueAddress" rows="3" type="text" placeholder="Full Address of the venue" required></textarea>
         				<div ng-messages="vm.basicDetailsForm.venueAddress.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Venue Address is Required.</div>
               			 </div>
@@ -45,13 +46,13 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Short Description</label>
-        				<textarea name="venueDescription" ng-model="vm.basicDetails.venueDescription" rows="3" type="text" md-maxlength="500"></textarea>
+        				<textarea name="venueDescription" ng-model="vm.basicDetails.venueDescription" rows="3" type="text" placeholder="Describe the venue in brief" md-maxlength="500"></textarea>
       				</md-input-container>
       				
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Contact No</label>
-        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" ng-pattern="/^\d{0,12}(\.\d{1,12})?$/" required>
+        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d{0,12}(\.\d{1,12})?$/" required>
         				<div ng-messages="vm.basicDetailsForm.primaryContactNo.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Phone Number is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
@@ -62,7 +63,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Contact No</label>
-        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" type="text" ng-pattern="/^\d{0,12}(\.\d{1,12})?$/">
+        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d{0,12}(\.\d{1,12})?$/">
       					<div ng-messages="vm.basicDetailsForm.secondaryContactNo.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
               			 </div>
@@ -71,7 +72,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Email ID</label>
-        				<input name="primaryEmailId" ng-model="vm.basicDetails.primaryEmailId" type="text" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+        				<input name="primaryEmailId" ng-model="vm.basicDetails.primaryEmailId" type="text" placeholder="So That you can be informed" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
       					<div ng-messages="vm.basicDetailsForm.primaryEmailId.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Email ID is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Email ID. Please enter a valid one</div>
@@ -82,7 +83,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Email ID</label>
-        				<input name="secondaryEmailId" ng-model="vm.basicDetails.secondaryEmailId" type="text" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        				<input name="secondaryEmailId" ng-model="vm.basicDetails.secondaryEmailId" type="text" placeholder="If Primary email disfunctions" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
         				<div ng-messages="vm.basicDetailsForm.secondaryEmailId.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Email ID. Please enter a valid one</div>
               			 </div>
@@ -91,14 +92,14 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Website</label>
-        				<input ng-model="vm.basicDetails.website" type="text">
+        				<input ng-model="vm.basicDetails.website" type="text" placeholder="eg. http://www.mywebsite.com">
       				</md-input-container>
       				
       				<span flex-gt-xs hide-xs></span>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>FB Page Link</label>
-        				<input ng-model="vm.basicDetails.fbPageLink" type="text">
+        				<input ng-model="vm.basicDetails.fbPageLink" type="text" placeholder="url to your facebook page">
       				</md-input-container>
       				
       				
@@ -118,7 +119,7 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Continue" />-->
     </wz-step>
-    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="">
+    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep">
      <md-content>
         <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Event Area Details</h2>
@@ -249,7 +250,7 @@
 <!--<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>-->
      <md-content>
     </wz-step>
-    <wz-step wz-title="Catering & Decor Details">
+    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitEventAreaStep" canexit="vm.exitCateringDecorStep">
     <md-content>
     <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Catering & Decor Details</h2>
@@ -258,54 +259,66 @@
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
         </div>
         
-    	<form name="vm.cateringDecorDetails">
+    	<form name="vm.cateringDecorDetailsForm">
         	<fieldset ng-disabled="false">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>You Provide Catering Services?</label>
-        				<md-select ng-model="cateringDecorDetails.provideCateringServices" required>
+        				<md-select name="provideCateringServices" ng-model="vm.cateringDecorDetails.provideCateringServices" required>
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
+      				<div ng-messages="vm.cateringDecorDetailsForm.provideCateringServices.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please tell us whether you provide catering services</div>
+              			 </div>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>You Provide Decor Services?</label>
-        				<md-select ng-model="cateringDecorDetails.provideDecorServices" required>
+        				<md-select name="provideDecorServices" ng-model="vm.cateringDecorDetails.provideDecorServices" required>
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
+      				<div ng-messages="vm.cateringDecorDetailsForm.provideDecorServices.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please tell us whether you provide decor services</div>
+              			 </div>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Plate Veg (In Indian Rupees)</label>
-        				 <md-select ng-model="cateringDecorDetails.vegPerPlateCost">
+        				 <md-select name="vegPerPlateCost" ng-model="vm.cateringDecorDetails.vegPerPlateCost" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
+      				<div ng-messages="vm.cateringDecorDetailsForm.vegPerPlateCost.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please choose a range in which your veg per plate cost lies</div>
+              			 </div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Plate Non-Veg (In Indian Rupees)</label>
-        				 <md-select ng-model="cateringDecorDetails.nonvegPerPlateCost">
+        				 <md-select name="nonvegPerPlateCost" ng-model="vm.cateringDecorDetails.nonvegPerPlateCost" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
+      				<div ng-messages="vm.cateringDecorDetailsForm.nonvegPerPlateCost.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please choose a range in which your Non-veg per plate cost lies</div>
+              			 </div>
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Starting Price For Bartending (In Indian Rupees)</label>
-        				<input ng-model="cateringDecorDetails.bartendingStartsFrom" type="text">
+        				<input ng-model="vm.cateringDecorDetails.bartendingStartsFrom" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/">
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Starting Price for Inhouse DJ (In Indian Rupees)</label>
-        				<input ng-model="cateringDecorDetails.inhouseDjStartsFrom" type="text">
+        				<input ng-model="vm.cateringDecorDetails.inhouseDjStartsFrom" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/">
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Starting Price for Inhouse Decor (In Indian Rupees)</label>
-        				<input ng-model="cateringDecorDetails.inhouseDecorStartsFrom" type="text">
+        				<input ng-model="vm.cateringDecorDetails.inhouseDecorStartsFrom" type="text" placeholder="Minimum Price per event eg. 10000" ng-pattern="/^\d+$/">
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<div flex-gt-xs="45" hide-xs></div>
@@ -313,12 +326,12 @@
       				<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Cuisines</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.selectedCuisines" multiple= "true" placeholder="You can choose multiple cuisine">
+  <md-select ng-model="vm.cateringDecorDetails.selectedCuisines" multiple= "true" placeholder="You can choose multiple cuisine">
     <md-option ng-value="cuisine" ng-repeat="cuisine in ::vm.lookup.cuisines">{{ cuisine }}</md-option>
   </md-select>
 </md-input-container>
 <div flex-xs="100" flex-gt-xs="100">
-		<md-chips ng-model="vm.selectedCuisines" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+		<md-chips ng-model="vm.cateringDecorDetails.selectedCuisines" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 	</div>	
 </div>
       				
@@ -337,12 +350,12 @@
 					<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Basic Catering Services</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services">
+  <md-select ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services">
     <md-option ng-value="cateringService" ng-repeat="cateringService in ::vm.lookup.basicCateringServices">{{ cateringService }}</md-option>
   </md-select>
 </md-input-container>
 <div flex-xs="100" flex-gt-xs="100">
-		<md-chips ng-model="vm.selectedBasicCateringServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+		<md-chips ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 	</div>	
 </div>
 					
@@ -392,7 +405,7 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Finish now" />-->
     </wz-step>
-    <wz-step wz-title="Policies & Images">
+    <wz-step wz-title="Policies & Images" canenter="vm.exitCateringDecorStep" canexit="">
     <md-content>
     
     <div layout="row" layout-margin>
