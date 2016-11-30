@@ -1,7 +1,7 @@
 <md-content style="padding-top: 80px;" ng-controller="venueWizardController as vm">
 <global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
 <wizard on-finish="" name="venueWizard" edit-mode="false" ng-model="vm.venueWizardCurrentStep" indicators-position="top"> 
-    <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep">
+    <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep"> <!-- wz-disabled="true"-->
     <md-content>
 		<div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Basic Details</h2>
@@ -52,7 +52,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Contact No</label>
-        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d{0,12}(\.\d{1,12})?$/" required>
+        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="^\d{1,12}+$" required>
         				<div ng-messages="vm.basicDetailsForm.primaryContactNo.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Phone Number is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
@@ -63,7 +63,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Contact No</label>
-        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d{0,12}(\.\d{1,12})?$/">
+        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="^\d{1,12}+$">
       					<div ng-messages="vm.basicDetailsForm.secondaryContactNo.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
               			 </div>
@@ -119,7 +119,7 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Continue" />-->
     </wz-step>
-    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep">
+    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep"> <!-- wz-disabled="true"-->
      <md-content>
         <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Event Area Details</h2>
@@ -308,17 +308,26 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Starting Price For Bartending (In Indian Rupees)</label>
-        				<input ng-model="vm.cateringDecorDetails.bartendingStartsFrom" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/">
+        				<input ng-model="vm.cateringDecorDetails.bartendingStartsFrom" name="bartendingStartsFrom" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/">
+      					<div ng-messages="vm.cateringDecorDetailsForm.bartendingStartsFrom.$error" role="alert" multiple>
+              				<div ng-message="pattern" class="my-message">Price should a number eg. 5000</div>
+              			 </div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Starting Price for Inhouse DJ (In Indian Rupees)</label>
-        				<input ng-model="vm.cateringDecorDetails.inhouseDjStartsFrom" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/">
+        				<input ng-model="vm.cateringDecorDetails.inhouseDjStartsFrom" name="inhouseDjStartsFrom" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/">
+      					<div ng-messages="vm.cateringDecorDetailsForm.inhouseDjStartsFrom.$error" role="alert" multiple>
+              				<div ng-message="pattern" class="my-message">Price should a number eg. 5000</div>
+              			 </div>
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Starting Price for Inhouse Decor (In Indian Rupees)</label>
-        				<input ng-model="vm.cateringDecorDetails.inhouseDecorStartsFrom" type="text" placeholder="Minimum Price per event eg. 10000" ng-pattern="/^\d+$/">
+        				<input ng-model="vm.cateringDecorDetails.inhouseDecorStartsFrom" name="inhouseDecorStartsFrom" type="text" placeholder="Minimum Price per event eg. 10000" ng-pattern="/^\d+$/">
+      					<div ng-messages="vm.cateringDecorDetailsForm.inhouseDecorStartsFrom.$error" role="alert" multiple>
+              				<div ng-message="pattern" class="my-message">Price should a number eg. 5000</div>
+              			 </div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<div flex-gt-xs="45" hide-xs></div>
@@ -326,9 +335,12 @@
       				<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Cuisines</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.cateringDecorDetails.selectedCuisines" multiple= "true" placeholder="You can choose multiple cuisine">
+  <md-select ng-model="vm.cateringDecorDetails.selectedCuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
     <md-option ng-value="cuisine" ng-repeat="cuisine in ::vm.lookup.cuisines">{{ cuisine }}</md-option>
   </md-select>
+  <div ng-messages="vm.cateringDecorDetailsForm.cuisines.$error" role="alert" multiple>
+        <div ng-message="required" class="my-message">Please choose cuisines options you provide</div>
+  </div>
 </md-input-container>
 <div flex-xs="100" flex-gt-xs="100">
 		<md-chips ng-model="vm.cateringDecorDetails.selectedCuisines" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
@@ -350,9 +362,12 @@
 					<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Basic Catering Services</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services">
+  <md-select name="basicCateringServices" ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
     <md-option ng-value="cateringService" ng-repeat="cateringService in ::vm.lookup.basicCateringServices">{{ cateringService }}</md-option>
   </md-select>
+  <div ng-messages="vm.cateringDecorDetailsForm.basicCateringServices.$error" role="alert" multiple>
+        <div ng-message="required" class="my-message">Please choose catering services you provide</div>
+  </div>
 </md-input-container>
 <div flex-xs="100" flex-gt-xs="100">
 		<md-chips ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
@@ -377,10 +392,10 @@
         	<h2 class="md-title" style="margin-left: 16px;">Upload Menu Images</h2>
         	<div layout="row" layout-wrap layout-margin layout-align="start center">
         	<div flex="100">
-        		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
-        		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.pattern">Only Image Files are allowed to be Uploaded</span>
-        		<span style="color: brown" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxFiles">Maximum of 4 files are allowed</span>
-        		<span style="color: brown" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
+        		<span class="validation-err-msg" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
+        		<span class="validation-err-msg" ng-show="vm.cateringDecorDetails.menuImageFile.$error.pattern">Only Image Files are allowed to be Uploaded</span>
+        		<span class="validation-err-msg" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxFiles">Maximum of 4 files are allowed</span>
+        		<span class="validation-err-msg" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
         	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files, vm.menuImages, 4)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4"></input>
   			<div>(Max 4 Image Files, Max size 256KB for each File)</div>
@@ -414,43 +429,58 @@
         <md-button class="md-raised" wz-previous>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
         </div>	
-    	<form name="vm.policyDetails">
+    	<form name="vm.policyDetailsForm">
         	<fieldset ng-disabled="false">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse Catering Allowed?</label>
-        				<md-select ng-model="policyDetails.outhouseCateringAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseCateringAllowed" name="outhouseCateringAllowed" required>
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
+      				<div ng-messages="vm.policyDetailsForm.outhouseCateringAllowed.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">You allow catering from outside?</div>
+  					</div>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse Decor Allowed?</label>
-        				<md-select ng-model="policyDetails.outhouseDecorAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseDecorAllowed" name="outhouseDecorAllowed" required>
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
+      				<div ng-messages="vm.policyDetailsForm.outhouseDecorAllowed.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">You allow decor from outside?</div>
+  					</div>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse Liquor Allowed?</label>
-        				<md-select ng-model="policyDetails.outhouseLiquorAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseLiquorAllowed" name="outhouseLiquorAllowed" required>
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
+      				<div ng-messages="vm.policyDetailsForm.outhouseLiquorAllowed.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">You allow liquor from outside?</div>
+  					</div>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Corkage Per Bottle (in Indian Rupees)</label>
-        				<input ng-model="policyDetails.corkagePerBottle" type="text">
+        				<input ng-model="vm.policyDetails.corkagePerBottle" name="corkagePerBottle" type="text" placeholder="corkage per bottle eg. 1000" ng-pattern="/^\d+$/">
+      					<div ng-messages="vm.policyDetailsForm.corkagePerBottle.$error" role="alert" multiple>
+        				<div ng-message="pattern" class="my-message">Corkage should be a number eg. 1000</div>
+  					</div>
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse DJ Allowed?</label>
-        				<md-select ng-model="policyDetails.outhouseDjAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseDjAllowed" name="outhouseDjAllowed" required>
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
+      				<div ng-messages="vm.policyDetailsForm.outhouseDjAllowed.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">You allow DJ from outside?</div>
+  					</div>
       				<div class="md-errors-spacer"></div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
@@ -460,12 +490,18 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Booking Policy</label>
-        				<textarea ng-model="policyDetails.bookingPolicy" rows="3" type="text" md-maxlength="1000"></textarea>
+        				<textarea ng-model="vm.policyDetails.bookingPolicy" name="bookingPolicy" rows="3" type="text" md-maxlength="1000" placeholder="Describe booking amount eg. 25% before event, 50% on the day of event and rest after the event" required></textarea>
+      					<div ng-messages="vm.policyDetailsForm.bookingPolicy.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">Please tell us tour booking policies</div>
+  					</div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Cancellation &amp; Refund Policy</label>
-        				<textarea ng-model="policyDetails.refundPolicy" rows="3" type="text" md-maxlength="1000"></textarea>
+        				<textarea ng-model="vm.policyDetails.refundPolicy" name="refundPolicy" rows="3" type="text" md-maxlength="1000" placeholder="Describe refund policies eg. 25% of booking amount refundable or 100% refund or no refund etc" required></textarea>
+      					<div ng-messages="vm.policyDetailsForm.refundPolicy.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">Please tell us tour refund policies</div>
+  					</div>
       				</md-input-container>
       				
       				</div>
@@ -475,10 +511,10 @@
         	<h2 class="md-title" style="margin-left: 16px;">Upload Venue Images</h2>
         	<div layout="row" layout-wrap layout-margin layout-align="start center">
         	<div flex="100">
-        		<span style="color: brown" ng-show="vm.policyDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
-        		<span style="color: brown" ng-show="vm.policyDetails.menuImageFile.$error.pattern">Only Image Files are allowed to be Uploaded</span>
-        		<span style="color: brown" ng-show="vm.policyDetails.menuImageFile.$error.maxFiles">Maximum of 10 files are allowed</span>
-        		<span style="color: brown" ng-show="vm.policyDetails.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
+        		<span class="validation-err-msg" ng-show="vm.policyDetails.menuImageFile.$error.maxSize">File too large, one image file can be of maximum 256KB</span>
+        		<span class="validation-err-msg" ng-show="vm.policyDetails.menuImageFile.$error.pattern">Only Image Files are allowed to be Uploaded</span>
+        		<span class="validation-err-msg" ng-show="vm.policyDetails.menuImageFile.$error.maxFiles">Maximum of 10 files are allowed</span>
+        		<span class="validation-err-msg" ng-show="vm.policyDetails.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
         	<input type="file" name="vendorImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedVendorImages" ngf-select="vm.uploadFiles($files, vm.vendorImages, 10)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="512KB" ngf-max-total-size="5MB" ngf-max-files="10"></input>
   			<div>(Max 10 Image Files, Max size 512KB for each File)</div>

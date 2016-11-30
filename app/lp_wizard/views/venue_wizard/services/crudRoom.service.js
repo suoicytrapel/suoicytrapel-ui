@@ -53,7 +53,7 @@
         
          vm.hide = function () {
         	 if(vm.newRoomForm.$valid){
-        	 	vm.room.selectedRoomFacilities = vm.selectedRoomFacilities;
+        	 	//vm.room.selectedRoomFacilities = vm.selectedRoomFacilities;
         		 $mdDialog.hide({newData: vm.room, index: vm.index});
         	 }
         	 else{

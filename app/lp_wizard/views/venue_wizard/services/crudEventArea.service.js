@@ -32,7 +32,7 @@
                 });*/
 
             }
-        }
+        };
 
     });
 
@@ -60,7 +60,7 @@
              $mdDialog.cancel({status: 'User Ended the Request to Add/Modify Event Area'});
          };
          
-     }
+    }
 
 
 })(window.angular)

@@ -17,34 +17,47 @@
             			
             			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Type</label>
-        				<md-select ng-model="vm.room.type">
+        				<md-select ng-model="vm.room.type" name="type" required>
             			<md-option ng-repeat="roomType in ::vm.lookup.roomTypes" value="{{roomType}}">{{roomType}}</md-option>
+            			<div ng-messages="vm.newRoomForm.type.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please specify the room type</div>
+              			 </div>
       				</md-select>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Number Of Rooms</label>
-        				<input ng-model="vm.room.noOfRooms" placeholder="No of Rooms of this type" type="text">
+        				<input ng-model="vm.room.noOfRooms" placeholder="No of Rooms of this type" type="text" name="noOfRooms" ng-pattern="/^\d+$/" required>
+      					<div ng-messages="vm.newRoomForm.noOfRooms.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please specify the number of rooms for this type</div>
+              				<div ng-message="pattern" class="my-message">Number of Rooms can only be a number</div>
+              			 </div>
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Room (in Indian Rupees)</label>
-        				 <input ng-model="vm.room.price" placeholder="Price Per Room" type="text">
+        				 <input ng-model="vm.room.price" placeholder="Price Per Room" type="text" ng-pattern="/^\d+$/" name="price">
+      					<div ng-messages="vm.newRoomForm.price.$error" role="alert" multiple>
+              				<div ng-message="pattern" class="my-message">Price can be a number eg. 5000</div>
+              			 </div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>      				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Tax(%)</label>
-        				 <input ng-model="vm.room.tax" placeholder="Tax in % as Applicable" type="text">
+        				 <input ng-model="vm.room.tax" placeholder="Tax in % as Applicable eg. 17.6" type="text" ng-pattern="/^\d{1,2}(\.\d{0,2})?$/" name="tax">
+      					 <div ng-messages="vm.newRoomForm.tax.$error" role="alert" multiple>
+              				<div ng-message="pattern" class="my-message">Tax should be specified into a number eg. 21.6 </div>
+              			 </div>
       				</md-input-container>
       				
       				<div layout="row" layout-margin layout-wrap layout-align="start center" flex-gt-xs="100" flex-xs="100">
 	<div flex-xs="100" flex-gt-xs="100">
 		<h2 class="md-title">Facilities</h2>
 
-    <md-chips ng-model="vm.selectedRoomFacilities" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
+    <md-chips ng-model="vm.room.selectedRoomFacilities" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
 	</div>
 	<div flex-xs="100" flex-gt-xs="100">
-		<wan-select placeholder="" source-data="::vm.lookup.roomFacilities" selected-data="vm.selectedRoomFacilities" select-changed=""></wan-select>
+		<wan-select placeholder="" source-data="::vm.lookup.roomFacilities" selected-data="vm.room.selectedRoomFacilities" select-changed=""></wan-select>
 	</div>	
 </div> 
 
