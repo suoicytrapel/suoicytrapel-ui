@@ -14,7 +14,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	vm.menuImages = [];
 	vm.vendorImages = [];
 	vm.signOffDetails = {
-		InformationProvidedDate: new Date(),
+		informationProvidedDate: new Date(),
 	};
 	/* disable progressbar if its still enabled */
 	progressbarService.enableProgressbar(false);
@@ -194,6 +194,39 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    		
    		
    		
+   };
+   
+   vm.exitPolicyImagesStep = function(){
+   	if(vm.policyDetailsForm.$valid){
+   		if(vm.vendorImages.length < 1){
+   			vm.messageType = 'Error';
+   			vm.messageBarMessage = "Error Message: Please upload few images of your venue";
+   			return false;
+   		}
+   		else{
+   			return true;
+   		}
+   	}
+   	else{
+   		vm.policyDetailsForm.$submitted = true;
+   		return false;
+   	}
+   };
+   
+   vm.exitSignOffStep = function(){
+   	if(vm.signOffDetailsForm.$valid){
+   		if(vm.signOffDetails.agreementCheckbox)
+   		return true;
+   		else{
+   			vm.messageType = 'Error';
+   			vm.messageBarMessage = "Error Message: Please check the agreement checkbox";
+   			return false;
+   		}
+   	}
+   	else{
+   		vm.signOffDetailsForm.$submitted = true;
+   		return false;
+   	}
    };
 	
 });

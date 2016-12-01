@@ -1,7 +1,7 @@
 <md-content style="padding-top: 80px;" ng-controller="venueWizardController as vm">
 <global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
 <wizard on-finish="" name="venueWizard" edit-mode="false" ng-model="vm.venueWizardCurrentStep" indicators-position="top"> 
-    <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep"> <!-- wz-disabled="true"-->
+    <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep" wz-disabled="true"> <!-- wz-disabled="true"-->
     <md-content>
 		<div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Basic Details</h2>
@@ -119,7 +119,7 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Continue" />-->
     </wz-step>
-    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep"> <!-- wz-disabled="true"-->
+    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep" wz-disabled="true"> <!-- wz-disabled="true"-->
      <md-content>
         <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Event Area Details</h2>
@@ -250,7 +250,7 @@
 <!--<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>-->
      <md-content>
     </wz-step>
-    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitEventAreaStep" canexit="vm.exitCateringDecorStep">
+    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitEventAreaStep" canexit="vm.exitCateringDecorStep" wz-disabled="true">
     <md-content>
     <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Catering & Decor Details</h2>
@@ -420,7 +420,7 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Finish now" />-->
     </wz-step>
-    <wz-step wz-title="Policies & Images" canenter="vm.exitCateringDecorStep" canexit="">
+    <wz-step wz-title="Policies & Images" canenter="vm.exitCateringDecorStep" canexit="vm.exitPolicyImagesStep" wz-disabled="true">
     <md-content>
     
     <div layout="row" layout-margin>
@@ -540,42 +540,51 @@
     </md-content>
    </wz-step>
    
-   <wz-step wz-title="Sign Off">
+   <wz-step wz-title="Sign Off" canenter="vm.exitPolicyImagesStep">
     <md-content>
     <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Sign Off</h2>
                 <div flex></div>	
         <md-button class="md-raised" wz-previous>Back</md-button>
-        <md-button class="md-primary md-raised" wz-next>Finish</md-button>
+        <md-button class="md-accent md-raised" wz-next>Preview</md-button>
+        <md-button class="md-primary md-raised" wz-finish="vm.exitSignOffStep()">Finish</md-button>
         </div>
           
-    	<form name="vm.signOffDetails">
+    	<form name="vm.signOffDetailsForm">
         	<fieldset ng-disabled="false">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="100" flex-xs="100">
-        				<md-checkbox ng-model="vm.signOffDetails.agreementCheckbox" aria-label="I Agree">
+        				<md-checkbox ng-model="vm.signOffDetails.agreementCheckbox" aria-label="I Agree" name="agreementCheckbox">
 							I agree that all the information provided by me is correct, accurate and true to my knowledge.
 						</md-checkbox>
+						
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Name</label>
-        				<input ng-model="vm.signOffDetails.InformationProviderName" type="text">
+        				<input ng-model="vm.signOffDetails.informationProviderName" type="text" required name="informationProviderName" placeholder="Full Name of the information Provider">
+      					<div ng-messages="vm.signOffDetailsForm.informationProviderName.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">Please give your name</div>
+  					</div>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Designation</label>
-        				<input ng-model="vm.signOffDetails.InformationProviderDesignation" type="text">
+        				<input ng-model="vm.signOffDetails.informationProviderDesignation" placeholder="eg. owner, General Manager or any other" type="text">
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provided Date</label>
-        				<md-datepicker ng-model="vm.signOffDetails.InformationProvidedDate" md-placeholder="Enter Date" disabled></md-datepicker>
+        				<md-datepicker ng-model="vm.signOffDetails.informationProvidedDate" md-placeholder="Enter Date" disabled></md-datepicker>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Contact No.</label>
-        				<input ng-model="vm.signOffDetails.InformationProviderContactNo" type="text">
+        				<input ng-model="vm.signOffDetails.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="^\d{1,12}+$">
+      					<div ng-messages="vm.signOffDetailsForm.informationProviderContactNo.$error" role="alert" multiple>
+        				<div ng-message="required" class="my-message">Please give your contact number</div>
+        				<div ng-message="pattern" class="my-message">Mobile number should consist of digits only</div>
+  					</div>
       				</md-input-container>
         		</div>
         	</fieldset>
