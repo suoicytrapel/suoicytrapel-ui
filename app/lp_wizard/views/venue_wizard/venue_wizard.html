@@ -1,17 +1,18 @@
 <md-content style="padding-top: 80px;" ng-controller="venueWizardController as vm">
 <global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
-<wizard on-finish="" name="venueWizard" edit-mode="false" ng-model="vm.venueWizardCurrentStep" indicators-position="top"> 
-    <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep" wz-disabled="true"> <!-- wz-disabled="true"-->
+<wizard on-finish="vm.submitVenueForm()" name="venueWizard" edit-mode="false" ng-model="vm.venueWizardCurrentStep" indicators-position="top"> 
+    <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep" wz-disabled="false"> <!-- wz-disabled="true"-->
     <md-content>
 		<div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Basic Details</h2>
          <div flex></div>	
         <md-button class="md-raised" disabled>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.previewModeOff()" ng-show="vm.previewMode">Exit Preview</md-button>
         </div>
           
         <form name="vm.basicDetailsForm">
-        	<fieldset ng-disabled="false">
+        	<fieldset ng-disabled="vm.previewMode">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Name</label>
@@ -25,7 +26,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Type</label>
-        				 <md-select name="venueType" ng-model="vm.basicDetails.venueType" required>
+        				 <md-select name="venueType" ng-model="vm.basicDetails.venueType" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="type in ::vm.lookup.venueType" value="{{type}}">{{type}}</md-option>
       				</md-select>
       				<div ng-messages="vm.basicDetailsForm.venueType.$error" role="alert" multiple>
@@ -52,7 +53,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Contact No</label>
-        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="^\d{1,12}+$" required>
+        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d{1,12}+$" required>
         				<div ng-messages="vm.basicDetailsForm.primaryContactNo.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Phone Number is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
@@ -63,7 +64,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Contact No</label>
-        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="^\d{1,12}+$">
+        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d{1,12}+$">
       					<div ng-messages="vm.basicDetailsForm.secondaryContactNo.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
               			 </div>
@@ -105,7 +106,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>City</label>
-        				 <md-select ng-model="vm.basicDetails.city" required name="city">
+        				 <md-select ng-model="vm.basicDetails.city" required name="city" ng-disabled="vm.previewMode">
             			<md-option ng-repeat="city in ::vm.lookup.venueCity" value="{{city}}">{{city}}</md-option>
       				</md-select>
       				<div ng-messages="vm.basicDetailsForm.city.$error" role="alert" multiple>
@@ -119,19 +120,20 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Continue" />-->
     </wz-step>
-    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep" wz-disabled="true"> <!-- wz-disabled="true"-->
+    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep" wz-disabled="false"> <!-- wz-disabled="true"-->
      <md-content>
         <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Event Area Details</h2>
         <div flex></div>	
         <md-button class="md-raised" wz-previous>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.previewModeOff()" ng-show="vm.previewMode">Exit Preview</md-button>
         </div>
         
         
        <div layout="row" layout-margin>
         <div flex></div>
-        <md-button class="md-primary md-raised" ng-click="vm.createEventArea();">Add EventArea</md-button>
+        <md-button class="md-primary md-raised" ng-disabled="vm.previewMode" ng-click="vm.createEventArea();">Add EventArea</md-button>
         </div> 
       			
        <div layout="row" layout-margin layout-wrap md-whiteframe="4"> 
@@ -164,8 +166,8 @@
         <td md-cell>{{eventArea.price}}</td>
         <td md-cell>{{eventArea.tax}}</td>
         <td md-cell>{{eventArea.fullAc}}</td>
-        <td md-cell><md-button class="md-icon-button" ng-click="vm.modifyEventArea($event,$index,eventArea)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
-        <td md-cell><md-button class="md-icon-button" ng-click="vm.deleteEventArea($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
+        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.modifyEventArea($event,$index,eventArea)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
+        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.deleteEventArea($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
       </tr>
       <tr md-row  ng-if="vm.eventAreas.length === 0">
       <td md-cell colspan="8" style="text-align: center;">No Event Areas Added</td>
@@ -179,7 +181,7 @@
 
 <div layout="row" layout-margin>
         <div flex></div>
-        <md-button class="md-primary md-raised" ng-click="vm.createRoom();">Add Rooms</md-button>
+        <md-button class="md-primary md-raised" ng-disabled="vm.previewMode" ng-click="vm.createRoom();">Add Rooms</md-button>
         </div> 
  
       			
@@ -211,8 +213,8 @@
         <td md-cell>{{room.price}}</td>
         <td md-cell>{{room.tax}}</td>
         <td md-cell>{{room.facilities}}</td>
-        <td md-cell><md-button class="md-icon-button" ng-click="vm.modifyRoom($event,$index,room)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
-        <td md-cell><md-button class="md-icon-button" ng-click="vm.deleteRoom($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
+        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.modifyRoom($event,$index,room)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
+        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.deleteRoom($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
       </tr>
       <tr md-row  ng-if="vm.rooms.length === 0">
       <td md-cell colspan="7" style="text-align: center;">No Rooms Added</td>
@@ -238,7 +240,7 @@
 <div layout="row" layout-margin layout-wrap>
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Select Services You Provide</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.selectedAreaServices" multiple= "true" placeholder="You can choose multiple services">
+  <md-select ng-model="vm.selectedAreaServices" multiple= "true" placeholder="You can choose multiple services" ng-disabled="vm.previewMode">
     <md-option ng-value="eventAreaService" ng-repeat="eventAreaService in ::vm.lookup.eventAreaServices">{{ eventAreaService }}</md-option>
   </md-select>
 </md-input-container>
@@ -250,21 +252,22 @@
 <!--<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>-->
      <md-content>
     </wz-step>
-    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitEventAreaStep" canexit="vm.exitCateringDecorStep" wz-disabled="true">
+    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitEventAreaStep" canexit="vm.exitCateringDecorStep" wz-disabled="false">
     <md-content>
     <div layout="row" layout-wrap layout-margin>
         <h2 class="md-title">Catering & Decor Details</h2>
         <div flex></div>	
         <md-button class="md-raised" wz-previous>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.previewModeOff()" ng-show="vm.previewMode">Exit Preview</md-button>
         </div>
         
     	<form name="vm.cateringDecorDetailsForm">
-        	<fieldset ng-disabled="false">
+        	<fieldset ng-disabled="vm.previewMode">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>You Provide Catering Services?</label>
-        				<md-select name="provideCateringServices" ng-model="vm.cateringDecorDetails.provideCateringServices" required>
+        				<md-select name="provideCateringServices" ng-model="vm.cateringDecorDetails.provideCateringServices" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div ng-messages="vm.cateringDecorDetailsForm.provideCateringServices.$error" role="alert" multiple>
@@ -275,7 +278,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>You Provide Decor Services?</label>
-        				<md-select name="provideDecorServices" ng-model="vm.cateringDecorDetails.provideDecorServices" required>
+        				<md-select name="provideDecorServices" ng-model="vm.cateringDecorDetails.provideDecorServices" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div ng-messages="vm.cateringDecorDetailsForm.provideDecorServices.$error" role="alert" multiple>
@@ -286,7 +289,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Plate Veg (In Indian Rupees)</label>
-        				 <md-select name="vegPerPlateCost" ng-model="vm.cateringDecorDetails.vegPerPlateCost" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
+        				 <md-select name="vegPerPlateCost" ng-model="vm.cateringDecorDetails.vegPerPlateCost" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'" ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
@@ -297,7 +300,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Plate Non-Veg (In Indian Rupees)</label>
-        				 <md-select name="nonvegPerPlateCost" ng-model="vm.cateringDecorDetails.nonvegPerPlateCost" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
+        				 <md-select name="nonvegPerPlateCost" ng-model="vm.cateringDecorDetails.nonvegPerPlateCost" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'" ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
@@ -335,7 +338,7 @@
       				<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Cuisines</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.cateringDecorDetails.selectedCuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
+  <md-select ng-model="vm.cateringDecorDetails.selectedCuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'" ng-disabled="vm.previewMode">
     <md-option ng-value="cuisine" ng-repeat="cuisine in ::vm.lookup.cuisines">{{ cuisine }}</md-option>
   </md-select>
   <div ng-messages="vm.cateringDecorDetailsForm.cuisines.$error" role="alert" multiple>
@@ -362,7 +365,7 @@
 					<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Basic Catering Services</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select name="basicCateringServices" ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'">
+  <md-select name="basicCateringServices" ng-model="vm.cateringDecorDetails.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services" ng-required="vm.cateringDecorDetails.provideCateringServices == 'Yes'" ng-disabled="vm.previewMode">
     <md-option ng-value="cateringService" ng-repeat="cateringService in ::vm.lookup.basicCateringServices">{{ cateringService }}</md-option>
   </md-select>
   <div ng-messages="vm.cateringDecorDetailsForm.basicCateringServices.$error" role="alert" multiple>
@@ -397,7 +400,7 @@
         		<span class="validation-err-msg" ng-show="vm.cateringDecorDetails.menuImageFile.$error.maxFiles">Maximum of 4 files are allowed</span>
         		<span class="validation-err-msg" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
-        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files, vm.menuImages, 4)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4"></input>
+        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files, vm.menuImages, 4)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4" ng-disabled="vm.previewMode"></input>
   			<div>(Max 4 Image Files, Max size 256KB for each File)</div>
   			     
   			</div>
@@ -405,7 +408,7 @@
   			<div layout="row" layout-fill layout-wrap layout-margin>
   				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.menuImages">
   					<img style="width: 100%;" data-ng-src="{{image}}"/>
-  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.menuImages, $index)">
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.menuImages, $index)" ng-disabled="vm.previewMode">
 					<md-icon class="material-icons md-24" style="color: white;">
 						close
 					</md-icon>
@@ -420,7 +423,7 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Finish now" />-->
     </wz-step>
-    <wz-step wz-title="Policies & Images" canenter="vm.exitCateringDecorStep" canexit="vm.exitPolicyImagesStep" wz-disabled="true">
+    <wz-step wz-title="Policies & Images" canenter="vm.exitCateringDecorStep" canexit="vm.exitPolicyImagesStep" wz-disabled="false">
     <md-content>
     
     <div layout="row" layout-margin>
@@ -428,13 +431,14 @@
         <div flex></div>	
         <md-button class="md-raised" wz-previous>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.previewModeOff()" ng-show="vm.previewMode">Exit Preview</md-button>
         </div>	
     	<form name="vm.policyDetailsForm">
-        	<fieldset ng-disabled="false">
+        	<fieldset ng-disabled="vm.previewMode">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse Catering Allowed?</label>
-        				<md-select ng-model="vm.policyDetails.outhouseCateringAllowed" name="outhouseCateringAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseCateringAllowed" name="outhouseCateringAllowed" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div ng-messages="vm.policyDetailsForm.outhouseCateringAllowed.$error" role="alert" multiple>
@@ -445,7 +449,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse Decor Allowed?</label>
-        				<md-select ng-model="vm.policyDetails.outhouseDecorAllowed" name="outhouseDecorAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseDecorAllowed" name="outhouseDecorAllowed" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div ng-messages="vm.policyDetailsForm.outhouseDecorAllowed.$error" role="alert" multiple>
@@ -456,7 +460,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse Liquor Allowed?</label>
-        				<md-select ng-model="vm.policyDetails.outhouseLiquorAllowed" name="outhouseLiquorAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseLiquorAllowed" name="outhouseLiquorAllowed" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div ng-messages="vm.policyDetailsForm.outhouseLiquorAllowed.$error" role="alert" multiple>
@@ -475,7 +479,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Is OutHouse DJ Allowed?</label>
-        				<md-select ng-model="vm.policyDetails.outhouseDjAllowed" name="outhouseDjAllowed" required>
+        				<md-select ng-model="vm.policyDetails.outhouseDjAllowed" name="outhouseDjAllowed" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in ::vm.lookup.genericYesNoOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div ng-messages="vm.policyDetailsForm.outhouseDjAllowed.$error" role="alert" multiple>
@@ -516,7 +520,7 @@
         		<span class="validation-err-msg" ng-show="vm.policyDetails.menuImageFile.$error.maxFiles">Maximum of 10 files are allowed</span>
         		<span class="validation-err-msg" ng-show="vm.policyDetails.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
-        	<input type="file" name="vendorImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedVendorImages" ngf-select="vm.uploadFiles($files, vm.vendorImages, 10)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="512KB" ngf-max-total-size="5MB" ngf-max-files="10"></input>
+        	<input type="file" name="vendorImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedVendorImages" ngf-select="vm.uploadFiles($files, vm.vendorImages, 10)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="512KB" ngf-max-total-size="5MB" ngf-max-files="10" ng-disabled="vm.previewMode"></input>
   			<div>(Max 10 Image Files, Max size 512KB for each File)</div>
   			     
   			</div>
@@ -524,7 +528,7 @@
   			<div layout="row" layout-fill layout-wrap layout-margin>
   				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.vendorImages">
   					<img style="width: 100%;" data-ng-src="{{image}}"/>
-  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.vendorImages, $index)">
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.vendorImages, $index)" ng-disabled="vm.previewMode">
 					<md-icon class="material-icons md-24" style="color: white;">
 						close
 					</md-icon>
@@ -546,15 +550,16 @@
         <h2 class="md-title">Sign Off</h2>
                 <div flex></div>	
         <md-button class="md-raised" wz-previous>Back</md-button>
-        <md-button class="md-accent md-raised" wz-next>Preview</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.previewModeOn()" ng-show="!vm.previewMode">Preview</md-button>
+        <md-button class="md-accent md-raised" ng-click="vm.previewModeOff()" ng-show="vm.previewMode">Exit Preview</md-button>
         <md-button class="md-primary md-raised" wz-finish="vm.exitSignOffStep()">Finish</md-button>
         </div>
           
     	<form name="vm.signOffDetailsForm">
-        	<fieldset ng-disabled="false">
+        	<fieldset ng-disabled="vm.previewMode">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="100" flex-xs="100">
-        				<md-checkbox ng-model="vm.signOffDetails.agreementCheckbox" aria-label="I Agree" name="agreementCheckbox">
+        				<md-checkbox ng-model="vm.signOffDetails.agreementCheckbox" aria-label="I Agree" name="agreementCheckbox" ng-disabled="vm.previewMode">
 							I agree that all the information provided by me is correct, accurate and true to my knowledge.
 						</md-checkbox>
 						
@@ -580,7 +585,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Contact No.</label>
-        				<input ng-model="vm.signOffDetails.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="^\d{1,12}+$">
+        				<input ng-model="vm.signOffDetails.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="\d{1,12}+$">
       					<div ng-messages="vm.signOffDetailsForm.informationProviderContactNo.$error" role="alert" multiple>
         				<div ng-message="required" class="my-message">Please give your contact number</div>
         				<div ng-message="pattern" class="my-message">Mobile number should consist of digits only</div>

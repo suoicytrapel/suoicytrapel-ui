@@ -1,4 +1,4 @@
-wizardApp.controller('venueWizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload, progressbarService) {
+wizardApp.controller('venueWizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload, progressbarService, WizardHandler) {
 	var vm = this;
 	vm.messageType = '';
 	vm.messageBarMessage = '';
@@ -9,6 +9,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	vm.selectedBasicCateringServices = [];
 	vm.readonly = true;
 	vm.removable = false; 
+	vm.previewMode = false;
 	vm.eventAreas = [];
 	vm.rooms = [];
 	vm.menuImages = [];
@@ -227,6 +228,20 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    		vm.signOffDetailsForm.$submitted = true;
    		return false;
    	}
+   };
+   
+   vm.previewModeOn = function(){
+   	vm.previewMode = true;
+   	WizardHandler.wizard('venueWizard').goTo(0);
+   };
+   
+   vm.previewModeOff = function(){
+   	vm.previewMode = false;
+   	WizardHandler.wizard('venueWizard').goTo(4);
+   };
+   
+   vm.submitVenueForm = function(){
+   	/* REST CALL to submit the form to be put here */
    };
 	
 });
