@@ -10,11 +10,9 @@
             </md-toolbar>
             <md-dialog-content>
             <div class="md-dialog-content">
+            	<global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
             	<form name="vm.newRoomForm">
-            		<div layout="row" layout-wrap>
-            			
-            			<div flex="100" class="err-msg-content" ng-show="vm.errorMsg.length > 0" style="margin-bottom: 20px;"><i class="material-icons" style="vertical-align: bottom">cancel</i>{{vm.errorMsg}}</div>
-            			
+            		<div layout="row" layout-wrap>           			
             			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Type</label>
         				<md-select ng-model="vm.room.type" name="type" required>
@@ -61,17 +59,13 @@
 	</div>	
 </div> 
 
-					<!--<div layout="row" layout-margin layout-wrap flex-gt-xs="45" flex-xs="100">
-	<h2 class="md-title" flex-xs="100" flex-gt-xs="45">Facilities</h2>
-	<md-input-container flex-xs="100" flex-gt-xs="45">	
-  <md-select ng-model="vm.selectedRoomFacilities" multiple= "true" placeholder="You can choose multiple catering services">
+					
+	<!--<md-input-container flex-xs="100" flex-gt-xs="100">	
+  <md-select ng-model="vm.room.selectedRoomFacilities" multiple= "true" placeholder="You can choose multiple catering services">
     <md-option ng-value="roomFacility" ng-repeat="roomFacility in ::vm.lookup.roomFacilities">{{ roomFacility }}</md-option>
   </md-select>
-</md-input-container>
-<div flex-xs="100" flex-gt-xs="100">
-		<md-chips ng-model="vm.selectedRoomFacilities" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
-	</div>	
-</div>  -->         		
+</md-input-container>-->
+          		
             			
             			
             		</div>

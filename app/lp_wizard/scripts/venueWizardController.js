@@ -1,4 +1,4 @@
-wizardApp.controller('venueWizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload, progressbarService, WizardHandler) {
+wizardApp.controller('venueWizardController', function(crudEventAreaService,crudRoomService ,$mdDialog, venueLookup, Upload, progressbarService, WizardHandler, wizardDataStore) {
 	var vm = this;
 	vm.messageType = '';
 	vm.messageBarMessage = '';
@@ -17,6 +17,25 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	vm.signOffDetails = {
 		informationProvidedDate: new Date(),
 	};
+	/* Obtaining the data from session storage */
+	if(wizardDataStore.getWizardData()){
+		vm.initWizardData = wizardDataStore.getWizardData();
+		if(vm.initWizardData.basicDetails)
+		vm.basicDetails = vm.initWizardData.basicDetails;
+		if(vm.initWizardData.eventAreaDetails){
+			if(vm.initWizardData.eventAreaDetails.eventAreas)
+				vm.eventAreas = vm.initWizardData.eventAreaDetails.eventAreas;
+			if(vm.initWizardData.eventAreaDetails.selectedAreaServices)
+				vm.selectedAreaServices = vm.initWizardData.eventAreaDetails.selectedAreaServices;	
+			if(vm.initWizardData.eventAreaDetails.rooms)
+				vm.rooms = vm.initWizardData.eventAreaDetails.rooms;
+		}
+		if(vm.initWizardData.cateringDecorDetails)
+		vm.cateringDecorDetails = vm.initWizardData.cateringDecorDetails;
+		if(vm.initWizardData.policyDetails)
+		vm.policyDetails = vm.initWizardData.policyDetails;
+	}
+	
 	/* disable progressbar if its still enabled */
 	progressbarService.enableProgressbar(false);
 	
@@ -55,7 +74,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	
 	vm.createRoom = function(event){
 		crudRoomService.showDialog(event).then(function(data){
-			if(data && data.newData.selectedRoomFacilities.length > 0){
+			if(data && data.newData.selectedRoomFacilities && data.newData.selectedRoomFacilities.length > 0){
 				var facilities = '';
 				for(var i=0; i< data.newData.selectedRoomFacilities.length; i++){
 					facilities += data.newData.selectedRoomFacilities[i] + ', ';
@@ -136,8 +155,10 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    };
    
    vm.exitBasicDetailsStep = function(){
-   	if(vm.basicDetailsForm.$valid)
+   	if(vm.basicDetailsForm.$valid){
+   		setWizardDataIntoSession('basicDetails', vm.basicDetails);
    		return true;
+   	}
    		else{
    			vm.basicDetailsForm.$submitted = true;
    			return false;
@@ -158,6 +179,12 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    	else{
    		vm.messageType = '';
    		vm.messageBarMessage = "";
+   		var eventAreaDetails = {
+   			eventAreas: vm.eventAreas,
+   			selectedAreaServices: vm.selectedAreaServices,
+   			rooms: vm.rooms
+   		};
+   		setWizardDataIntoSession('eventAreaDetails', eventAreaDetails);
    		return true;
    	}
    		
@@ -166,27 +193,8 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    vm.exitCateringDecorStep = function(){
    	
    	if(vm.cateringDecorDetailsForm.$valid){
-   		if(vm.cateringDecorDetails.provideCateringServices === 'Yes'){
-   			if(!vm.cateringDecorDetails.selectedCuisines || vm.cateringDecorDetails.selectedCuisines.length < 1){
-   				vm.messageType = 'Error';
-   				vm.messageBarMessage = "Error Message: Please select atleast one cuisine that you provide in your catering services";
-   				return false;
-   			}
-   			else if(!vm.cateringDecorDetails.selectedBasicCateringServices || vm.cateringDecorDetails.selectedBasicCateringServices.length < 1){
-   				vm.messageType = 'Error';
-   				vm.messageBarMessage = "Error Message: Please select atleast one catering service that you provide";
-   				return false;
-   			}
-   			else{
-   				vm.messageType = '';
-   				vm.messageBarMessage = '';
-   				return true;
-   			}
-   		}
-   		else{
-   			return true;
-   		}
-   		
+   		setWizardDataIntoSession('cateringDecorDetails', vm.cateringDecorDetails);
+   			return true;   		
    	}
    		else{
    			vm.cateringDecorDetailsForm.$submitted = true;
@@ -205,6 +213,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    			return false;
    		}
    		else{
+   			setWizardDataIntoSession('policyDetails', vm.policyDetails);
    			return true;
    		}
    	}
@@ -242,6 +251,21 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    
    vm.submitVenueForm = function(){
    	/* REST CALL to submit the form to be put here */
+   	
+   		wizardDataStore.removeWizardData();
    };
+   
+   function setWizardDataIntoSession(objectKey, data){
+   	if(wizardDataStore.getWizardData())
+   		{
+   			var wizardData = wizardDataStore.getWizardData();   			
+   		}
+   		else{
+   			var wizardData = {};
+   		}
+   		
+   		wizardData[objectKey] = angular.copy(data);
+   		wizardDataStore.setWizardData(wizardData);
+   }
 	
 });

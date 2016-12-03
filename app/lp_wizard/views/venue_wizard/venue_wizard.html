@@ -53,7 +53,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Contact No</label>
-        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d{1,12}+$" required>
+        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d+$/" required>
         				<div ng-messages="vm.basicDetailsForm.primaryContactNo.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Phone Number is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
@@ -64,7 +64,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Contact No</label>
-        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d{1,12}+$">
+        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d+$/">
       					<div ng-messages="vm.basicDetailsForm.secondaryContactNo.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
               			 </div>
@@ -585,7 +585,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Contact No.</label>
-        				<input ng-model="vm.signOffDetails.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="\d{1,12}+$">
+        				<input ng-model="vm.signOffDetails.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="/^\d+$/">
       					<div ng-messages="vm.signOffDetailsForm.informationProviderContactNo.$error" role="alert" multiple>
         				<div ng-message="required" class="my-message">Please give your contact number</div>
         				<div ng-message="pattern" class="my-message">Mobile number should consist of digits only</div>
