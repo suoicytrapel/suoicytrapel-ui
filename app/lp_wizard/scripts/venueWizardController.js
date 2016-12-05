@@ -156,7 +156,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    
    vm.exitBasicDetailsStep = function(){
    	if(vm.basicDetailsForm.$valid){
-   		setWizardDataIntoSession('basicDetails', vm.basicDetails);
+   		setWizardDataIntoSession('venueWizard', vm.venueWizard);
    		return true;
    	}
    		else{
@@ -250,10 +250,26 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    };
    
    vm.submitVenueForm = function(){
+   		getLatLongfromAddress(vm.basicDetails.venueAddress); //for fetching lat and long
    	/* REST CALL to submit the form to be put here */
    	
    		wizardDataStore.removeWizardData();
    };
+   
+   function getLatLongfromAddress(address){
+   	 var geocoder = new google.maps.Geocoder();
+    	if (geocoder) {
+        	geocoder.geocode({
+            	'address': address
+        	}, function (results, status) {
+            	if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+            }
+        	});
+    	}
+
+   }
    
    function setWizardDataIntoSession(objectKey, data){
    	if(wizardDataStore.getWizardData())

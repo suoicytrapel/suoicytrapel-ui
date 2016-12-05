@@ -16,7 +16,7 @@
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Name</label>
-        				<input name="venueName" ng-model="vm.basicDetails.venueName" type="text" placeholder="eg. Hotel Taj or City Palace or Nijhawan Banquets etc" required>
+        				<input name="venueName" ng-model="vm.venueWizard.venueName" type="text" placeholder="eg. Hotel Taj or City Palace or Nijhawan Banquets etc" required>
         				<div ng-messages="vm.basicDetailsForm.venueName.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Venue Name is Required.</div>
               			 </div>
@@ -26,7 +26,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Type</label>
-        				 <md-select name="venueType" ng-model="vm.basicDetails.venueType" required ng-disabled="vm.previewMode">
+        				 <md-select name="venueType" ng-model="vm.venueWizard.venueType" required ng-disabled="vm.previewMode">
             			<md-option ng-repeat="type in ::vm.lookup.venueType" value="{{type}}">{{type}}</md-option>
       				</md-select>
       				<div ng-messages="vm.basicDetailsForm.venueType.$error" role="alert" multiple>
@@ -37,7 +37,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Venue Address</label>
-        				<textarea name="venueAddress" ng-model="vm.basicDetails.venueAddress" rows="3" type="text" placeholder="Full Address of the venue" required></textarea>
+        				<textarea name="venueAddress" ng-model="vm.venueWizard.addresses.addressLine1" rows="3" type="text" placeholder="Full Address of the venue" required></textarea>
         				<div ng-messages="vm.basicDetailsForm.venueAddress.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Venue Address is Required.</div>
               			 </div>
@@ -47,13 +47,37 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Short Description</label>
-        				<textarea name="venueDescription" ng-model="vm.basicDetails.venueDescription" rows="3" type="text" placeholder="Describe the venue in brief" md-maxlength="500"></textarea>
+        				<textarea name="venueDescription" ng-model="vm.venueWizard.venueDescription" rows="3" type="text" placeholder="Describe the venue in brief" md-maxlength="500"></textarea>
       				</md-input-container>
       				
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>City</label>
+        				 <md-select ng-model="vm.venueWizard.city" required name="city" ng-disabled="vm.previewMode">
+            			<md-option ng-repeat="city in ::vm.lookup.venueCity" value="{{city}}">{{city}}</md-option>
+      				</md-select>
+      				<div class="md-errors-spacer"></div>
+      				<div ng-messages="vm.basicDetailsForm.city.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please choose a city for your venue</div>
+              			 </div>
+      				</md-input-container>
+      				
+      				<span flex-gt-xs hide-xs></span>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Locality</label>
+        				 <md-select ng-model="vm.venueWizard.locality" required name="locality" ng-disabled="vm.previewMode">
+            			<md-option ng-repeat="locality in ::vm.lookup.venueLocality" value="{{locality}}">{{locality}}</md-option>
+      				</md-select>
+      				<div class="md-errors-spacer"></div>
+      				<div ng-messages="vm.basicDetailsForm.locality.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Please choose a locality</div>
+              			 </div>
+      				</md-input-container>
+      				
+      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Contact No</label>
-        				<input name="primaryContactNo" ng-model="vm.basicDetails.primaryContactNo" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d+$/" required>
+        				<input name="primaryContactNo" ng-model="vm.venueWizard.addresses.primaryPhone" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d+$/" required>
         				<div ng-messages="vm.basicDetailsForm.primaryContactNo.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Phone Number is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
@@ -64,7 +88,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Contact No</label>
-        				<input name="secondaryContactNo" ng-model="vm.basicDetails.secondaryContactNo" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d+$/">
+        				<input name="secondaryContactNo" ng-model="vm.venueWizard.addresses.secondaryPhone" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d+$/">
       					<div ng-messages="vm.basicDetailsForm.secondaryContactNo.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
               			 </div>
@@ -73,7 +97,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Email ID</label>
-        				<input name="primaryEmailId" ng-model="vm.basicDetails.primaryEmailId" type="text" placeholder="So That you can be informed" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+        				<input name="primaryEmailId" ng-model="vm.venueWizard.addresses.primaryEmail" type="text" placeholder="So That you can be informed" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
       					<div ng-messages="vm.basicDetailsForm.primaryEmailId.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Email ID is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Email ID. Please enter a valid one</div>
@@ -84,7 +108,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Email ID</label>
-        				<input name="secondaryEmailId" ng-model="vm.basicDetails.secondaryEmailId" type="text" placeholder="If Primary email disfunctions" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        				<input name="secondaryEmailId" ng-model="vm.venueWizard.addresses.secondaryEmail" type="text" placeholder="If Primary email disfunctions" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
         				<div ng-messages="vm.basicDetailsForm.secondaryEmailId.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Email ID. Please enter a valid one</div>
               			 </div>
@@ -93,26 +117,16 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Website</label>
-        				<input ng-model="vm.basicDetails.website" type="text" placeholder="eg. http://www.mywebsite.com">
+        				<input ng-model="vm.venueWizard.website" type="text" placeholder="eg. http://www.mywebsite.com">
       				</md-input-container>
       				
       				<span flex-gt-xs hide-xs></span>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>FB Page Link</label>
-        				<input ng-model="vm.basicDetails.fbPageLink" type="text" placeholder="url to your facebook page">
+        				<input ng-model="vm.venueWizard.fbPageLink" type="text" placeholder="url to your facebook page">
       				</md-input-container>
       				
-      				
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>City</label>
-        				 <md-select ng-model="vm.basicDetails.city" required name="city" ng-disabled="vm.previewMode">
-            			<md-option ng-repeat="city in ::vm.lookup.venueCity" value="{{city}}">{{city}}</md-option>
-      				</md-select>
-      				<div ng-messages="vm.basicDetailsForm.city.$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Please choose a city for your venue</div>
-              			 </div>
-      				</md-input-container>
         		</div>
         	</fieldset>
         </form>
