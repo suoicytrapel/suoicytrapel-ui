@@ -47,22 +47,13 @@
 	    vm.messageType = '';
 	    vm.messageBarMessage = '';
 	    vm.errorMsg = '';
-	    vm.room ={
-	    	selectedRoomFacilities: []
-	    };
         if(rowInfo){
         vm.room = angular.copy(rowInfo);
-        vm.selectedRoomFacilities = vm.room.selectedRoomFacilities;
         vm.index = index;
         }
         
          vm.hide = function () {
         	 if(vm.newRoomForm.$valid){
-        	 	if(!vm.room.selectedRoomFacilities || vm.room.selectedRoomFacilities.length < 1){
-        	 		vm.messageType = 'Error';
-	    			vm.messageBarMessage = 'Error Message: Please select atleast one room facility';
-        	 	}
-        	 	else
         		 $mdDialog.hide({newData: vm.room, index: vm.index});
         	 }
         	 else{

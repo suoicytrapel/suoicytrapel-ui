@@ -15,8 +15,8 @@
             		<div layout="row" layout-wrap>           			
             			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Type</label>
-        				<md-select ng-model="vm.room.type" name="type" required>
-            			<md-option ng-repeat="roomType in ::vm.lookup.roomTypes" value="{{roomType}}">{{roomType}}</md-option>
+        				<md-select ng-model="vm.room.roomId" name="type" required>
+            			<md-option ng-repeat="(key, value) in ::vm.lookup.roomTypes" value="{{key}}">{{value}}</md-option>
             			<div ng-messages="vm.newRoomForm.type.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Please specify the room type</div>
               			 </div>
@@ -25,7 +25,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Number Of Rooms</label>
-        				<input ng-model="vm.room.noOfRooms" placeholder="No of Rooms of this type" type="text" name="noOfRooms" ng-pattern="/^\d+$/" required>
+        				<input ng-model="vm.room.numberOfRooms" placeholder="No of Rooms of this type" type="text" name="noOfRooms" ng-pattern="/^\d+$/" required>
       					<div ng-messages="vm.newRoomForm.noOfRooms.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Please specify the number of rooms for this type</div>
               				<div ng-message="pattern" class="my-message">Number of Rooms can only be a number</div>
@@ -34,7 +34,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Room (in Indian Rupees)</label>
-        				 <input ng-model="vm.room.price" placeholder="Price Per Room" type="text" ng-pattern="/^\d+$/" name="price">
+        				 <input ng-model="vm.room.minCost" placeholder="Price Per Room" type="text" ng-pattern="/^\d+$/" name="price">
       					<div ng-messages="vm.newRoomForm.price.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Price can be a number eg. 5000</div>
               			 </div>
@@ -48,7 +48,37 @@
               			 </div>
       				</md-input-container>
       				
-      				<div layout="row" layout-margin layout-wrap layout-align="start center" flex-gt-xs="100" flex-xs="100">
+      				
+      				<md-checkbox ng-model="vm.room.acAvailability" aria-label="is Fully A/C" flex-gt-xs="30" flex-xs="100">
+        				 Full A/C
+        				</md-checkbox>
+        			
+      				
+      				
+      				<md-checkbox ng-model="vm.room.lcdAvailability" aria-label="LCD/LED" flex-gt-xs="30" flex-xs="100">
+        				 LCD/LED
+        				</md-checkbox>
+        			
+        			 
+        			
+      				<md-checkbox ng-model="vm.room.hotWaterAvailability" aria-label="Hot Water" flex-gt-xs="30" flex-xs="100">
+        				 Hot Water
+        				</md-checkbox>
+        				
+      				
+      				
+      				<md-checkbox ng-model="vm.room.refrigeratorAvailability" aria-label="Refrigerator" flex-gt-xs="30" flex-xs="100">
+        				 Refrigerator
+        				</md-checkbox>
+        			
+        			
+        			<span flex-gt-xs hide-xs></span> 
+      				<md-checkbox ng-model="vm.room.lockerAvailability" aria-label="Locker" flex-gt-xs="30" flex-xs="100">
+        				 Locker
+        				</md-checkbox>
+
+      				
+      				<!--<div layout="row" layout-margin layout-wrap layout-align="start center" flex-gt-xs="100" flex-xs="100">
 	<div flex-xs="100" flex-gt-xs="100">
 		<h2 class="md-title">Facilities</h2>
 
@@ -57,7 +87,7 @@
 	<div flex-xs="100" flex-gt-xs="100">
 		<wan-select placeholder="" source-data="::vm.lookup.roomFacilities" selected-data="vm.room.selectedRoomFacilities" select-changed=""></wan-select>
 	</div>	
-</div> 
+</div> -->
 
 					
 	<!--<md-input-container flex-xs="100" flex-gt-xs="100">	

@@ -38,8 +38,6 @@
 
     function crudEventAreaController($mdDialog, rowInfo, $scope, index, venueLookup) {
         var vm = this;
-        //vm.eventAreaPriceRange = ['< 50,000', '< 1Lac', '< 1.5Lacs', '< 2Lacs', '< 2.5Lacs', '< 3Lacs', '< 3.5Lacs', '< 4Lacs', '< 5Lacs', '> 5Lacs', 'Get Quote'];
-        //vm.fullAcOptions = ['Yes', 'No'];
         vm.lookup = venueLookup;
         vm.index = null;
         if(rowInfo){

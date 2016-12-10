@@ -17,7 +17,8 @@
             			
             			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Type</label>
-        				<input ng-model="vm.eventArea.type" placeholder="Banquet Hall, Open Area etc" type="text" name="type" required>
+        				<md-select ng-model="vm.eventArea.amenitiesId" name="type" required>
+            			<md-option ng-repeat="(key,value) in ::vm.lookup.eventAreaTypes" value="{{key}}">{{value}}</md-option>
       					<div ng-messages="vm.newEventAreaForm.type.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Please specify the type</div>
               			 </div>
@@ -25,7 +26,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Name</label>
-        				<input ng-model="vm.eventArea.name" placeholder="Name of the Event Area" type="text" name="name" required>
+        				<input ng-model="vm.eventArea.amenityName" placeholder="Name of the Event Area" type="text" name="name" required>
       					<div ng-messages="vm.newEventAreaForm.name.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Please specify a Name for event area</div>
               			 </div>
@@ -33,7 +34,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Max Accomodation</label>
-        				 <input ng-model="vm.eventArea.accomodation" placeholder="Max Pax it can accomodate" type="text" name="accomodation" ng-pattern="/^\d+$/" required>
+        				 <input ng-model="vm.eventArea.maxAccomodationCapacity" placeholder="Max Pax it can accomodate" type="text" name="accomodation" ng-pattern="/^\d+$/" required>
       					<div ng-messages="vm.newEventAreaForm.accomodation.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Please specify the Maximum Accomodation</div>
               				<div ng-message="pattern" class="my-message">Maximum Accomodation should be a number</div>
@@ -42,7 +43,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price (Excludes per plate Cost)</label>
-        				 <md-select ng-model="vm.eventArea.price">
+        				 <md-select ng-model="vm.eventArea.minCost">
             			<md-option ng-repeat="priceRange in ::vm.lookup.eventAreaPriceRange" value="{{priceRange}}">{{priceRange}}</md-option>
       				</md-select>
       				</md-input-container>
@@ -56,10 +57,9 @@
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Full A/C</label>
-        				 <md-select ng-model="vm.eventArea.fullAc">
-            			<md-option ng-repeat="fullAcOption in ::vm.lookup.eventAreaFullAc" value="{{fullAcOption}}">{{fullAcOption}}</md-option>
-      				</md-select>
+        				 <md-checkbox ng-model="vm.eventArea.isFullyAc" aria-label="is Fully A/C">
+        				 Full A/C
+        				</md-checkbox>
       				</md-input-container>
             			
             			

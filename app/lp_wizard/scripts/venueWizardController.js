@@ -2,7 +2,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	var vm = this;
 	vm.messageType = '';
 	vm.messageBarMessage = '';
-	vm.eventAreaSelected = [];
+
 	vm.lookup = venueLookup;
 	vm.selectedAreaServices = [];
 	vm.selectedCuisines = [];
@@ -10,30 +10,19 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	vm.readonly = true;
 	vm.removable = false; 
 	vm.previewMode = false;
-	vm.eventAreas = [];
-	vm.rooms = [];
-	vm.menuImages = [];
-	vm.vendorImages = [];
-	vm.signOffDetails = {
+	/* Initialising the object */
+	vm.venueWizard = {
+		eventAreaAmenities: [],
+		venueRooms: [],
+		caterDecorAmenities: [],
+		vendorAttachments: [],
+		menuAttachments: [],
+		basicVenueServices: [],
 		informationProvidedDate: new Date(),
 	};
 	/* Obtaining the data from session storage */
 	if(wizardDataStore.getWizardData()){
-		vm.initWizardData = wizardDataStore.getWizardData();
-		if(vm.initWizardData.basicDetails)
-		vm.basicDetails = vm.initWizardData.basicDetails;
-		if(vm.initWizardData.eventAreaDetails){
-			if(vm.initWizardData.eventAreaDetails.eventAreas)
-				vm.eventAreas = vm.initWizardData.eventAreaDetails.eventAreas;
-			if(vm.initWizardData.eventAreaDetails.selectedAreaServices)
-				vm.selectedAreaServices = vm.initWizardData.eventAreaDetails.selectedAreaServices;	
-			if(vm.initWizardData.eventAreaDetails.rooms)
-				vm.rooms = vm.initWizardData.eventAreaDetails.rooms;
-		}
-		if(vm.initWizardData.cateringDecorDetails)
-		vm.cateringDecorDetails = vm.initWizardData.cateringDecorDetails;
-		if(vm.initWizardData.policyDetails)
-		vm.policyDetails = vm.initWizardData.policyDetails;
+		vm.venueWizard = wizardDataStore.getWizardData().venueWizard;
 	}
 	
 	/* disable progressbar if its still enabled */
@@ -41,7 +30,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	
 	vm.createEventArea = function(event){
 		crudEventAreaService.showDialog(event).then(function(data){
-			vm.eventAreas.push(angular.copy(data.newData));
+			vm.venueWizard.eventAreaAmenities.push(angular.copy(data.newData));
 		},function(error){
 			if(error)
 			console.log(error.status);
@@ -58,7 +47,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
           .cancel("Don't Delete EventArea");
 		
 		$mdDialog.show(confirm).then(function() {
-		vm.eventAreas.splice(index, 1);
+		vm.venueWizard.eventAreaAmenities.splice(index, 1);
 		},function(){
 			console.log('Requester cancelled the request');
 		});
@@ -66,7 +55,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	
 	vm.modifyEventArea = function(event,index,data){
 		crudEventAreaService.showDialog(event,index,data).then(function(data){
-			vm.eventAreas[data.index] = angular.copy(data.newData);
+			vm.venueWizard.eventAreaAmenities[data.index] = angular.copy(data.newData);
 		},function(error){
 			console.log(error.status);
 		});
@@ -74,14 +63,14 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 	
 	vm.createRoom = function(event){
 		crudRoomService.showDialog(event).then(function(data){
-			if(data && data.newData.selectedRoomFacilities && data.newData.selectedRoomFacilities.length > 0){
+			/*if(data && data.newData.selectedRoomFacilities && data.newData.selectedRoomFacilities.length > 0){
 				var facilities = '';
 				for(var i=0; i< data.newData.selectedRoomFacilities.length; i++){
 					facilities += data.newData.selectedRoomFacilities[i] + ', ';
 				}
 				data.newData.facilities = facilities.substr(0, (facilities.length -2));
-			}
-			vm.rooms.push(angular.copy(data.newData));
+			}*/
+			vm.venueWizard.venueRooms.push(angular.copy(data.newData));
 		},function(error){
 			if(error)
 			console.log(error.status);
@@ -98,7 +87,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
           .cancel("Don't Delete Room");
 		
 		$mdDialog.show(confirm).then(function() {
-		vm.rooms.splice(index, 1);
+		vm.venueWizard.venueRooms.splice(index, 1);
 		},function(){
 			console.log('Requester cancelled the request');
 		});
@@ -113,7 +102,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
 				}
 				data.newData.facilities = facilities.substr(0, (facilities.length -2));
 			}
-			vm.rooms[data.index] = angular.copy(data.newData);
+			vm.venueWizard.venueRooms[data.index] = angular.copy(data.newData);
 		},function(error){
 			console.log(error.status);
 		});
@@ -139,7 +128,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
           			vm.imageUploadCustomErrorMsg = 'Duplicate Upload is not allowed';	
           		}
           		else
-          			vm.imageUploadCustomErrorMsg = 'Maximum of 4 images can be uploaded';
+          			vm.imageUploadCustomErrorMsg = 'Maximum of '+ maxUploadLimit + ' images can be uploaded';
           	}
           	
           });
@@ -156,6 +145,8 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    
    vm.exitBasicDetailsStep = function(){
    	if(vm.basicDetailsForm.$valid){
+   		/* calculating latitude and longitude based on address provided */
+   		getLatLongfromAddress(vm.venueWizard.addresses.addressLine1);
    		setWizardDataIntoSession('venueWizard', vm.venueWizard);
    		return true;
    	}
@@ -166,12 +157,12 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    };
    
    vm.exitEventAreaStep = function(){
-   	if(vm.eventAreas.length < 1){
+   	if(vm.venueWizard.eventAreaAmenities.length < 1){
    		vm.messageType = 'Error';
    		vm.messageBarMessage = "Error Message: Please Enter your venue's eventarea details";
    		return false;
    	}
-   	else if(vm.selectedAreaServices.length < 1){
+   	else if(vm.venueWizard.basicVenueServices.length < 1){
    		vm.messageType = 'Error';
    		vm.messageBarMessage = "Error Message: Please select atleast one service you provide";
    		return false;
@@ -179,12 +170,8 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    	else{
    		vm.messageType = '';
    		vm.messageBarMessage = "";
-   		var eventAreaDetails = {
-   			eventAreas: vm.eventAreas,
-   			selectedAreaServices: vm.selectedAreaServices,
-   			rooms: vm.rooms
-   		};
-   		setWizardDataIntoSession('eventAreaDetails', eventAreaDetails);
+   		
+   		setWizardDataIntoSession('venueWizard', vm.venueWizard);
    		return true;
    	}
    		
@@ -193,7 +180,7 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    vm.exitCateringDecorStep = function(){
    	
    	if(vm.cateringDecorDetailsForm.$valid){
-   		setWizardDataIntoSession('cateringDecorDetails', vm.cateringDecorDetails);
+   		setWizardDataIntoSession('venueWizard', vm.venueWizard);
    			return true;   		
    	}
    		else{
@@ -207,13 +194,13 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    
    vm.exitPolicyImagesStep = function(){
    	if(vm.policyDetailsForm.$valid){
-   		if(vm.vendorImages.length < 1){
+   		if(vm.venueWizard.vendorAttachments.length < 1){
    			vm.messageType = 'Error';
    			vm.messageBarMessage = "Error Message: Please upload few images of your venue";
    			return false;
    		}
    		else{
-   			setWizardDataIntoSession('policyDetails', vm.policyDetails);
+   			setWizardDataIntoSession('venueWizard', vm.venueWizard);
    			return true;
    		}
    	}
@@ -250,25 +237,25 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    };
    
    vm.submitVenueForm = function(){
-   		getLatLongfromAddress(vm.basicDetails.venueAddress); //for fetching lat and long
    	/* REST CALL to submit the form to be put here */
-   	
-   		wizardDataStore.removeWizardData();
+   		console.log('submit REST call');
+   		//wizardDataStore.removeWizardData();  /*Remove data from session storage once it is saved in backend*/
    };
    
    function getLatLongfromAddress(address){
+   	if(google && google.maps){
    	 var geocoder = new google.maps.Geocoder();
     	if (geocoder) {
         	geocoder.geocode({
             	'address': address
         	}, function (results, status) {
             	if (status == google.maps.GeocoderStatus.OK) {
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
+                vm.venueWizard.addresses.latitude = results[0].geometry.location.lat();
+                vm.venueWizard.addresses.longitude = results[0].geometry.location.lng();
             }
         	});
     	}
-
+	}
    }
    
    function setWizardDataIntoSession(objectKey, data){
@@ -280,7 +267,12 @@ wizardApp.controller('venueWizardController', function(crudEventAreaService,crud
    			var wizardData = {};
    		}
    		
-   		wizardData[objectKey] = angular.copy(data);
+   		var dataToBeSaved = angular.copy(data);
+   		if(dataToBeSaved.vendorAttachments.length>0 || dataToBeSaved.menuAttachments.length>0){
+   			dataToBeSaved.vendorAttachments = []; /* Do Not Save vendor images in session storage */
+   			dataToBeSaved.menuAttachments = [];	/* Do Not Save menu images in session storage */
+   		}
+   		wizardData[objectKey] = dataToBeSaved;
    		wizardDataStore.setWizardData(wizardData);
    }
 	
