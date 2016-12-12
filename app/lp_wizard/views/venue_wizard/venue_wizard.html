@@ -174,7 +174,7 @@
     </thead>
     <tbody md-body>
       <tr md-row md-select="eventArea" md-select-id="$index" md-auto-select ng-repeat="eventArea in vm.venueWizard.eventAreaAmenities">
-        <td md-cell>{{eventArea.amenitiesId}}</td>
+        <td md-cell>{{vm.lookup.eventAreaTypes[eventArea.amenitiesId]}}</td>
         <td md-cell>{{eventArea.amenityName}}</td>
         <td md-cell>{{eventArea.maxAccomodationCapacity}}</td>
         <td md-cell>{{eventArea.minCost}}</td>
@@ -222,7 +222,7 @@
     </thead>
     <tbody md-body>
       <tr md-row md-select="room" md-select-id="$index" md-auto-select ng-repeat="room in vm.venueWizard.venueRooms">
-        <td md-cell>{{room.roomId}}</td>
+        <td md-cell>{{vm.lookup.roomTypes[room.roomId]}}</td>
         <td md-cell>{{room.numberOfRooms}}</td>
         <td md-cell>{{room.minCost}}</td>
         <td md-cell>{{room.tax}}</td>
