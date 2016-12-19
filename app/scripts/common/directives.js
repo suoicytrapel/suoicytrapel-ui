@@ -251,3 +251,32 @@ app.directive('confirmPassword',function(){
 	};
 });
 
+app.directive('globalGrid',function(){
+	return{
+		templateUrl: 'views/globalGridComponent/globalGridComp.html',
+		scope: {
+							selectionUniqueKey : '@',
+							gridHeaderText : '@',
+							paginationLimitOptions : '<',
+							isRowEditable : '<',
+							selected : '=',
+							rowSelection : '<',
+							multipleRowSelection : '<',
+							showGridLevelDropdownBtn : '<',
+							gridColumnHeaders : '<',
+							gridModels : '=',
+							gridRecordsData : '=',
+							totalRecords : '=',
+							promise : '=',
+							refetchResults : '&',
+							editBtnClkHandler : '&',
+							gridLevelButtons : '<',
+							customColumns: '<',
+							topActionButtons: '=',
+							onRecordSelect: '&',
+		},
+		link: function(scope, element, attribute, controller){
+		}	
+	};
+});
+

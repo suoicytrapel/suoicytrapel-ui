@@ -1,0 +1,108 @@
+<!-- <div  md-whiteframe="4" style="background: white;" layout-margin class="mTop16 mLeft20 mRight20 mBottom8"> -->
+<div class="">
+		
+		<!--<md-card>-->  <!-- commented the card component and applied md-whiteframe = 4 --> 
+
+		
+		<!-- Below toolbar is visible if selected elements array has length 0 -->
+		<md-toolbar class="md-table-toolbar md-default mcpMrg0" ng-if="vm.showGridLevelDropdownBtn || vm.topActionButtons.length > 0">  <!--  ng-show="!vm.selected.length" -->
+		  <div class="md-toolbar-tools">
+		    <!-- <span>{{vm.gridHeaderText}}</span> -->
+		    <span flex></span>
+		    <!--<md-button class="md-icon-button" ng-click="">
+		      <md-icon>refresh</md-icon>
+		    </md-button>
+		    <md-button class="md-icon-button" ng-click="vm.showSearchForm();">
+		      <md-icon>filter_list</md-icon>
+		    </md-button>-->
+		    <!--<md-button class="md-icon-button" ng-click="">
+		      <md-icon>more_vert</md-icon>
+		    </md-button>-->	
+		    <div ng-if="vm.topActionButtons.length > 0">
+		    	<md-button class="md-icon-button"  ng-disabled="topActionButton.isDisabled" ng-click="topActionButton.btnClkHandler()" ng-repeat="topActionButton in vm.topActionButtons">
+		      		<md-tooltip md-direction="top">{{topActionButton.tooltip}}</md-tooltip>
+		      		<md-icon>{{topActionButton.icon}}</md-icon>
+		    	</md-button>
+		    </div>
+		    
+		    <!-- Grid Level Buttons and Menu -->
+		    
+		    <md-menu ng-if="vm.showGridLevelDropdownBtn" md-position-mode="target-right target">
+            <md-button ng-click="$mdOpenMenu($event)" class="" aria-label="grid level buttons">
+            <md-icon>more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="4" class="mcp-grid-level-menu">
+            <md-menu-item ng-repeat="button in vm.gridLevelButtons">
+            <md-button aria-label="{{button.label}}" ng-click="vm.gridButtonsClkHandler(button.clkHandler)" ng-disabled="button.disabled" translate>
+              {{button.label}}
+            </md-button>      
+          </md-menu-item>
+            </md-menu-content>
+           </md-menu>     
+		    
+		    <!-- Grid Level Buttons and Menu Ends --> 
+		  </div>
+		</md-toolbar>
+		
+
+		<!-- This toolbar appears when the selected rows is greater than 0 -->
+		<!--<md-toolbar class="md-table-toolbar alternate" ng-show="vm.rowSelection && vm.selected.length">
+		  <div class="md-toolbar-tools">
+		    <span>{{vm.selected.length}} {{vm.selected.length > 1 ? 'items' : 'item'}} selected</span>
+		    <span flex></span>
+		    <md-button class="md-icon-button" ng-click="">
+		      <md-icon>delete</md-icon>
+		    </md-button>
+		  </div>
+		</md-toolbar>-->
+
+		<!-- Grid Component starts -->
+		<md-table-container class="mcpTableContainer">
+		  <table class="mcpTable" md-table  md-progress="vm.promise" md-row-select="vm.rowSelection" ng-model="vm.selected" multiple="{{vm.multipleRowSelection}}">  <!-- md-row-select multiple --> <!-- ng-model="vm.selected" --> <!-- Apply ng-model if we want row selection feature -->
+		    <thead md-head md-order="vm.gridModels.order" md-on-reorder="vm.refetchResultsData" md-colors="::{backgroundColor: '{{vm.theme}}-primary-400'}">
+		      <tr md-row>
+		      
+				<th md-column ng-repeat="column in vm.gridColumnHeaders" md-numeric="column.isNumber" md-order-by="{{column.orderBy}}"><span  translate>{{column.title}}</span></th>
+				<th md-column ng-if="vm.isRowEditable"><span  translate>{{vm.action}}</span></th>
+				<th md-column ng-if="vm.customColumns.length > 0" ng-repeat="customColumn in vm.customColumns"><span  translate>{{customColumn.title}}</span></th>
+				
+		        <!--<th md-column md-order-by="AccessCode"><span>AccessCode</span></th>
+		        <th md-column md-numeric md-order-by="AccessCodeRequired"><span>AccessCodeRequired</span></th>
+		        <th md-column md-numeric>DeviceCode</th>
+		        <th md-column md-numeric>SerialNumber</th>
+		        <th md-column md-numeric>SystemCode</th>
+		        <th md-column md-numeric>OwnerID</th>
+
+		        <th md-column>Actions</th>-->
+		        
+		      </tr>
+		    </thead>
+		    <tbody md-body>
+		      <tr md-row md-auto-select ng-repeat="reader in vm.gridRecordsData " md-select="reader" md-on-select="vm.recordSelectHandler" md-select-id="vm.selectionUniqueKey">  <!--md-select="" md-select-id=""-->
+		      
+		      <td md-cell ng-repeat="column in vm.gridColumnHeaders"  ng-if="vm.gridRecordsData.length > 0">{{reader[column.mappingDataField]}} <md-button class="md-icon-button warning-icon" style="color: #cccc00;" ng-if="column.mappingDataField == 'remainingBadges' && reader.remainingBadges <= reader.thresholdValue"><md-tooltip>Threshold met</md-tooltip><md-icon>warning</md-icon></md-button></td>
+		      
+		        <!--<td md-cell>{{reader.AccessCode}}</td>
+		        <td md-cell>{{reader.AccessCodeRequired}}</td>
+		        <td md-cell>{{reader.DeviceCode}}</td>
+		        <td md-cell>{{reader.SerialNumber}}</td>
+		        <td md-cell>{{reader.SystemCode}}</td>
+		        <td md-cell>{{reader.OwnerID}}</td>-->
+
+		        <td md-cell ng-if="vm.isRowEditable && vm.gridRecordsData.length > 0">
+					<md-button class="md-icon-button" ng-click="vm.editBtnClkHandler({event: $event, index: $index, rowData: reader});">
+						<md-icon class="editIcon">create</md-icon>
+					</md-button>
+				</td>
+		        <td md-cell ng-if="vm.customColumns.length > 0 && vm.gridRecordsData.length > 0" ng-repeat="customColumn in vm.customColumns"><md-button class="md-icon-button" ng-click="vm.customColumnClkHandler({rowData: reader,column:customColumn});"><md-icon class="md-accent">{{customColumn.icon}}</md-icon></md-button></td>
+		      </tr>
+		      <td md-cell colspan="{{vm.gridColumnHeaders.length}}" ng-if="!vm.gridRecordsData || vm.gridRecordsData.length == 0"><div class="no-records-found-msg">{{'genericKey.noRecordFound' |  translate}}</div></td>
+		    </tbody>
+		  </table>
+		</md-table-container>
+		
+		<!-- Pagination for grid starts -->
+		<md-table-pagination style="background-color:#eee;" md-label="{{vm.label}}" md-limit="vm.gridModels.limit" md-limit-options="vm.paginationLimitOptions" md-page="vm.gridModels.page" md-total="{{vm.totalRecords}}" md-on-paginate="vm.refetchResultsData" md-page-select></md-table-pagination>
+		<!--</md-card>-->
+		</div>
+		<!-- Grid Component Ends -->

@@ -1,0 +1,40 @@
+<div>
+	<md-content>
+		<div layout="row" layout-wrap layout-margin>
+			<div flex="100" class="md-title">Dashboard</div>
+			
+			<md-table-container flex="100">
+  <table md-table md-progress="vm.promise">
+    <thead md-head md-order="" md-on-reorder="" class="lp-dashboard-thead">
+      <tr md-row>
+        
+        <th md-column>Area Type</th>
+        <th md-column>Area Name</th>
+        <th md-column>Max Accomodation</th>
+        <th md-column>Price</th>
+        <th md-column>Tax(%)</th>
+        <th md-column>Full A/C</th>
+        <th md-column>Modify</th>
+        <th md-column>Delete</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="eventArea" md-select-id="$index" md-auto-select ng-repeat="eventArea in vm.venueWizard.eventAreaAmenities">
+        <td md-cell>{{vm.lookup.eventAreaTypes[eventArea.amenitiesId]}}</td>
+        <td md-cell>{{eventArea.amenityName}}</td>
+        <td md-cell>{{eventArea.maxAccomodationCapacity}}</td>
+        <td md-cell>{{eventArea.minCost}}</td>
+        <td md-cell>{{eventArea.tax}}</td>
+        <td md-cell>{{eventArea.isFullyAc}}</td>
+        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.modifyEventArea($event,$index,eventArea)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
+        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.deleteEventArea($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
+      </tr>
+      <tr md-row  ng-if="vm.eventAreas.length === 0">
+      <td md-cell colspan="8" style="text-align: center;">No Event Areas Added</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+		</div>
+	</md-content>
+</div>
