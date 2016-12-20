@@ -354,8 +354,8 @@
     <div layout="row" layout-margin layout-wrap flex-gt-xs="100" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="100">Cuisines</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="100">	
-  <md-select ng-model="vm.venueWizard.selectedCuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-disabled="vm.previewMode">
-    <md-option ng-value="cuisine" ng-repeat="cuisine in ::vm.lookup.cuisines">{{ cuisine }}</md-option>
+  <md-select ng-model="vm.venueWizard.cuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-disabled="vm.previewMode">
+    <md-option ng-value="key" ng-repeat="(key, value) in ::vm.lookup.cuisines">{{ value }}</md-option>
   </md-select>
   <div ng-messages="vm.cateringDecorDetailsForm.cuisines.$error" role="alert" multiple>
         <div ng-message="required" class="my-message">Please choose cuisines options you provide</div>
@@ -366,8 +366,8 @@
 	<div layout="row" layout-margin layout-wrap flex-gt-xs="100" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="100">Basic Catering Services</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="100">	
-  <md-select name="basicCateringServices" ng-model="vm.venueWizard.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services"  ng-disabled="vm.previewMode">
-    <md-option ng-value="cateringService" ng-repeat="cateringService in ::vm.lookup.basicCateringServices">{{ cateringService }}</md-option>
+  <md-select name="basicCateringServices" ng-model="vm.venueWizard.basicCateringServices" multiple= "true" placeholder="You can choose multiple catering services"  ng-disabled="vm.previewMode">
+    <md-option ng-value="key" ng-repeat="(key, value) in ::vm.lookup.basicCateringServices">{{ value }}</md-option>
   </md-select>
   <div ng-messages="vm.cateringDecorDetailsForm.basicCateringServices.$error" role="alert" multiple>
         <div ng-message="required" class="my-message">Please choose catering services you provide</div>

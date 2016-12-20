@@ -1,6 +1,6 @@
-<md-content style="padding-top: 80px;" ng-controller="venueWizardController as vm">
+<md-content style="padding-top: 80px;" ng-controller="catererWizardController as vm">
 <global-messagebar message-type="vm.messageType" message-bar-message="vm.messageBarMessage"></global-messagebar>
-<wizard on-finish="vm.submitVenueForm()" name="venueWizard" edit-mode="false" ng-model="vm.venueWizardCurrentStep" indicators-position="top"> 
+<wizard on-finish="vm.submitVendorForm()" name="catererWizard" edit-mode="false" ng-model="vm.catererWizardCurrentStep" indicators-position="top"> 
     <wz-step wz-title="Basic Details" canexit="vm.exitBasicDetailsStep" wz-disabled="false"> <!-- wz-disabled="true"-->
     <md-content>
 		<div layout="row" layout-wrap layout-margin>
@@ -15,31 +15,27 @@
         	<fieldset ng-disabled="vm.previewMode">
         		<div layout="row" layout-wrap layout-margin>
         			<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Venue Name</label>
-        				<input name="venueName" ng-model="vm.venueWizard.venueName" type="text" placeholder="eg. Hotel Taj or City Palace or Nijhawan Banquets etc" required>
-        				<div ng-messages="vm.basicDetailsForm.venueName.$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Venue Name is Required.</div>
+        				<label>Vendor Name</label>
+        				<input name="vendorName" ng-model="vm.catererWizard.name" type="text" placeholder="eg. ABC Caterers or XYZ Cuisines" required>
+        				<div ng-messages="vm.basicDetailsForm.vendorName.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Vendor Name is Required.</div>
               			 </div>
       				</md-input-container>
       				
       				<span flex-gt-xs hide-xs></span>
       				
+      				      				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Venue Type</label>
-        				 <md-select name="venueType" ng-model="vm.venueWizard.venueType" required ng-disabled="vm.previewMode">
-            			<md-option ng-repeat="(key, value) in ::vm.lookup.venueType" value="{{key}}">{{value}}</md-option>
-      				</md-select>
-      				<div ng-messages="vm.basicDetailsForm.venueType.$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Please choose a venue type</div>
-              			 </div>
+        				<label>Website(If any)</label>
+        				<input ng-model="vm.catererWizard.website" type="text" placeholder="eg. http://www.mywebsite.com">
       				</md-input-container>
       				
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Venue Address</label>
-        				<textarea name="venueAddress" ng-model="vm.venueWizard.addresses.addressLine1" rows="3" type="text" placeholder="Full Address of the venue" required></textarea>
-        				<div ng-messages="vm.basicDetailsForm.venueAddress.$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Venue Address is Required.</div>
+        				<label>Vendor Address</label>
+        				<textarea name="vendorAddress" ng-model="vm.catererWizard.addresses.addressLine1" rows="3" type="text" placeholder="Full Address of the vendor" required></textarea>
+        				<div ng-messages="vm.basicDetailsForm.vendorAddress.$error" role="alert" multiple>
+              				<div ng-message="required" class="my-message">Vendor Address is Required.</div>
               			 </div>
       				</md-input-container>
       				
@@ -47,18 +43,18 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Short Description</label>
-        				<textarea name="venueDescription" ng-model="vm.venueWizard.venueDescription" rows="3" type="text" placeholder="Describe the venue in brief" md-maxlength="500"></textarea>
+        				<textarea name="vendorDescription" ng-model="vm.catererWizard.description" rows="3" type="text" placeholder="Describe the vendor in brief" md-maxlength="500"></textarea>
       				</md-input-container>
       				
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>City</label>
-        				 <md-select ng-model="vm.venueWizard.city" required name="city" ng-disabled="vm.previewMode">
-            			<md-option ng-repeat="(key, value) in ::vm.lookup.venueCity" value="{{key}}">{{value}}</md-option>
+        				 <md-select ng-model="vm.catererWizard.city" required name="city" ng-disabled="vm.previewMode">
+            			<md-option ng-repeat="(key, value) in ::vm.lookup.city" value="{{key}}">{{value}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
       				<div ng-messages="vm.basicDetailsForm.city.$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Please choose a city for your venue</div>
+              				<div ng-message="required" class="my-message">Please choose a city</div>
               			 </div>
       				</md-input-container>
       				
@@ -66,8 +62,8 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Locality</label>
-        				 <md-select ng-model="vm.venueWizard.locality" required name="locality" ng-disabled="vm.previewMode">
-            			<md-option ng-repeat="(key,value) in ::vm.lookup.venueLocality" value="{{key}}">{{value}}</md-option>
+        				 <md-select ng-model="vm.catererWizard.locality" required name="locality" ng-disabled="vm.previewMode">
+            			<md-option ng-repeat="(key,value) in ::vm.lookup.locality" value="{{key}}">{{value}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
       				<div ng-messages="vm.basicDetailsForm.locality.$error" role="alert" multiple>
@@ -77,7 +73,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Contact No</label>
-        				<input name="primaryContactNo" ng-model="vm.venueWizard.addresses.primaryPhone" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d+$/" required>
+        				<input name="primaryContactNo" ng-model="vm.catererWizard.addresses.primaryPhone" type="text" placeholder="So That you can be contacted" ng-pattern="/^\d+$/" required>
         				<div ng-messages="vm.basicDetailsForm.primaryContactNo.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Phone Number is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
@@ -88,7 +84,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Contact No</label>
-        				<input name="secondaryContactNo" ng-model="vm.venueWizard.addresses.secondaryPhone" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d+$/">
+        				<input name="secondaryContactNo" ng-model="vm.catererWizard.addresses.secondaryPhone" placeholder="If Primary no disfunctions" type="text" ng-pattern="/^\d+$/">
       					<div ng-messages="vm.basicDetailsForm.secondaryContactNo.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Phone No. Please enter a valid one</div>
               			 </div>
@@ -97,7 +93,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Primary Email ID</label>
-        				<input name="primaryEmailId" ng-model="vm.venueWizard.addresses.primaryEmail" type="text" placeholder="So That you can be informed" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+        				<input name="primaryEmailId" ng-model="vm.catererWizard.addresses.primaryEmail" type="text" placeholder="So That you can be informed" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
       					<div ng-messages="vm.basicDetailsForm.primaryEmailId.$error" role="alert" multiple>
               				<div ng-message="required" class="my-message">Email ID is Required.</div>
               				<div ng-message="pattern" class="my-message">Invalid Email ID. Please enter a valid one</div>
@@ -108,24 +104,12 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Secondary Email ID</label>
-        				<input name="secondaryEmailId" ng-model="vm.venueWizard.addresses.secondaryEmail" type="text" placeholder="If Primary email disfunctions" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
+        				<input name="secondaryEmailId" ng-model="vm.catererWizard.addresses.secondaryEmail" type="text" placeholder="If Primary email disfunctions" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
         				<div ng-messages="vm.basicDetailsForm.secondaryEmailId.$error" role="alert" multiple>
               				<div ng-message="pattern" class="my-message">Invalid Email ID. Please enter a valid one</div>
               			 </div>
       				</md-input-container>
       				
-      				
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Website</label>
-        				<input ng-model="vm.venueWizard.website" type="text" placeholder="eg. http://www.mywebsite.com">
-      				</md-input-container>
-      				
-      				<!--<span flex-gt-xs hide-xs></span>
-      				
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>FB Page Link</label>
-        				<input ng-model="vm.venueWizard.fbPageLink" type="text" placeholder="url to your facebook page">
-      				</md-input-container>-->
       				
         		</div>
         	</fieldset>
@@ -134,139 +118,11 @@
     </md-content>    
         <!--<input type="submit" wz-next value="Continue" />-->
     </wz-step>
-    <wz-step wz-title="Event Area Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitEventAreaStep" wz-disabled="false"> <!-- wz-disabled="true"-->
-     <md-content>
-        <div layout="row" layout-wrap layout-margin>
-        <h2 class="md-title">Event Area Details</h2>
-        <div flex></div>	
-        <md-button class="md-raised" wz-previous>Back</md-button>
-        <md-button class="md-primary md-raised" wz-next>Next</md-button>
-        <md-button class="md-accent md-raised" ng-click="vm.previewModeOff()" ng-show="vm.previewMode">Exit Preview</md-button>
-        </div>
-        
-        
-       <div layout="row" layout-margin>
-        <div flex></div>
-        <md-button class="md-primary md-raised" ng-disabled="vm.previewMode" ng-click="vm.createEventArea();">Add EventArea</md-button>
-        </div> 
-      			
-       <div layout="row" layout-margin layout-wrap md-whiteframe="4"> 
-       	<!--<md-toolbar class="md-table-toolbar md-default" flex="100">
-  <div class="md-toolbar-tools">
-    <span>Event Areas</span>
-  </div>
-</md-toolbar>-->
 
-<md-table-container flex="100">
-  <table md-table md-progress="promise">
-    <thead md-head md-order="" md-on-reorder="" class="lp-wizard-thead">
-      <tr md-row>
-        
-        <th md-column>Area Type</th>
-        <th md-column>Area Name</th>
-        <th md-column>Max Accomodation</th>
-        <th md-column>Price</th>
-        <th md-column>Tax(%)</th>
-        <th md-column>Full A/C</th>
-        <th md-column>Modify</th>
-        <th md-column>Delete</th>
-      </tr>
-    </thead>
-    <tbody md-body>
-      <tr md-row md-select="eventArea" md-select-id="$index" md-auto-select ng-repeat="eventArea in vm.venueWizard.eventAreaAmenities">
-        <td md-cell>{{vm.lookup.eventAreaTypes[eventArea.amenitiesId]}}</td>
-        <td md-cell>{{eventArea.amenityName}}</td>
-        <td md-cell>{{eventArea.maxAccomodationCapacity}}</td>
-        <td md-cell>{{eventArea.minCost}}</td>
-        <td md-cell>{{eventArea.tax}}</td>
-        <td md-cell>{{eventArea.isFullyAc}}</td>
-        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.modifyEventArea($event,$index,eventArea)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
-        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.deleteEventArea($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
-      </tr>
-      <tr md-row  ng-if="vm.eventAreas.length === 0">
-      <td md-cell colspan="8" style="text-align: center;">No Event Areas Added</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-</div>
-
-<!-- Rooms Details Table -->
-
-<div layout="row" layout-margin>
-        <div flex></div>
-        <md-button class="md-primary md-raised" ng-disabled="vm.previewMode" ng-click="vm.createRoom();">Add Rooms</md-button>
-        </div> 
- 
-      			
-       <div layout="row" layout-margin layout-wrap md-whiteframe="4"> 
-       	<!--<md-toolbar class="md-table-toolbar md-default" flex="100">
-  <div class="md-toolbar-tools">
-    <span>Event Areas</span>
-  </div>
-</md-toolbar>-->
-
-<md-table-container flex="100">
-  <table md-table md-progress="promise">
-    <thead md-head md-order="" md-on-reorder="" class="lp-wizard-thead">
-      <tr md-row>
-        
-        <th md-column>Room Type</th>
-        <th md-column>Number Of Rooms</th>
-        <th md-column>Price Per Room</th>
-        <th md-column>Tax(%)</th>
-        <!--<th md-column>Facilities</th>-->
-        <th md-column>Modify</th>
-        <th md-column>Delete</th>
-      </tr>
-    </thead>
-    <tbody md-body>
-      <tr md-row md-select="room" md-select-id="$index" md-auto-select ng-repeat="room in vm.venueWizard.venueRooms">
-        <td md-cell>{{vm.lookup.roomTypes[room.roomId]}}</td>
-        <td md-cell>{{room.numberOfRooms}}</td>
-        <td md-cell>{{room.minCost}}</td>
-        <td md-cell>{{room.tax}}</td>
-        <!--<td md-cell>{{room.facilities}}</td>-->
-        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.modifyRoom($event,$index,room)"><md-icon class="material-icons">border_color</md-icon></md-button></td>
-        <td md-cell><md-button class="md-icon-button" ng-disabled="vm.previewMode" ng-click="vm.deleteRoom($event,$index)"><md-icon class="material-icons">delete_forever</md-icon></md-button></td>
-      </tr>
-      <tr md-row  ng-if="vm.rooms.length === 0">
-      <td md-cell colspan="7" style="text-align: center;">No Rooms Added</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-</div>
-
-<!-- Rooms Details Table Ends -->
-
-<!--<div layout="row" layout-margin layout-wrap layout-align="start center">
-	<div flex-xs="100" flex-gt-xs="100" layout="row" layout-align="start center" layout-wrap>
-		<h2 class="md-title" flex-xs="100" flex-gt-xs="40">Select Services You Provide</h2>
-	<wan-select flex-xs="100" flex-gt-xs="60" placeholder="" source-data="::vm.lookup.eventAreaServices" selected-data="vm.selectedAreaServices" select-changed=""></wan-select>
-    
-	</div>
-	<div flex-xs="100" flex-gt-xs="100">
-		<md-chips ng-model="vm.selectedAreaServices" readonly="::vm.readonly" md-removable="::vm.removable"></md-chips>
-	</div>	
-</div>-->
-
-<div layout="row" layout-margin layout-wrap>
-	<h2 class="md-title" flex-xs="100" flex-gt-xs="100">Select Services You Provide</h2>
-	<md-input-container flex-xs="100" flex-gt-xs="100">	
-  <md-select ng-model="vm.venueWizard.basicVenueServices" multiple= "true" placeholder="You can choose multiple services" ng-disabled="vm.previewMode">
-    <md-option ng-value="eventAreaServiceId" ng-repeat="(eventAreaServiceId, eventAreaServiceName) in ::vm.lookup.eventAreaServices">{{eventAreaServiceName}}</md-option>
-  </md-select>
-</md-input-container>
-</div>
-
-<!--<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>-->
-     <md-content>
-    </wz-step>
-    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitEventAreaStep" canexit="vm.exitCateringDecorStep" wz-disabled="false">
+    <wz-step wz-title="Catering & Decor Details" canenter="vm.exitBasicDetailsStep" canexit="vm.exitCateringDecorStep" wz-disabled="false">
     <md-content>
     <div layout="row" layout-wrap layout-margin>
-        <h2 class="md-title">Catering & Decor Details</h2>
+        <h2 class="md-title">Catering Services Details</h2>
         <div flex></div>	
         <md-button class="md-raised" wz-previous>Back</md-button>
         <md-button class="md-primary md-raised" wz-next>Next</md-button>
@@ -276,33 +132,12 @@
     	<form name="vm.cateringDecorDetailsForm">
         	<fieldset ng-disabled="vm.previewMode">
         		<div layout="row"  layout-margin layout-wrap>
+        			        			
         			
-        			<!-- For Catering Decor Amenities --> 
-        			<div layout="row" layout-wrap ng-repeat="(key, value) in ::vm.lookup.caterDecorAmenitiesLookup" flex="100">
-        				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>You Provide {{value}}?</label>
-        				<md-select name="{{key}}" ng-model="vm.venueWizard.caterDecorAmenities[$index].amenitiesId" required ng-disabled="vm.previewMode">
-            			<md-option value="{{key}}">Yes</md-option>
-            			<md-option value="No">No</md-option>
-      				</md-select>
-      				<div ng-messages="vm.cateringDecorDetailsForm[key].$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Please tell us whether you provide {{value}}</div>
-              			 </div>
-      				<div class="md-errors-spacer"></div>
-      				</md-input-container>
-      				<span flex-gt-xs hide-xs></span>
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100" ng-if="key != '1'">
-        				<label>Starting Price For {{value}} (In Indian Rupees)</label>
-        				<input ng-model="vm.venueWizard.caterDecorAmenities[$index].minCost" name="{{value}}" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/" ng-required="vm.venueWizard.caterDecorAmenities[$index].amenitiesId == key" ng-disabled="vm.previewMode || vm.venueWizard.caterDecorAmenities[$index].amenitiesId != key">
-      					<div ng-messages="vm.cateringDecorDetailsForm[value].$error" role="alert" multiple>
-      						<div ng-message="required" class="my-message">Price for {{value}} is required</div>
-              				<div ng-message="pattern" class="my-message">Price should a number eg. 5000</div>
-              			 </div>
-      				</md-input-container>
-      				<!-- Special Select Inputs for Inhouse Catering -->
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100" ng-if="key == '1'">
+    <div layout="row" layout-margin layout-wrap flex="100">
+    	<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Price Per Plate Veg (In Indian Rupees)</label>
-        				 <md-select name="minVegCost" ng-model="vm.venueWizard.caterDecorAmenities[$index].minVegCost" ng-required="vm.venueWizard.caterDecorAmenities[$index].amenitiesId == key" ng-disabled="vm.previewMode || vm.venueWizard.caterDecorAmenities[$index].amenitiesId != key">
+        				 <md-select name="minVegCost" ng-model="vm.catererWizard.startingPrice" ng-required="true" ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
@@ -310,52 +145,24 @@
               				<div ng-message="required" class="my-message">Please choose a range in which your veg per plate cost lies</div>
               			 </div>
       				</md-input-container>
-
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100" ng-if="key == '1'">
-        				<label>Price Per Plate Non-Veg (In Indian Rupees)</label>
-        				 <md-select name="minNonVegCost" ng-model="vm.venueWizard.caterDecorAmenities[$index].minNonVegCost" ng-required="vm.venueWizard.caterDecorAmenities[$index].amenitiesId == key" ng-disabled="vm.previewMode || vm.venueWizard.caterDecorAmenities[$index].amenitiesId != key">
+      				<span flex-gt-xs hide-xs></span>
+      	<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
+        				<label>Price Per Plate Non Veg (In Indian Rupees)</label>
+        				 <md-select name="minNonVegCost" ng-model="vm.catererWizard.startingPriceNonveg" ng-required="true" ng-disabled="vm.previewMode">
             			<md-option ng-repeat="option in vm.lookup.perPlateCostOptions" value="{{option}}">{{option}}</md-option>
       				</md-select>
       				<div class="md-errors-spacer"></div>
       				<div ng-messages="vm.cateringDecorDetailsForm.minNonVegCost.$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Please choose a range in which your Non-veg per plate cost lies</div>
+              				<div ng-message="required" class="my-message">Please choose a range in which your veg per plate cost lies</div>
               			 </div>
-      				</md-input-container>
-        			</div>
-        			<!-- For Catering Decor Amenities Ends -->
-        			
-        			<!-- For Additional Venue Services -->
-        			
-        			<div layout="row" layout-wrap ng-repeat="(key, value) in ::vm.lookup.additionalVenueServicesLookup" flex="100">
-        				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>You Provide {{value}}?</label>
-        				<md-select name="{{key}}" ng-model="vm.venueWizard.additionalVenueServices[$index].serviceId" required ng-disabled="vm.previewMode">
-            			<md-option value="{{key}}">Yes</md-option>
-            			<md-option value="No">No</md-option>
-      				</md-select>
-      				<div ng-messages="vm.cateringDecorDetailsForm[key].$error" role="alert" multiple>
-              				<div ng-message="required" class="my-message">Please tell us whether you provide {{value}}</div>
-              			 </div>
-      				<div class="md-errors-spacer"></div>
-      				</md-input-container>
-      				<span flex-gt-xs hide-xs></span>
-      				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
-        				<label>Starting Price For {{value}} (In Indian Rupees)</label>
-        				<input ng-model="vm.venueWizard.additionalVenueServices[$index].minCost" name="{{value}}" type="text" placeholder="Minimum Price per event eg. 5000" ng-pattern="/^\d+$/" ng-required="vm.venueWizard.additionalVenueServices[$index].serviceId == key" ng-disabled="vm.previewMode || vm.venueWizard.additionalVenueServices[$index].serviceId != key">
-      					<div ng-messages="vm.cateringDecorDetailsForm[value].$error" role="alert" multiple>
-      						<div ng-message="required" class="my-message">Price for {{value}} is required</div>
-              				<div ng-message="pattern" class="my-message">Price should a number eg. 5000</div>
-              			 </div>
-      				</md-input-container>
-      				</div>
-        			
-      				<!-- For Additional Venue Services Ends -->
+      				</md-input-container>			
+    </div>  
       				
     <div layout="row" layout-margin layout-wrap flex-gt-xs="100" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="100">Cuisines</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="100">	
-  <md-select ng-model="vm.venueWizard.selectedCuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-disabled="vm.previewMode">
-    <md-option ng-value="cuisine" ng-repeat="cuisine in ::vm.lookup.cuisines">{{ cuisine }}</md-option>
+  <md-select ng-model="vm.catererWizard.cuisines" name="cuisines" multiple= "true" placeholder="You can choose multiple cuisine" ng-disabled="vm.previewMode">
+    <md-option ng-value="key" ng-repeat="(key, value) in ::vm.lookup.cuisines">{{ value }}</md-option>
   </md-select>
   <div ng-messages="vm.cateringDecorDetailsForm.cuisines.$error" role="alert" multiple>
         <div ng-message="required" class="my-message">Please choose cuisines options you provide</div>
@@ -366,8 +173,8 @@
 	<div layout="row" layout-margin layout-wrap flex-gt-xs="100" flex-xs="100">
 	<h2 class="md-title" flex-xs="100" flex-gt-xs="100">Basic Catering Services</h2>
 	<md-input-container flex-xs="100" flex-gt-xs="100">	
-  <md-select name="basicCateringServices" ng-model="vm.venueWizard.selectedBasicCateringServices" multiple= "true" placeholder="You can choose multiple catering services"  ng-disabled="vm.previewMode">
-    <md-option ng-value="cateringService" ng-repeat="cateringService in ::vm.lookup.basicCateringServices">{{ cateringService }}</md-option>
+  <md-select name="basicCateringServices" ng-model="vm.catererWizard.basicCateringServices" multiple= "true" placeholder="You can choose multiple catering services"  ng-disabled="vm.previewMode">
+    <md-option ng-value="key" ng-repeat="(key, value) in ::vm.lookup.basicCateringServices">{{ value }}</md-option>
   </md-select>
   <div ng-messages="vm.cateringDecorDetailsForm.basicCateringServices.$error" role="alert" multiple>
         <div ng-message="required" class="my-message">Please choose catering services you provide</div>
@@ -388,15 +195,15 @@
         		<span class="validation-err-msg" ng-show="vm.cateringDecorDetailsForm.menuImageFile.$error.maxFiles">Maximum of 4 files are allowed</span>
         		<span class="validation-err-msg" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
-        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files, vm.venueWizard.menuAttachments, 4)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4" ng-disabled="vm.previewMode"></input>
+        	<input type="file" name="menuImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedMenuImages" ngf-select="vm.uploadFiles($files, vm.catererWizard.menuAttachments, 4)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="256KB" ngf-max-total-size="1MB" ngf-max-files="4" ng-disabled="vm.previewMode"></input>
   			<div>(Max 4 Image Files, Max size 256KB for each File)</div>
   			     
   			</div>
   			<!--Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>-->
   			<div layout="row" layout-fill layout-wrap layout-margin>
-  				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.venueWizard.menuAttachments">
+  				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.catererWizard.menuAttachments">
   					<img style="width: 100%;" data-ng-src="{{image}}"/>
-  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.venueWizard.menuAttachments, $index)" ng-disabled="vm.previewMode">
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.catererWizard.menuAttachments, $index)" ng-disabled="vm.previewMode">
 					<md-icon class="material-icons md-24" style="color: white;">
 						close
 					</md-icon>
@@ -423,23 +230,12 @@
         </div>	
     	<form name="vm.policyDetailsForm">
         	<fieldset ng-disabled="vm.previewMode">
-        		<div layout="row" layout-margin layout-wrap flex-gt-xs="100" flex-xs="100">
-	<h2 class="md-title" flex-xs="100" flex-gt-xs="100">Choose Outhouse Services You Allow</h2>
-	<md-input-container flex-xs="100" flex-gt-xs="100">	
-  <md-select name="policyVenueServices" ng-model="vm.venueWizard.policyVenueServices" multiple= "true" placeholder="You can choose multiple Outhouse services"  ng-disabled="vm.previewMode">
-    <md-option ng-value="key" ng-repeat="(key, value) in ::vm.lookup.policyVenueServices">{{ value }}</md-option>
-  </md-select>
-  <div ng-messages="vm.policyDetailsForm.policyVenueServices.$error" role="alert" multiple>
-        <div ng-message="required" class="my-message">Please choose outhouse services you allow</div>
-  </div>
-  <div class="md-errors-spacer"></div>
-</md-input-container>
-</div>
+        		
         		<div layout="row" layout-wrap layout-margin>
         			
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Booking Policy</label>
-        				<textarea ng-model="vm.venueWizard.bookingPolicy" name="bookingPolicy" rows="3" type="text" md-maxlength="1000" placeholder="Describe booking amount eg. 25% before event, 50% on the day of event and rest after the event" required></textarea>
+        				<textarea ng-model="vm.catererWizard.bookingPolicy" name="bookingPolicy" rows="3" type="text" md-maxlength="1000" placeholder="Describe booking amount eg. 25% before event, 50% on the day of event and rest after the event" required></textarea>
       					<div ng-messages="vm.policyDetailsForm.bookingPolicy.$error" role="alert" multiple>
         				<div ng-message="required" class="my-message">Please tell us tour booking policies</div>
   					</div>
@@ -447,7 +243,7 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Cancellation &amp; Refund Policy</label>
-        				<textarea ng-model="vm.venueWizard.refundPolicy" name="refundPolicy" rows="3" type="text" md-maxlength="1000" placeholder="Describe refund policies eg. 25% of booking amount refundable or 100% refund or no refund etc" required></textarea>
+        				<textarea ng-model="vm.catererWizard.refundPolicy" name="refundPolicy" rows="3" type="text" md-maxlength="1000" placeholder="Describe refund policies eg. 25% of booking amount refundable or 100% refund or no refund etc" required></textarea>
       					<div ng-messages="vm.policyDetailsForm.refundPolicy.$error" role="alert" multiple>
         				<div ng-message="required" class="my-message">Please tell us tour refund policies</div>
   					</div>
@@ -465,15 +261,15 @@
         		<span class="validation-err-msg" ng-show="vm.policyDetailsForm.vendorImageFile.$error.maxFiles">Maximum of 10 files are allowed</span>
         		<span class="validation-err-msg" ng-show="vm.imageUploadCustomErrorMsg.length > 0">{{vm.imageUploadCustomErrorMsg}}</span>
         	</div>	
-        	<input type="file" name="vendorImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedVendorImages" ngf-select="vm.uploadFiles($files, vm.venueWizard.vendorAttachments, 10)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="512KB" ngf-max-total-size="5MB" ngf-max-files="10" ng-disabled="vm.previewMode"></input>
+        	<input type="file" name="vendorImageFile" ngf-model-invalid="invalidFiles" ng-model="vm.uploadedVendorImages" ngf-select="vm.uploadFiles($files, vm.catererWizard.vendorAttachments, 10)" ngf-multiple="true" ngf-pattern="'image/*'" flex="40" ngf-accept="'image/*'" ngf-max-size="512KB" ngf-max-total-size="5MB" ngf-max-files="10" ng-disabled="vm.previewMode"></input>
   			<div>(Max 10 Image Files, Max size 512KB for each File)</div>
   			     
   			</div>
   			<!--Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>-->
   			<div layout="row" layout-fill layout-wrap layout-margin>
-  				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.venueWizard.vendorAttachments">
+  				<div flex-gt-xs="20" flex-xs="30" class="uploaded-img-container" ng-repeat="image in vm.catererWizard.vendorAttachments">
   					<img style="width: 100%;" data-ng-src="{{image}}"/>
-  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.venueWizard.vendorAttachments, $index)" ng-disabled="vm.previewMode">
+  					<md-button class="md-icon-button delete-uploaded-img" ng-click="vm.removeSelectedImg(vm.catererWizard.vendorAttachments, $index)" ng-disabled="vm.previewMode">
 					<md-icon class="material-icons md-24" style="color: white;">
 						close
 					</md-icon>
@@ -512,7 +308,7 @@
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Name</label>
-        				<input ng-model="vm.venueWizard.informationProviderName" type="text" required name="informationProviderName" placeholder="Full Name of the information Provider">
+        				<input ng-model="vm.catererWizard.informationProviderName" type="text" required name="informationProviderName" placeholder="Full Name of the information Provider">
       					<div ng-messages="vm.signOffDetailsForm.informationProviderName.$error" role="alert" multiple>
         				<div ng-message="required" class="my-message">Please give your name</div>
   					</div>
@@ -520,17 +316,17 @@
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Designation</label>
-        				<input ng-model="vm.venueWizard.informationProviderDesignation" placeholder="eg. owner, General Manager or any other" type="text">
+        				<input ng-model="vm.catererWizard.informationProviderDesignation" placeholder="eg. owner, General Manager or any other" type="text">
       				</md-input-container>
       				
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provided Date</label>
-        				<md-datepicker ng-model="vm.venueWizard.informationProvidedDate" md-placeholder="Enter Date" disabled></md-datepicker>
+        				<md-datepicker ng-model="vm.catererWizard.informationProvidedDate" md-placeholder="Enter Date" disabled></md-datepicker>
       				</md-input-container>
       				<span flex-gt-xs hide-xs></span>
       				<md-input-container class="md-block" flex-gt-xs="45" flex-xs="100">
         				<label>Information Provider Contact No.</label>
-        				<input ng-model="vm.venueWizard.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="/^\d+$/">
+        				<input ng-model="vm.catererWizard.informationProviderContactNo" type="text" name="informationProviderContactNo" required placeholder="Mobile number of information Provider" ng-pattern="/^\d+$/">
       					<div ng-messages="vm.signOffDetailsForm.informationProviderContactNo.$error" role="alert" multiple>
         				<div ng-message="required" class="my-message">Please give your contact number</div>
         				<div ng-message="pattern" class="my-message">Mobile number should consist of digits only</div>
